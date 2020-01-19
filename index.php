@@ -38,7 +38,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="MAYORDOMO, Sistema Trazabilidad Ganadero">
+        <meta name="description" content="MAYORCONTROL, Sistema Trazabilidad Ganadero">
         <meta name="author" content="CEROUNO Labs - https://cerouno.com.py">
 
         <link href="assets/images/favicon.png" rel="icon" type="image/png" sizes="16x16">
@@ -59,7 +59,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
         
-        <title>MAYORDOMO | SIGA</title>
+        <title>MAYORCONTROL | ADMINISTRADOR</title>
     </head>
 
     <body>
