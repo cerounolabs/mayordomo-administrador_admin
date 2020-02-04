@@ -19,6 +19,8 @@
 	$var10          = strtoupper($_POST['var10']);
 	$var11          = strtoupper($_POST['var11']);
 	$var12          = strtoupper($_POST['var12']);
+	$var13          = strtoupper($_POST['var13']);
+	$var14          = strtoupper($_POST['var14']);
 
     $work01         = $_POST['workEstablecimiento'];
 	$work02         = $_POST['workModo'];
@@ -45,7 +47,9 @@
 				'establecimiento_codigo_senacsa'		=> $var09,
 				'establecimiento_codigo_sigor'			=> $var10,
 				'establecimiento_codigo_sitrap'			=> $var11,
-				'establecimiento_observacion'			=> $var12,
+				'establecimiento_latitud'				=> $var12,
+				'establecimiento_longitud'				=> $var13,
+				'establecimiento_observacion'			=> $var14,
 				'auditoria_empresa_codigo'             	=> $seg_04,
 				'auditoria_usuario'                     => $usu_03,
                 'auditoria_fecha_hora'                  => date('Y-m-d H:i:s'),

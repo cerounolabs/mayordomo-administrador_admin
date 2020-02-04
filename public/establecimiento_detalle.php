@@ -591,28 +591,40 @@
                     '                       <input id="var08" name="var08" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="CANTIDAD POTRERO">'+
                     '                   </div>'+
                     '               </div>'+
-                    '                <div class="col-sm-12 col-md-4">'+
-                    '                    <div class="form-group">'+
-                    '                        <label for="var09">C&Oacute;DIGO SENACSA</label>'+
-                    '                        <input id="var09" name="var09" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="C&Oacute;DIGO SENACSA">'+
-                    '                    </div>'+
-                    '                </div>'+
-                    '                <div class="col-sm-12 col-md-4">'+
-                    '                    <div class="form-group">'+
-                    '                        <label for="var10">C&Oacute;DIGO SIGOR</label>'+
-                    '                        <input id="var10" name="var10" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="C&Oacute;DIGO SIGOR">'+
-                    '                    </div>'+
-                    '                </div>'+
-                    '                <div class="col-sm-12 col-md-4">'+
-                    '                    <div class="form-group">'+
-                    '                        <label for="var11">C&Oacute;DIGO SITRAP</label>'+
-                    '                        <input id="var11" name="var11" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="C&Oacute;DIGO SITRAP">'+
-                    '                    </div>'+
-                    '                </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var09">C&Oacute;DIGO SENACSA</label>'+
+                    '                       <input id="var09" name="var09" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="C&Oacute;DIGO SENACSA">'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var10">C&Oacute;DIGO SIGOR</label>'+
+                    '                       <input id="var10" name="var10" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="C&Oacute;DIGO SIGOR">'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var11">C&Oacute;DIGO SITRAP</label>'+
+                    '                       <input id="var11" name="var11" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="C&Oacute;DIGO SITRAP">'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var12">LATITUD</label>'+
+                    '                       <input id="var12" name="var12" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="LATITUD">'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var13">LONGITUD</label>'+
+                    '                       <input id="var13" name="var13" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="LONGITUD">'+
+                    '                   </div>'+
+                    '               </div>'+
                     '               <div class="col-sm-12">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var12">OBSERVACIÓN</label>'+
-                    '                       <textarea id="var12" name="var12" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'></textarea>'+
+                    '                       <label for="var14">OBSERVACIÓN</label>'+
+                    '                       <textarea id="var14" name="var14" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'></textarea>'+
                     '                   </div>'+
                     '               </div>'+
                     '           </div>'+
@@ -751,28 +763,40 @@
                             '                       <input id="var08" name="var08" value="'+ element.establecimiento_total_potrero +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="CANTIDAD POTRERO" '+ bodyOnl +'>'+
                             '                   </div>'+
                             '               </div>'+
-                            '                <div class="col-sm-12 col-md-4">'+
-                            '                    <div class="form-group">'+
-                            '                        <label for="var09">C&Oacute;DIGO SENACSA</label>'+
-                            '                        <input id="var09" name="var09" value="'+ element.establecimiento_codigo_senacsa +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="C&Oacute;DIGO SENACSA" '+ bodyOnl +'>'+
-                            '                    </div>'+
-                            '                </div>'+
-                            '                <div class="col-sm-12 col-md-4">'+
-                            '                    <div class="form-group">'+
-                            '                        <label for="var10">C&Oacute;DIGO SIGOR</label>'+
-                            '                        <input id="var10" name="var10" value="'+ element.establecimiento_codigo_sigor +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="C&Oacute;DIGO SIGOR" '+ bodyOnl +'>'+
-                            '                    </div>'+
-                            '                </div>'+
-                            '                <div class="col-sm-12 col-md-4">'+
-                            '                    <div class="form-group">'+
-                            '                        <label for="var11">C&Oacute;DIGO SITRAP</label>'+
-                            '                        <input id="var11" name="var11" value="'+ element.establecimiento_codigo_sitrap +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="C&Oacute;DIGO SITRAP" '+ bodyOnl +'>'+
-                            '                    </div>'+
-                            '                </div>'+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var09">C&Oacute;DIGO SENACSA</label>'+
+                            '                       <input id="var09" name="var09" value="'+ element.establecimiento_codigo_senacsa +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="C&Oacute;DIGO SENACSA" '+ bodyOnl +'>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var10">C&Oacute;DIGO SIGOR</label>'+
+                            '                       <input id="var10" name="var10" value="'+ element.establecimiento_codigo_sigor +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="C&Oacute;DIGO SIGOR" '+ bodyOnl +'>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var11">C&Oacute;DIGO SITRAP</label>'+
+                            '                       <input id="var11" name="var11" value="'+ element.establecimiento_codigo_sitrap +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="C&Oacute;DIGO SITRAP" '+ bodyOnl +'>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var12">LATITUD</label>'+
+                            '                       <input id="var12" name="var12" value="'+ element.establecimiento_latitud +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="LATITUD" '+ bodyOnl +'>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var13">LONGITUD</label>'+
+                            '                       <input id="var13" name="var13" value="'+ element.establecimiento_longitud +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="LONGITUD" '+ bodyOnl +'>'+
+                            '                   </div>'+
+                            '               </div>'+
                             '               <div class="col-sm-12">'+
                             '                   <div class="form-group">'+
-                            '                       <label for="var12">OBSERVACIÓN</label>'+
-                            '                       <textarea id="var12" name="var12" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.establecimiento_observacion +'</textarea>'+
+                            '                       <label for="var14">OBSERVACIÓN</label>'+
+                            '                       <textarea id="var14" name="var14" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.establecimiento_observacion +'</textarea>'+
                             '                   </div>'+
                             '               </div>'+
                             '           </div>'+
