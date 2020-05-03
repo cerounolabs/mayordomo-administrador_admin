@@ -171,6 +171,114 @@
                            		<span class="hide-menu"> Par&aacute;metro </span>
                            	</a>
                             <ul aria-expanded="false" class="collapse first-level">
+								<li class="sidebar-item">
+                                  	<a href="javascript:void(0)" class="sidebar-link has-arrow waves-effect waves-dark" aria-expanded="false">
+                                   		<i class="mdi mdi-parametro-actividad"></i>
+                                   		<span class="hide-menu"> Actividad </span>
+                                   	</a>
+									<ul aria-expanded="false" class="collapse second-level">
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ACTIVIDADESTADO" class="sidebar-link">
+												<i class="mdi mdi-parametro-actividad"></i>
+												<span class="hide-menu"> Tipo Estado </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ACTIVIDADTIPO" class="sidebar-link">
+												<i class="mdi mdi-parametro-actividad"></i>
+												<span class="hide-menu"> Tipo Actividad </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ACTIVIDADTAREA" class="sidebar-link">
+												<i class="mdi mdi-parametro-actividad"></i>
+												<span class="hide-menu"> Tipo Tarea </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominiosub.php?dominio=ACTIVIDADTIPOTAREA" class="sidebar-link">
+												<i class="mdi mdi-parametro-animal"></i>
+												<span class="hide-menu"> Actividad / Tarea </span>
+											</a>
+										</li>
+									</ul>
+                                </li>
+
+								<li class="sidebar-item">
+                                  	<a href="javascript:void(0)" class="sidebar-link has-arrow waves-effect waves-dark" aria-expanded="false">
+                                   		<i class="mdi mdi-parametro-animal"></i>
+                                   		<span class="hide-menu"> Animal </span>
+                                   	</a>
+									<ul aria-expanded="false" class="collapse second-level">
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ANIMALESTADO" class="sidebar-link">
+												<i class="mdi mdi-parametro-animal"></i>
+												<span class="hide-menu"> Tipo Estado </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ANIMALDONACION" class="sidebar-link">
+												<i class="mdi mdi-parametro-animal"></i>
+												<span class="hide-menu"> Tipo Donacion </span>
+											</a>
+										</li>
+                                        <li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ANIMALORIGEN" class="sidebar-link">
+												<i class="mdi mdi-parametro-animal"></i>
+												<span class="hide-menu"> Tipo Origen </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ANIMALPESO" class="sidebar-link">
+												<i class="mdi mdi-parametro-animal"></i>
+												<span class="hide-menu"> Tipo Peso </span>
+											</a>
+										</li>
+                                        <li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ANIMALRECUENTO" class="sidebar-link">
+												<i class="mdi mdi-parametro-animal"></i>
+												<span class="hide-menu"> Tipo Recuento </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ANIMALESPECIE" class="sidebar-link">
+												<i class="mdi mdi-parametro-animal"></i>
+												<span class="hide-menu"> Tipo Especie </span>
+											</a>
+										</li>
+                                        <li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ANIMALRAZA" class="sidebar-link">
+												<i class="mdi mdi-parametro-animal"></i>
+												<span class="hide-menu"> Tipo Raza </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominiosub.php?dominio=ANIMALESPECIERAZA" class="sidebar-link">
+												<i class="mdi mdi-parametro-animal"></i>
+												<span class="hide-menu"> Especie / Raza </span>
+											</a>
+										</li>
+                                        <li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ANIMALCATEGORIA" class="sidebar-link">
+												<i class="mdi mdi-parametro-animal"></i>
+												<span class="hide-menu"> Tipo Categoria </span>
+											</a>
+										</li>
+                                        <li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ANIMALSUBCATEGORIA" class="sidebar-link">
+												<i class="mdi mdi-parametro-animal"></i>
+												<span class="hide-menu"> Tipo SubCategoria </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominiotri.php?dominio=ANIMALESPECIECATEGORIASUBCATEGORIA" class="sidebar-link">
+												<i class="mdi mdi-parametro-animal"></i>
+												<span class="hide-menu"> Especie / Categoria / SubCategoria </span>
+											</a>
+										</li>
+									</ul>
+                                </li>
+
                             	<li class="sidebar-item">
                                   	<a href="javascript:void(0)" class="sidebar-link has-arrow waves-effect waves-dark" aria-expanded="false">
                                    		<i class="mdi mdi-parametro-establecimiento"></i>
@@ -251,81 +359,6 @@
 											<a href="../public/dominio.php?dominio=DISTRITOZONA" class="sidebar-link">
 												<i class="mdi mdi-parametro-localidad"></i>
 												<span class="hide-menu"> Tipo Zona </span>
-											</a>
-										</li>
-									</ul>
-                                </li>
-
-                                <li class="sidebar-item">
-                                  	<a href="javascript:void(0)" class="sidebar-link has-arrow waves-effect waves-dark" aria-expanded="false">
-                                   		<i class="mdi mdi-parametro-animal"></i>
-                                   		<span class="hide-menu"> Animal </span>
-                                   	</a>
-									<ul aria-expanded="false" class="collapse second-level">
-										<li class="sidebar-item">
-											<a href="../public/dominio.php?dominio=ANIMALESTADO" class="sidebar-link">
-												<i class="mdi mdi-parametro-animal"></i>
-												<span class="hide-menu"> Tipo Estado </span>
-											</a>
-										</li>
-										<li class="sidebar-item">
-											<a href="../public/dominio.php?dominio=ANIMALDONACION" class="sidebar-link">
-												<i class="mdi mdi-parametro-animal"></i>
-												<span class="hide-menu"> Tipo Donacion </span>
-											</a>
-										</li>
-                                        <li class="sidebar-item">
-											<a href="../public/dominio.php?dominio=ANIMALORIGEN" class="sidebar-link">
-												<i class="mdi mdi-parametro-animal"></i>
-												<span class="hide-menu"> Tipo Origen </span>
-											</a>
-										</li>
-										<li class="sidebar-item">
-											<a href="../public/dominio.php?dominio=ANIMALPESO" class="sidebar-link">
-												<i class="mdi mdi-parametro-animal"></i>
-												<span class="hide-menu"> Tipo Peso </span>
-											</a>
-										</li>
-                                        <li class="sidebar-item">
-											<a href="../public/dominio.php?dominio=ANIMALRECUENTO" class="sidebar-link">
-												<i class="mdi mdi-parametro-animal"></i>
-												<span class="hide-menu"> Tipo Recuento </span>
-											</a>
-										</li>
-										<li class="sidebar-item">
-											<a href="../public/dominio.php?dominio=ANIMALESPECIE" class="sidebar-link">
-												<i class="mdi mdi-parametro-animal"></i>
-												<span class="hide-menu"> Tipo Especie </span>
-											</a>
-										</li>
-                                        <li class="sidebar-item">
-											<a href="../public/dominio.php?dominio=ANIMALRAZA" class="sidebar-link">
-												<i class="mdi mdi-parametro-animal"></i>
-												<span class="hide-menu"> Tipo Raza </span>
-											</a>
-										</li>
-										<li class="sidebar-item">
-											<a href="../public/dominiosub.php?dominio=ANIMALESPECIERAZA" class="sidebar-link">
-												<i class="mdi mdi-parametro-animal"></i>
-												<span class="hide-menu"> Especie / Raza </span>
-											</a>
-										</li>
-                                        <li class="sidebar-item">
-											<a href="../public/dominio.php?dominio=ANIMALCATEGORIA" class="sidebar-link">
-												<i class="mdi mdi-parametro-animal"></i>
-												<span class="hide-menu"> Tipo Categoria </span>
-											</a>
-										</li>
-                                        <li class="sidebar-item">
-											<a href="../public/dominio.php?dominio=ANIMALSUBCATEGORIA" class="sidebar-link">
-												<i class="mdi mdi-parametro-animal"></i>
-												<span class="hide-menu"> Tipo SubCategoria </span>
-											</a>
-										</li>
-										<li class="sidebar-item">
-											<a href="../public/dominiotri.php?dominio=ANIMALESPECIECATEGORIASUBCATEGORIA" class="sidebar-link">
-												<i class="mdi mdi-parametro-animal"></i>
-												<span class="hide-menu"> Especie / Categoria / SubCategoria </span>
 											</a>
 										</li>
 									</ul>

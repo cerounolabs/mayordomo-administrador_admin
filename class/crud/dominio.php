@@ -7,14 +7,16 @@
     
     require '../../class/function/curl_api.php';
 
-    $val01          = $_POST['var01'];
-    $val02          = strtoupper($_POST['var02']);
-    $val03          = strtoupper($_POST['var03']);
-    $val04          = strtoupper($_POST['var04']);
+	$val01          = $_POST['var01'];
+    $val02          = $_POST['var02'];
+    $val03          = strtoupper(strtolower(trim($_POST['var03'])));
+	$val04          = strtoupper(strtolower(trim($_POST['var04'])));
+	$val05          = strtoupper(strtolower(trim($_POST['var05'])));
 
-    $work01         = $_POST['workCodigo'];
-    $work02         = $_POST['workModo'];
-    $work03         = $_POST['workDominio'];
+	$work01         = $_POST['workCodigo'];
+	$work02         = $_POST['workModo'];
+	$work03         = $_POST['workPage'];
+	$work04         = $_POST['workDominio'];
 
 	$usu_03         = $_SESSION['usu_03'];
 
@@ -24,37 +26,36 @@
 
     if (isset($val01) && isset($val02) && isset($val03)) {
         $dataJSON = json_encode(
-            array(
-                'tipo_estado_codigo'    => $val01,
-				'tipo_nombre'           => $val02,
-				'tipo_dominio'          => $val03,
-				'tipo_observacion'      => $val04,
-				'tipo_empresa'			=> $seg_04,
-				'tipo_usuario'          => $usu_03,
-                'tipo_fecha_hora'       => date('Y-m-d H:i:s'),
-                'tipo_ip'               => $log_04
+			array(
+				'tipo_estado_codigo'        => $val01,
+				'tipo_orden'    		    => $val02,
+                'tipo_nombre'        		=> $val03,
+				'tipo_path'                 => $val04,
+				'tipo_dominio'              => $work04,
+				'tipo_observacion'          => $val05,
+				'auditoria_usuario'         => $usu_03,
+                'auditoria_fecha_hora'	    => date('Y-m-d H:i:s'),
+				'auditoria_ip'        	    => $log_04,
+				'auditoria_empresa'       	=> $seg_04
 			));
 		
 		switch($work02){
 			case 'C':
-				$result	= post_curl('default/000', $dataJSON);
+				$result	= post_curl('000/dominio', $dataJSON);
 				break;
 			case 'U':
-				$result	= put_curl('default/000/'.$work01, $dataJSON);
+				$result	= put_curl('000/dominio/'.$work01, $dataJSON);
 				break;
 			case 'D':
-				$result	= delete_curl('default/000/'.$work01, $dataJSON);
+				$result	= delete_curl('000/dominio/'.$work01, $dataJSON);
 				break;
 		}
 	}
 
 	$result		= json_decode($result, true);
+	$msg		= str_replace("\n", ' ', $result['message']);
 
-	if ($work02 === 'D'){
-		header('Location: ../../public/dominio.php?dominio='.$work03.'&code='.$result['code'].'&msg='.$result['message']);
-	} else {
-		header('Location: ../../public/dominio_crud.php?dominio='.$work03.'&mode='.$work02.'&codigo='.$work01.'&code='.$result['code'].'&msg='.$result['message']);
-	}
+	header('Location: ../../public/'.$work03.'.php?dominio='.$work04.'&code='.$result['code'].'&msg='.$msg);
 
 	ob_end_flush();
 ?>
