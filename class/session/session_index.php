@@ -10,15 +10,16 @@
     $val_02         = $_POST['val_02'];
     $val_03         = getUUID();
     $val_04         = $_SERVER['REMOTE_ADDR'];
+    $val_05         = 1;
 
-    if ($val_01 === 'admin@mayordomo.com' && $val_02 === 'mayordomo2019'){
+    if ($val_01 === 'admin@mayorcontrol.com' && $val_02 === 'mayorcontrol2020'){
         $_SESSION['log_01'] = $val_01;
         $_SESSION['log_02'] = $val_02;
         $_SESSION['log_03'] = $val_03;
         $_SESSION['log_04'] = $val_04;
 
         $_SESSION['usu_01'] = 'ADMINISTRADOR';
-        $_SESSION['usu_02'] = 'MAYORDOMO';
+        $_SESSION['usu_02'] = 'MAYORCONTROL';
         $_SESSION['usu_03'] = 'SISTEMA';
         $_SESSION['usu_04'] = 1;
         $_SESSION['usu_05'] = 'ESTABLECIMIENTO LOS TOROS';
@@ -35,7 +36,7 @@
                 'usuario_var02' => $val_02,
                 'usuario_var03' => $val_03,
                 'usuario_var04'	=> $val_04,
-                'usuario_var05'	=> 2,
+                'usuario_var05'	=> $val_05,
                 'usuario_var06'	=> $_SERVER['HTTP_HOST'],
                 'usuario_var07'	=> $_SERVER['HTTP_USER_AGENT'],
                 'usuario_var08'	=> $_SERVER['HTTP_REFERER']

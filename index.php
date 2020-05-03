@@ -39,7 +39,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="MAYORCONTROL, Sistema Trazabilidad Ganadero">
-        <meta name="author" content="CEROUNO Labs - https://cerouno.com.py">
+        <meta name="author" content="CEROUNO Labs - https://cerouno.com.py - +595984779436">
 
         <link href="assets/images/favicon.png" rel="icon" type="image/png" sizes="16x16">
         <link href="assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
@@ -150,10 +150,12 @@
                 $("#loginform").slideUp();
                 $("#recoverform").fadeIn();
             });
+
+            localStorage.clear();
         </script>
 
 <?php  
-    if ($codeRest == 401) {
+    if ($codeRest == 401 || $codeRest == 204 || $codeRest == 201) {
 ?>
         <script>
             $(function() {

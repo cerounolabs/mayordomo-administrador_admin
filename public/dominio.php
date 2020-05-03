@@ -3,14 +3,6 @@
     require '../class/function/function.php';
     require '../class/session/session_system.php';
 
-    if(isset($_GET['code'])){
-        $codeRest       = $_GET['code'];
-        $msgRest        = $_GET['msg'];
-    } else {
-        $codeRest       = 0;
-        $msgRest        = '';
-    }
-
     if(isset($_GET['dominio'])){
         $valueDominio   = $_GET['dominio'];
         $titleDominio   = getTitleDominio($valueDominio);
@@ -103,15 +95,15 @@
                                 <div class="row">
                                     <h4 class="col-10 card-title"><?php echo $titleDominio; ?></h4>
                                     <h4 class="col-2 card-title" style="text-align: right;">
-                                        <a class="btn btn-info" style="background-color:#005ea6; border-color:#005ea6;"  href="../public/dominio_crud.php?dominio=<?php echo $valueDominio; ?>&mode=C&codigo=0" role="button" title="Agregar"><i class="ti-plus"></i></a>
+                                        <a href="javascript:void(0)" onclick="setDominio(0, 1);" title="Nuevo" class="btn btn-info" style="background-color:#005ea6; border-color:#005ea6;" role="button" data-toggle="modal" data-target="#modal-dialog"><i class="ti-plus"></i></a>
                                 	</h4>
 								</div>
                                 <div class="table-responsive">
                                     <table id="tableLoad" class="table v-middle" style="width: 100%;">
                                         <thead id="tableCodigo" class="<?php echo $valueDominio; ?>">
-                                            <tr class="bg-light">
-                                                <th class="border-top-0">&nbsp;</th>
+                                            <tr class="bg-table-title" style="text-align:center;">
                                                 <th class="border-top-0">C&Oacute;DIGO</th>
+                                                <th class="border-top-0">ORDEN</th>
                                                 <th class="border-top-0">ESTADO</th>
                                                 <th class="border-top-0">TIPO</th>
                                                 <th class="border-top-0">DOMINIO</th>
@@ -120,6 +112,7 @@
                                                 <th class="border-top-0">USUARIO</th>
                                                 <th class="border-top-0">FECHA - HORA</th>
                                                 <th class="border-top-0">IP</th>
+                                                <th class="border-top-0" style="width:160px;">ACCI&Oacute;N</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -128,7 +121,13 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.modal -->
+
+                <!-- Modal Procesar -->
+                <div id="modal-dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="vcenter" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" id="modal-content">
+                    </div>
+                </div>
+                <!-- Modal Procesar -->
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -158,28 +157,9 @@
     <div class="chat-windows"></div>
 <?php
     include '../include/footer.php';
-   
-    if ($codeRest == 200) {
-?>
-    <script>
-        $(function() {
-            toastr.success('<?php echo $msgRest; ?>', 'Correcto!');
-        });
-    </script>
-<?php
-    }
-            
-    if (($codeRest == 204) || ($codeRest == 401)) {
-?>
-    <script>
-        $(function() {
-            toastr.error('<?php echo $msgRest; ?>', 'Error!');
-        });
-    </script>
-<?php
-    }
 ?>
     
+    <script src="../js/api.js"></script>
     <script src="../js/dominio.js"></script>
 </body>
 </html>

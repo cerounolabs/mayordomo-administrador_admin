@@ -29,4 +29,12 @@
 
 .position-shadow:hover {
 	box-shadow: 0 0 11px rgba(33,33,33,1); 
-  }
+}
+
+.page-wrapper {
+	background-color: #d9e0e7;
+}
+
+.bg-table-title {
+	background-color: #d9e0e7;
+}

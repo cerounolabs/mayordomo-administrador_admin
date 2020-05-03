@@ -30,6 +30,20 @@
         $result = '';
 
         switch ($var01) {
+            //ACTIVIDAD
+            case 'ACTIVIDADESTADO':
+                $result = 'ACTIVIDAD TIPO ESTADO';
+                break;
+            
+            case 'ACTIVIDADTIPO':
+                $result = 'ACTIVIDAD TIPO';
+                break;
+
+            case 'ACTIVIDADTAREA':
+                $result = 'ACTIVIDAD TIPO TAREA';
+                break;
+
+            //
             case 'DISTRITOZONA':
                 $result = 'DISTRITO Tipo ZONA';
                 break;
@@ -168,6 +182,14 @@
                 $titulo2    = 'SUBCATEGORÍA';
                 $dominio1   = 'ANIMALCATEGORIA';
                 $dominio2   = 'ANIMALSUBCATEGORIA';
+                break;
+            
+            case 'ACTIVIDADTIPOTAREA':
+                $titulo     = 'ACTIVIDAD TIPO / TAREA';
+                $titulo1    = 'ACTIVIDAD';
+                $titulo2    = 'TAREA';
+                $dominio1   = 'ACTIVIDADTIPO';
+                $dominio2   = 'ACTIVIDADTAREA';
                 break;
         }
 
