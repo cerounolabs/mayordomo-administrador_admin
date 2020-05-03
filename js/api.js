@@ -13,6 +13,7 @@ function getJSON(codJSON, codURL) {
             localStorage.setItem(codJSON, JSON.stringify(xJSON));
         }
     };
+
     xHTTP.setRequestHeader('Accept', 'application/json;charset=UTF-8');
     xHTTP.setRequestHeader('Authorization', 'Basic ' + autBASE);
     xHTTP.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
@@ -29,6 +30,7 @@ function postJSON(codPAGE, codURL, codPARS) {
             window.location.replace('../public/' + codPAGE + '.php?code='+ xJSON.code + '&msg=' + xJSON.message); 
         }
     };
+    
     xHTTP.setRequestHeader('Accept', 'application/json;charset=UTF-8');
     xHTTP.setRequestHeader('Authorization', 'Basic ' + autBASE);
     xHTTP.setRequestHeader('Content-type', 'application/json;charset=UTF-8');

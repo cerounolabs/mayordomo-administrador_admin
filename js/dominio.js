@@ -1,7 +1,6 @@
 $(document).ready(function() {
 	var codigo	= document.getElementById('tableCodigo').className;	
 	var xJSON	= getDominio(codigo);
-	console.log('xJSON => ' + xJSON);
 	
 	$('#tableLoad').DataTable({
 		processing	: true,
@@ -10,7 +9,7 @@ $(document).ready(function() {
 		paging		: true,
 		lengthChange: true,
 		info		: true,
-		order: [[ 1, "asc" ]],
+		order: [[ 0, "asc" ]],
 		orderCellsTop: false,
 		fixedHeader	: false,
 		language	: {
@@ -43,8 +42,8 @@ $(document).ready(function() {
 			{ targets			: [10],	visible : true,	searchable : true,	orderData : [10, 0] },
 		],
 		columns		: [
-			{ data				: 'tipo_codigo', name : 'tipo_codigo'},
 			{ data				: 'tipo_orden', name : 'tipo_orden'},
+			{ data				: 'tipo_codigo', name : 'tipo_codigo'},
 			{ data				: 'tipo_estado_nombre', name : 'tipo_estado_nombre'},
 			{ data				: 'tipo_nombre', name : 'tipo_nombre'},
 			{ data				: 'tipo_dominio', name : 'tipo_dominio'},

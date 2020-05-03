@@ -102,9 +102,9 @@
                                     <table id="tableLoad" class="table v-middle" style="width: 100%;">
                                         <thead id="tableCodigo" class="<?php echo $valueDominio; ?>">
                                             <tr class="bg-table-title" style="text-align:center;">
-                                                <th class="border-top-0">C&Oacute;DIGO</th>
-                                                <th class="border-top-0">ORDEN</th>
-                                                <th class="border-top-0">ESTADO</th>
+                                                <th class="border-top-0" style="width:80px;">ORDEN</th>
+                                                <th class="border-top-0" style="width:80px;">C&Oacute;DIGO</th>
+                                                <th class="border-top-0" style="width:80px;">ESTADO</th>
                                                 <th class="border-top-0">TIPO</th>
                                                 <th class="border-top-0">DOMINIO</th>
                                                 <th class="border-top-0">OBSERVACI&Oacute;N</th>
