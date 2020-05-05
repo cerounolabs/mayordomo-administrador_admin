@@ -55,3 +55,22 @@ function getDominio(codDom){
 
     return xDATA;
 }
+
+function getDominioSub(codDom){
+    if (localStorage.getItem('dominioSubJSON') === null){
+        getJSON('dominioSubJSON', '000/dominiosub');
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('dominioSubJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_dominio == codDom) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}

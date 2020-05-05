@@ -275,8 +275,8 @@ function setDominio(codElem, codAcc){
 			'						<td class="border-top-0">'+ element.auditoria_ip +'</td>'+
 			'						<td class="border-top-0">'+ element.tipo_orden +'</td>'+
 			'						<td class="border-top-0">'+ element.tipo_path +'</td>'+
-			'						<td class="border-top-0">'+ element.tipo_estado_castellano +'</td>'+
-			'						<td class="border-top-0">'+ element.tipo_nombre_castellano +'</td>'+
+			'						<td class="border-top-0">'+ element.tipo_estado_nombre +'</td>'+
+			'						<td class="border-top-0">'+ element.tipo_nombre +'</td>'+
 			'						<td class="border-top-0">'+ element.tipo_observacion +'</td>'+
 			'					</tr>';
 		});
@@ -300,7 +300,6 @@ function setDominio(codElem, codAcc){
 		'						<th class="border-top-0">IMAGEN</th>'+
 		'						<th class="border-top-0">ESTADO</th>'+
 		'						<th class="border-top-0">TIPO</th>'+
-		'						<th class="border-top-0">DOMINIO</th>'+
 		'						<th class="border-top-0">OBSERVACI&Oacute;N</th>'+
 		'					</tr>'+
 		'				</thead>'+
