@@ -48,10 +48,10 @@ $(document).ready(function() {
 			{ data				: 'tipo_dominio2_nombre', name : 'tipo_dominio2_nombre'},
 			{ data				: 'tipo_dominio', name : 'tipo_dominio'},
 			{ data				: 'tipo_observacion', name : 'tipo_observacion'},
-			{ data				: 'tipo_empresa_nombre', name : 'tipo_empresa_nombre'},
-			{ data				: 'tipo_usuario', name : 'tipo_usuario'},
-			{ data				: 'tipo_fecha_hora', name : 'tipo_fecha_hora'},
-			{ data				: 'tipo_ip', name : 'tipo_ip'},
+			{ data				: 'auditoria_empresa_nombre', name : 'auditoria_empresa_nombre'},
+			{ data				: 'auditoria_usuario', name : 'auditoria_usuario'},
+			{ data				: 'auditoria_fecha_hora', name : 'auditoria_fecha_hora'},
+			{ data				: 'auditoria_ip', name : 'auditoria_ip'},
 			{ render			: 
 				function (data, type, full, meta) {
 					var btnDSP	= '<button onclick="setDominioSub('+ full.tipo_dominio1_codigo + ', ' + full.tipo_dominio2_codigo +', 2);" title="Ver" type="button" class="btn btn-primary btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-eye"></i></button>';
@@ -78,7 +78,7 @@ function setDominioSub(codElem1, codElem2, codAcc){
 	var bodyOnl     = '';
 	var bodyBot     = '';
 	var selEstado   = '';
-	var rowDominio	= '';
+	var rowAuditoria= '';
 	var selTipo1	= '';
 	var selTipo2	= '';
 
@@ -142,7 +142,7 @@ function setDominioSub(codElem1, codElem2, codAcc){
 
 		html = 
 			'<div class="modal-content">'+
-			'   <form id="form" data-parsley-validate method="post" action="../class/crud/dominiosub.php">'+
+			'   <form id="form" data-parsley-validate method="" action="">'+
 			'	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
 			'		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
 			'		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
@@ -150,10 +150,10 @@ function setDominioSub(codElem1, codElem2, codAcc){
 			'	    <div class="modal-body" >'+
 			'           <div class="form-group">'+
 			'               <input id="workDominio" name="workDominio" value="' + codDom + '" class="form-control" type="hidden" required readonly>'+
-			'               <input id="workCodigo" name="workCodigo1" value="0" class="form-control" type="hidden" required readonly>'+
-			'               <input id="workCodigo" name="workCodigo2" value="0" class="form-control" type="hidden" required readonly>'+
+			'               <input id="workCodigo1" name="workCodigo1" value="0" class="form-control" type="hidden" required readonly>'+
+			'               <input id="workCodigo2" name="workCodigo2" value="0" class="form-control" type="hidden" required readonly>'+
 			'               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
-			'               <input id="workPage" name="workPage" value="dominio" class="form-control" type="hidden" required readonly>'+
+			'               <input id="workPage" name="workPage" value="dominiosub" class="form-control" type="hidden" required readonly>'+
 			'           </div>'+
 			'           <div class="row pt-3">'+
 			'               <div class="col-sm-12 col-md-6">'+
@@ -208,19 +208,19 @@ function setDominioSub(codElem1, codElem2, codAcc){
 	} else if (codAcc > 1 && codAcc < 5) {
 		xJSON.forEach(element => {
 			if (element.tipo_dominio1_codigo == codElem1 && element.tipo_dominio2_codigo == codElem2) {
-				xJSON1.forEach(element => {
-					if (element.tipo_dominio1_codigo == codElem1) {
-						selTipo1 = selTipo1 + '                               <option value="'+ element.tipo_codigo +'" selected>'+ element.tipo_nombre +'</option>';
+				xJSON1.forEach(element1 => {
+					if (element1.tipo_codigo == element.tipo_dominio1_codigo) {
+						selTipo1 = selTipo1 + '                               <option value="'+ element1.tipo_codigo +'" selected>'+ element1.tipo_nombre +'</option>';
 					} else {
-						selTipo1 = selTipo1 + '                               <option value="'+ element.tipo_codigo +'">'+ element.tipo_nombre +'</option>';
+						selTipo1 = selTipo1 + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
 					}
 				});
 		
-				xJSON2.forEach(element => {
-					if (element.tipo_dominio2_codigo == codElem2) {
-						selTipo2 = selTipo2 + '                               <option value="'+ element.tipo_codigo +'" selected>'+ element.tipo_nombre +'</option>';
+				xJSON2.forEach(element1 => {
+					if (element1.tipo_codigo == element.tipo_dominio2_codigo) {
+						selTipo2 = selTipo2 + '                               <option value="'+ element1.tipo_codigo +'" selected>'+ element1.tipo_nombre +'</option>';
 					} else {
-						selTipo2 = selTipo2 + '                               <option value="'+ element.tipo_codigo +'">'+ element.tipo_nombre +'</option>';
+						selTipo2 = selTipo2 + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
 					}
 				});
 
@@ -281,7 +281,7 @@ function setDominioSub(codElem1, codElem2, codAcc){
 					'               <div class="col-sm-12 col-md-12">'+
 					'                   <div class="form-group">'+
 					'                       <label for="var03">'+titDom1+'</label>'+
-					'                       <select id="var03" name="var03" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
+					'                       <select id="var03" name="var03" class="select2 form-control custom-select" style="width:100%; height:40px;" readonly>'+
 					'                           <optgroup label="Tipo">'+ selTipo1 + 
 					'                           </optgroup>'+
 					'                       </select>'+
@@ -290,7 +290,7 @@ function setDominioSub(codElem1, codElem2, codAcc){
 					'               <div class="col-sm-12 col-md-12">'+
 					'                   <div class="form-group">'+
 					'                       <label for="var04">'+titDom2+'</label>'+
-					'                       <select id="var04" name="var04" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
+					'                       <select id="var04" name="var04" class="select2 form-control custom-select" style="width:100%; height:40px;" readonly>'+
 					'                           <optgroup label="Tipo">'+ selTipo2 + 
 					'                           </optgroup>'+
 					'                       </select>'+
@@ -313,9 +313,10 @@ function setDominioSub(codElem1, codElem2, codAcc){
 		});
 	} else if (codAcc == 5) {
 		aJSON.forEach(element => {
-			rowDominio = rowDominio + 
+			rowAuditoria = rowAuditoria + 
 			'					<tr class="bg-conmebol" style="text-align:center;">'+
 			'						<td class="border-top-0">'+ element.auditoria_metodo +'</td>'+
+			'						<td class="border-top-0">'+ element.auditoria_empresa_nombre +'</td>'+
 			'						<td class="border-top-0">'+ element.auditoria_usuario +'</td>'+
 			'						<td class="border-top-0">'+ element.auditoria_fecha_hora +'</td>'+
 			'						<td class="border-top-0">'+ element.auditoria_ip +'</td>'+
@@ -339,6 +340,7 @@ function setDominioSub(codElem1, codElem2, codAcc){
 		'				<thead id="tableAuditoria">'+
 		'					<tr class="bg-conmebol" style="text-align:center;">'+
 		'						<th class="border-top-0">M&Eacute;TODO</th>'+
+		'						<th class="border-top-0">EMPRESA</th>'+
 		'						<th class="border-top-0">USUARIO</th>'+
 		'						<th class="border-top-0">FECHA HORA</th>'+
 		'						<th class="border-top-0">IP</th>'+
@@ -349,7 +351,7 @@ function setDominioSub(codElem1, codElem2, codAcc){
 		'						<th class="border-top-0">OBSERVACI&Oacute;N</th>'+
 		'					</tr>'+
 		'				</thead>'+
-		'				<tbody>'+rowDominio+
+		'				<tbody>'+rowAuditoria+
 		'				</tbody>'+
 		'			</table>'+
 		'	    </div>'+
