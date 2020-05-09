@@ -150,3 +150,41 @@ function getDistrito(){
 
     return xDATA;
 }
+
+function getPersona(){
+    if (localStorage.getItem('personaJSON') === null){
+        getJSON('personaJSON', '000/persona');
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('personaJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_codigo == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
+function getEstablecimiento(){
+    if (localStorage.getItem('establecimientoJSON') === null){
+        getJSON('establecimientoJSON', '000/establecimiento');
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('establecimientoJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_codigo == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}

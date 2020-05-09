@@ -10,22 +10,22 @@
     $var01          = $_POST['var01'];
     $var02          = $_POST['var02'];
     $var03          = $_POST['var03'];
-	$var04          = strtoupper($_POST['var04']);
+	$var04          = strtoupper(strtolower(trim($_POST['var04'])));
 	$var05          = $_POST['var05'];
 	$var06          = $_POST['var06'];
-	$var07          = strtoupper($_POST['var07']);
-	$var08          = strtoupper($_POST['var08']);
-	$var09          = strtoupper($_POST['var09']);
-	$var10          = strtoupper($_POST['var10']);
-	$var11          = strtoupper($_POST['var11']);
-	$var12          = strtoupper($_POST['var12']);
-	$var13          = strtoupper($_POST['var13']);
-	$var14          = strtoupper($_POST['var14']);
+	$var07          = strtoupper(strtolower(trim($_POST['var07'])));
+	$var08          = strtoupper(strtolower(trim($_POST['var08'])));
+	$var09          = strtoupper(strtolower(trim($_POST['var09'])));
+	$var10          = strtoupper(strtolower(trim($_POST['var10'])));
+	$var11          = strtoupper(strtolower(trim($_POST['var11'])));
+	$var12          = strtoupper(strtolower(trim($_POST['var12'])));
+	$var13          = strtoupper(strtolower(trim($_POST['var13'])));
+	$var14          = strtoupper(strtolower(trim($_POST['var14'])));
+	$var15          = $_POST['var15'];
 
-    $work01         = $_POST['workEstablecimiento'];
+    $work01         = $_POST['workCodigo'];
 	$work02         = $_POST['workModo'];
 	$work03         = $_POST['workPage'];
-	$work04         = $_POST['workCodigo'];
 
 	$usu_03         = $_SESSION['usu_03'];
 
@@ -39,6 +39,7 @@
                 'tipo_estado_codigo'					=> $var01,
 				'tipo_establecimiento_codigo'			=> $var02,
 				'tipo_finalidad_codigo'					=> $var03,
+				'establecimiento_orden'					=> $var15,
 				'establecimiento_nombre'				=> $var04,
 				'persona_codigo'						=> $var05,
 				'distrito_codigo'						=> $var06,
@@ -50,7 +51,7 @@
 				'establecimiento_latitud'				=> $var12,
 				'establecimiento_longitud'				=> $var13,
 				'establecimiento_observacion'			=> $var14,
-				'auditoria_empresa_codigo'             	=> $seg_04,
+				'auditoria_empresa'						=> $seg_04,
 				'auditoria_usuario'                     => $usu_03,
                 'auditoria_fecha_hora'                  => date('Y-m-d H:i:s'),
 				'auditoria_ip'                          => $log_04
@@ -58,20 +59,21 @@
 		
 		switch($work02){
 			case 'C':
-				$result	= post_curl('establecimiento/500/establecimiento', $dataJSON);
+				$result	= post_curl('000/establecimiento', $dataJSON);
 				break;
 			case 'U':
-				$result	= put_curl('establecimiento/500/establecimiento/'.$work04, $dataJSON);
+				$result	= put_curl('000/establecimiento/'.$work04, $dataJSON);
 				break;
 			case 'D':
-				$result	= delete_curl('establecimiento/500/establecimiento/'.$work04, $dataJSON);
+				$result	= delete_curl('000/establecimiento/'.$work04, $dataJSON);
 				break;
 		}
 	}
 
 	$result		= json_decode($result, true);
+	$msg		= str_replace("\n", ' ', $result['message']);
 
-	header('Location: ../../public/'.$work03.'.php?establecimiento='.$work01.'&code='.$result['code'].'&msg='.$result['message']);
+	header('Location: ../../public/'.$work03.'.php?code='.$result['code'].'&msg='.$msg);
 
 	ob_end_flush();
 ?>
