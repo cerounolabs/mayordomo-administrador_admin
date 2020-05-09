@@ -74,3 +74,41 @@ function getDominioSub(codDom){
 
     return xDATA;
 }
+
+function getDominioTri(codDom){
+    if (localStorage.getItem('dominioTriJSON') === null){
+        getJSON('dominioTriJSON', '000/dominiotri');
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('dominioTriJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_dominio == codDom) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
+function getPais(codDom){
+    if (localStorage.getItem('paisJSON') === null){
+        getJSON('paisJSON', '000/pais');
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('paisJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_codigo == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}

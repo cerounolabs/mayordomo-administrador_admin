@@ -3,14 +3,6 @@
     require '../class/function/function.php';
     require '../class/session/session_system.php';
 
-    if(isset($_GET['code'])){
-        $codeRest       = $_GET['code'];
-        $msgRest        = $_GET['msg'];
-    } else {
-        $codeRest       = 0;
-        $msgRest        = '';
-    }
-
     if(isset($_GET['dominio'])){
         $valueDominio   = $_GET['dominio'];
         $dataDominio    = getTitleTriDominio($valueDominio);
@@ -18,6 +10,9 @@
         $titleDominio1  = $dataDominio[1];
         $titleDominio2  = $dataDominio[2];
         $titleDominio3  = $dataDominio[3];
+        $valueDominio1  = $dataDominio[4];
+        $valueDominio2  = $dataDominio[5];
+        $valueDominio3  = $dataDominio[6];
     }
 ?>
 
@@ -107,15 +102,15 @@
                                 <div class="row">
                                     <h4 class="col-10 card-title"><?php echo $titleDominio; ?></h4>
                                     <h4 class="col-2 card-title" style="text-align: right;">
-                                        <a class="btn btn-info" style="background-color:#005ea6; border-color:#005ea6;"  href="../public/dominiotri_crud.php?dominio=<?php echo $valueDominio; ?>&mode=C&dominio1=0&dominio2=0&dominio3=0" role="button" title="Agregar"><i class="ti-plus"></i></a>
+                                        <a href="javascript:void(0)" onclick="setDominioTri(0, 0, 0, 1);" title="Nuevo" class="btn btn-info" style="background-color:#005ea6; border-color:#005ea6;" role="button" data-toggle="modal" data-target="#modal-dialog"><i class="ti-plus"></i></a>
                                 	</h4>
 								</div>
                                 <div class="table-responsive">
                                     <table id="tableLoad" class="table v-middle" style="width: 100%;">
                                         <thead id="tableCodigo" class="<?php echo $valueDominio; ?>">
-                                            <tr class="bg-light">
-                                                <th class="border-top-0">&nbsp;</th>
-                                                <th class="border-top-0">ESTADO</th>
+                                            <tr class="bg-table-title" style="text-align:center;">
+                                                <th class="border-top-0" style="width:80px;">ORDEN</th>
+                                                <th class="border-top-0" style="width:80px;">ESTADO</th>
                                                 <th class="border-top-0"><?php echo $titleDominio1; ?></th>
                                                 <th class="border-top-0"><?php echo $titleDominio2; ?></th>
                                                 <th class="border-top-0"><?php echo $titleDominio3; ?></th>
@@ -125,6 +120,7 @@
                                                 <th class="border-top-0">USUARIO</th>
                                                 <th class="border-top-0">FECHA - HORA</th>
                                                 <th class="border-top-0">IP</th>
+                                                <th class="border-top-0" style="width:160px;">ACCI&Oacute;N</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -133,7 +129,13 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.modal -->
+                
+                <!-- Modal Procesar -->
+                <div id="modal-dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="vcenter" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" id="modal-content">
+                    </div>
+                </div>
+                <!-- Modal Procesar -->
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -161,30 +163,22 @@
     <!-- ============================================================== -->
     <!-- ============================================================== -->
     <div class="chat-windows"></div>
+
 <?php
     include '../include/footer.php';
-   
-    if ($codeRest == 200) {
 ?>
-    <script>
-        $(function() {
-            toastr.success('<?php echo $msgRest; ?>', 'Correcto!');
-        });
+
+    <script src="../js/api.js"></script>
+
+    <script> 
+        var codDom1 = '<?php echo $valueDominio1; ?>';
+        var titDom1 = '<?php echo $titleDominio1; ?>';
+        var codDom2 = '<?php echo $valueDominio2; ?>';
+        var titDom2 = '<?php echo $titleDominio2; ?>';
+        var codDom3 = '<?php echo $valueDominio3; ?>';
+        var titDom3 = '<?php echo $titleDominio3; ?>';
     </script>
-<?php
-    }
-            
-    if (($codeRest == 204) || ($codeRest == 401)) {
-?>
-    <script>
-        $(function() {
-            toastr.error('<?php echo $msgRest; ?>', 'Error!');
-        });
-    </script>
-<?php
-    }
-?>
-    
+
     <script src="../js/dominiotri.js"></script>
 </body>
 </html>

@@ -48,10 +48,10 @@ $(document).ready(function() {
 			{ data				: 'tipo_nombre', name : 'tipo_nombre'},
 			{ data				: 'tipo_dominio', name : 'tipo_dominio'},
 			{ data				: 'tipo_observacion', name : 'tipo_observacion'},
-			{ data				: 'tipo_empresa_nombre', name : 'tipo_empresa_nombre'},
-			{ data				: 'tipo_usuario', name : 'tipo_usuario'},
-			{ data				: 'tipo_fecha_hora', name : 'tipo_fecha_hora'},
-			{ data				: 'tipo_ip', name : 'tipo_ip'},
+			{ data				: 'auditoria_empresa_nombre', name : 'auditoria_empresa_nombre'},
+			{ data				: 'auditoria_usuario', name : 'auditoria_usuario'},
+			{ data				: 'auditoria_fecha_hora', name : 'auditoria_fecha_hora'},
+			{ data				: 'auditoria_ip', name : 'auditoria_ip'},
 			{ render			: 
 				function (data, type, full, meta) {
 					var btnDSP	= '<button onclick="setDominio('+ full.tipo_codigo +', 2);" title="Ver" type="button" class="btn btn-primary btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-eye"></i></button>';
@@ -76,7 +76,7 @@ function setDominio(codElem, codAcc){
 	var bodyOnl     = '';
 	var bodyBot     = '';
 	var selEstado   = '';
-	var rowDominio	= '';
+	var rowAuditoria= '';
 
 	switch (codAcc) {
 		case 1:
@@ -267,9 +267,10 @@ function setDominio(codElem, codAcc){
 		});
 	} else if (codAcc == 5) {
 		aJSON.forEach(element => {
-			rowDominio = rowDominio + 
+			rowAuditoria = rowAuditoria + 
 			'					<tr class="bg-conmebol" style="text-align:center;">'+
 			'						<td class="border-top-0">'+ element.auditoria_metodo +'</td>'+
+			'						<td class="border-top-0">'+ element.auditoria_empresa_nombre +'</td>'+
 			'						<td class="border-top-0">'+ element.auditoria_usuario +'</td>'+
 			'						<td class="border-top-0">'+ element.auditoria_fecha_hora +'</td>'+
 			'						<td class="border-top-0">'+ element.auditoria_ip +'</td>'+
@@ -283,7 +284,7 @@ function setDominio(codElem, codAcc){
 
 		html = 
 		'<div class="modal-content">'+
-		'   <form id="form" data-parsley-validate method="post" action="../class/crud/dominio.php">'+
+		'   <form id="form" data-parsley-validate method="" action="">'+
 		'	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
 		'		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
 		'		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
@@ -293,6 +294,7 @@ function setDominio(codElem, codAcc){
 		'				<thead id="tableAuditoria">'+
 		'					<tr class="bg-conmebol" style="text-align:center;">'+
 		'						<th class="border-top-0">M&Eacute;TODO</th>'+
+		'						<th class="border-top-0">EMPRESA</th>'+
 		'						<th class="border-top-0">USUARIO</th>'+
 		'						<th class="border-top-0">FECHA HORA</th>'+
 		'						<th class="border-top-0">IP</th>'+
@@ -303,7 +305,7 @@ function setDominio(codElem, codAcc){
 		'						<th class="border-top-0">OBSERVACI&Oacute;N</th>'+
 		'					</tr>'+
 		'				</thead>'+
-		'				<tbody>'+rowDominio+
+		'				<tbody>'+rowAuditoria+
 		'				</tbody>'+
 		'			</table>'+
 		'	    </div>'+

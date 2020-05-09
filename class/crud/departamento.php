@@ -48,12 +48,9 @@
 	}
 
 	$result		= json_decode($result, true);
+	$msg		= str_replace("\n", ' ', $result['message']);
 
-	if ($work02 === 'D'){
-		header('Location: ../../public/departamento.php?code='.$result['code'].'&msg='.$result['message']);
-	} else {
-		header('Location: ../../public/departamento_crud.php?mode='.$work02.'&codigo='.$work01.'&code='.$result['code'].'&msg='.$result['message']);
-	}
+	header('Location: ../../public/'.$work03.'.php?code='.$result['code'].'&msg='.$msg);
 
 	ob_end_flush();
 ?>
