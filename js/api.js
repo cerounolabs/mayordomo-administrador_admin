@@ -131,3 +131,22 @@ function getDepartamento(){
 
     return xDATA;
 }
+
+function getDistrito(){
+    if (localStorage.getItem('distritoJSON') === null){
+        getJSON('distritoJSON', '000/distrito');
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('distritoJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_codigo == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}

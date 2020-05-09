@@ -9,13 +9,15 @@
 
     $var01          = $_POST['var01'];
     $var02          = $_POST['var02'];
-    $var03          = strtoupper($_POST['var03']);
-	$var04          = $_POST['var04'];
+    $var03          = $_POST['var03'];
+	$var04          = strtoupper(strtolower(trim($_POST['var04'])));
 	$var05          = $_POST['var05'];
-	$var06          = strtoupper($_POST['var06']);
+    $var06          = $_POST['var06'];
+	$var07          = strtoupper(strtolower(trim($_POST['var07'])));
 
     $work01         = $_POST['workCodigo'];
-    $work02         = $_POST['workModo'];
+	$work02         = $_POST['workModo'];
+	$work03         = $_POST['workPage'];
 
 	$usu_03         = $_SESSION['usu_03'];
 
@@ -23,30 +25,31 @@
 	
 	$seg_04         = $_SESSION['seg_04'];
 
-    if (isset($var01) && isset($var02) && isset($var03) && isset($var04) && isset($var05)) {
+    if (isset($var01) && isset($var03) && isset($var04) && isset($var05) && isset($var06)) {
         $dataJSON = json_encode(
             array(
-                'tipo_estado_codigo'				=> $var01,
-				'tipo_zona_codigo'					=> $var04,
-				'tipo_riesgo_codigo'				=> $var05,
-				'departamento_codigo'				=> $var02,
-				'distrito_nombre'					=> $var03,
-				'distrito_observacion'				=> $var06,
-				'distrito_empresa_codigo'			=> $seg_04,
-				'distrito_usuario'					=> $usu_03,
-                'distrito_fecha_hora'				=> date('Y-m-d H:i:s'),
-				'distrito_ip'						=> $log_04
+				'tipo_estado_codigo'		=> $var01,
+				'distrito_orden'			=> $var02,
+				'tipo_riesgo_codigo'		=> $var05,
+				'tipo_zona_codigo'			=> $var06,
+				'departamento_codigo'		=> $var03,
+				'distrito_nombre'			=> $var04,
+				'distrito_observacion'		=> $var07,
+				'auditoria_empresa'			=> $seg_04,
+				'auditoria_usuario'			=> $usu_03,
+                'auditoria_fecha_hora'		=> date('Y-m-d H:i:s'),
+				'auditoria_ip'				=> $log_04
 			));
 		
 		switch($work02){
 			case 'C':
-				$result	= post_curl('default/300', $dataJSON);
+				$result	= post_curl('000/distrito', $dataJSON);
 				break;
 			case 'U':
-				$result	= put_curl('default/300/'.$work01, $dataJSON);
+				$result	= put_curl('000/distrito/'.$work01, $dataJSON);
 				break;
 			case 'D':
-				$result	= delete_curl('default/300/'.$work01, $dataJSON);
+				$result	= delete_curl('000/distrito/'.$work01, $dataJSON);
 				break;
 		}
 	}
