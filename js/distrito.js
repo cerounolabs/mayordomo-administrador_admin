@@ -136,7 +136,7 @@ function setDistrito(codElem, codAcc){
 	if (codAcc == 1) {
 		xJSON1.forEach(element1 => {
 			if (element1.tipo_estado_codigo == 1) {
-				selDepto = selDepto + '                               <option value="'+ element1.departamento_codigo +'">'+ element1.pais_nombre + ' - ' + element1.departamento_nombre + '</option>';
+				selDepto = selDepto + '                               <option value="'+ element1.departamento_codigo +'">'+ element1.pais_nombre + ' | ' + element1.departamento_nombre + '</option>';
 			}
 		});
 
@@ -235,9 +235,9 @@ function setDistrito(codElem, codAcc){
 			if (element.distrito_codigo == codElem) {
 				xJSON1.forEach(element1 => {
 					if (element1.departamento_codigo == element.departamento_codigo) {
-						selDepto = selDepto + '                               <option value="'+ element1.departamento_codigo +'" selected>'+ element1.pais_nombre + ' - ' + element1.departamento_nombre + '</option>';
+						selDepto = selDepto + '                               <option value="'+ element1.departamento_codigo +'" selected>'+ element1.pais_nombre + ' | ' + element1.departamento_nombre + '</option>';
 					} else {
-						selDepto = selDepto + '                               <option value="'+ element1.departamento_codigo +'">'+ element1.pais_nombre + ' - ' + element1.departamento_nombre + '</option>';
+						selDepto = selDepto + '                               <option value="'+ element1.departamento_codigo +'">'+ element1.pais_nombre + ' | ' + element1.departamento_nombre + '</option>';
 					}
 				});
 
