@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	var codigo	= document.getElementById('tableCodigo').className;	
 	var xJSON	= getPais();
 	
 	$('#tableLoad').DataTable({
