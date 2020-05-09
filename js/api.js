@@ -2,7 +2,7 @@ const urlBASE   = 'https://www.cerouno.me/mayorcontrol_api/apiv1';
 const xHTTP	    = new XMLHttpRequest();
 const autBASE   = 'dXNlcl9zZmhvbG94OnVzZXJfc2Zob2xveDIwMjA=';
 
-function getJSON(codJSON, codURL) {
+function getJSON(codJSON, codURL){
     var urlJSON = urlBASE + '/' + codURL;
 
     xHTTP.open('GET', urlJSON, false);
@@ -20,7 +20,7 @@ function getJSON(codJSON, codURL) {
     xHTTP.send();
 }
 
-function postJSON(codPAGE, codURL, codPARS) {
+function postJSON(codPAGE, codURL, codPARS){
     var urlJSON = urlBASE + '/' + codURL;
 
     xHTTP.open('POST', urlJSON, true);
@@ -94,12 +94,31 @@ function getDominioTri(codDom){
     return xDATA;
 }
 
-function getPais(codDom){
+function getPais(){
     if (localStorage.getItem('paisJSON') === null){
         getJSON('paisJSON', '000/pais');
     }
 
     var xJSON = JSON.parse(localStorage.getItem('paisJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_codigo == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
+function getDepartamento(){
+    if (localStorage.getItem('departamentoJSON') === null){
+        getJSON('departamentoJSON', '000/departamento');
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('departamentoJSON'));
     var xDATA = [];
 
     if (xJSON['code'] == 200) {

@@ -128,15 +128,15 @@ function setDominioSub(codElem1, codElem2, codAcc){
 	}
 
 	if (codAcc == 1) {
-		xJSON1.forEach(element => {
-			if (element.tipo_estado_codigo == 1) {
-				selTipo1 = selTipo1 + '                               <option value="'+ element.tipo_codigo +'">'+ element.tipo_nombre +'</option>';
+		xJSON1.forEach(element1 => {
+			if (element1.tipo_estado_codigo == 1) {
+				selTipo1 = selTipo1 + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
 			}
 		});
 
-		xJSON2.forEach(element => {
-			if (element.tipo_estado_codigo == 1) {
-				selTipo2 = selTipo2 + '                               <option value="'+ element.tipo_codigo +'">'+ element.tipo_nombre +'</option>';
+		xJSON2.forEach(element1 => {
+			if (element1.tipo_estado_codigo == 1) {
+				selTipo2 = selTipo2 + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
 			}
 		});
 
