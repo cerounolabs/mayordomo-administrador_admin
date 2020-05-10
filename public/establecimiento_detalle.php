@@ -154,8 +154,8 @@
                                     <h4 class="col-2 card-title" style="text-align: right;"></h4>
 								</div>
                                 <div class="table-responsive">
-                                    <table id="tableLoadEstablecimientoC" class="table v-middle" style="width: 100%;">
-                                        <thead id="tableEstablecimiento" class="<?php echo $codEstablecimiento; ?>">
+                                    <table id="tableEstablecimiento" class="table v-middle" style="width: 100%;">
+                                        <thead id="codestablecimiento" class="<?php echo $codEstablecimiento; ?>">
                                             <tr class="bg-table-title" style="text-align:center;">
                                                 <th class="border-top-0" style="width:80px;">ORDEN</th>
                                                 <th class="border-top-0" style="width:80px;">ESTADO</th>
@@ -185,7 +185,7 @@
                                         <div class="row">
                                             <h4 class="col-10 card-title">POBLACI&Oacute;N BOVINA</h4>
                                             <h4 class="col-2 card-title" style="text-align: right;">
-                                                <a class="btn btn-info" href="../public/establecimiento_poblacion_crud.php?establecimiento=<?php echo $codEstablecimiento; ?>" role="button" title="Agregar"><i class="ti-plus"></i></a>
+                                                <a class="btn btn-info" href="../public/establecimiento_poblacion.php?establecimiento=<?php echo $codEstablecimiento; ?>" role="button" title="Agregar"><i class="ti-plus"></i></a>
                                             </h4>
                                         </div>
 
@@ -324,7 +324,7 @@
                                 <div class="row">
                                 	<h4 class="col-10 card-title">PERSONAS</h4>
                                     <h4 class="col-2 card-title" style="text-align: right;">
-                                        <a class="btn btn-info" href="../public/establecimiento_persona_crud.php?establecimiento=<?php echo $codEstablecimiento; ?>" role="button" title="Agregar"><i class="ti-plus"></i></a>
+                                        <a class="btn btn-info" href="../public/establecimiento_persona.php?establecimiento=<?php echo $codEstablecimiento; ?>" role="button" title="Agregar"><i class="ti-plus"></i></a>
                                 	</h4>
 								</div>
                                 <div class="table-responsive">

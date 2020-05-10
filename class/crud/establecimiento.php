@@ -72,6 +72,7 @@
 
 	$result		= json_decode($result, true);
 	$msg		= str_replace("\n", ' ', $result['message']);
+	
 	header('Location: ../../public/'.$work03.'code='.$result['code'].'&msg='.$msg);
 
 	ob_end_flush();
