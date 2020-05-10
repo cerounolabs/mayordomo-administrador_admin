@@ -133,7 +133,7 @@
                 <!-- ============================================================== -->
             </div>
 
-            <button type="button" class="btn btn-info float" onclick="setEstablecimiento(0, 1);" data-toggle="modal" data-target="#modal-dialog">
+            <button type="button" class="btn btn-info float" onclick="setEstablecimiento(0, 1, 1);" data-toggle="modal" data-target="#modal-dialog">
                 <i class="ti-plus"></i>
             </button>
             <!-- ============================================================== -->

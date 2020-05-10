@@ -45,7 +45,7 @@
 
             //
             case 'DISTRITOZONA':
-                $result = 'DISTRITO Tipo ZONA';
+                $result = 'DISTRITO TIPO ZONA';
                 break;
 
             case 'DISTRITORIESGO':

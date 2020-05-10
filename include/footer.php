@@ -111,7 +111,7 @@
 <?php
     }
 
-    if (($codeRest == 201) || ($codeRest == 204) || ($codeRest == 400) || ($codeRest == 401)) {
+    if (($codeRest == 201) || ($codeRest == 204) || ($codeRest == 400) || ($codeRest == 401) || ($codeRest == 404)) {
 ?>
         <script>
             $(function() {
