@@ -1,3 +1,171 @@
+function isInPage(node) {
+    return (node === document.body) ? false : document.body.contains(node);
+}
+
+function sumaTotalPoblacion() {
+    var rowTotDes   = document.getElementById("tot01");
+    var rowTotVaq   = document.getElementById("tot02");
+    var rowTotVac   = document.getElementById("tot03");
+    var rowTotNov   = document.getElementById("tot04");
+    var rowTotSen   = document.getElementById("tot05");
+    var rowTotBue   = document.getElementById("tot06");
+    var rowTotTor   = document.getElementById("tot07");
+    var rowTotAdu   = document.getElementById("tot08");
+    var rowTotTer   = document.getElementById("tot09");
+    var rowTotGen   = document.getElementById("tot10");
+
+    var cantDes     = 0;
+    var cantVaq     = 0;
+    var cantVac     = 0;
+    var cantNov     = 0;
+    var cantSen     = 0;
+    var cantBue     = 0;
+    var cantTor     = 0;
+    var cantAdu     = 0;
+    var cantTer     = 0;
+    var cantGen     = 0;
+
+    for (let index = 1; index < 100; index++) {
+        var existeSiNo = isInPage(document.getElementById("var104_"+index));
+
+        if (existeSiNo != false) {
+            var rowCate = document.getElementById("var104_"+index).value;
+            var rowCant = Number(document.getElementById('var106_'+index).value);
+            var rowPos  = rowCate.search('_');      
+            rowCate     = Number(rowCate.substr(0, rowPos));
+
+            switch (rowCate) {
+                case 41:
+                    cantBue = cantBue + rowCant;
+                    break;
+
+                case 42:
+                    cantDes = cantDes + rowCant;
+                    break;
+                    
+                case 43:
+                    cantNov = cantNov + rowCant;
+                    break;
+
+                case 44:
+                    cantSen = cantSen + rowCant;
+                    break;
+
+                case 45:
+                    cantTer = cantTer + rowCant;
+                    break;
+
+                case 46:
+                    cantTor = cantTor + rowCant;
+                    break;
+
+                case 47:
+                    cantVac = cantVac + rowCant;
+                    break;
+
+                case 48:
+                    cantVaq = cantVaq + rowCant;
+                    break;
+            }
+
+            rowCant = 0;
+        }
+    }
+
+    rowTotDes.innerHTML = cantDes;
+    rowTotVaq.innerHTML = cantVaq;
+    rowTotVac.innerHTML = cantVac;
+    rowTotNov.innerHTML = cantNov;
+    rowTotSen.innerHTML = cantSen;
+    rowTotBue.innerHTML = cantBue;
+    rowTotTor.innerHTML = cantTor;
+    rowTotAdu.innerHTML = cantDes + cantVaq + cantVac + cantNov + cantSen + cantBue + cantTor;
+    rowTotTer.innerHTML = cantTer;
+    rowTotGen.innerHTML = cantDes + cantVaq + cantVac + cantNov + cantSen + cantBue + cantTor + cantTer;
+}
+
+function selectPropietario(codElem, valRow, indRow) {
+    var xJSON   = getPropietario(codElem);
+    var xSELC   = document.getElementById(valRow + '_' + indRow);
+
+    while (xSELC.length > 0) {
+        xSELC.remove(0);
+    }
+    
+    xJSON.forEach(element => {
+        if (element.tipo_estado_codigo == 1 && element.tipo_usuario_codigo == 49) {
+            var option      = document.createElement('option');
+            option.value    = element.persona_codigo;
+            option.text     = element.persona_completo;                    
+            xSELC.add(option, null);
+        }
+    });
+}
+
+function selectOrigen(valRow, indRow) {
+    var xJSON   = getDominio('ANIMALORIGEN');
+    var xSELC   = document.getElementById(valRow + '_' + indRow);
+
+    while (xSELC.length > 0) {
+        xSELC.remove(0);
+    }
+    
+    xJSON.forEach(element => {
+        if (element.tipo_estado_codigo == 1) {
+            var option      = document.createElement('option');
+            option.value    = element.tipo_codigo;
+            option.text     = element.tipo_nombre;                    
+            xSELC.add(option, null);
+        }
+    });
+}
+
+function selectRaza(valRow, indRow) {
+    var xJSON   = getDominio('ANIMALRAZA');
+    var xSELC   = document.getElementById(valRow + '_' + indRow);
+
+    while (xSELC.length > 0) {
+        xSELC.remove(0);
+    }
+    
+    xJSON.forEach(element => {
+        if (element.tipo_estado_codigo == 1) {
+            var option      = document.createElement('option');
+            option.value    = element.tipo_codigo;
+            option.text     = element.tipo_nombre;                    
+            xSELC.add(option, null);
+        }
+    });
+}
+
+function selectCategoria(valRow, indRow) {
+    var xJSON   = getDominio('ANIMALCATEGORIA');
+    var xJSON1  = getDominioTri('ANIMALESPECIECATEGORIASUBCATEGORIA');
+    var xSELC   = document.getElementById(valRow + '_' + indRow);
+
+    while (xSELC.length > 0) {
+        xSELC.remove(0);
+    }
+    
+    xJSON.forEach(element => {
+        if (element.tipo_estado_codigo == 1) {
+            var optgroup    = document.createElement('optgroup');
+            optgroup.label  = element.tipo_nombre;
+
+            xJSON1.forEach(element1 => {
+                if (element1.tipo_estado_codigo == 1 && element1.tipo_dominio1_codigo == 26 && element1.tipo_dominio2_codigo == element.tipo_codigo) {
+                    var option      = document.createElement('option');
+                    option.value    = element1.tipo_dominio2_codigo + '_' + element1.tipo_dominio3_codigo;
+                    option.text     = element1.tipo_dominio2_nombre + ' - ' + element1.tipo_dominio3_nombre;
+                    optgroup.appendChild(option);
+                }
+            });
+
+            xSELC.add(optgroup, null);
+        }
+    });
+}
+
 function getEstablecimiento(){
     if (localStorage.getItem('establecimientoJSON') === null){
         getJSON('establecimientoJSON', '000/establecimiento');
@@ -96,6 +264,25 @@ function getPoblacionDetalle(codElem){
 
     $("#modalcontent").empty();
     $("#modalcontent").append(html);
+}
+
+function getPropietario(codElem){
+    if (localStorage.getItem('propietarioJSON') === null){
+        getJSON('propietarioJSON', '000/establecimientopersona/' + codElem);
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('propietarioJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_codigo == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
 }
 
 function setEstablecimiento(codElem, codAcc, codPag){

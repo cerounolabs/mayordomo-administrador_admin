@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var codEst		= document.getElementById('tableEstablecimiento').className;	
+	var codEst		= document.getElementById('codestablecimiento').className;	
 	var codPage		= 'establecimiento_detalle.php?establecimiento=' + codEst + '&';
 	var estJSON		= getEstablecimientoId(codEst);
 	var secJSON		= getEstablecimientoId(codEst);
@@ -12,7 +12,7 @@ $(document).ready(function() {
 		titEst.innerHTML = element.establecimiento_nombre + ' ' + element.establecimiento_codigo_sigor
 	});
 	
-	$('#tableLoadEstablecimientoC').DataTable({
+	$('#tableEstablecimiento').DataTable({
 		scrollY			: "300px",
 		scrollCollapse	: true,
 		processing		: true,
