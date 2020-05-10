@@ -62,18 +62,17 @@
 				$result	= post_curl('000/establecimiento', $dataJSON);
 				break;
 			case 'U':
-				$result	= put_curl('000/establecimiento/'.$work04, $dataJSON);
+				$result	= put_curl('000/establecimiento/'.$work01, $dataJSON);
 				break;
 			case 'D':
-				$result	= delete_curl('000/establecimiento/'.$work04, $dataJSON);
+				$result	= delete_curl('000/establecimiento/'.$work01, $dataJSON);
 				break;
 		}
 	}
 
 	$result		= json_decode($result, true);
 	$msg		= str_replace("\n", ' ', $result['message']);
-
-	header('Location: ../../public/'.$work03.'.php?code='.$result['code'].'&msg='.$msg);
+	header('Location: ../../public/'.$work03.'code='.$result['code'].'&msg='.$msg);
 
 	ob_end_flush();
 ?>

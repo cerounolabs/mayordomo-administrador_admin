@@ -169,22 +169,3 @@ function getPersona(){
 
     return xDATA;
 }
-
-function getEstablecimiento(){
-    if (localStorage.getItem('establecimientoJSON') === null){
-        getJSON('establecimientoJSON', '000/establecimiento');
-    }
-
-    var xJSON = JSON.parse(localStorage.getItem('establecimientoJSON'));
-    var xDATA = [];
-
-    if (xJSON['code'] == 200) {
-        xJSON['data'].forEach(element => {
-            if (element.tipo_estado_codigo == 1) {
-                xDATA.push(element);
-            }
-        });
-    }
-
-    return xDATA;
-}
