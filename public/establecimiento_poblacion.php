@@ -230,5 +230,9 @@
     <script src="../js/api.js"></script>
     <script src="../js/establecimiento.js"></script>
     <script src="../js/establecimiento_poblacion.js"></script>
+
+    <script>
+        getTitle(<?php echo $codEstablecimiento; ?>);
+    </script>
 </body>
 </html>
