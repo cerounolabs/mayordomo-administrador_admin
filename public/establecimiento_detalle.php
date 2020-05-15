@@ -185,7 +185,7 @@
                                         <div class="row">
                                             <h4 class="col-10 card-title">POBLACI&Oacute;N BOVINA</h4>
                                             <h4 class="col-2 card-title" style="text-align: right;">
-                                                <a class="btn btn-info" href="../public/establecimiento_poblacion.php?establecimiento=<?php echo $codEstablecimiento; ?>" role="button" title="Agregar"><i class="ti-plus"></i></a>
+                                                <a href="../public/establecimiento_poblacion.php?establecimiento=<?php echo $codEstablecimiento; ?>" role="button" title="Nuevo" class="btn btn-info" style="background-color:#005ea6; border-color:#005ea6;"><i class="ti-plus"></i></a>
                                             </h4>
                                         </div>
 
@@ -250,15 +250,16 @@
                                 <div class="row">
                                 	<h4 class="col-10 card-title">SECCIONES</h4>
                                     <h4 class="col-2 card-title" style="text-align: right;">
-                                        <button type="button" class="btn btn-info" onclick="setSeccion(0, 1);" data-toggle="modal" data-target="#modaldiv" title="Agregar"><i class="ti-plus"></i></button>
+                                        <a href="javascript:void(0)" onclick="setSeccion(0, 1, <?php echo $codEstablecimiento; ?>);" title="Nuevo" class="btn btn-info" style="background-color:#005ea6; border-color:#005ea6;" role="button" data-toggle="modal" data-target="#modal-dialog"><i class="ti-plus"></i></a>
                                 	</h4>
 								</div>
                                 <div class="table-responsive">
-                                    <table id="tableLoadSeccionC" class="table v-middle" style="width:100%;">
-                                        <thead id="tableLoadSeccionD" class="">
-                                            <tr class="bg-light">
-                                                <th class="border-top-0">&nbsp;</th>
+                                    <table id="tableSeccion" class="table v-middle" style="width:100%;">
+                                        <thead>
+                                            <tr class="bg-table-title" style="text-align:center;">
+                                                <th class="border-top-0" style="width:80px;">ORDEN</th>
                                                 <th class="border-top-0">SECCI&Oacute;N</th>
+                                                <th class="border-top-0" style="width:80px;">ACCI&Oacute;N</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -273,20 +274,21 @@
                                 <div class="row">
                                 	<h4 class="col-10 card-title">POTREROS</h4>
                                     <h4 class="col-2 card-title" style="text-align: right;">
-                                        <button type="button" class="btn btn-info" onclick="setPotrero(0, 1);" data-toggle="modal" data-target="#modaldiv" title="Agregar"><i class="ti-plus"></i></button>
+                                        <a href="javascript:void(0)" onclick="setPotrero(0, 1, <?php echo $codEstablecimiento; ?>);" title="Nuevo" class="btn btn-info" style="background-color:#005ea6; border-color:#005ea6;" role="button" data-toggle="modal" data-target="#modal-dialog"><i class="ti-plus"></i></a>
                                 	</h4>
 								</div>
                                 <div class="table-responsive">
-                                    <table id="tableLoadPotreroC" class="table v-middle" style="width: 100%;">
-                                        <thead id="tableLoadPotreroD" class="">
-                                            <tr class="bg-light">
-                                                <th class="border-top-0">&nbsp;</th>
+                                    <table id="tablePotrero" class="table v-middle" style="width: 100%;">
+                                        <thead>
+                                            <tr class="bg-table-title" style="text-align:center;">
+                                                <th class="border-top-0">ORDEN</th>
                                                 <th class="border-top-0">SECCI&Oacute;N</th>
                                                 <th class="border-top-0">POTRERO</th>
                                                 <th class="border-top-0">PASTURA 1</th>
                                                 <th class="border-top-0">PASTURA 2</th>
                                                 <th class="border-top-0">HECTAREA</th>
                                                 <th class="border-top-0">CAPACIDAD</th>
+                                                <th class="border-top-0" style="width:80px;">ACCI&Oacute;N</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -301,15 +303,16 @@
                                 <div class="row">
                                 	<h4 class="col-10 card-title">LOTES</h4>
                                     <h4 class="col-2 card-title" style="text-align: right;">
-                                        <button type="button" class="btn btn-info" onclick="setLote(0, 1);" data-toggle="modal" data-target="#modaldiv" title="Agregar"><i class="ti-plus"></i></button>
+                                        <a href="javascript:void(0)" onclick="setLote(0, 1, <?php echo $codEstablecimiento; ?>);" title="Nuevo" class="btn btn-info" style="background-color:#005ea6; border-color:#005ea6;" role="button" data-toggle="modal" data-target="#modal-dialog"><i class="ti-plus"></i></a>
                                 	</h4>
 								</div>
                                 <div class="table-responsive">
-                                    <table id="tableLoadLoteC" class="table v-middle" style="width: 100%;">
-                                        <thead id="tableLoadLoteD" class="">
-                                            <tr class="bg-light">
-                                                <th class="border-top-0">&nbsp;</th>
+                                    <table id="tableLote" class="table v-middle" style="width: 100%;">
+                                        <thead>
+                                            <tr class="bg-table-title" style="text-align:center;">
+                                                <th class="border-top-0" style="width:80px;">ORDEN</th>
                                                 <th class="border-top-0">LOTE</th>
+                                                <th class="border-top-0" style="width:80px;">ACCI&Oacute;N</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -324,20 +327,21 @@
                                 <div class="row">
                                 	<h4 class="col-10 card-title">PERSONAS</h4>
                                     <h4 class="col-2 card-title" style="text-align: right;">
-                                        <a class="btn btn-info" href="../public/establecimiento_persona.php?establecimiento=<?php echo $codEstablecimiento; ?>" role="button" title="Agregar"><i class="ti-plus"></i></a>
+                                        <a href="javascript:void(0)" onclick="setPropietario(0, 1, <?php echo $codEstablecimiento; ?>);" title="Nuevo" class="btn btn-info" style="background-color:#005ea6; border-color:#005ea6;" role="button" data-toggle="modal" data-target="#modal-dialog"><i class="ti-plus"></i></a>
                                 	</h4>
 								</div>
                                 <div class="table-responsive">
-                                    <table id="tableLoadPersonaC" class="table v-middle" style="width: 100%;">
-                                        <thead id="tableLoadPersonaD" class="">
-                                            <tr class="bg-light">
-                                                <th class="border-top-0">&nbsp;</th>
+                                    <table id="tablePropietario" class="table v-middle" style="width: 100%;">
+                                        <thead>
+                                            <tr class="bg-table-title" style="text-align:center;">
+                                                <th class="border-top-0" style="width:80px;">ORDEN</th>
                                                 <th class="border-top-0">TIPO</th>
                                                 <th class="border-top-0">PERSONA / EMPRESA</th>
                                                 <th class="border-top-0">C&Oacute;D. SITRAP</th>
                                                 <th class="border-top-0">C&Oacute;D. SIGOR</th>
                                                 <th class="border-top-0">TELF</th>
                                                 <th class="border-top-0">EMAIL</th>
+                                                <th class="border-top-0" style="width:80px;">ACCI&Oacute;N</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -393,5 +397,9 @@
     <script src="../js/api.js"></script>
     <script src="../js/establecimiento.js"></script>
     <script src="../js/establecimiento_detalle.js"></script>
+
+    <script>
+        getTitle(<?php echo $codEstablecimiento; ?>);
+    </script>
 </body>
 </html>

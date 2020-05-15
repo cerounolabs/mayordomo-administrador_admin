@@ -93,7 +93,7 @@ function selectPropietario(codElem, valRow, indRow) {
     }
     
     xJSON.forEach(element => {
-        if (element.tipo_estado_codigo == 1 && element.tipo_usuario_codigo == 49) {
+        if (element.tipo_estado_codigo == 1 && element.tipo_rol_codigo == 49) {
             var option      = document.createElement('option');
             option.value    = element.persona_codigo;
             option.text     = element.persona_completo;                    
@@ -164,6 +164,15 @@ function selectCategoria(valRow, indRow) {
             xSELC.add(optgroup, null);
         }
     });
+}
+
+function getTitle(codElem) {
+    var titEst  = document.getElementById('titleEstablecimiento');
+    var estJSON = getEstablecimientoId(codElem);
+
+	estJSON.forEach(element => {
+		titEst.innerHTML = element.establecimiento_nombre + ' ' + element.establecimiento_codigo_sigor
+	});
 }
 
 function getEstablecimiento(){
@@ -285,6 +294,63 @@ function getPropietario(codElem){
     return xDATA;
 }
 
+function getSeccion(codElem){
+    if (localStorage.getItem('seccionJSON') === null){
+        getJSON('seccionJSON', '000/establecimientoseccion/' + codElem);
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('seccionJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_codigo == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
+function getPotrero(codElem){
+    if (localStorage.getItem('potreroJSON') === null){
+        getJSON('potreroJSON', '000/establecimientopotrero/' + codElem);
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('potreroJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_codigo == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
+function getLote(codElem){
+    if (localStorage.getItem('loteJSON') === null){
+        getJSON('loteJSON', '000/establecimientolote/' + codElem);
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('loteJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_codigo == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
 function setEstablecimiento(codElem, codAcc, codPag){
     var xJSON       = getEstablecimientoId(codElem);
     var aJSON       = getEstablecimientoId(codElem);
@@ -304,6 +370,7 @@ function setEstablecimiento(codElem, codAcc, codPag){
     var selPersona  = '';
     var selDistrito = '';
     var rowAuditoria= '';
+    var retPagina   = 'establecimiento.php?';
 
     switch (codAcc) {
 		case 1:
@@ -374,7 +441,7 @@ function setEstablecimiento(codElem, codAcc, codPag){
         });
 
         xJSON3.forEach(element1 => {
-            if (element1.tipo_estado_codigo == 1 && element1.tipo_persona_codigo == 12) {
+            if (element1.tipo_estado_codigo == 1 && element1.tipo_persona_codigo == 93) {
                 selPersona = selPersona + '                               <option value="'+ element1.persona_codigo +'">'+ element1.persona_completo + ' | ' + element1.persona_documento + ' | ' + element1.persona_codigo_sitrap + ' | ' + element1.persona_codigo_sigor + '</option>';
             }
         });
@@ -397,7 +464,7 @@ function setEstablecimiento(codElem, codAcc, codPag){
             '               <input id="workCodigo" name="workCodigo" value="0" class="form-control" type="hidden" required readonly>'+
             '               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
             '               <input id="workPage" name="workPage" value="'+ codPag +'" class="form-control" type="hidden" required readonly>'+
-            '               <button type="button" class="btn btn-info mr-auto" onclick="setEstablecimientoPersona();" data-toggle="modal" data-target="#modal-dialog2"><i class="ti-plus"></i> Agregar Persona</button>'+
+            '               <button type="button" class="btn btn-info mr-auto" onclick="setPersona(1, 0);" data-toggle="modal" data-target="#modal-dialog2"><i class="ti-plus"></i> Agregar Persona</button>'+
             '           </div>'+
             '           <div class="row pt-3">'+
             '               <div class="col-sm-12 col-md-4">'+
@@ -585,7 +652,7 @@ function setEstablecimiento(codElem, codAcc, codPag){
                     '               <input id="workCodigo" name="workCodigo" value="'+ element.establecimiento_codigo +'" class="form-control" type="hidden" required readonly>'+
                     '               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
                     '               <input id="workPage" name="workPage" value="'+ codPag +'" class="form-control" type="hidden" required readonly>'+
-                    '               <button type="button" class="btn btn-info mr-auto" onclick="setEstablecimientoPersona();" data-toggle="modal" data-target="#modal-dialog2"><i class="ti-plus"></i> Agregar Persona</button>'+
+                    '               <button type="button" class="btn btn-info mr-auto" onclick="setPersona(1, 0);" data-toggle="modal" data-target="#modal-dialog2"><i class="ti-plus"></i> Agregar Persona</button>'+
                     '           </div>'+
                     '           <div class="row pt-3">'+
                     '               <div class="col-sm-12 col-md-4">'+
@@ -916,114 +983,9 @@ function setPoblacion(codElem, codAcc){
 	$("#modalcontent2").append(html);
 }
 
-function setPersona2(){
-    var xJSON1      = getDominio('PERSONATIPO');
-    var xJSON2      = getDominio('PERSONADOCUMENTO');
-    var html        = '';
-    var selTipo     = '';
-    var selDocumento= '';
-
-    xJSON1.forEach(element1 => {
-        if (element1.tipo_estado_codigo == 1) {
-            selTipo = selTipo + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
-        }
-    });
-
-    xJSON2.forEach(element1 => {
-        if (element1.tipo_estado_codigo == 1) {
-            selDocumento = selDocumento + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
-        }
-    });
-
-    html = 
-        '<div class="modal-content">'+
-        '   <form id="form" data-parsley-validate method="post" action="../class/crud/persona.php">'+
-        '       <div class="modal-header" style="color:#fff; background: #2585e4;">'+
-        '		    <h4 class="modal-title" id="vcenter"> PERSONA</h4>'+
-        '		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-        '	    </div>'+
-        '       <div class="modal-body" >'+
-        '           <div class="form-group">'+
-        '               <input type="hidden" class="form-control" id="workCodigo" name="workCodigo" value="" required readonly>'+
-        '               <input type="hidden" class="form-control" id="workModo" name="workModo" value="C" required readonly>'+
-        '               <input type="hidden" class="form-control" id="workPage" name="workPage" value="establecimiento.php?" required readonly>'+
-        '           </div>'+
-        '           <div class="row pt-3">'+
-        '               <div class="col-sm-4">'+
-        '                   <div class="form-group">'+
-        '                       <label for="var102">TIPO PERSONA</label>'+
-        '                       <select id="var102" name="var102" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
-        '                           <optgroup label="Tipo Persona">'+ selTipo +
-        '                           </optgroup>'+
-        '                       </select>'+
-        '                   </div>'+
-        '               </div>'+
-        '               <div class="col-sm-4">'+
-        '                   <div class="form-group">'+
-        '                       <label for="var103">TIPO DOCUMENTO</label>'+
-        '                       <select id="var103" name="var103" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
-        '                           <optgroup label="Tipo Documento">'+ selDocumento +
-        '                           </optgroup>'+
-        '                       </select>'+
-        '                   </div>'+
-        '               </div>'+
-        '               <div class="col-sm-4">'+
-        '                   <div class="form-group">'+
-        '                       <label for="var104">DOCUMENTO</label>'+
-        '                       <input id="var104" name="var104" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="NRO DOCUMENTO" required>'+
-        '                   </div>'+
-        '               </div>'+
-        '               <div class="col-sm-4">'+
-        '                   <div class="form-group">'+
-        '                       <label for="var105">PERSONA / EMPRESA</label>'+
-        '                       <input id="var105" name="var105" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="PERSONA / EMPRESA" required>'+
-        '                   </div>'+
-        '               </div>'+
-        '               <div class="col-sm-4">'+
-        '                   <div class="form-group">'+
-        '                       <label for="var106">SIGLAS SITRAP</label>'+
-        '                       <input id="var106" name="var106" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="SIGLAS SITRAP" required>'+
-        '                   </div>'+
-        '               </div>'+
-        '               <div class="col-sm-4">'+
-        '                   <div class="form-group">'+
-        '                       <label for="var107">C&Oacute;DIGO SIGOR</label>'+
-        '                       <input id="var107" name="var107" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="C&Oacute;DIGO SIGOR" required>'+
-        '                   </div>'+
-        '               </div>'+
-        '               <div class="col-sm-4">'+
-        '                   <div class="form-group">'+
-        '                       <label for="var108">TEL&Eacute;FONO</label>'+
-        '                       <input id="var108" name="var108" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="TEL&Eacute;FONO" required>'+
-        '                   </div>'+
-        '               </div>'+
-        '               <div class="col-sm-4">'+
-        '                   <div class="form-group">'+
-        '                       <label for="var109">EMAIL</label>'+
-        '                       <input id="var109" name="var109" class="form-control" type="email" style="text-transform:lowercase; height:40px;" placeholder="EMAIL" required>'+
-        '                   </div>'+
-        '               </div>'+
-        '               <div class="col-12">'+
-        '                   <div class="form-group">'+
-        '                       <label for="var110">OBSERVACI&Oacute;N</label>'+
-        '                       <textarea id="var110" name="var110" class="form-control" rows="5" style="text-transform:uppercase;"></textarea>'+
-        '                   </div>'+
-        '               </div>'+
-        '           </div>'+
-        '       </div>'+
-        '	    <div class="modal-footer">'+
-        '           <button type="submit" class="btn btn-info">Agregar</button>'+
-        '		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
-        '	    </div>'+
-        '   </form>'+
-        '</div>';
-
-    $("#modal-content2").empty();
-    $("#modal-content2").append(html);
-}
-
-function setSeccion(codElem, codAcc){
-    var xJSON       = JSON.parse(localStorage.getItem("seccionJSON"))['data'];
+function setSeccion(codElem, codAcc, codEst){
+    var xJSON       = getSeccion(codEst);
+    var aJSON       = getSeccion(codEst);
     var html        = '';
     var bodyCol     = '';
     var bodyTit     = '';
@@ -1031,158 +993,241 @@ function setSeccion(codElem, codAcc){
     var bodyOnl     = '';
     var bodyBot     = '';
     var selEstado   = '';
+    var rowAuditoria= '';
 
     switch (codAcc) {
-        case 1:
-            bodyTit = 'SECCIÓN NUEVO';
-            bodyCol = '#4798e8;';
-            bodyMod = 'C';
-            bodyOnl = '';
-            bodyBot = '           <button type="submit" class="btn btn-info">Agregar</button>';
-            break;
+		case 1:
+			bodyTit = 'NUEVO';
+			bodyCol = '#163562;';
+			bodyMod = 'C';
+			bodyOnl = '';
+			bodyBot = '           <button type="submit" class="btn btn-info">Agregar</button>';
+			break;
 
-        case 2:
-            bodyTit = 'SECCIÓN VER';
-            bodyCol = '#563dea;';
-            bodyMod = 'R';
-            bodyOnl = 'readonly';
-            bodyBot = '';
-            break;
+		case 2:
+			bodyTit = 'VER';
+			bodyCol = '#6929d5;';
+			bodyMod = 'R';
+			bodyOnl = 'readonly';
+			bodyBot = '';
+			break;
 
-        case 3:
-            bodyTit = 'SECCIÓN EDITAR';
-            bodyCol = '#1ca58f;';
-            bodyMod = 'U';
-            bodyOnl = '';
-            bodyBot = '           <button type="submit" class="btn btn-success">Actualizar</button>';
-            break;
+		case 3:
+			bodyTit = 'EDITAR';
+			bodyCol = '#007979;';
+			bodyMod = 'U';
+			bodyOnl = '';
+			bodyBot = '           <button type="submit" class="btn btn-success">Actualizar</button>';
+			break;
 
-        case 4:
-            bodyTit = 'SECCIÓN ELIMINAR';
-            bodyCol = '#eb4c4c;';
-            bodyMod = 'D';
-            bodyOnl = 'readonly';
-            bodyBot = '           <button type="submit" class="btn btn-danger">Eliminar</button>';
-            break;
-    
-        default:
-            break;
-    }
+		case 4:
+			bodyTit = 'ELIMINAR';
+			bodyCol = '#ff2924;';
+			bodyMod = 'D';
+			bodyOnl = 'readonly';
+			bodyBot = '           <button type="submit" class="btn btn-danger">Eliminar</button>';
+			break;
+	
+		case 5:
+			bodyTit = 'AUDITORIA';
+			bodyCol = '#d38109;';
+			bodyMod = 'A';
+			bodyOnl = 'readonly';
+			bodyBot = '';
+			break;
+
+		default:
+			break;
+	}
 
     if (codAcc == 1) {
-        html = 
+		html = 
             '<div class="modal-content">'+
             '   <form id="form" data-parsley-validate method="post" action="../class/crud/establecimiento_seccion.php">'+
-            '	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
-            '		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
-            '		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-            '	    </div>'+
+			'	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
+			'		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
+			'		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+			'	    </div>'+
             '	    <div class="modal-body" >'+
             '           <div class="form-group">'+
-            '               <input id="workEstablecimiento" name="workEstablecimiento" value="" class="form-control" type="hidden" required readonly>'+
+            '               <input id="workEstablecimiento" name="workEstablecimiento" value="'+ codEst +'" class="form-control" type="hidden" required readonly>'+
             '               <input id="workCodigo" name="workCodigo" value="0" class="form-control" type="hidden" required readonly>'+
             '               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
             '               <input id="workPage" name="workPage" value="establecimiento_detalle" class="form-control" type="hidden" required readonly>'+
             '           </div>'+
             '           <div class="row pt-3">'+
-            '               <div class="col-sm-12 col-md-4">'+
+            '               <div class="col-sm-12 col-md-6">'+
             '                   <div class="form-group">'+
             '                       <label for="var01">ESTADO</label>'+
             '                       <select id="var01" name="var01" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
             '                           <optgroup label="Estado">'+
-            '                               <option value="1">HABILITADO</option>'+
-            '                               <option value="2">DESHABILITADO</option>'+
+            '                               <option value="1">ACTIVO</option>'+
+			'                               <option value="2">INACTIVO</option>'+
+			'                               <option value="3">BLOQUEADO</option>'+
             '                           </optgroup>'+
             '                       </select>'+
             '                   </div>'+
             '               </div>'+
-            '               <div class="col-sm-12 col-md-8">'+
+            '               <div class="col-sm-12 col-md-6">'+
             '                   <div class="form-group">'+
-            '                       <label for="var02">SECCIÓN</label>'+
-            '                       <input id="var02" name="var02" value="" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="SECCIÓN" required '+ bodyOnl +'>'+
+            '                       <label for="var02">ORDEN</label>'+
+            '                       <input id="var02" name="var02" value="" class="form-control" type="number" min="0" max="999" style="text-transform:uppercase; height:40px;" placeholder="NRO ORDEN" '+ bodyOnl +'>'+
+            '                   </div>'+
+            '               </div>'+
+            '               <div class="col-sm-12 col-md-12">'+
+            '                   <div class="form-group">'+
+            '                       <label for="var03">SECCIÓN</label>'+
+            '                       <input id="var03" name="var03" value="" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="SECCIÓN" required '+ bodyOnl +'>'+
             '                   </div>'+
             '               </div>'+
             '               <div class="col-sm-12">'+
             '                   <div class="form-group">'+
-            '                       <label for="var03">OBSERVACIÓN</label>'+
-            '                       <textarea id="var03" name="var03" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'></textarea>'+
+            '                       <label for="var04">OBSERVACIÓN</label>'+
+            '                       <textarea id="var04" name="var04" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'></textarea>'+
             '                   </div>'+
             '               </div>'+
-            '           </div>'+
-            '	    </div>'+
-            '	    <div class="modal-footer">'+ bodyBot +
-            '		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
-            '	    </div>'+
-            '   </form>'+
-            '</div>';
-    } else {
-        xJSON.forEach(element => {
-            if (element.establecimiento_seccion_codigo == codElem) {
-                if (element.tipo_estado_codigo == 1){
-                    selEstado = 
-                    '                               <option value="1" selected>HABILITADO</option>'+
-                    '                               <option value="2">DESHABILITADO</option>';
-                } else {
-                    selEstado = 
-                    '                               <option value="1">HABILITADO</option>'+
-                    '                               <option value="2" selected>DESHABILITADO</option>';
-                }
+            '           </div>'+			
+			'	    </div>'+
+			'	    <div class="modal-footer">'+ bodyBot +
+			'		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
+			'	    </div>'+
+			'   </form>'+
+			'</div>';
+	} else if (codAcc > 1 && codAcc < 5) {
+		xJSON.forEach(element => {
+			if (element.establecimiento_seccion_codigo == codElem) {
+				switch (element.tipo_estado_codigo) {
+					case 1:
+						selEstado = 
+						'                               <option value="1" selected>ACTIVO</option>'+
+						'                               <option value="2">INACTIVO</option>'+
+						'                               <option value="3">BLOQUEADO</option>';
+						break;
+				
+					case 2:
+						selEstado = 
+						'                               <option value="1">ACTIVO</option>'+
+						'                               <option value="2" selected>INACTIVO</option>'+
+						'                               <option value="3">BLOQUEADO</option>';
+						break;
 
-                html = 
-                    '<div class="modal-content">'+
+					case 3:
+						selEstado = 
+						'                               <option value="1">ACTIVO</option>'+
+						'                               <option value="2">INACTIVO</option>'+
+						'                               <option value="3" selected>BLOQUEADO</option>';
+						break;
+				}
+
+				html = 
+					'<div class="modal-content">'+
                     '   <form id="form" data-parsley-validate method="post" action="../class/crud/establecimiento_seccion.php">'+
                     '	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
-                    '		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
-                    '		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-                    '	    </div>'+
-                    '	    <div class="modal-body" >'+
+					'		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
+					'		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+					'	    </div>'+
+					'	    <div class="modal-body" >'+
                     '           <div class="form-group">'+
-                    '               <input id="workEstablecimiento" name="workEstablecimiento" value="'+ element.establecimiento_codigo +'" class="form-control" type="hidden" required readonly>'+
-                    '               <input id="workCodigo" name="workCodigo" value="'+ element.establecimiento_seccion_codigo +'" class="form-control" type="hidden" required readonly>'+
-                    '               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
-                    '               <input id="workPage" name="workPage" value="establecimiento_detalle" class="form-control" type="hidden" required readonly>'+
+                    '               <input id="workEstablecimiento" name="workEstablecimiento" value="'+ codEst +'" class="form-control" type="hidden" required readonly>'+
+					'               <input id="workCodigo" name="workCodigo" value="'+ element.establecimiento_seccion_codigo +'" class="form-control" type="hidden" required readonly>'+
+					'               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
+					'               <input id="workPage" name="workPage" value="establecimiento_detalle" class="form-control" type="hidden" required readonly>'+
                     '           </div>'+
-                    '           <div class="row pt-3">'+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var01">ESTADO</label>'+
-                    '                       <select id="var01" name="var01" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
-                    '                           <optgroup label="Estado">'+ selEstado +
-                    '                           </optgroup>'+
-                    '                       </select>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    '               <div class="col-sm-12 col-md-8">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var02">SECCIÓN</label>'+
-                    '                       <input id="var02" name="var02" value="'+ element.establecimiento_seccion_nombre +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="SECCIÓN" required '+ bodyOnl +'>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    '               <div class="col-sm-12">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var03">OBSERVACIÓN</label>'+
-                    '                       <textarea id="var03" name="var03" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.establecimiento_seccion_observacion +'</textarea>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    '           </div>'+
-                    '	    </div>'+
-                    '	    <div class="modal-footer">'+ bodyBot +
-                    '		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
-                    '	    </div>'+
-                    '   </form>'+
-                    '</div>';
-            }
-        });
-    }
+					'           <div class="row pt-3">'+
+					'               <div class="col-sm-12 col-md-6">'+
+					'                   <div class="form-group">'+
+					'                       <label for="var01">ESTADO</label>'+
+					'                       <select id="var01" name="var01" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
+					'                           <optgroup label="Estado">'+ selEstado +
+					'                           </optgroup>'+
+					'                       </select>'+
+					'                   </div>'+
+					'               </div>'+
+					'               <div class="col-sm-12 col-md-6">'+
+					'                   <div class="form-group">'+
+					'                       <label for="var02">ORDEN</label>'+
+					'                       <input id="var02" name="var02" value="'+ element.establecimiento_seccion_orden +'" class="form-control" type="number" min="0" max="999" style="text-transform:uppercase; height:40px;" placeholder="NRO ORDEN" '+ bodyOnl +'>'+
+					'                   </div>'+
+					'               </div>'+
+					'               <div class="col-sm-12 col-md-12">'+
+					'                   <div class="form-group">'+
+					'                       <label for="var03">SECCIÓN</label>'+
+					'                       <input id="var03" name="var03" value="'+ element.establecimiento_seccion_nombre +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="SECCIÓN" required '+ bodyOnl +'>'+
+					'                   </div>'+
+					'               </div>'+
+					'               <div class="col-sm-12">'+
+					'                   <div class="form-group">'+
+					'                       <label for="var04">OBSERVACIÓN</label>'+
+					'                       <textarea id="var04" name="var04" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.establecimiento_seccion_observacion +'</textarea>'+
+					'                   </div>'+
+					'               </div>'+
+					'           </div>'+
+					'	    </div>'+
+					'	    <div class="modal-footer">'+ bodyBot +
+					'		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
+					'	    </div>'+
+					'   </form>'+
+					'</div>';
+			}
+		});
+	} else if (codAcc == 5) {
+		aJSON.forEach(element => {
+			rowAuditoria = rowAuditoria + 
+			'					<tr class="bg-conmebol" style="text-align:center;">'+
+			'						<td class="border-top-0">'+ element.auditoria_metodo +'</td>'+
+			'						<td class="border-top-0">'+ element.auditoria_empresa_nombre +'</td>'+
+			'						<td class="border-top-0">'+ element.auditoria_usuario +'</td>'+
+			'						<td class="border-top-0">'+ element.auditoria_fecha_hora +'</td>'+
+			'						<td class="border-top-0">'+ element.auditoria_ip +'</td>'+
+            '						<td class="border-top-0">'+ element.establecimiento_seccion_orden +'</td>'+
+            '						<td class="border-top-0">'+ element.tipo_estado_nombre +'</td>'+
+			'						<td class="border-top-0">'+ element.establecimiento_seccion_nombre +'</td>'+
+			'						<td class="border-top-0">'+ element.establecimiento_seccion_observacion +'</td>'+
+			'					</tr>';
+		});
 
-    $("#modalcontent").empty();
-    $("#modalcontent").append(html);
+		html = 
+		'<div class="modal-content">'+
+		'   <form id="form" data-parsley-validate method="" action="">'+
+		'	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
+		'		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
+		'		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+		'	    </div>'+
+		'	    <div class="modal-body" >'+
+		'			<table id="tableLoad" class="table v-middle" style="width: 100%;">'+
+		'				<thead id="tableAuditoria">'+
+		'					<tr class="bg-conmebol" style="text-align:center;">'+
+		'						<th class="border-top-0">M&Eacute;TODO</th>'+
+		'						<th class="border-top-0">EMPRESA</th>'+
+		'						<th class="border-top-0">USUARIO</th>'+
+		'						<th class="border-top-0">FECHA HORA</th>'+
+		'						<th class="border-top-0">IP</th>'+
+		'						<th class="border-top-0">ORDEN</th>'+
+		'						<th class="border-top-0">ESTADO</th>'+
+		'						<th class="border-top-0">SECCIÓN</th>'+
+		'						<th class="border-top-0">OBSERVACI&Oacute;N</th>'+
+		'					</tr>'+
+		'				</thead>'+
+		'				<tbody>'+rowAuditoria+
+		'				</tbody>'+
+		'			</table>'+
+		'	    </div>'+
+		'	    <div class="modal-footer">'+ bodyBot +
+		'		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
+		'	    </div>'+
+		'   </form>'+
+		'</div>';
+	}
+
+	$("#modal-content").empty();
+	$("#modal-content").append(html);
 }
 
-function setPotrero(codElem, codAcc){
-    var xJSON       = JSON.parse(localStorage.getItem("potreroJSON"))['data'];
-    var xJSON1      = JSON.parse(localStorage.getItem("dominioJSON"))['data'];
-    var xJSON2      = JSON.parse(localStorage.getItem("seccionJSON"))['data'];
+function setPotrero(codElem, codAcc, codEst){
+    var xJSON       = getPotrero(codEst);
+    var aJSON       = getPotrero(codEst);
+    var xJSON1      = getDominio('ESTABLECIMIENTOPASTURA');
+    var xJSON2      = getSeccion(codEst);
     var html        = '';
     var bodyCol     = '';
     var bodyTit     = '';
@@ -1193,88 +1238,104 @@ function setPotrero(codElem, codAcc){
     var selPastura1 = '';
     var selPastura2 = '';
     var selSeccion  = '';
+    var rowAuditoria= '';
 
     switch (codAcc) {
-        case 1:
-            bodyTit = 'POTRERO NUEVO';
-            bodyCol = '#4798e8;';
-            bodyMod = 'C';
-            bodyOnl = '';
-            bodyBot = '           <button type="submit" class="btn btn-info">Agregar</button>';
-            break;
+		case 1:
+			bodyTit = 'NUEVO';
+			bodyCol = '#163562;';
+			bodyMod = 'C';
+			bodyOnl = '';
+			bodyBot = '           <button type="submit" class="btn btn-info">Agregar</button>';
+			break;
 
-        case 2:
-            bodyTit = 'POTRERO VER';
-            bodyCol = '#563dea;';
-            bodyMod = 'R';
-            bodyOnl = 'readonly';
-            bodyBot = '';
-            break;
+		case 2:
+			bodyTit = 'VER';
+			bodyCol = '#6929d5;';
+			bodyMod = 'R';
+			bodyOnl = 'readonly';
+			bodyBot = '';
+			break;
 
-        case 3:
-            bodyTit = 'POTRERO EDITAR';
-            bodyCol = '#1ca58f;';
-            bodyMod = 'U';
-            bodyOnl = '';
-            bodyBot = '           <button type="submit" class="btn btn-success">Actualizar</button>';
-            break;
+		case 3:
+			bodyTit = 'EDITAR';
+			bodyCol = '#007979;';
+			bodyMod = 'U';
+			bodyOnl = '';
+			bodyBot = '           <button type="submit" class="btn btn-success">Actualizar</button>';
+			break;
 
-        case 4:
-            bodyTit = 'POTRERO ELIMINAR';
-            bodyCol = '#eb4c4c;';
-            bodyMod = 'D';
-            bodyOnl = 'readonly';
-            bodyBot = '           <button type="submit" class="btn btn-danger">Eliminar</button>';
-            break;
-    
-        default:
-            break;
-    }
+		case 4:
+			bodyTit = 'ELIMINAR';
+			bodyCol = '#ff2924;';
+			bodyMod = 'D';
+			bodyOnl = 'readonly';
+			bodyBot = '           <button type="submit" class="btn btn-danger">Eliminar</button>';
+			break;
+	
+		case 5:
+			bodyTit = 'AUDITORIA';
+			bodyCol = '#d38109;';
+			bodyMod = 'A';
+			bodyOnl = 'readonly';
+			bodyBot = '';
+			break;
+
+		default:
+			break;
+	}
 
     if (codAcc == 1) {
         xJSON1.forEach(element1 => {
-            if (element1.tipo_estado_codigo == 1 && element1.tipo_dominio == 'ESTABLECIMIENTOPASTURA') {
+            if (element1.tipo_estado_codigo == 1) {
                 selPastura1 = selPastura1 + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
                 selPastura2 = selPastura2 + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
             }
         });
 
         xJSON2.forEach(element1 => {
-            if (element1.tipo_estado_codigo == 1) {
+            if (element1.tipo_estado_codigo == 1 && element1.establecimiento_codigo == codEst) {
                 selSeccion = selSeccion + '                               <option value="'+ element1.establecimiento_seccion_codigo +'">'+ element1.establecimiento_seccion_nombre +'</option>';
             }
         });
 
-        html = 
+		html = 
             '<div class="modal-content">'+
             '   <form id="form" data-parsley-validate method="post" action="../class/crud/establecimiento_potrero.php">'+
-            '	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
-            '		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
-            '		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-            '	    </div>'+
+			'	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
+			'		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
+			'		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+			'	    </div>'+
             '	    <div class="modal-body" >'+
             '           <div class="form-group">'+
-            '               <input id="workEstablecimiento" name="workEstablecimiento" value="" class="form-control" type="hidden" required readonly>'+
+            '               <input id="workEstablecimiento" name="workEstablecimiento" value="'+ codEst +'" class="form-control" type="hidden" required readonly>'+
             '               <input id="workCodigo" name="workCodigo" value="0" class="form-control" type="hidden" required readonly>'+
             '               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
             '               <input id="workPage" name="workPage" value="establecimiento_detalle" class="form-control" type="hidden" required readonly>'+
             '           </div>'+
             '           <div class="row pt-3">'+
-            '               <div class="col-sm-12 col-md-4">'+
+            '               <div class="col-sm-12 col-md-6">'+
             '                   <div class="form-group">'+
             '                       <label for="var01">ESTADO</label>'+
             '                       <select id="var01" name="var01" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
             '                           <optgroup label="Estado">'+
-            '                               <option value="1">HABILITADO</option>'+
-            '                               <option value="2">DESHABILITADO</option>'+
+            '                               <option value="1">ACTIVO</option>'+
+			'                               <option value="2">INACTIVO</option>'+
+			'                               <option value="3">BLOQUEADO</option>'+
             '                           </optgroup>'+
             '                       </select>'+
             '                   </div>'+
             '               </div>'+
+            '               <div class="col-sm-12 col-md-6">'+
+            '                   <div class="form-group">'+
+            '                       <label for="var02">ORDEN</label>'+
+            '                       <input id="var02" name="var02" value="" class="form-control" type="number" min="0" max="999" style="text-transform:uppercase; height:40px;" placeholder="NRO ORDEN" '+ bodyOnl +'>'+
+            '                   </div>'+
+            '               </div>'+
             '               <div class="col-sm-12 col-md-4">'+
             '                   <div class="form-group">'+
-            '                       <label for="var02">TIPO PASTURA 1</label>'+
-            '                       <select id="var02" name="var02" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
+            '                       <label for="var03">TIPO PASTURA 1</label>'+
+            '                       <select id="var03" name="var03" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
             '                           <optgroup label="Tipo Pastura 1">'+ selPastura1 +
             '                           </optgroup>'+
             '                       </select>'+
@@ -1282,8 +1343,8 @@ function setPotrero(codElem, codAcc){
             '               </div>'+
             '               <div class="col-sm-12 col-md-4">'+
             '                   <div class="form-group">'+
-            '                       <label for="var03">TIPO PASTURA 2</label>'+
-            '                       <select id="var03" name="var03" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
+            '                       <label for="var04">TIPO PASTURA 2</label>'+
+            '                       <select id="var04" name="var04" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
             '                           <optgroup label="Tipo Pastura 2">'+ selPastura2 +
             '                           </optgroup>'+
             '                       </select>'+
@@ -1291,59 +1352,49 @@ function setPotrero(codElem, codAcc){
             '               </div>'+
             '               <div class="col-sm-12 col-md-4">'+
             '                   <div class="form-group">'+
-            '                       <label for="var04">SECCIÓN</label>'+
-            '                       <select id="var04" name="var04" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
+            '                       <label for="var05">SECCIÓN</label>'+
+            '                       <select id="var05" name="var05" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
             '                           <optgroup label="Sección">'+ selSeccion + 
             '                           </optgroup>'+
             '                       </select>'+
             '                   </div>'+
             '               </div>'+
-            '               <div class="col-sm-12 col-md-8">'+
+            '               <div class="col-sm-12 col-md-4">'+
             '                   <div class="form-group">'+
-            '                       <label for="var05">POTRERO</label>'+
-            '                       <input id="var05" name="var05" value="" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="POTRERO" required '+ bodyOnl +'>'+
+            '                       <label for="var06">POTRERO</label>'+
+            '                       <input id="var06" name="var06" value="" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="POTRERO" required '+ bodyOnl +'>'+
             '                   </div>'+
             '               </div>'+
             '               <div class="col-sm-12 col-md-4">'+
             '                   <div class="form-group">'+
-            '                       <label for="var06">DIMENSIÓN</label>'+
-            '                       <input id="var06" name="var06" class="form-control" type="number" step=".01" style="text-transform:uppercase; height:40px;" placeholder="DIMENSIÓN">'+
+            '                       <label for="var07">DIMENSIÓN</label>'+
+            '                       <input id="var07" name="var07" class="form-control" type="number" step=".01" style="text-transform:uppercase; height:40px;" placeholder="DIMENSIÓN">'+
             '                   </div>'+
             '               </div>'+
             '               <div class="col-sm-12 col-md-4">'+
             '                   <div class="form-group">'+
-            '                       <label for="var07">CAPACIDAD RECEPTIVDAD</label>'+
-            '                       <input id="var07" name="var07" class="form-control" type="number" step=".01" style="text-transform:uppercase; height:40px;" placeholder="CAPACIDAD RECEPTIVDAD">'+
+            '                       <label for="var08">CAPACIDAD RECEPTIVDAD</label>'+
+            '                       <input id="var08" name="var08" class="form-control" type="number" step=".01" style="text-transform:uppercase; height:40px;" placeholder="CAPACIDAD RECEPTIVDAD">'+
             '                   </div>'+
             '               </div>'+
             '               <div class="col-sm-12">'+
             '                   <div class="form-group">'+
-            '                       <label for="var08">OBSERVACIÓN</label>'+
-            '                       <textarea id="var08" name="var08" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'></textarea>'+
+            '                       <label for="var09">OBSERVACIÓN</label>'+
+            '                       <textarea id="var09" name="var09" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'></textarea>'+
             '                   </div>'+
             '               </div>'+
-            '           </div>'+
-            '	    </div>'+
-            '	    <div class="modal-footer">'+ bodyBot +
-            '		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
-            '	    </div>'+
-            '   </form>'+
-            '</div>';
-    } else {
-        xJSON.forEach(element => {
-            if (element.establecimiento_potrero_codigo == codElem) {
-                if (element.tipo_estado_codigo == 1){
-                    selEstado = 
-                    '                               <option value="1" selected>HABILITADO</option>'+
-                    '                               <option value="2">DESHABILITADO</option>';
-                } else {
-                    selEstado = 
-                    '                               <option value="1">HABILITADO</option>'+
-                    '                               <option value="2" selected>DESHABILITADO</option>';
-                }
-
+            '           </div>'+			
+			'	    </div>'+
+			'	    <div class="modal-footer">'+ bodyBot +
+			'		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
+			'	    </div>'+
+			'   </form>'+
+			'</div>';
+	} else if (codAcc > 1 && codAcc < 5) {
+		xJSON.forEach(element => {
+			if (element.establecimiento_potrero_codigo == codElem) {
                 xJSON1.forEach(element1 => {
-                    if (element1.tipo_estado_codigo == 1 && element1.tipo_dominio == 'ESTABLECIMIENTOPASTURA') {
+                    if (element1.tipo_estado_codigo == 1) {
                         if (element1.tipo_codigo == element.tipo_pastura1_codigo) {
                             selPastura1 = selPastura1 + '                               <option value="'+ element1.tipo_codigo +'" selected>'+ element1.tipo_nombre +'</option>';
                         } else {
@@ -1368,7 +1419,30 @@ function setPotrero(codElem, codAcc){
                     }
                 });
 
-                html = 
+				switch (element.tipo_estado_codigo) {
+					case 1:
+						selEstado = 
+						'                               <option value="1" selected>ACTIVO</option>'+
+						'                               <option value="2">INACTIVO</option>'+
+						'                               <option value="3">BLOQUEADO</option>';
+						break;
+				
+					case 2:
+						selEstado = 
+						'                               <option value="1">ACTIVO</option>'+
+						'                               <option value="2" selected>INACTIVO</option>'+
+						'                               <option value="3">BLOQUEADO</option>';
+						break;
+
+					case 3:
+						selEstado = 
+						'                               <option value="1">ACTIVO</option>'+
+						'                               <option value="2">INACTIVO</option>'+
+						'                               <option value="3" selected>BLOQUEADO</option>';
+						break;
+				}
+
+				html = 
                     '<div class="modal-content">'+
                     '   <form id="form" data-parsley-validate method="post" action="../class/crud/establecimiento_potrero.php">'+
                     '	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
@@ -1377,13 +1451,13 @@ function setPotrero(codElem, codAcc){
                     '	    </div>'+
                     '	    <div class="modal-body" >'+
                     '           <div class="form-group">'+
-                    '               <input id="workEstablecimiento" name="workEstablecimiento" value="'+ element.establecimiento_codigo +'" class="form-control" type="hidden" required readonly>'+
+                    '               <input id="workEstablecimiento" name="workEstablecimiento" value="'+ codEst +'" class="form-control" type="hidden" required readonly>'+
                     '               <input id="workCodigo" name="workCodigo" value="'+ element.establecimiento_potrero_codigo +'" class="form-control" type="hidden" required readonly>'+
                     '               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
                     '               <input id="workPage" name="workPage" value="establecimiento_detalle" class="form-control" type="hidden" required readonly>'+
                     '           </div>'+
                     '           <div class="row pt-3">'+
-                    '               <div class="col-sm-12 col-md-4">'+
+                    '               <div class="col-sm-12 col-md-6">'+
                     '                   <div class="form-group">'+
                     '                       <label for="var01">ESTADO</label>'+
                     '                       <select id="var01" name="var01" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
@@ -1392,10 +1466,16 @@ function setPotrero(codElem, codAcc){
                     '                       </select>'+
                     '                   </div>'+
                     '               </div>'+
+                    '               <div class="col-sm-12 col-md-6">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var02">ORDEN</label>'+
+                    '                       <input id="var02" name="var02" value="'+ element.establecimiento_potrero_orden +'" class="form-control" type="number" min="0" max="999" style="text-transform:uppercase; height:40px;" placeholder="NRO ORDEN" '+ bodyOnl +'>'+
+                    '                   </div>'+
+                    '               </div>'+
                     '               <div class="col-sm-12 col-md-4">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var02">TIPO PASTURA 1</label>'+
-                    '                       <select id="var02" name="var02" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
+                    '                       <label for="var03">TIPO PASTURA 1</label>'+
+                    '                       <select id="var03" name="var03" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
                     '                           <optgroup label="Tipo Pastura 1">'+ selPastura1 +
                     '                           </optgroup>'+
                     '                       </select>'+
@@ -1403,8 +1483,8 @@ function setPotrero(codElem, codAcc){
                     '               </div>'+
                     '               <div class="col-sm-12 col-md-4">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var03">TIPO PASTURA 2</label>'+
-                    '                       <select id="var03" name="var03" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
+                    '                       <label for="var04">TIPO PASTURA 2</label>'+
+                    '                       <select id="var04" name="var04" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
                     '                           <optgroup label="Tipo Pastura 2">'+ selPastura2 +
                     '                           </optgroup>'+
                     '                       </select>'+
@@ -1412,54 +1492,112 @@ function setPotrero(codElem, codAcc){
                     '               </div>'+
                     '               <div class="col-sm-12 col-md-4">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var04">SECCIÓN</label>'+
-                    '                       <select id="var04" name="var04" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
-                    '                           <optgroup label="Sección">'+ selSeccion +
+                    '                       <label for="var05">SECCIÓN</label>'+
+                    '                       <select id="var05" name="var05" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
+                    '                           <optgroup label="Sección">'+ selSeccion + 
                     '                           </optgroup>'+
                     '                       </select>'+
                     '                   </div>'+
                     '               </div>'+
-                    '               <div class="col-sm-12 col-md-8">'+
+                    '               <div class="col-sm-12 col-md-4">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var05">POTRERO</label>'+
-                    '                       <input id="var05" name="var05" value="'+ element.establecimiento_potrero_nombre +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="POTRERO" required '+ bodyOnl +'>'+
+                    '                       <label for="var06">POTRERO</label>'+
+                    '                       <input id="var06" name="var06" value="'+ element.establecimiento_potrero_nombre +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="POTRERO" required '+ bodyOnl +'>'+
                     '                   </div>'+
                     '               </div>'+
                     '               <div class="col-sm-12 col-md-4">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var06">DIMENSIÓN</label>'+
-                    '                       <input id="var06" name="var06" value="'+ element.establecimiento_potrero_hectarea +'" class="form-control" type="number" step=".01" style="text-transform:uppercase; height:40px;" placeholder="DIMENSIÓN"  '+ bodyOnl +'>'+
+                    '                       <label for="var07">DIMENSIÓN</label>'+
+                    '                       <input id="var07" name="var07" value="'+ element.establecimiento_potrero_hectarea +'" class="form-control" type="number" step=".01" style="text-transform:uppercase; height:40px;" placeholder="DIMENSIÓN" '+ bodyOnl +'>'+
                     '                   </div>'+
                     '               </div>'+
                     '               <div class="col-sm-12 col-md-4">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var07">CAPACIDAD RECEPTIVDAD</label>'+
-                    '                       <input id="var07" name="var07" value="'+ element.establecimiento_potrero_capacidad +'" class="form-control" type="number" step=".01" style="text-transform:uppercase; height:40px;" placeholder="CAPACIDAD RECEPTIVDAD"  '+ bodyOnl +'>'+
+                    '                       <label for="var08">CAPACIDAD RECEPTIVDAD</label>'+
+                    '                       <input id="var08" name="var08" value="'+ element.establecimiento_potrero_capacidad+'" class="form-control" type="number" step=".01" style="text-transform:uppercase; height:40px;" placeholder="CAPACIDAD RECEPTIVDAD" '+ bodyOnl +'>'+
                     '                   </div>'+
                     '               </div>'+
                     '               <div class="col-sm-12">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var08">OBSERVACIÓN</label>'+
-                    '                       <textarea id="var08" name="var08" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.establecimiento_potrero_observacion +'</textarea>'+
+                    '                       <label for="var09">OBSERVACIÓN</label>'+
+                    '                       <textarea id="var09" name="var09" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.establecimiento_potrero_observacion +'</textarea>'+
                     '                   </div>'+
                     '               </div>'+
-                    '           </div>'+
+                    '           </div>'+			
                     '	    </div>'+
                     '	    <div class="modal-footer">'+ bodyBot +
                     '		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
                     '	    </div>'+
                     '   </form>'+
                     '</div>';
-            }
-        });
-    }
+			}
+		});
+	} else if (codAcc == 5) {
+		aJSON.forEach(element => {
+			rowAuditoria = rowAuditoria + 
+			'					<tr class="bg-conmebol" style="text-align:center;">'+
+			'						<td class="border-top-0">'+ element.auditoria_metodo +'</td>'+
+			'						<td class="border-top-0">'+ element.auditoria_empresa_nombre +'</td>'+
+			'						<td class="border-top-0">'+ element.auditoria_usuario +'</td>'+
+			'						<td class="border-top-0">'+ element.auditoria_fecha_hora +'</td>'+
+			'						<td class="border-top-0">'+ element.auditoria_ip +'</td>'+
+            '						<td class="border-top-0">'+ element.establecimiento_potrero_orden +'</td>'+
+            '						<td class="border-top-0">'+ element.tipo_estado_nombre +'</td>'+
+            '						<td class="border-top-0">'+ element.tipo_pastura1_nombre +'</td>'+
+            '						<td class="border-top-0">'+ element.tipo_pastura2_nombre +'</td>'+
+            '						<td class="border-top-0">'+ element.establecimiento_seccion_nombre +'</td>'+
+            '						<td class="border-top-0">'+ element.establecimiento_potrero_nombre +'</td>'+
+            '						<td class="border-top-0">'+ element.establecimiento_potrero_hectarea +'</td>'+
+            '						<td class="border-top-0">'+ element.establecimiento_potrero_capacidad +'</td>'+
+            '						<td class="border-top-0">'+ element.establecimiento_potrero_observacion +'</td>'+
+			'					</tr>';
+		});
 
-    $("#modalcontent").empty();
-    $("#modalcontent").append(html);
+		html = 
+		'<div class="modal-content">'+
+		'   <form id="form" data-parsley-validate method="" action="">'+
+		'	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
+		'		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
+		'		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+		'	    </div>'+
+		'	    <div class="modal-body" >'+
+		'			<table id="tableLoad" class="table v-middle" style="width: 100%;">'+
+		'				<thead id="tableAuditoria">'+
+		'					<tr class="bg-conmebol" style="text-align:center;">'+
+		'						<th class="border-top-0">M&Eacute;TODO</th>'+
+		'						<th class="border-top-0">EMPRESA</th>'+
+		'						<th class="border-top-0">USUARIO</th>'+
+		'						<th class="border-top-0">FECHA HORA</th>'+
+		'						<th class="border-top-0">IP</th>'+
+		'						<th class="border-top-0">ORDEN</th>'+
+        '						<th class="border-top-0">ESTADO</th>'+
+        '						<th class="border-top-0">TIPO PASTURA 1</th>'+
+        '						<th class="border-top-0">TIPO PASTURA 2</th>'+
+        '						<th class="border-top-0">SECCIÓN</th>'+
+        '						<th class="border-top-0">POTRERO</th>'+
+        '						<th class="border-top-0">HECTAREA</th>'+
+        '						<th class="border-top-0">CAPACIDAD RECEPTIVDAD </th>'+
+		'						<th class="border-top-0">OBSERVACI&Oacute;N</th>'+
+		'					</tr>'+
+		'				</thead>'+
+		'				<tbody>'+rowAuditoria+
+		'				</tbody>'+
+		'			</table>'+
+		'	    </div>'+
+		'	    <div class="modal-footer">'+ bodyBot +
+		'		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
+		'	    </div>'+
+		'   </form>'+
+		'</div>';
+	}
+
+	$("#modal-content").empty();
+	$("#modal-content").append(html);
 }
 
-function setLote(codElem, codAcc){
-    var xJSON       = JSON.parse(localStorage.getItem("loteJSON"))['data'];
+function setLote(codElem, codAcc, codEst){
+    var xJSON       = getLote(codEst);
+    var aJSON       = getLote(codEst);
     var html        = '';
     var bodyCol     = '';
     var bodyTit     = '';
@@ -1467,58 +1605,324 @@ function setLote(codElem, codAcc){
     var bodyOnl     = '';
     var bodyBot     = '';
     var selEstado   = '';
+    var rowAuditoria= '';
 
     switch (codAcc) {
-        case 1:
-            bodyTit = 'LOTE NUEVO';
-            bodyCol = '#4798e8;';
-            bodyMod = 'C';
-            bodyOnl = '';
-            bodyBot = '           <button type="submit" class="btn btn-info">Agregar</button>';
-            break;
+		case 1:
+			bodyTit = 'NUEVO';
+			bodyCol = '#163562;';
+			bodyMod = 'C';
+			bodyOnl = '';
+			bodyBot = '           <button type="submit" class="btn btn-info">Agregar</button>';
+			break;
 
-        case 2:
-            bodyTit = 'LOTE VER';
-            bodyCol = '#563dea;';
-            bodyMod = 'R';
-            bodyOnl = 'readonly';
-            bodyBot = '';
-            break;
+		case 2:
+			bodyTit = 'VER';
+			bodyCol = '#6929d5;';
+			bodyMod = 'R';
+			bodyOnl = 'readonly';
+			bodyBot = '';
+			break;
 
-        case 3:
-            bodyTit = 'LOTE EDITAR';
-            bodyCol = '#1ca58f;';
-            bodyMod = 'U';
-            bodyOnl = '';
-            bodyBot = '           <button type="submit" class="btn btn-success">Actualizar</button>';
-            break;
+		case 3:
+			bodyTit = 'EDITAR';
+			bodyCol = '#007979;';
+			bodyMod = 'U';
+			bodyOnl = '';
+			bodyBot = '           <button type="submit" class="btn btn-success">Actualizar</button>';
+			break;
 
-        case 4:
-            bodyTit = 'LOTE ELIMINAR';
-            bodyCol = '#eb4c4c;';
-            bodyMod = 'D';
-            bodyOnl = 'readonly';
-            bodyBot = '           <button type="submit" class="btn btn-danger">Eliminar</button>';
-            break;
-    
-        default:
-            break;
-    }
+		case 4:
+			bodyTit = 'ELIMINAR';
+			bodyCol = '#ff2924;';
+			bodyMod = 'D';
+			bodyOnl = 'readonly';
+			bodyBot = '           <button type="submit" class="btn btn-danger">Eliminar</button>';
+			break;
+	
+		case 5:
+			bodyTit = 'AUDITORIA';
+			bodyCol = '#d38109;';
+			bodyMod = 'A';
+			bodyOnl = 'readonly';
+			bodyBot = '';
+			break;
+
+		default:
+			break;
+	}
 
     if (codAcc == 1) {
-        html = 
+		html = 
             '<div class="modal-content">'+
             '   <form id="form" data-parsley-validate method="post" action="../class/crud/establecimiento_lote.php">'+
-            '	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
-            '		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
-            '		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-            '	    </div>'+
+			'	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
+			'		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
+			'		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+			'	    </div>'+
             '	    <div class="modal-body" >'+
             '           <div class="form-group">'+
-            '               <input id="workEstablecimiento" name="workEstablecimiento" value="" class="form-control" type="hidden" required readonly>'+
+            '               <input id="workEstablecimiento" name="workEstablecimiento" value="'+ codEst +'" class="form-control" type="hidden" required readonly>'+
             '               <input id="workCodigo" name="workCodigo" value="0" class="form-control" type="hidden" required readonly>'+
             '               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
             '               <input id="workPage" name="workPage" value="establecimiento_detalle" class="form-control" type="hidden" required readonly>'+
+            '           </div>'+
+            '           <div class="row pt-3">'+
+            '               <div class="col-sm-12 col-md-6">'+
+            '                   <div class="form-group">'+
+            '                       <label for="var01">ESTADO</label>'+
+            '                       <select id="var01" name="var01" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
+            '                           <optgroup label="Estado">'+
+            '                               <option value="1">ACTIVO</option>'+
+			'                               <option value="2">INACTIVO</option>'+
+			'                               <option value="3">BLOQUEADO</option>'+
+            '                           </optgroup>'+
+            '                       </select>'+
+            '                   </div>'+
+            '               </div>'+
+            '               <div class="col-sm-12 col-md-6">'+
+            '                   <div class="form-group">'+
+            '                       <label for="var02">ORDEN</label>'+
+            '                       <input id="var02" name="var02" value="" class="form-control" type="number" min="0" max="999" style="text-transform:uppercase; height:40px;" placeholder="NRO ORDEN" '+ bodyOnl +'>'+
+            '                   </div>'+
+            '               </div>'+
+            '               <div class="col-sm-12 col-md-12">'+
+            '                   <div class="form-group">'+
+            '                       <label for="var03">LOTE</label>'+
+            '                       <input id="var03" name="var03" value="" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="LOTE" required '+ bodyOnl +'>'+
+            '                   </div>'+
+            '               </div>'+
+            '               <div class="col-sm-12">'+
+            '                   <div class="form-group">'+
+            '                       <label for="var04">OBSERVACIÓN</label>'+
+            '                       <textarea id="var04" name="var04" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'></textarea>'+
+            '                   </div>'+
+            '               </div>'+
+            '           </div>'+			
+			'	    </div>'+
+			'	    <div class="modal-footer">'+ bodyBot +
+			'		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
+			'	    </div>'+
+			'   </form>'+
+			'</div>';
+	} else if (codAcc > 1 && codAcc < 5) {
+		xJSON.forEach(element => {
+			if (element.establecimiento_lote_codigo == codElem) {
+				switch (element.tipo_estado_codigo) {
+					case 1:
+						selEstado = 
+						'                               <option value="1" selected>ACTIVO</option>'+
+						'                               <option value="2">INACTIVO</option>'+
+						'                               <option value="3">BLOQUEADO</option>';
+						break;
+				
+					case 2:
+						selEstado = 
+						'                               <option value="1">ACTIVO</option>'+
+						'                               <option value="2" selected>INACTIVO</option>'+
+						'                               <option value="3">BLOQUEADO</option>';
+						break;
+
+					case 3:
+						selEstado = 
+						'                               <option value="1">ACTIVO</option>'+
+						'                               <option value="2">INACTIVO</option>'+
+						'                               <option value="3" selected>BLOQUEADO</option>';
+						break;
+				}
+
+				html = 
+					'<div class="modal-content">'+
+                    '   <form id="form" data-parsley-validate method="post" action="../class/crud/establecimiento_lote.php">'+
+                    '	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
+					'		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
+					'		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+					'	    </div>'+
+					'	    <div class="modal-body" >'+
+                    '           <div class="form-group">'+
+                    '               <input id="workEstablecimiento" name="workEstablecimiento" value="'+ codEst +'" class="form-control" type="hidden" required readonly>'+
+					'               <input id="workCodigo" name="workCodigo" value="'+ element.establecimiento_lote_codigo +'" class="form-control" type="hidden" required readonly>'+
+					'               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
+					'               <input id="workPage" name="workPage" value="establecimiento_detalle" class="form-control" type="hidden" required readonly>'+
+                    '           </div>'+
+					'           <div class="row pt-3">'+
+					'               <div class="col-sm-12 col-md-6">'+
+					'                   <div class="form-group">'+
+					'                       <label for="var01">ESTADO</label>'+
+					'                       <select id="var01" name="var01" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
+					'                           <optgroup label="Estado">'+ selEstado +
+					'                           </optgroup>'+
+					'                       </select>'+
+					'                   </div>'+
+					'               </div>'+
+					'               <div class="col-sm-12 col-md-6">'+
+					'                   <div class="form-group">'+
+					'                       <label for="var02">ORDEN</label>'+
+					'                       <input id="var02" name="var02" value="'+ element.establecimiento_lote_orden +'" class="form-control" type="number" min="0" max="999" style="text-transform:uppercase; height:40px;" placeholder="NRO ORDEN" '+ bodyOnl +'>'+
+					'                   </div>'+
+					'               </div>'+
+					'               <div class="col-sm-12 col-md-12">'+
+					'                   <div class="form-group">'+
+					'                       <label for="var03">SECCIÓN</label>'+
+					'                       <input id="var03" name="var03" value="'+ element.establecimiento_lote_nombre +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="LOTE" required '+ bodyOnl +'>'+
+					'                   </div>'+
+					'               </div>'+
+					'               <div class="col-sm-12">'+
+					'                   <div class="form-group">'+
+					'                       <label for="var04">OBSERVACIÓN</label>'+
+					'                       <textarea id="var04" name="var04" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.establecimiento_lote_observacion +'</textarea>'+
+					'                   </div>'+
+					'               </div>'+
+					'           </div>'+
+					'	    </div>'+
+					'	    <div class="modal-footer">'+ bodyBot +
+					'		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
+					'	    </div>'+
+					'   </form>'+
+					'</div>';
+			}
+		});
+	} else if (codAcc == 5) {
+		aJSON.forEach(element => {
+			rowAuditoria = rowAuditoria + 
+			'					<tr class="bg-conmebol" style="text-align:center;">'+
+			'						<td class="border-top-0">'+ element.auditoria_metodo +'</td>'+
+			'						<td class="border-top-0">'+ element.auditoria_empresa_nombre +'</td>'+
+			'						<td class="border-top-0">'+ element.auditoria_usuario +'</td>'+
+			'						<td class="border-top-0">'+ element.auditoria_fecha_hora +'</td>'+
+			'						<td class="border-top-0">'+ element.auditoria_ip +'</td>'+
+            '						<td class="border-top-0">'+ element.establecimiento_lote_orden +'</td>'+
+            '						<td class="border-top-0">'+ element.tipo_estado_nombre +'</td>'+
+			'						<td class="border-top-0">'+ element.establecimiento_lote_nombre +'</td>'+
+			'						<td class="border-top-0">'+ element.establecimiento_lote_observacion +'</td>'+
+			'					</tr>';
+		});
+
+		html = 
+		'<div class="modal-content">'+
+		'   <form id="form" data-parsley-validate method="" action="">'+
+		'	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
+		'		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
+		'		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+		'	    </div>'+
+		'	    <div class="modal-body" >'+
+		'			<table id="tableLoad" class="table v-middle" style="width: 100%;">'+
+		'				<thead id="tableAuditoria">'+
+		'					<tr class="bg-conmebol" style="text-align:center;">'+
+		'						<th class="border-top-0">M&Eacute;TODO</th>'+
+		'						<th class="border-top-0">EMPRESA</th>'+
+		'						<th class="border-top-0">USUARIO</th>'+
+		'						<th class="border-top-0">FECHA HORA</th>'+
+		'						<th class="border-top-0">IP</th>'+
+		'						<th class="border-top-0">ORDEN</th>'+
+		'						<th class="border-top-0">ESTADO</th>'+
+		'						<th class="border-top-0">LOTE</th>'+
+		'						<th class="border-top-0">OBSERVACI&Oacute;N</th>'+
+		'					</tr>'+
+		'				</thead>'+
+		'				<tbody>'+rowAuditoria+
+		'				</tbody>'+
+		'			</table>'+
+		'	    </div>'+
+		'	    <div class="modal-footer">'+ bodyBot +
+		'		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
+		'	    </div>'+
+		'   </form>'+
+		'</div>';
+	}
+
+	$("#modal-content").empty();
+	$("#modal-content").append(html);
+}
+
+function setPropietario(codElem, codAcc, codEst){
+    var xJSON       = getPropietario(codEst);
+    var aJSON       = getPropietario(codEst);
+    var xJSON1      = getDominio('USUARIOROL');
+    var xJSON2      = getPersona();
+    var html        = '';
+    var bodyCol     = '';
+    var bodyTit     = '';
+    var bodyMod     = '';
+    var bodyOnl     = '';
+    var bodyBot     = '';
+    var selEstado   = '';
+    var selRol      = '';
+    var selPersona  = '';
+    var rowAuditoria= '';
+
+    switch (codAcc) {
+		case 1:
+			bodyTit = 'NUEVO';
+			bodyCol = '#163562;';
+			bodyMod = 'C';
+			bodyOnl = '';
+			bodyBot = '           <button type="submit" class="btn btn-info">Agregar</button>';
+			break;
+
+		case 2:
+			bodyTit = 'VER';
+			bodyCol = '#6929d5;';
+			bodyMod = 'R';
+			bodyOnl = 'readonly';
+			bodyBot = '';
+			break;
+
+		case 3:
+			bodyTit = 'EDITAR';
+			bodyCol = '#007979;';
+			bodyMod = 'U';
+			bodyOnl = '';
+			bodyBot = '           <button type="submit" class="btn btn-success">Actualizar</button>';
+			break;
+
+		case 4:
+			bodyTit = 'ELIMINAR';
+			bodyCol = '#ff2924;';
+			bodyMod = 'D';
+			bodyOnl = 'readonly';
+			bodyBot = '           <button type="submit" class="btn btn-danger">Eliminar</button>';
+			break;
+	
+		case 5:
+			bodyTit = 'AUDITORIA';
+			bodyCol = '#d38109;';
+			bodyMod = 'A';
+			bodyOnl = 'readonly';
+			bodyBot = '';
+			break;
+
+		default:
+			break;
+	}
+
+    if (codAcc == 1) {
+        xJSON1.forEach(element1 => {
+            if (element1.tipo_estado_codigo == 1) {
+                selRol = selRol + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
+            }
+        });
+
+        xJSON2.forEach(element1 => {
+            if (element1.tipo_estado_codigo == 1 && element1.tipo_persona_codigo != 93) {
+                selPersona = selPersona + '                               <option value="'+ element1.persona_codigo +'">'+ element1.persona_completo + ' | ' + element1.persona_documento + ' | ' + element1.persona_codigo_sitrap + ' | ' + element1.persona_codigo_sigor +'</option>';
+            }
+        });
+
+		html = 
+            '<div class="modal-content">'+
+            '   <form id="form" data-parsley-validate method="post" action="../class/crud/establecimiento_persona.php">'+
+			'	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
+			'		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
+			'		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+			'	    </div>'+
+            '	    <div class="modal-body" >'+
+            '           <div class="form-group">'+
+            '               <input id="workEstablecimiento" name="workEstablecimiento" value="'+ codEst +'" class="form-control" type="hidden" required readonly>'+
+            '               <input id="workCodigo" name="workCodigo" value="0" class="form-control" type="hidden" required readonly>'+
+            '               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
+            '               <input id="workPage" name="workPage" value="establecimiento_detalle" class="form-control" type="hidden" required readonly>'+
+            '               <button type="button" class="btn btn-info mr-auto" onclick="setPersona(2, '+ codEst +');" data-toggle="modal" data-target="#modal-dialog2"><i class="ti-plus"></i> Agregar Persona</button>'+
             '           </div>'+
             '           <div class="row pt-3">'+
             '               <div class="col-sm-12 col-md-4">'+
@@ -1526,199 +1930,32 @@ function setLote(codElem, codAcc){
             '                       <label for="var01">ESTADO</label>'+
             '                       <select id="var01" name="var01" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
             '                           <optgroup label="Estado">'+
-            '                               <option value="1">HABILITADO</option>'+
-            '                               <option value="2">DESHABILITADO</option>'+
-            '                           </optgroup>'+
-            '                       </select>'+
-            '                   </div>'+
-            '               </div>'+
-            '               <div class="col-sm-12 col-md-8">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var02">LOTE</label>'+
-            '                       <input id="var02" name="var02" value="" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="LOTE" required '+ bodyOnl +'>'+
-            '                   </div>'+
-            '               </div>'+
-            '               <div class="col-sm-12">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var03">OBSERVACIÓN</label>'+
-            '                       <textarea id="var03" name="var03" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'></textarea>'+
-            '                   </div>'+
-            '               </div>'+
-            '           </div>'+
-            '	    </div>'+
-            '	    <div class="modal-footer">'+ bodyBot +
-            '		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
-            '	    </div>'+
-            '   </form>'+
-            '</div>';
-    } else {
-        xJSON.forEach(element => {
-            if (element.establecimiento_lote_codigo == codElem) {
-                if (element.tipo_estado_codigo == 1){
-                    selEstado = 
-                    '                               <option value="1" selected>HABILITADO</option>'+
-                    '                               <option value="2">DESHABILITADO</option>';
-                } else {
-                    selEstado = 
-                    '                               <option value="1">HABILITADO</option>'+
-                    '                               <option value="2" selected>DESHABILITADO</option>';
-                }
-
-                html = 
-                    '<div class="modal-content">'+
-                    '   <form id="form" data-parsley-validate method="post" action="../class/crud/establecimiento_lote.php">'+
-                    '	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
-                    '		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
-                    '		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-                    '	    </div>'+
-                    '	    <div class="modal-body" >'+
-                    '           <div class="form-group">'+
-                    '               <input id="workEstablecimiento" name="workEstablecimiento" value="'+ element.establecimiento_codigo +'" class="form-control" type="hidden" required readonly>'+
-                    '               <input id="workCodigo" name="workCodigo" value="'+ element.establecimiento_lote_codigo +'" class="form-control" type="hidden" required readonly>'+
-                    '               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
-                    '               <input id="workPage" name="workPage" value="establecimiento_detalle" class="form-control" type="hidden" required readonly>'+
-                    '           </div>'+
-                    '           <div class="row pt-3">'+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var01">ESTADO</label>'+
-                    '                       <select id="var01" name="var01" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
-                    '                           <optgroup label="Estado">'+ selEstado +
-                    '                           </optgroup>'+
-                    '                       </select>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    '               <div class="col-sm-12 col-md-8">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var02">LOTE</label>'+
-                    '                       <input id="var02" name="var02" value="'+ element.establecimiento_lote_nombre +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="LOTE" required '+ bodyOnl +'>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    '               <div class="col-sm-12">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var03">OBSERVACIÓN</label>'+
-                    '                       <textarea id="var03" name="var03" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.establecimiento_lote_observacion +'</textarea>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    '           </div>'+
-                    '	    </div>'+
-                    '	    <div class="modal-footer">'+ bodyBot +
-                    '		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
-                    '	    </div>'+
-                    '   </form>'+
-                    '</div>';
-            }
-        });
-    }
-
-    $("#modalcontent").empty();
-    $("#modalcontent").append(html);
-}
-
-function setPersona(codElem, codAcc){
-    var xJSON       = JSON.parse(localStorage.getItem("personaJSON"))['data'];
-    var xJSON1      = JSON.parse(localStorage.getItem("dominioJSON"))['data'];
-    var xJSON2      = JSON.parse(localStorage.getItem("personasJSON"))['data'];
-    var html        = '';
-    var bodyCol     = '';
-    var bodyTit     = '';
-    var bodyMod     = '';
-    var bodyOnl     = '';
-    var bodyBot     = '';
-    var selEstado   = '';
-    var selUsuario  = '';
-    var selPersona  = '';
-
-    switch (codAcc) {
-        case 1:
-            bodyTit = 'PERSONA NUEVA';
-            bodyCol = '#4798e8;';
-            bodyMod = 'C';
-            bodyOnl = '';
-            bodyBot = '           <button type="submit" class="btn btn-info">Agregar</button>';
-            break;
-
-        case 2:
-            bodyTit = 'PERSONA VER';
-            bodyCol = '#563dea;';
-            bodyMod = 'R';
-            bodyOnl = 'readonly';
-            bodyBot = '';
-            break;
-
-        case 3:
-            bodyTit = 'PERSONA EDITAR';
-            bodyCol = '#1ca58f;';
-            bodyMod = 'U';
-            bodyOnl = '';
-            bodyBot = '           <button type="submit" class="btn btn-success">Actualizar</button>';
-            break;
-
-        case 4:
-            bodyTit = 'PERSONA ELIMINAR';
-            bodyCol = '#eb4c4c;';
-            bodyMod = 'D';
-            bodyOnl = 'readonly';
-            bodyBot = '           <button type="submit" class="btn btn-danger">Eliminar</button>';
-            break;
-    
-        default:
-            break;
-    }
-
-    if (codAcc == 1) {
-        xJSON1.forEach(element1 => {
-            if (element1.tipo_estado_codigo == 1 && element1.tipo_dominio == 'USUARIOROL') {
-                selUsuario = selUsuario + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
-            }
-        });
-
-        xJSON2.forEach(element2 => {
-            if (element2.tipo_estado_codigo == 1) {
-                selPersona = selPersona + '                               <option value="'+ element2.persona_codigo +'">'+ element2.persona_completo + ' | ' + element2.persona_documento + ' | ' + element2.persona_codigo_sitrap + ' | ' + element2.persona_codigo_sigor + '</option>';
-            }
-        });
-
-        html = 
-            '<div class="modal-content">'+
-            '   <form id="form" data-parsley-validate method="post" action="../class/crud/establecimiento_persona.php">'+
-            '	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
-            '		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
-            '		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-            '	    </div>'+
-            '	    <div class="modal-body" >'+
-            '           <div class="form-group">'+
-            '               <input id="workEstablecimiento" name="workEstablecimiento" value="" class="form-control" type="hidden" required readonly>'+
-            '               <input id="workCodigo" name="workCodigo" value="0" class="form-control" type="hidden" required readonly>'+
-            '               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
-            '               <input id="workPage" name="workPage" value="establecimiento_detalle" class="form-control" type="hidden" required readonly>'+
-            '               <input id="workCount" name="workCount" value="1" class="form-control" type="hidden" required readonly>'+
-            '           </div>'+
-            '           <div class="row pt-3">'+
-            '               <div class="col-sm-12 col-md-4">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var01_1">ESTADO</label>'+
-            '                       <select id="var01_1" name="var01_1" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
-            '                           <optgroup label="Estado">'+
-            '                               <option value="1">HABILITADO</option>'+
-            '                               <option value="2">DESHABILITADO</option>'+
+            '                               <option value="1">ACTIVO</option>'+
+			'                               <option value="2">INACTIVO</option>'+
+			'                               <option value="3">BLOQUEADO</option>'+
             '                           </optgroup>'+
             '                       </select>'+
             '                   </div>'+
             '               </div>'+
             '               <div class="col-sm-12 col-md-4">'+
             '                   <div class="form-group">'+
-            '                       <label for="var02_1">TIPO USUARIO</label>'+
-            '                       <select id="var02_1" name="var02_1" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
-            '                           <optgroup label="Tipo Usuario">'+ selUsuario +
-            '                           </optgroup>'+
-            '                       </select>'+
+            '                       <label for="var02">ORDEN</label>'+
+            '                       <input id="var02" name="var02" value="" class="form-control" type="number" min="0" max="999" style="text-transform:uppercase; height:40px;" placeholder="NRO ORDEN" '+ bodyOnl +'>'+
             '                   </div>'+
             '               </div>'+
             '               <div class="col-sm-12 col-md-4">'+
             '                   <div class="form-group">'+
-            '                       <label for="var03_1">PERSONA</label>'+
-            '                       <select id="var03_1" name="var03_1" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
+            '                       <label for="var03">ROL</label>'+
+            '                       <select id="var03" name="var03" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
+            '                           <optgroup label="Rol">'+ selRol +
+            '                           </optgroup>'+
+            '                       </select>'+
+            '                   </div>'+
+            '               </div>'+
+            '               <div class="col-sm-12 col-md-12">'+
+            '                   <div class="form-group">'+
+            '                       <label for="var04">PERSONA</label>'+
+            '                       <select id="var04" name="var04" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
             '                           <optgroup label="Persona">'+ selPersona +
             '                           </optgroup>'+
             '                       </select>'+
@@ -1726,51 +1963,64 @@ function setPersona(codElem, codAcc){
             '               </div>'+
             '               <div class="col-sm-12">'+
             '                   <div class="form-group">'+
-            '                       <label for="var04_1">OBSERVACIÓN</label>'+
-            '                       <textarea id="var04_1" name="var04_1" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'></textarea>'+
+            '                       <label for="var05">OBSERVACIÓN</label>'+
+            '                       <textarea id="var05" name="var05" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'></textarea>'+
             '                   </div>'+
             '               </div>'+
-            '           </div>'+
-            '	    </div>'+
-            '	    <div class="modal-footer">'+ bodyBot +
-            '		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
-            '	    </div>'+
-            '   </form>'+
-            '</div>';
-    } else {
-        xJSON.forEach(element => {
-            if (element.establecimiento_persona_codigo == codElem) {
-                if (element.tipo_estado_codigo == 1){
-                    selEstado = 
-                    '                               <option value="1" selected>HABILITADO</option>'+
-                    '                               <option value="2">DESHABILITADO</option>';
-                } else {
-                    selEstado = 
-                    '                               <option value="1">HABILITADO</option>'+
-                    '                               <option value="2" selected>DESHABILITADO</option>';
-                }
-
+            '           </div>'+			
+			'	    </div>'+
+			'	    <div class="modal-footer">'+ bodyBot +
+			'		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
+			'	    </div>'+
+			'   </form>'+
+			'</div>';
+	} else if (codAcc > 1 && codAcc < 5) {
+		xJSON.forEach(element => {
+			if (element.establecimiento_persona_codigo == codElem) {
                 xJSON1.forEach(element1 => {
-                    if (element1.tipo_estado_codigo == 1 && element1.tipo_dominio == 'USUARIOROL') {
-                        if (element1.tipo_codigo == element.tipo_usuario_codigo) {
-                            selUsuario = selUsuario + '                               <option value="'+ element1.tipo_codigo +'" selected>'+ element1.tipo_nombre +'</option>';
+                    if (element1.tipo_estado_codigo == 1) {
+                        if (element1.tipo_codigo == element.tipo_rol_codigo) {
+                            selRol = selRol + '                               <option value="'+ element1.tipo_codigo +'" selected>'+ element1.tipo_nombre +'</option>';
                         } else {
-                            selUsuario = selUsuario + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
+                            selRol = selRol + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
+                        }
+                    }
+                });
+        
+                xJSON2.forEach(element1 => {
+                    if (element1.tipo_estado_codigo == 1) {
+                        if (element1.persona_codigo == element.persona_codigo) {
+                            selPersona = selPersona + '                               <option value="'+ element1.persona_codigo +'" selected>'+ element1.persona_completo + ' | ' + element1.persona_documento + ' | ' + element1.persona_codigo_sitrap + ' | ' + element1.persona_codigo_sigor +'</option>';
+                        } else {
+                            selPersona = selPersona + '                               <option value="'+ element1.persona_codigo +'">'+ element1.persona_completo + ' | ' + element1.persona_documento + ' | ' + element1.persona_codigo_sitrap + ' | ' + element1.persona_codigo_sigor +'</option>';
                         }
                     }
                 });
 
-                xJSON2.forEach(element2 => {
-                    if (element2.tipo_estado_codigo == 1) {
-                        if (element2.persona_codigo == element.persona_codigo) {
-                            selPersona = selPersona + '                               <option value="'+ element2.persona_codigo +'" selected>'+ element2.persona_completo + ' | ' + element2.persona_documento + ' | ' + element2.persona_codigo_sitrap + ' | ' + element2.persona_codigo_sigor + '</option>';
-                        } else {
-                            selPersona = selPersona + '                               <option value="'+ element2.persona_codigo +'">'+ element2.persona_completo + ' | ' + element2.persona_documento + ' | ' + element2.persona_codigo_sitrap + ' | ' + element2.persona_codigo_sigor + '</option>';
-                        }                                
-                    }
-                });
+				switch (element.tipo_estado_codigo) {
+					case 1:
+						selEstado = 
+						'                               <option value="1" selected>ACTIVO</option>'+
+						'                               <option value="2">INACTIVO</option>'+
+						'                               <option value="3">BLOQUEADO</option>';
+						break;
+				
+					case 2:
+						selEstado = 
+						'                               <option value="1">ACTIVO</option>'+
+						'                               <option value="2" selected>INACTIVO</option>'+
+						'                               <option value="3">BLOQUEADO</option>';
+						break;
 
-                html = 
+					case 3:
+						selEstado = 
+						'                               <option value="1">ACTIVO</option>'+
+						'                               <option value="2">INACTIVO</option>'+
+						'                               <option value="3" selected>BLOQUEADO</option>';
+						break;
+				}
+
+				html = 
                     '<div class="modal-content">'+
                     '   <form id="form" data-parsley-validate method="post" action="../class/crud/establecimiento_persona.php">'+
                     '	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
@@ -1779,17 +2029,17 @@ function setPersona(codElem, codAcc){
                     '	    </div>'+
                     '	    <div class="modal-body" >'+
                     '           <div class="form-group">'+
-                    '               <input id="workEstablecimiento" name="workEstablecimiento" value="'+ element.establecimiento_codigo +'" class="form-control" type="hidden" required readonly>'+
+                    '               <input id="workEstablecimiento" name="workEstablecimiento" value="'+ codEst +'" class="form-control" type="hidden" required readonly>'+
                     '               <input id="workCodigo" name="workCodigo" value="'+ element.establecimiento_persona_codigo +'" class="form-control" type="hidden" required readonly>'+
                     '               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
                     '               <input id="workPage" name="workPage" value="establecimiento_detalle" class="form-control" type="hidden" required readonly>'+
-                    '               <input id="workCount" name="workCount" value="1" class="form-control" type="hidden" required readonly>'+
+                    '               <button type="button" class="btn btn-info mr-auto" onclick="setPersona(2, '+ codEst +');" data-toggle="modal" data-target="#modal-dialog2"><i class="ti-plus"></i> Agregar Persona</button>'+
                     '           </div>'+
                     '           <div class="row pt-3">'+
                     '               <div class="col-sm-12 col-md-4">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var101_1">ESTADO</label>'+
-                    '                       <select id="var101_1" name="var101_1" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
+                    '                       <label for="var01">ESTADO</label>'+
+                    '                       <select id="var01" name="var01" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
                     '                           <optgroup label="Estado">'+ selEstado +
                     '                           </optgroup>'+
                     '                       </select>'+
@@ -1797,17 +2047,23 @@ function setPersona(codElem, codAcc){
                     '               </div>'+
                     '               <div class="col-sm-12 col-md-4">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var102_1">TIPO USUARIO</label>'+
-                    '                       <select id="var102_1" name="var102_1" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
-                    '                           <optgroup label="Tipo Usuario">'+ selUsuario +
-                    '                           </optgroup>'+
-                    '                       </select>'+
+                    '                       <label for="var02">ORDEN</label>'+
+                    '                       <input id="var02" name="var02" value="'+ element.establecimiento_persona_orden +'" class="form-control" type="number" min="0" max="999" style="text-transform:uppercase; height:40px;" placeholder="NRO ORDEN" '+ bodyOnl +'>'+
                     '                   </div>'+
                     '               </div>'+
                     '               <div class="col-sm-12 col-md-4">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var103_1">PERSONA</label>'+
-                    '                       <select id="var103_1" name="var103_1" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
+                    '                       <label for="var03">ROL</label>'+
+                    '                       <select id="var03" name="var03" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
+                    '                           <optgroup label="Rol">'+ selRol +
+                    '                           </optgroup>'+
+                    '                       </select>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-12">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var04">PERSONA</label>'+
+                    '                       <select id="var04" name="var04" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
                     '                           <optgroup label="Persona">'+ selPersona +
                     '                           </optgroup>'+
                     '                       </select>'+
@@ -1815,20 +2071,191 @@ function setPersona(codElem, codAcc){
                     '               </div>'+
                     '               <div class="col-sm-12">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var104_1">OBSERVACIÓN</label>'+
-                    '                       <textarea id="var104_1" name="var104_1" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>' + element.establecimiento_persona_observacion +'</textarea>'+
+                    '                       <label for="var05">OBSERVACIÓN</label>'+
+                    '                       <textarea id="var05" name="var05" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.establecimiento_persona_observacion +'</textarea>'+
                     '                   </div>'+
                     '               </div>'+
-                    '           </div>'+
+                    '           </div>'+			
                     '	    </div>'+
                     '	    <div class="modal-footer">'+ bodyBot +
                     '		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
                     '	    </div>'+
                     '   </form>'+
                     '</div>';
-            }
-        });
+			}
+		});
+	} else if (codAcc == 5) {
+		aJSON.forEach(element => {
+			rowAuditoria = rowAuditoria + 
+			'					<tr class="bg-conmebol" style="text-align:center;">'+
+			'						<td class="border-top-0">'+ element.auditoria_metodo +'</td>'+
+			'						<td class="border-top-0">'+ element.auditoria_empresa_nombre +'</td>'+
+			'						<td class="border-top-0">'+ element.auditoria_usuario +'</td>'+
+			'						<td class="border-top-0">'+ element.auditoria_fecha_hora +'</td>'+
+			'						<td class="border-top-0">'+ element.auditoria_ip +'</td>'+
+            '						<td class="border-top-0">'+ element.establecimiento_persona_orden +'</td>'+
+            '						<td class="border-top-0">'+ element.tipo_estado_nombre +'</td>'+
+            '						<td class="border-top-0">'+ element.tipo_rol_nombre +'</td>'+
+            '						<td class="border-top-0">'+ element.persona_completo +'</td>'+
+            '						<td class="border-top-0">'+ element.establecimiento_persona_observacion +'</td>'+
+			'					</tr>';
+		});
+
+		html = 
+		'<div class="modal-content">'+
+		'   <form id="form" data-parsley-validate method="" action="">'+
+		'	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
+		'		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
+		'		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+		'	    </div>'+
+		'	    <div class="modal-body" >'+
+		'			<table id="tableLoad" class="table v-middle" style="width: 100%;">'+
+		'				<thead id="tableAuditoria">'+
+		'					<tr class="bg-conmebol" style="text-align:center;">'+
+		'						<th class="border-top-0">M&Eacute;TODO</th>'+
+		'						<th class="border-top-0">EMPRESA</th>'+
+		'						<th class="border-top-0">USUARIO</th>'+
+		'						<th class="border-top-0">FECHA HORA</th>'+
+		'						<th class="border-top-0">IP</th>'+
+		'						<th class="border-top-0">ORDEN</th>'+
+        '						<th class="border-top-0">ESTADO</th>'+
+        '						<th class="border-top-0">TIPO ROL</th>'+
+        '						<th class="border-top-0">PERSONA</th>'+
+		'						<th class="border-top-0">OBSERVACI&Oacute;N</th>'+
+		'					</tr>'+
+		'				</thead>'+
+		'				<tbody>'+rowAuditoria+
+		'				</tbody>'+
+		'			</table>'+
+		'	    </div>'+
+		'	    <div class="modal-footer">'+ bodyBot +
+		'		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
+		'	    </div>'+
+		'   </form>'+
+		'</div>';
+	}
+
+	$("#modal-content").empty();
+	$("#modal-content").append(html);
+}
+
+function setPersona(codPag, codEst){
+    var xJSON1      = getDominio('PERSONATIPO');
+    var xJSON2      = getDominio('PERSONADOCUMENTO');
+    var html        = '';
+    var selTipo     = '';
+    var selDocumento= '';
+
+    switch (codPag) {
+        case 1:
+            codPag = 'establecimiento.php?';
+
+            xJSON1.forEach(element1 => {
+                if (element1.tipo_estado_codigo == 1 && element1.tipo_codigo == 93) {
+                    selTipo = selTipo + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
+                }
+            });
+            break;
+    
+        case 2:
+            codPag = 'establecimiento_detalle.php?establecimiento=' + codEst + '&';
+
+            xJSON1.forEach(element1 => {
+                if (element1.tipo_estado_codigo == 1 && element1.tipo_codigo != 93) {
+                    selTipo = selTipo + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
+                }
+            });
+            break;
     }
+
+    xJSON2.forEach(element1 => {
+        if (element1.tipo_estado_codigo == 1) {
+            selDocumento = selDocumento + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
+        }
+    });
+
+    html = 
+        '<div class="modal-content">'+
+        '   <form id="form" data-parsley-validate method="post" action="../class/crud/persona.php">'+
+        '       <div class="modal-header" style="color:#fff; background: #2585e4;">'+
+        '		    <h4 class="modal-title" id="vcenter"> PERSONA</h4>'+
+        '		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+        '	    </div>'+
+        '       <div class="modal-body" >'+
+        '           <div class="form-group">'+
+        '               <input type="hidden" class="form-control" id="workCodigo" name="workCodigo" value="" required readonly>'+
+        '               <input type="hidden" class="form-control" id="workModo" name="workModo" value="C" required readonly>'+
+        '               <input type="hidden" class="form-control" id="workPage" name="workPage" value="'+ codPag +'" required readonly>'+
+        '           </div>'+
+        '           <div class="row pt-3">'+
+        '               <div class="col-sm-4">'+
+        '                   <div class="form-group">'+
+        '                       <label for="var02">TIPO PERSONA</label>'+
+        '                       <select id="var02" name="var02" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
+        '                           <optgroup label="Tipo Persona">'+ selTipo +
+        '                           </optgroup>'+
+        '                       </select>'+
+        '                   </div>'+
+        '               </div>'+
+        '               <div class="col-sm-4">'+
+        '                   <div class="form-group">'+
+        '                       <label for="var03">TIPO DOCUMENTO</label>'+
+        '                       <select id="var03" name="var03" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
+        '                           <optgroup label="Tipo Documento">'+ selDocumento +
+        '                           </optgroup>'+
+        '                       </select>'+
+        '                   </div>'+
+        '               </div>'+
+        '               <div class="col-sm-4">'+
+        '                   <div class="form-group">'+
+        '                       <label for="var04">DOCUMENTO</label>'+
+        '                       <input id="var04" name="var04" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="NRO DOCUMENTO" required>'+
+        '                   </div>'+
+        '               </div>'+
+        '               <div class="col-sm-4">'+
+        '                   <div class="form-group">'+
+        '                       <label for="var05">PERSONA / EMPRESA</label>'+
+        '                       <input id="var05" name="var05" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="PERSONA / EMPRESA" required>'+
+        '                   </div>'+
+        '               </div>'+
+        '               <div class="col-sm-4">'+
+        '                   <div class="form-group">'+
+        '                       <label for="var06">SIGLAS SITRAP</label>'+
+        '                       <input id="var06" name="var06" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="SIGLAS SITRAP" required>'+
+        '                   </div>'+
+        '               </div>'+
+        '               <div class="col-sm-4">'+
+        '                   <div class="form-group">'+
+        '                       <label for="var07">C&Oacute;DIGO SIGOR</label>'+
+        '                       <input id="var07" name="var07" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="C&Oacute;DIGO SIGOR" required>'+
+        '                   </div>'+
+        '               </div>'+
+        '               <div class="col-sm-4">'+
+        '                   <div class="form-group">'+
+        '                       <label for="var08">TEL&Eacute;FONO</label>'+
+        '                       <input id="var08" name="var08" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="TEL&Eacute;FONO" required>'+
+        '                   </div>'+
+        '               </div>'+
+        '               <div class="col-sm-4">'+
+        '                   <div class="form-group">'+
+        '                       <label for="var09">EMAIL</label>'+
+        '                       <input id="var09" name="var09" class="form-control" type="email" style="text-transform:lowercase; height:40px;" placeholder="EMAIL" required>'+
+        '                   </div>'+
+        '               </div>'+
+        '               <div class="col-12">'+
+        '                   <div class="form-group">'+
+        '                       <label for="var10">OBSERVACI&Oacute;N</label>'+
+        '                       <textarea id="var10" name="var10" class="form-control" rows="5" style="text-transform:uppercase;"></textarea>'+
+        '                   </div>'+
+        '               </div>'+
+        '           </div>'+
+        '       </div>'+
+        '	    <div class="modal-footer">'+
+        '           <button type="submit" class="btn btn-info">Agregar</button>'+
+        '		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
+        '	    </div>'+
+        '   </form>'+
+        '</div>';
 
     $("#modal-content2").empty();
     $("#modal-content2").append(html);
