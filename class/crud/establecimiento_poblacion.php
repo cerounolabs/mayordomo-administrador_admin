@@ -10,7 +10,8 @@
 	$work01         = $_POST['workCodigo'];
 	$work02         = $_POST['workModo'];
 	$work03         = $_POST['workPage'];
-	$work04         = $_POST['workCount'] + 1;
+	$work04         = $_POST['workEstablecimiento'];
+	$work05         = $_POST['workCount'] + 1;
 
 	$usu_03         = $_SESSION['usu_03'];
 
@@ -18,7 +19,7 @@
 	
 	$seg_04         = $_SESSION['seg_04'];
 
-	for ($i=1; $i < $work04; $i++) { 
+	for ($i=1; $i < $work05; $i++) { 
 		if (isset($_POST['var101_'.$i])) {
 			$var101 = $_POST['var101_'.$i];
 			$var102 = $_POST['var102_'.$i];
@@ -32,7 +33,7 @@
 			
 			$var105	= $_POST['var105_'.$i];
 			$var106 = $_POST['var106_'.$i];
-			$var107 = '';//$_POST['var107_'.$i];
+			$var107 = $_POST['var107_'.$i];
 
 			if (isset($var101) && isset($var102) && isset($var103) && isset($var104_1) && isset($var104_2) && isset($var106) && $var106 > 0) {
 				$dataJSON = json_encode(
@@ -41,7 +42,7 @@
 						'tipo_raza_codigo'							=> $var103,
 						'tipo_categoria_codigo'						=> $var104_1,
 						'tipo_subcategoria_codigo'					=> $var104_2,
-						'establecimiento_codigo'                    => $work01,
+						'establecimiento_codigo'                    => $work04,
 						'persona_codigo'							=> $var101,
 						'establecimiento_poblacion_peso'			=> $var105,
 						'establecimiento_poblacion_cantidad'		=> $var106,
@@ -57,10 +58,10 @@
 						$result	= post_curl('000/establecimientopoblacion', $dataJSON);
 						break;
 					case 'U':
-						$result	= post_curl('000/establecimientopoblacion', $dataJSON);
+						$result	= put_curl('000/establecimientopoblacion/'.$work01, $dataJSON);
 						break;
 					case 'D':
-						$result	= delete_curl('000/establecimientopoblacion', $dataJSON);
+						$result	= delete_curl('000/establecimientopoblacion/'.$work01, $dataJSON);
 						break;
 				}
 
@@ -69,7 +70,7 @@
 			}
 		}
 	}
-
+	
 	header('Location: ../../public/'.$work03.'code='.$result['code'].'&msg='.$msg);
 
 	ob_end_flush();

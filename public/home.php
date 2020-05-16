@@ -3,18 +3,7 @@
     require '../class/function/function.php';
     require '../class/session/session_system.php';
 
-    if(isset($_GET['code'])){
-        $codeRest       = $_GET['code'];
-        $msgRest        = $_GET['msg'];
-    } else {
-        $codeRest       = 0;
-        $msgRest        = '';
-    }
-
-    $char01 = get_curl('grafico/001/'.$usu_04);
-    $char02 = get_curl('grafico/002/'.$usu_04);
-    $char03 = get_curl('grafico/003/'.$usu_04);
-    $char04 = get_curl('grafico/004/'.$usu_04);
+    $establecimientoJSON = get_curl('000/establecimiento');
 ?>
 
 <!DOCTYPE html>
@@ -93,12 +82,17 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <!-- basic table -->
+<?php
+    if ($establecimientoJSON['code'] === 200) {
+        foreach ($establecimientoJSON['data'] as $establecimientoKEY => $establecimientoVALUE) {
+?>
+                <h4 class="card-title m-t-40"> <?php echo $establecimientoVALUE['establecimiento_nombre']; ?> </h4>
                 <div class="row">
                     <div class="col-sm-12 col-md-3">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">POBLACI&Oacute;N POR PROPIETARIO</h4>
-                                <div id="cantPoblacionxPropietario"></div>
+                                <div id="cantPoblacionxPropietario_<?php echo $establecimientoVALUE['establecimiento_codigo']; ?>"></div>
                             </div>
                         </div>
                     </div>
@@ -107,7 +101,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">POBLACI&Oacute;N POR ORIGEN</h4>
-                                <div id="cantPoblacionxOrigen"></div>
+                                <div id="cantPoblacionxOrigen_<?php echo $establecimientoVALUE['establecimiento_codigo']; ?>"></div>
                             </div>
                         </div>
                     </div>
@@ -116,7 +110,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">POBLACI&Oacute;N POR RAZA</h4>
-                                <div id="cantPoblacionxRaza"></div>
+                                <div id="cantPoblacionxRaza_<?php echo $establecimientoVALUE['establecimiento_codigo']; ?>"></div>
                             </div>
                         </div>
                     </div>
@@ -125,11 +119,15 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">POBLACI&Oacute;N POR CATEGOR&Iacute;A</h4>
-                                <div id="cantPoblacionxCategoria"></div>
+                                <div id="cantPoblacionxCategoria_<?php echo $establecimientoVALUE['establecimiento_codigo']; ?>"></div>
                             </div>
                         </div>
                     </div>
                 </div>
+<?php
+        }
+    }
+?>
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -157,36 +155,36 @@
     <!-- ============================================================== -->
     <!-- ============================================================== -->
     <div class="chat-windows"></div>
+
 <?php
     include '../include/footer.php';
-   
-    if ($codeRest == 401) {
 ?>
-    <script>
-        $(function() {
-            toastr.error('<?php echo $msgRest; ?>', 'Error!');
-        });
-    </script>
+
 <?php
-    }
+    if ($establecimientoJSON['code'] === 200) {
+        foreach ($establecimientoJSON['data'] as $establecimientoKEY => $establecimientoVALUE) { 
+            $char01 = get_curl('000/establecimientopoblacionchar01/'.$establecimientoVALUE['establecimiento_codigo']);
+            $char02 = get_curl('000/establecimientopoblacionchar02/'.$establecimientoVALUE['establecimiento_codigo']);
+            $char03 = get_curl('000/establecimientopoblacionchar03/'.$establecimientoVALUE['establecimiento_codigo']);
+            $char04 = get_curl('000/establecimientopoblacionchar04/'.$establecimientoVALUE['establecimiento_codigo']);
 ?>
     <script>
         $(function() {
             'use strict';
 
             var chart01 = c3.generate({
-                bindto: "#cantPoblacionxPropietario",
+                bindto: "#cantPoblacionxPropietario_<?php echo $establecimientoVALUE['establecimiento_codigo']; ?>",
                 data: {
                     columns: [
 <?php
-    if ($char01['code'] === 200){
-        foreach ($char01['data'] as $char01KEY => $char01VALUE) {
+            if ($char01['code'] === 200){
+                foreach ($char01['data'] as $char01KEY => $char01VALUE) {
     
 ?>
                         ["<?php echo $char01VALUE['persona_completo']; ?>", <?php echo $char01VALUE['establecimiento_poblacion_cantidad']; ?>],
 <?php
-        }
-    }
+                }
+            }
 ?>
                     ],
                     type: "pie",
@@ -203,18 +201,18 @@
             });
 
             var chart02 = c3.generate({
-                bindto: "#cantPoblacionxOrigen",
+                bindto: "#cantPoblacionxOrigen_<?php echo $establecimientoVALUE['establecimiento_codigo']; ?>",
                 data: {
                     columns: [
 <?php
-    if ($char02['code'] === 200){
-        foreach ($char02['data'] as $char02KEY => $char02VALUE) {
+            if ($char02['code'] === 200){
+                foreach ($char02['data'] as $char02KEY => $char02VALUE) {
     
 ?>
                         ["<?php echo $char02VALUE['tipo_origen_nombre']; ?>", <?php echo $char02VALUE['establecimiento_poblacion_cantidad']; ?>],
 <?php
-        }
-    }
+                }
+            }
 ?>
                     ],
                     type: "pie",
@@ -231,18 +229,18 @@
             });
 
             var chart03 = c3.generate({
-                bindto: "#cantPoblacionxRaza",
+                bindto: "#cantPoblacionxRaza_<?php echo $establecimientoVALUE['establecimiento_codigo']; ?>",
                 data: {
                     columns: [
 <?php
-    if ($char03['code'] === 200){
-        foreach ($char03['data'] as $char03KEY => $char03VALUE) {
+            if ($char03['code'] === 200){
+                foreach ($char03['data'] as $char03KEY => $char03VALUE) {
     
 ?>
                         ["<?php echo $char03VALUE['tipo_raza_nombre']; ?>", <?php echo $char03VALUE['establecimiento_poblacion_cantidad']; ?>],
 <?php
-        }
-    }
+                }
+            }
 ?>
                     ],
                     type: "pie",
@@ -259,18 +257,18 @@
             });
 
             var chart04 = c3.generate({
-                bindto: "#cantPoblacionxCategoria",
+                bindto: "#cantPoblacionxCategoria_<?php echo $establecimientoVALUE['establecimiento_codigo']; ?>",
                 data: {
                     columns: [
 <?php
-    if ($char04['code'] === 200){
-        foreach ($char04['data'] as $char04KEY => $char04VALUE) {
+            if ($char04['code'] === 200){
+                foreach ($char04['data'] as $char04KEY => $char04VALUE) {
     
 ?>
                         ["<?php echo $char04VALUE['tipo_categoria_nombre']; ?>", <?php echo $char04VALUE['establecimiento_poblacion_cantidad']; ?>],
 <?php
-        }
-    }
+                }
+            }
 ?>
                     ],
                     type: "pie",
@@ -287,5 +285,10 @@
             });
         });
     </script>
+<?php
+        }
+    }
+?>
+
 </body>
 </html>
