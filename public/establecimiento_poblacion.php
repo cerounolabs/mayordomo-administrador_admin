@@ -103,7 +103,8 @@
                                     <h4 class="card-title"></h4>
 
                                     <div class="form-group">
-                                        <input type="hidden" class="form-control" id="workCodigo" name="workCodigo" value="<?php echo $codEstablecimiento; ?>" required readonly>
+                                        <input type="hidden" class="form-control" id="workEstablecimiento" name="workEstablecimiento" value="<?php echo $codEstablecimiento; ?>" required readonly>
+                                        <input type="hidden" class="form-control" id="workCodigo" name="workCodigo" value="0" required readonly>
                                         <input type="hidden" class="form-control" id="workModo" name="workModo" value="C" required readonly>
                                         <input type="hidden" class="form-control" id="workPage" name="workPage" value="establecimiento_detalle.php?establecimiento=<?php echo $codEstablecimiento; ?>&" required readonly>
                                         <input type="hidden" class="form-control" id="workCount" name="workCount" value="20" required readonly>

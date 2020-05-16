@@ -217,24 +217,26 @@ function getEstablecimientoDetalle(codElem){
     window.location.replace('../public/establecimiento_detalle.php?establecimiento='+codElem); 
 }
 
-function getPoblacionDetalle(codElem){
-    var xDATA   = '';
-    var xJSON   = JSON.parse(xDATA);
+function getPoblacionDetalle(codElem, codEst){
+    var xJSON   = getPoblacion(codEst);
     var html    = '';
     var htmlBody= '';
 
     xJSON.forEach(element => {
         if (element.tipo_categoria_codigo == codElem) {
+            var btnDSP	= '<button onclick="setPoblacion('+ element.establecimiento_poblacion_codigo +', 2, '+ codEst +');" title="Ver" type="button" class="btn btn-primary btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog2"><i class="fa fa-eye"></i></button>';
+            var btnUPD	= '<button onclick="setPoblacion('+ element.establecimiento_poblacion_codigo +', 3, '+ codEst +');" title="Editar" type="button" class="btn btn-success btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog2"><i class="fa fa-edit"></i></button>';
+            var btnDLT	= '<button onclick="setPoblacion('+ element.establecimiento_poblacion_codigo +', 4, '+ codEst +');" title="Eliminar" type="button" class="btn btn-danger btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog2"><i class="fa fa-eraser"></i></button>';
             var tableTR = 
             '                       <tr>'+
-            '                           <td class="text-center"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modaldiv2" onclick="setPoblacion('+element.establecimiento_poblacion_codigo+', 2);" title="Ver"><i class="ti-eye"></i></button>&nbsp;<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modaldiv2" onclick="setPoblacion('+element.establecimiento_poblacion_codigo+', 3);" title="Editar"><i class="ti-pencil"></i></button>&nbsp;<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modaldiv2" onclick="setPoblacion('+element.establecimiento_poblacion_codigo+', 4);" title="Eliminar"><i class="ti-trash"></i></button></th>'+
-            '                           <td class="text-center">' + element.persona_completo + '</th>'+
-            '                           <td class="text-center">' + element.tipo_origen_nombre + '</th>'+
-            '                           <td class="text-center">' + element.tipo_raza_nombre + '</th>'+
-            '                           <td class="text-center">' + element.tipo_categoria_nombre + '</th>'+
-            '                           <td class="text-center">' + element.tipo_subcategoria_nombre + '</th>'+
-            '                           <td class="text-center">' + element.establecimiento_poblacion_peso_promedio + '</th>'+
-            '                           <td class="text-center">' + element.establecimiento_poblacion_cantidad + '</th>'+
+            '                           <td class="text-center">'+ btnDSP + '&nbsp;' + btnUPD + '&nbsp;' + btnDLT + '</td>'+
+            '                           <td class="text-center">' + element.persona_completo + '</td>'+
+            '                           <td class="text-center">' + element.tipo_origen_nombre + '</td>'+
+            '                           <td class="text-center">' + element.tipo_raza_nombre + '</td>'+
+            '                           <td class="text-center">' + element.tipo_categoria_nombre + '</td>'+
+            '                           <td class="text-center">' + element.tipo_subcategoria_nombre + '</td>'+
+            '                           <td class="text-center">' + element.establecimiento_poblacion_peso_promedio + '</td>'+
+            '                           <td class="text-center">' + element.establecimiento_poblacion_cantidad + '</td>'+
             '                       </tr>';
 
             htmlBody    = htmlBody + tableTR;
@@ -252,8 +254,8 @@ function getPoblacionDetalle(codElem){
         '           <div class="table-responsive">'+
         '               <table id="tableDetalle" class="table v-middle" style="width: 100%;">'+
         '                   <thead>'+
-        '                       <tr class="bg-light">'+
-        '                           <th class="border-top-0 text-center">ACCIÓN</th>'+
+        '                       <tr class="bg-table-title" style="text-align:center;">'+
+        '                           <th class="border-top-0 text-center" style="width:160px;">ACCI&Oacute;N</th>'+
         '                           <th class="border-top-0 text-center">PROPIETARIO</th>'+
         '                           <th class="border-top-0 text-center">ORIGEN</th>'+
         '                           <th class="border-top-0 text-center">RAZA</th>'+
@@ -271,8 +273,23 @@ function getPoblacionDetalle(codElem){
         '	</div>'+
         '</div>';
 
-    $("#modalcontent").empty();
-    $("#modalcontent").append(html);
+    $("#modal-content").empty();
+    $("#modal-content").append(html);
+}
+
+function getPoblacion(codElem){
+    getJSON('poblacionJSON', '000/establecimientopoblacion/' + codElem);
+
+    var xJSON = JSON.parse(localStorage.getItem('poblacionJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            xDATA.push(element);
+        });
+    }
+
+    return xDATA;
 }
 
 function getPropietario(codElem){
@@ -370,7 +387,6 @@ function setEstablecimiento(codElem, codAcc, codPag){
     var selPersona  = '';
     var selDistrito = '';
     var rowAuditoria= '';
-    var retPagina   = 'establecimiento.php?';
 
     switch (codAcc) {
 		case 1:
@@ -844,69 +860,77 @@ function setEstablecimiento(codElem, codAcc, codPag){
 	$("#modal-content").append(html);
 }
 
-function setPoblacion(codElem, codAcc){
-	var xJSON       = getEstablecimientoPoblacion(codElem);
+function setPoblacion(codElem, codAcc, codEst){
+	var xJSON       = getPoblacion(codEst);
 	var html        = '';
 	var bodyCol     = '';
 	var bodyTit     = '';
 	var bodyMod     = '';
 	var bodyOnl     = '';
 	var bodyBot     = '';
-	var selEstado   = '';
 
 	switch (codAcc) {
 		case 1:
-			bodyTit = 'POBLACIÓN NUEVO';
-			bodyCol = '#4798e8;';
+			bodyTit = 'NUEVO';
+			bodyCol = '#163562;';
 			bodyMod = 'C';
 			bodyOnl = '';
 			bodyBot = '           <button type="submit" class="btn btn-info">Agregar</button>';
 			break;
 
 		case 2:
-			bodyTit = 'POBLACIÓN VER';
-			bodyCol = '#563dea;';
+			bodyTit = 'VER';
+			bodyCol = '#6929d5;';
 			bodyMod = 'R';
 			bodyOnl = 'readonly';
 			bodyBot = '';
 			break;
 
 		case 3:
-			bodyTit = 'POBLACIÓN EDITAR';
-			bodyCol = '#1ca58f;';
+			bodyTit = 'EDITAR';
+			bodyCol = '#007979;';
 			bodyMod = 'U';
 			bodyOnl = '';
 			bodyBot = '           <button type="submit" class="btn btn-success">Actualizar</button>';
 			break;
 
 		case 4:
-			bodyTit = 'POBLACIÓN ELIMINAR';
-			bodyCol = '#eb4c4c;';
+			bodyTit = 'ELIMINAR';
+			bodyCol = '#ff2924;';
 			bodyMod = 'D';
 			bodyOnl = 'readonly';
 			bodyBot = '           <button type="submit" class="btn btn-danger">Eliminar</button>';
 			break;
 	
+		case 5:
+			bodyTit = 'AUDITORIA';
+			bodyCol = '#d38109;';
+			bodyMod = 'A';
+			bodyOnl = 'readonly';
+			bodyBot = '';
+			break;
+
 		default:
 			break;
 	}
 
-	if (codAcc != 1) {
+	if (codAcc == 1) {
+    } else if (codAcc > 1 && codAcc < 5) {
 		xJSON.forEach(element => {
 			if (element.establecimiento_poblacion_codigo == codElem) {
 				html =
 					'<div class="modal-content">'+
 					'   <form id="form" data-parsley-validate method="post" action="../class/crud/establecimiento_poblacion.php">'+
-					'       <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
+                    '	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
 					'		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
 					'		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 					'	    </div>'+
 					'       <div class="modal-body" >'+
 					'           <div class="form-group">'+
-					'               <input id="workEstablecimiento" name="workEstablecimiento" value="'+ element.establecimiento_codigo +'" class="form-control" type="hidden" required readonly>'+
+					'               <input id="workEstablecimiento" name="workEstablecimiento" value="'+ codEst +'" class="form-control" type="hidden" required readonly>'+
 					'               <input id="workCodigo" name="workCodigo" value="'+ element.establecimiento_poblacion_codigo +'" class="form-control" type="hidden" required readonly>'+
 					'               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
-					'               <input id="workPage" name="workPage" value="establecimiento_detalle" class="form-control" type="hidden" required readonly>'+
+					'               <input id="workPage" name="workPage" value="establecimiento_detalle.php?establecimiento='+ codEst +'&" class="form-control" type="hidden" required readonly>'+
 					'               <input id="workCount" name="workCount" value="1" class="form-control" type="hidden" required readonly>'+
 					'           </div>'+
 					'           <div class="row pt-3">'+
@@ -965,7 +989,7 @@ function setPoblacion(codElem, codAcc){
 					'               <div class="col-sm-12">'+
 					'                   <div class="form-group">'+
 					'                       <label for="var107_1">OBSERVACIÓN</label>'+
-					'                       <textarea id="var107_1" name="var107_1" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.establecimiento_poblacion_observacion +'</textarea>'+
+					'                       <textarea id="var107_1" name="var107_1" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.establecimiento_poblacion_observacion +'</textarea>'+
 					'                   </div>'+
 					'               </div>'+
 					'           </div>'+
@@ -979,8 +1003,8 @@ function setPoblacion(codElem, codAcc){
 		});
 	}
 
-	$("#modalcontent2").empty();
-	$("#modalcontent2").append(html);
+	$("#modal-content2").empty();
+    $("#modal-content2").append(html);
 }
 
 function setSeccion(codElem, codAcc, codEst){
