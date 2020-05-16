@@ -86,7 +86,7 @@
     if ($establecimientoJSON['code'] === 200) {
         foreach ($establecimientoJSON['data'] as $establecimientoKEY => $establecimientoVALUE) {
 ?>
-                <h4 class="card-title m-t-40"> <?php echo $establecimientoVALUE['establecimiento_nombre']; ?> </h4>
+                <h4 class="card-title m-t-40"> <?php echo $establecimientoVALUE['persona_completo'].' - '.$establecimientoVALUE['establecimiento_nombre']; ?> </h4>
                 <div class="row">
                     <div class="col-sm-12 col-md-3">
                         <div class="card">
