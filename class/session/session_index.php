@@ -11,6 +11,7 @@
     $val_03         = getUUID();
     $val_04         = $_SERVER['REMOTE_ADDR'];
     $val_05         = 1;
+    $_SESSION['parm_01'] = get_curl('000/dominio');
 
     if ($val_01 === 'admin@mayorcontrol.com' && $val_02 === 'mayorcontrol2020'){
         $_SESSION['log_01'] = $val_01;

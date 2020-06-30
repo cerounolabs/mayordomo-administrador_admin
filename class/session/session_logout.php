@@ -17,6 +17,8 @@
     unset($_SESSION['seg_01']);
     unset($_SESSION['seg_02']);
     unset($_SESSION['seg_03']);
+
+    unset($_SESSION['parm_01']);
     
     unset($_SESSION['expire']);
 

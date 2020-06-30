@@ -2,31 +2,6 @@
     require '../class/function/curl_api.php';
     require '../class/function/function.php';
     require '../class/session/session_system.php';
-
-    if(isset($_GET['code'])){
-        $codeRest       = $_GET['code'];
-        $msgRest        = $_GET['msg'];
-    } else {
-        $codeRest       = 0;
-        $msgRest        = '';
-    }
-
-    $dominioJSON        = get_curl('default/000');
-    $triDominioJSON     = get_curl('default/040/ANIMALESPECIECATEGORIASUBCATEGORIA');
-    
-    $estPersonaJSON     = get_curl('establecimiento/601/'.$usu_04);
-    $aniNacimientoJSON  = get_curl('establecimiento/608/'.$usu_04.'/'.date('Ymd'));
-    $aniDonacionJSON    = get_curl('establecimiento/609/'.$usu_04.'/'.date('Ymd'));
-
-//    $estSeccionJSON     = get_curl('default/602/'.$usu_04);
-
-//    $estPotreroJSON     = get_curl('default/603/'.$usu_04);
-
-//    $estLoteJSON        = get_curl('establecimiento/604/'.$usu_04);
-
-//    $estPoblacionJSON   = get_curl('establecimiento/605/'.$usu_04);
-
-//    $estUbicacionJSON   = get_curl('establecimiento/606/'.$usu_04);
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +28,7 @@
     <!-- ============================================================== -->
     <div id="main-wrapper">
 <?php
-    include '../include/menu.php';
+    	include '../include/menu.php';
 ?>
        
         <!-- Page wrapper  -->
@@ -69,127 +44,935 @@
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
-            <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <!-- basic table -->
+            <div class="email-app">
                 <!-- ============================================================== -->
-                <!-- Start Page Content -->
+                <!-- Left Part -->
                 <!-- ============================================================== -->
-                <!-- basic table -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="m-r-10">
-                                        <img src="../assets/images/logo_menu01.png" alt="user" width="60" class="rounded-circle" />
+                <div class="left-part" style="background-color:#fff;">
+                    <a class="ti-menu ti-close btn btn-success show-left-part d-block d-md-none" href="javascript:void(0)"></a>
+                    <div class="scrollable" style="height:100%;">
+                        <div class="divider"></div>
+                        <ul class="list-group">
+                            <div class="btn-group">
+                                <button class="btn btn-success dropdown-toggle" style="width:100%; width:100%;" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Movimiento Entrada
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="viewDetail('');">Nacimiendo</a>
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="viewDetail('');">Compra</a>
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="viewDetail('');">Sobrante Inventario</a>
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="viewDetail('');">Donacion Inventario</a>
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="viewDetail('');">Traslado</a>
+                                </div>
+                            </div>
+
+                            <li class="list-group-item">
+                                <hr>
+                            </li>
+
+                            <div class="btn-group">
+                                <button class="btn btn-danger dropdown-toggle" style="width:100%" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Movimiento Salida
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="viewDetail('viewMortandad');">Mortandad</a>
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="viewDetail('viewConsumo');">Consumo</a>
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="viewDetail('');">Venta</a>
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="viewDetail('viewAbigeo');">Abigeo</a>
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="viewDetail('viewDonacion');">Donacion</a>
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="viewDetail('');">Faltante de Inventario</a>
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="viewDetail('');">Traslado</a>
+                                </div>
+                            </div>
+
+                            <li class="list-group-item">
+                                <hr>
+                            </li>
+
+                            <div class="btn-group">
+                                <button class="btn btn-info" type="button" style="width:100%" onclick="viewDetail('');"> Traslado de Potrero </button>
+                            </div>
+
+                            <li class="list-group-item">
+                                <hr>
+                            </li>
+
+                            <div class="btn-group">
+                                <button class="btn btn-info" type="button" style="width:100%" onclick="viewDetail('');"> Recategorizacion </button>
+                            </div>
+
+                            <li class="list-group-item">
+                                <hr>
+                            </li>
+
+                            <div class="btn-group">
+                                <button class="btn btn-info" type="button" style="width:100%" onclick="viewDetail('');"> Informe </button>
+                            </div>
+
+                            <li class="list-group-item">
+                                <hr>
+                            </li>
+
+                            <div class="btn-group">
+                                <button class="btn btn-info" type="button" style="width:100%" onclick="viewDetail('');"> Vacunacion </button>
+                            </div>
+
+                            <li class="list-group-item">
+                                <hr>
+                            </li>
+
+                            <div class="btn-group">
+                                <button class="btn btn-info" type="button" style="width:100%" onclick="viewDetail('');"> Sanitacion </button>
+                            </div>
+
+                            <li class="list-group-item">
+                                <hr>
+                            </li>
+
+                            <div class="btn-group">
+                                <button class="btn btn-primary dropdown-toggle" style="width:100%" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Actividad Reproduccion </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="viewDetail('');">Servicio</a>
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="viewDetail('');">Andrologia</a>
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="viewDetail('');">G.D.R.</a>
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="viewDetail('');">Diagnostico de preñez</a>
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="viewDetail('');">Diagnostico de preñez</a>
+                                </div>
+                            </div>
+
+                            <li class="list-group-item">
+                                <hr>
+                            </li>
+
+                            <div class="btn-group">
+                                <button class="btn btn-info" type="button" style="width:100%" onclick="viewDetail('');"> Pesaje </button>
+                            </div>
+
+                            <li class="list-group-item">
+                                <hr>
+                            </li>
+
+                            <div class="btn-group">
+                                <button class="btn btn-info" type="button" style="width:100%" onclick="viewDetail('');"> Suplementacion </button>
+                            </div>
+
+                            <li class="list-group-item">
+                                <hr>
+                            </li>
+
+                            <div class="btn-group">
+                                <button class="btn btn-info" type="button" style="width:100%" onclick="viewDetail('');"> Enfermedades y Tratamientos </button>
+                            </div>
+
+                            <li class="list-group-item">
+                                <hr>
+                            </li>
+
+                            <div class="btn-group">
+                                <button class="btn btn-info" type="button" style="width:100%" onclick="viewDetail('');"> Inventario </button>
+                            </div>
+
+                            <li class="list-group-item">
+                                <hr>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- Right Part  Mail Compose -->
+                <!-- ============================================================== -->
+                <div class="right-part mail-compose" style="padding:20px 20px 0px 20px;">
+<!-- DETALLE MORTANDAD -->
+                    <div class="row" id="viewMortandad" style="display:none;">
+                        <div class="col-12"> 
+                            <div class="card" style="margin-bottom:10px;">
+                                <form id="form" data-parsley-validate class="validation-wizard wizard-circle m-t-4" method="post" action="../class/crud/tarea_mortandad.php" enctype="multipart/form-data">
+                                    <div class="modal-header" style="color:#fff; background:#163562;">
+                                        <h4 class="modal-title" id="vcenter"> MORTANDAD </h4>
                                     </div>
-                                    <div>
-                                        <h3 class="m-b-0"><?php echo $usu_05; ?></h3>
-                                        <span><?php echo date('l d F Y'); ?></span>
+                                    
+                                    <div class="modal-body" >
+                                        <div class="form-group">
+                                            <input id="workCodigo" name="workCodigo" value="0" class="form-control" type="hidden" required readonly>
+                                            <input id="workModo" name="workModo" value="C" class="form-control" type="hidden" required readonly>
+                                            <input id="workPage" name="workPage" value="partediario.php#viewMortandad" class="form-control" type="hidden" required readonly>
+                                            <input id="workEstablecimiento" name="workEstablecimiento" value="1" class="form-control" type="hidden" required readonly>
+                                        </div>
+
+                                        <div class="row pt-3">
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var001">ESTABLECIMIENTO</label>
+                                                    <select id="var001" name="var001" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var002">SECTOR - POTRERO</label>
+                                                    <select id="var002" name="var002" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var003">COORDENADAS</label>
+                                                    <input id="var003" name="var003" class="form-control" type="text" style="text-transform:uppercase; height:50px;" placeholder="Latitud">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var004"> &nbsp; </label>
+                                                    <input id="var004" name="var004" class="form-control" type="text" style="text-transform:uppercase; height:50px;" placeholder="Longitud">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var005">IDENTIFICACION INDIVIDUAL</label>
+                                                    <select id="var005" name="var005" class="select2 form-control custom-select" onchange="changeIdentificacion(this.id);" style="width:100%; height:50px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-9">
+                                                <div class="form-group" id="col006">
+                                                    <label for="var006">IDENTIFICACION ANIMAL</label>
+                                                    <input id="var006" name="var006" class="form-control" type="text" style="text-transform:uppercase; height:50px;" placeholder="ANIMAL">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3" id="col007">
+                                                <div class="form-group">
+                                                    <label for="var007">PROPIETARIO</label>
+                                                    <select id="var007" name="var007" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3" id="col008">
+                                                <div class="form-group">
+                                                    <label for="var008">ORIGEN</label>
+                                                    <select id="var008" name="var008" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3" id="col009">
+                                                <div class="form-group">
+                                                    <label for="var009">RAZA</label>
+                                                    <select id="var009" name="var009" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3" id="col010">
+                                                <div class="form-group">
+                                                    <label for="var010">CATEGORIA - SUBCATEGORIA</label>
+                                                    <select id="var010" name="var010" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;" required></select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var011">MOTIVO</label>
+                                                    <select id="var011" name="var011" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var012">FECHA DEL EVENTO</label>
+                                                    <input id="var012" name="var012" class="form-control" type="date" style="text-transform:lowercase; height:50px;" placeholder="FECHA" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var013">DENUNCIADO POR</label>
+                                                    <select id="var013" name="var013" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var014">CERTIFICADO POR</label>
+                                                    <select id="var014" name="var014" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var015">IMAGEN 1</label>
+                                                    <input id="var015" name="var015" class="form-control" type="file" style="text-transform:lowercase; height:50px;" placeholder="FECHA" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var016">IMAGEN 2</label>
+                                                    <input id="var016" name="var016" class="form-control" type="file" style="text-transform:lowercase; height:50px;" placeholder="FECHA" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var017">IMAGEN 3</label>
+                                                    <input id="var017" name="var017" class="form-control" type="file" style="text-transform:lowercase; height:50px;" placeholder="FECHA" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var018">IMAGEN 4</label>
+                                                    <input id="var018" name="var018" class="form-control" type="file" style="text-transform:lowercase; height:50px;" placeholder="FECHA" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="var019">COMENTARIO</label>
+                                                    <textarea id="var019" name="var019" class="form-control" rows="1" style="text-transform:uppercase;"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <button type="submit" name="submit" class="btn btn-info" style="float:right;">Agregar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                       
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <h4 class="col-10 card-title"></h4>
+                                        <h4 class="col-2 card-title" style="text-align: right;">
+                                            <!--<a href="javascript:void(0)" title="Nuevo" class="btn btn-info" style="background-color:#005ea6; border-color:#005ea6;" role="button" data-toggle="modal" data-target="#modal-dialog"><i class="ti-plus"></i></a>-->
+                                        </h4>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table id="tableMortandad" class="table v-middle" style="width: 100%;">
+                                            <thead id="codestablecimiento" class="<?php echo $codEstablecimiento; ?>">
+                                                <tr class="bg-table-title" style="text-align:center;">
+                                                    <th class="border-top-0">FECHA</th>
+                                                    <th class="border-top-0" style="width:80px;">ESTADO</th>
+                                                    <th class="border-top-0">TIPO</th>
+                                                    <th class="border-top-0">POTRERO</th>
+                                                    <th class="border-top-0">ANIMAL</th>
+                                                    <th class="border-top-0">DENUNCIADO POR</th>
+                                                    <th class="border-top-0">COMENTARIO</th>
+                                                    <th class="border-top-0" style="width:160px;">ACCI&Oacute;N</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+<!-- DETALLE CONSUMO -->
+                    <div class="row" id="viewConsumo" style="display:none;">
+                        <div class="col-12"> 
+                            <div class="card">
+                                <form id="form" method="post" action="../class/crud/tareaconsumo.php">
+                                    <div class="modal-header" style="color:#fff; background:#163562;">
+                                        <h4 class="modal-title" id="vcenter"> CONSUMO </h4>
+                                    </div>
+                                    
+                                    <div class="modal-body" >
+                                        <div class="form-group">
+                                            <input id="workCodigo" name="workCodigo" value="0" class="form-control" type="hidden" required readonly>
+                                            <input id="workModo" name="workModo" value="C" class="form-control" type="hidden" required readonly>
+                                            <input id="workPage" name="workPage" value="partediario.php#viewMortandad" class="form-control" type="hidden" required readonly>
+                                        </div>
+
+                                        <div class="row pt-3">
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var01">ESTABLECIMIENTO</label>
+                                                    <select id="var01" name="var01" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var02">SECTOR - POTRERO</label>
+                                                    <select id="var02" name="var02" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var03">FAENA PARA</label>
+                                                    <select id="var03" name="var03" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var04">FECHA DE FAENA</label>
+                                                    <input id="var04" name="var04" value="" class="form-control" type="date" style="text-transform:lowercase; height:40px;" placeholder="FECHA" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var05">FAENADO POR</label>
+                                                    <select id="var05" name="var05" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var13">IDENTIFICACION INDIVIDUAL</label>
+                                                    <select id="var13" name="var13" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="var11">IDENTIFICACION ANIMAL</label>
+                                                    <select id="var11" name="var11" class="select2 form-control custom-select" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var07">PROPIETARIO</label>
+                                                    <select id="var07" name="var07" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var08">ORIGEN</label>
+                                                    <select id="var08" name="var08" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var09">RAZA</label>
+                                                    <select id="var09" name="var09" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var10">CATEGORIA - SUBCATEGORIA</label>
+                                                    <select id="var10" name="var10" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var14"> ULTIMO PESAJE </label>
+                                                    <input id="var14" name="var14" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="PESO VIVO" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var14"> FECHA DE ULTIMO PESAJE </label>
+                                                    <input id="var14" name="var14" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="FECHA DE ULTIMO PESAJE" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var14">PESO VIVO</label>
+                                                    <input id="var14" name="var14" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="PESO VIVO">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var14"> PESO FAENADO </label>
+                                                    <input id="var14" name="var14" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="PESO FAENADO">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="var12">COMENTARIO</label>
+                                                    <textarea id="var12" name="var12" value="" class="form-control" rows="1" style="text-transform:uppercase;"></textarea>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-info">Agregar</button>
+                                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                       
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <h4 class="col-10 card-title"></h4>
+                                        <h4 class="col-2 card-title" style="text-align: right;">
+                                            <!--<a href="javascript:void(0)" title="Nuevo" class="btn btn-info" style="background-color:#005ea6; border-color:#005ea6;" role="button" data-toggle="modal" data-target="#modal-dialog"><i class="ti-plus"></i></a>-->
+                                        </h4>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table id="tableMortandad" class="table v-middle" style="width: 100%;">
+                                            <thead id="codestablecimiento" class="<?php echo $codEstablecimiento; ?>">
+                                                <tr class="bg-table-title" style="text-align:center;">
+                                                    <th class="border-top-0">FECHA</th>
+                                                    <th class="border-top-0" style="width:80px;">ESTADO</th>
+                                                    <th class="border-top-0">TIPO</th>
+                                                    <th class="border-top-0">POTRERO</th>
+                                                    <th class="border-top-0">ANIMAL</th>
+                                                    <th class="border-top-0">DENUNCIADO POR</th>
+                                                    <th class="border-top-0">COMENTARIO</th>
+                                                    <th class="border-top-0" style="width:160px;">ACCI&Oacute;N</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+<!-- DETALLE ABIGEO -->
+                    <div class="row" id="viewAbigeo" style="display:none;">
+                        <div class="col-12"> 
+                            <div class="card">
+                                <form id="form" method="post" action="../class/crud/tareaabigeo.php">
+                                    <div class="modal-header" style="color:#fff; background:#163562;">
+                                        <h4 class="modal-title" id="vcenter"> ABIGEO </h4>
+                                    </div>
+                                    
+                                    <div class="modal-body" >
+                                        <div class="form-group">
+                                            <input id="workCodigo" name="workCodigo" value="0" class="form-control" type="hidden" required readonly>
+                                            <input id="workModo" name="workModo" value="C" class="form-control" type="hidden" required readonly>
+                                            <input id="workPage" name="workPage" value="partediario.php#viewMortandad" class="form-control" type="hidden" required readonly>
+                                        </div>
+
+                                        <div class="row pt-3">
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var01">ESTABLECIMIENTO</label>
+                                                    <select id="var01" name="var01" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var02">SECTOR - POTRERO</label>
+                                                    <select id="var02" name="var02" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var14">COORDENADAS</label>
+                                                    <input id="var14" name="var14" value="" class="form-control" type="text" style="text-transform:lowercase; height:40px;" placeholder="Latitud">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var14"> &nbsp; </label>
+                                                    <input id="var14" name="var14" value="" class="form-control" type="text" style="text-transform:lowercase; height:40px;" placeholder="Longitud">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var04">FECHA DEL EVENTO</label>
+                                                    <input id="var04" name="var04" value="" class="form-control" type="date" style="text-transform:lowercase; height:40px;" placeholder="FECHA" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var05">DENUNCIADO POR</label>
+                                                    <select id="var05" name="var05" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var06">CERTIFICADO POR</label>
+                                                    <select id="var06" name="var06" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var13">IDENTIFICACION INDIVIDUAL</label>
+                                                    <select id="var13" name="var13" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-9">
+                                                <div class="form-group">
+                                                    <label for="var11">IDENTIFICACION ANIMAL</label>
+                                                    <select id="var11" name="var11" class="select2 form-control custom-select" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var07">PROPIETARIO</label>
+                                                    <select id="var07" name="var07" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var08">ORIGEN</label>
+                                                    <select id="var08" name="var08" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var09">RAZA</label>
+                                                    <select id="var09" name="var09" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var10">CATEGORIA - SUBCATEGORIA</label>
+                                                    <select id="var10" name="var10" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var04">IMAGEN 1</label>
+                                                    <input id="var04" name="var04" value="" class="form-control" type="file" style="text-transform:lowercase; height:40px;" placeholder="FECHA" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var04">IMAGEN 2</label>
+                                                    <input id="var04" name="var04" value="" class="form-control" type="file" style="text-transform:lowercase; height:40px;" placeholder="FECHA" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var04">IMAGEN 3</label>
+                                                    <input id="var04" name="var04" value="" class="form-control" type="file" style="text-transform:lowercase; height:40px;" placeholder="FECHA" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var04">IMAGEN 4</label>
+                                                    <input id="var04" name="var04" value="" class="form-control" type="file" style="text-transform:lowercase; height:40px;" placeholder="FECHA" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="var12">COMENTARIO</label>
+                                                    <textarea id="var12" name="var12" value="" class="form-control" rows="1" style="text-transform:uppercase;"></textarea>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-info">Agregar</button>
+                                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                       
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <h4 class="col-10 card-title"></h4>
+                                        <h4 class="col-2 card-title" style="text-align: right;">
+                                            <!--<a href="javascript:void(0)" title="Nuevo" class="btn btn-info" style="background-color:#005ea6; border-color:#005ea6;" role="button" data-toggle="modal" data-target="#modal-dialog"><i class="ti-plus"></i></a>-->
+                                        </h4>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table id="tableMortandad" class="table v-middle" style="width: 100%;">
+                                            <thead id="codestablecimiento" class="<?php echo $codEstablecimiento; ?>">
+                                                <tr class="bg-table-title" style="text-align:center;">
+                                                    <th class="border-top-0">FECHA</th>
+                                                    <th class="border-top-0" style="width:80px;">ESTADO</th>
+                                                    <th class="border-top-0">TIPO</th>
+                                                    <th class="border-top-0">POTRERO</th>
+                                                    <th class="border-top-0">ANIMAL</th>
+                                                    <th class="border-top-0">DENUNCIADO POR</th>
+                                                    <th class="border-top-0">COMENTARIO</th>
+                                                    <th class="border-top-0" style="width:160px;">ACCI&Oacute;N</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+<!-- DETALLE DONACION -->
+                    <div class="row" id="viewDonacion" style="display:none;">
+                        <div class="col-12"> 
+                            <div class="card">
+                                <form id="form" method="post" action="../class/crud/tareadonacion.php">
+                                    <div class="modal-header" style="color:#fff; background:#163562;">
+                                        <h4 class="modal-title" id="vcenter"> DONACION </h4>
+                                    </div>
+                                    
+                                    <div class="modal-body" >
+                                        <div class="form-group">
+                                            <input id="workCodigo" name="workCodigo" value="0" class="form-control" type="hidden" required readonly>
+                                            <input id="workModo" name="workModo" value="C" class="form-control" type="hidden" required readonly>
+                                            <input id="workPage" name="workPage" value="partediario.php#viewMortandad" class="form-control" type="hidden" required readonly>
+                                        </div>
+
+                                        <div class="row pt-3">
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var01">ESTABLECIMIENTO</label>
+                                                    <select id="var01" name="var01" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var13">IDENTIFICACION INDIVIDUAL</label>
+                                                    <select id="var13" name="var13" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var11">IDENTIFICACION ANIMAL</label>
+                                                    <select id="var11" name="var11" class="select2 form-control custom-select" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var02">SECTOR - POTRERO</label>
+                                                    <select id="var02" name="var02" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var07">PROPIETARIO</label>
+                                                    <select id="var07" name="var07" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var08">ORIGEN</label>
+                                                    <select id="var08" name="var08" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var09">RAZA</label>
+                                                    <select id="var09" name="var09" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var10">CATEGORIA - SUBCATEGORIA</label>
+                                                    <select id="var10" name="var10" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var03">TIPO DONACI&Oacute;N</label>
+                                                    <select id="var03" name="var03" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var04">FECHA ENTREGA</label>
+                                                    <input id="var04" name="var04" value="" class="form-control" type="date" style="text-transform:lowercase; height:40px;" placeholder="FECHA" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var05">ENTREGADO POR</label>
+                                                    <select id="var05" name="var05" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var05">RECIBIDO POR</label>
+                                                    <select id="var05" name="var05" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var14"> ULTIMO PESAJE </label>
+                                                    <input id="var14" name="var14" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="PESO VIVO" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var14"> FECHA DE ULTIMO PESAJE </label>
+                                                    <input id="var14" name="var14" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="FECHA DE ULTIMO PESAJE" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var14">PESO VIVO</label>
+                                                    <input id="var14" name="var14" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="PESO VIVO">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var14"> PESO FAENADO </label>
+                                                    <input id="var14" name="var14" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="PESO FAENADO">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="var12">COMENTARIO</label>
+                                                    <textarea id="var12" name="var12" value="" class="form-control" rows="1" style="text-transform:uppercase;"></textarea>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-info">Agregar</button>
+                                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                       
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <h4 class="col-10 card-title"></h4>
+                                        <h4 class="col-2 card-title" style="text-align: right;">
+                                            <!--<a href="javascript:void(0)" title="Nuevo" class="btn btn-info" style="background-color:#005ea6; border-color:#005ea6;" role="button" data-toggle="modal" data-target="#modal-dialog"><i class="ti-plus"></i></a>-->
+                                        </h4>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table id="tableMortandad" class="table v-middle" style="width: 100%;">
+                                            <thead id="codestablecimiento" class="<?php echo $codEstablecimiento; ?>">
+                                                <tr class="bg-table-title" style="text-align:center;">
+                                                    <th class="border-top-0">FECHA</th>
+                                                    <th class="border-top-0" style="width:80px;">ESTADO</th>
+                                                    <th class="border-top-0">TIPO</th>
+                                                    <th class="border-top-0">POTRERO</th>
+                                                    <th class="border-top-0">ANIMAL</th>
+                                                    <th class="border-top-0">DENUNCIADO POR</th>
+                                                    <th class="border-top-0">COMENTARIO</th>
+                                                    <th class="border-top-0" style="width:160px;">ACCI&Oacute;N</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="row">
-                            <!-- column -->
-                            <div class="col-lg-2 col-md-3">
-                                <!-- Card -->
-                                <div class="card">
-                                    <img class="card-img-top" src="../assets/images/icon/default.jpg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Nacimiento</h4>
-                                        <a href="javascript:void(0)" class="btn btn-primary" style="float:left;" title="Ver" data-toggle="modal" data-target="#modaldiv" onclick="getNacimiento();">Ver</a>
-                                        <a href="javascript:void(0)" class="btn btn-primary" style="float:right;" title="Nuevo" data-toggle="modal" data-target="#modaldiv" onclick="setNacimiento();">Nuevo</a>
-                                    </div>
-                                </div>
-                                <!-- Card -->
-                            </div>
-                            <!-- column -->
-
-                            <!-- column -->
-                            <div class="col-lg-2 col-md-3">
-                                <!-- Card -->
-                                <div class="card">
-                                    <img class="card-img-top" src="../assets/images/icon/default.jpg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Compra</h4>
-                                        <a href="javascript:void(0)" class="btn btn-primary" style="float:left;" title="Ver" data-toggle="modal" data-target="#modaldiv" onclick="getNacimiento();">Ver</a>
-                                        <a href="javascript:void(0)" class="btn btn-primary" style="float:right;" title="Nuevo" data-toggle="modal" data-target="#modaldiv" onclick="setCompra();">Nuevo</a>
-                                    </div>
-                                </div>
-                                <!-- Card -->
-                            </div>
-                            <!-- column -->
-
-                            <!-- column -->
-                            <div class="col-lg-2 col-md-3">
-                                <!-- Card -->
-                                <div class="card">
-                                    <img class="card-img-top" src="../assets/images/icon/default.jpg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Donaci&oacute;n</h4>
-                                        <a href="javascript:void(0)" class="btn btn-primary" style="float:left;" title="Ver" data-toggle="modal" data-target="#modaldiv" onclick="getDonacion();">Ver</a>
-                                        <a href="javascript:void(0)" class="btn btn-primary" style="float:right;" title="Nuevo" data-toggle="modal" data-target="#modaldiv" onclick="setDonacion();">Nuevo</a>
-                                    </div>
-                                </div>
-                                <!-- Card -->
-                            </div>
-                            <!-- column -->
-
-                            <!-- column -->
-                            <div class="col-lg-2 col-md-3">
-                                <!-- Card -->
-                                <div class="card">
-                                    <img class="card-img-top" src="../assets/images/icon/default.jpg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Traslado</h4>
-                                        <a href="javascript:void(0)" class="btn btn-primary" style="float:left;" title="Ver" data-toggle="modal" data-target="#modaldiv" onclick="getNacimiento();">Ver</a>
-                                        <a href="javascript:void(0)" class="btn btn-primary" style="float:right;" title="Nuevo" data-toggle="modal" data-target="#modaldiv" onclick="setNacimiento();">Nuevo</a>
-                                    </div>
-                                </div>
-                                <!-- Card -->
-                            </div>
-                            <!-- column -->
-
-                            <!-- column -->
-                            <div class="col-lg-2 col-md-3">
-                                <!-- Card -->
-                                <div class="card">
-                                    <img class="card-img-top" src="../assets/images/icon/default.jpg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Sobrante</h4>
-                                        <a href="javascript:void(0)" class="btn btn-primary" style="float:left;" title="Ver" data-toggle="modal" data-target="#modaldiv" onclick="getNacimiento();">Ver</a>
-                                        <a href="javascript:void(0)" class="btn btn-primary" style="float:right;" title="Nuevo" data-toggle="modal" data-target="#modaldiv" onclick="setNacimiento();">Nuevo</a>
-                                    </div>
-                                </div>
-                                <!-- Card -->
-                            </div>
-                            <!-- column -->
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Modal -->
-                <div id="modaldiv" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="vcenter" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" id="modalcontent">
-                    </div>
-                </div>
-                <!-- Modal -->
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
             </div>
+
+            <!-- Modal Procesar -->
+            <div id="modal-dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="vcenter" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" id="modal-content">
+                    <div class="modal-content">
+                        <form id="form" method="post" action="../class/crud/tareamortandad.php">
+                            <div class="modal-header" style="color:#fff; background:#163562;">
+                        	    <h4 class="modal-title" id="vcenter"> MORTANDAD </h4>
+                        		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        	</div>
+                        	
+                            <div class="modal-body" >
+                                <div class="form-group">
+                                    <input id="workCodigo" name="workCodigo" value="0" class="form-control" type="hidden" required readonly>
+                                    <input id="workModo" name="workModo" value="C" class="form-control" type="hidden" required readonly>
+                                    <input id="workPage" name="workPage" value="partediario.php#viewMortandad" class="form-control" type="hidden" required readonly>
+                                </div>
+
+                                <div class="row pt-3">
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="var01">ESTABLECIMIENTO</label>
+                                            <select id="var01" name="var01" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="var02">SECTOR - POTRERO</label>
+                                            <select id="var02" name="var02" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="var14">COORDENADAS</label>
+                                            <input id="var14" name="var14" value="" class="form-control" type="text" style="text-transform:lowercase; height:40px;" placeholder="Latitud">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="var14"> &nbsp; </label>
+                                            <input id="var14" name="var14" value="" class="form-control" type="text" style="text-transform:lowercase; height:40px;" placeholder="Longitud">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="var03">MOTIVO</label>
+                                            <select id="var03" name="var03" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="var04">FECHA DEL EVENTO</label>
+                                            <input id="var04" name="var04" value="" class="form-control" type="date" style="text-transform:lowercase; height:40px;" placeholder="FECHA" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="var05">DENUNCIADO POR</label>
+                                            <select id="var05" name="var05" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="var06">CERTIFICADO POR</label>
+                                            <select id="var06" name="var06" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="var13">IDENTIFICACION INDIVIDUAL</label>
+                                            <select id="var13" name="var13" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-9">
+                                        <div class="form-group">
+                                            <label for="var11">IDENTIFICACION ANIMAL</label>
+                                            <select id="var11" name="var11" class="select2 form-control custom-select" style="width:100%; height:40px;" required></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="var07">PROPIETARIO</label>
+                                            <select id="var07" name="var07" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="var08">ORIGEN</label>
+                                            <select id="var08" name="var08" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="var09">RAZA</label>
+                                            <select id="var09" name="var09" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="var10">CATEGORIA - SUBCATEGORIA</label>
+                                            <select id="var10" name="var10" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="var12">COMENTARIO</label>
+                                            <textarea id="var12" name="var12" value="" class="form-control" rows="5" style="text-transform:uppercase;"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-info">Agregar</button>
+                                <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Procesar -->
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
@@ -206,616 +989,12 @@
     <!-- ============================================================== -->
     <!-- ============================================================== -->
     <div class="chat-windows"></div>
+
 <?php
     include '../include/footer.php';
-   
-    if ($codeRest == 200) {
 ?>
-    <script>
-        $(function() {
-            toastr.success('<?php echo $msgRest; ?>', 'Correcto!');
-        });
-    </script>
-<?php
-    }
 
-    if ($codeRest == 204 || $codeRest == 401) {
-?>
-    <script>
-        $(function() {
-            toastr.error('<?php echo $msgRest; ?>', 'Error!');
-        });
-    </script>
-<?php
-    }
-?>
-    <script>
-        function getNacimiento(){
-            var html =
-            '<div class="modal-content">'+
-            '	<div class="modal-header" style="color:#fff; background: linear-gradient(to right, rgba(164,179,87,1) 0%, rgba(33,98,22,1) 100%);">'+
-            '		<h4 class="modal-title" id="vcenter"> Nacimiento </h4>'+
-            '		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-            '	</div>'+
-            '	<div class="modal-body" >'+
-            '        <div class="table-responsive">'+
-            '            <table id="tableLoad" class="table v-middle" style="width: 100%;">'+
-            '                <thead id="tableCodigo" class="">'+
-            '                    <tr class="bg-light">'+
-            '                        <th class="border-top-0" style="text-align:center;">CÓDIGO NACIMIENTO</th>'+
-            '                        <th class="border-top-0" style="text-align:center;">PROPIETARIO</th>'+
-            '                        <th class="border-top-0" style="text-align:center;">ORIGEN</th>'+
-            '                        <th class="border-top-0" style="text-align:center;">RAZA</th>'+
-            '                        <th class="border-top-0" style="text-align:center;">CATEGORÍA</th>'+
-            '                        <th class="border-top-0" style="text-align:center;">SUBCATEGORÍA</th>'+
-            '                        <th class="border-top-0" style="text-align:center;">PESO</th>'+
-            '                        <th class="border-top-0" style="text-align:center;">FECHA</th>'+
-            '                    </tr>'+
-            '                </thead>'+
-            '                <tbody>'+
-<?php
-    if ($aniNacimientoJSON['code'] === 200){
-        foreach ($aniNacimientoJSON['data'] as $aniNacimientoKEY => $aniNacimientoVALUE) {
-?>
-            '                    <tr>'+
-            '                        <td><?php echo $aniNacimientoVALUE['animal_codigo_nacimiento']; ?></td>'+
-            '                        <td><?php echo $aniNacimientoVALUE['establecimiento_persona_completo']; ?></td>'+
-            '                        <td><?php echo $aniNacimientoVALUE['tipo_origen_nombre']; ?></td>'+
-            '                        <td><?php echo $aniNacimientoVALUE['tipo_raza_nombre']; ?></td>'+
-            '                        <td><?php echo $aniNacimientoVALUE['tipo_categoria_nombre']; ?></td>'+
-            '                        <td><?php echo $aniNacimientoVALUE['tipo_subcategoria_nombre']; ?></td>'+
-            '                        <td><?php echo $aniNacimientoVALUE['animal_pesaje_fecha']; ?></td>'+
-            '                        <td><?php echo $aniNacimientoVALUE['animal_pesaje_peso']; ?></td>'+
-            '                    </tr>'+
-<?php
-        }
-    }
-?>
-            '                </tbody>'+
-            '            </table>'+
-            '        </div>'+
-            '	</div>'+
-            '	<div class="modal-footer">'+
-            '		<button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
-            '	</div>'+
-            '</div>';
-
-            $("#modalcontent").empty();
-            $("#modalcontent").append(html);
-        }
-
-        function setNacimiento(){
-            var html =
-            '<div class="modal-content">'+
-            '   <form id="form" data-parsley-validate method="post" action="../class/crud/animal_nacimiento.php">'+
-            '	    <div class="modal-header" style="color:#fff; background: linear-gradient(to right, rgba(164,179,87,1) 0%, rgba(33,98,22,1) 100%);">'+
-            '		    <h4 class="modal-title" id="vcenter"> Nacimiento </h4>'+
-            '		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-            '	    </div>'+
-            '	    <div class="modal-body" >'+
-            '           <div class="form-group">'+
-            '               <input id="workCodigo" name="workCodigo" value="<?php echo $usu_04; ?>" class="form-control" type="hidden" placeholder="Codigo" required readonly>'+
-            '               <input id="workModo" name="workModo" value="C" class="form-control" type="hidden" placeholder="Modo" required readonly>'+
-            '               <input id="workPage" name="workPage" value="partediario" class="form-control" type="hidden" placeholder="Page" required readonly>'+
-            '               <input id="workPage" name="workPeso" value="76" class="form-control" type="hidden" placeholder="Peso" required readonly>'+
-            '           </div>'+
-            '           <div class="row pt-3">'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var01">ESTADO</label>'+
-            '                       <select id="var01" name="var01" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
-            '                           <optgroup label="Estado">'+
-<?php
-    if ($dominioJSON['code'] === 200){
-        foreach ($dominioJSON['data'] as $dominioKEY => $dominioVALUE) {
-            if ($dominioVALUE['tipo_estado_codigo'] === 1 && $dominioVALUE['tipo_dominio'] === 'ANIMALESTADO' && ($dominioVALUE['tipo_codigo'] === 74 || $dominioVALUE['tipo_codigo'] === 75)){
-                $selected = '';
-
-                if ($dominioVALUE['tipo_codigo'] === 74){
-                    $selected = 'selected';
-                }
-?>
-            '                               <option value="<?php echo $dominioVALUE['tipo_codigo']; ?>" <?php echo $selected; ?>><?php echo $dominioVALUE['tipo_nombre']; ?></option>'+
-<?php
-            }
-        }
-    }
-?>
-            '                           </optgroup>'+
-            '                       </select>'+
-            '                   </div>'+
-            '               </div>'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var02">PROPIETARIO</label>'+
-            '                       <select id="var02" name="var02" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
-            '                           <optgroup label="Propietario">'+
-<?php
-    if ($estPersonaJSON['code'] === 200){
-        foreach ($estPersonaJSON['data'] as $estPersonaKEY => $estPersonaVALUE) {
-            if ($estPersonaVALUE['tipo_usuario_codigo'] === 49 && $estPersonaVALUE['tipo_estado_codigo'] === 1){
-?>
-            '                               <option value="<?php echo $estPersonaVALUE['establecimiento_persona_codigo']; ?>"><?php echo $estPersonaVALUE['establecimiento_persona_completo']; ?></option>'+
-<?php
-            }
-        }
-    }
-?>
-            '                           </optgroup>'+
-            '                       </select>'+
-            '                   </div>'+
-            '               </div>'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var03">ORIGEN</label>'+
-            '                       <select id="var03" name="var03" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
-            '                           <optgroup label="Origen">'+
-<?php
-    if ($dominioJSON['code'] === 200){
-        foreach ($dominioJSON['data'] as $dominioKEY => $dominioVALUE) {
-            if ($dominioVALUE['tipo_estado_codigo'] === 1 && $dominioVALUE['tipo_dominio'] === 'ANIMALORIGEN'){
-                $selected = '';
-
-                if ($dominioVALUE['tipo_codigo'] === 9){
-                    $selected = 'selected';
-                }
-?>
-            '                               <option value="<?php echo $dominioVALUE['tipo_codigo']; ?>" <?php echo $selected; ?>><?php echo $dominioVALUE['tipo_nombre']; ?></option>'+
-<?php
-            }
-        }
-    }
-?>
-            '                           </optgroup>'+
-            '                       </select>'+
-            '                   </div>'+
-            '               </div>'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var04">RAZA</label>'+
-            '                       <select id="var04" name="var04" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
-            '                           <optgroup label="Raza">'+
-<?php
-    if ($dominioJSON['code'] === 200){
-        foreach ($dominioJSON['data'] as $dominioKEY => $dominioVALUE) {
-            if ($dominioVALUE['tipo_estado_codigo'] === 1 && $dominioVALUE['tipo_dominio'] === 'ANIMALRAZA'){
-                $selected = '';
-
-                if ($dominioVALUE['tipo_codigo'] === 39){
-                    $selected = 'selected';
-                }
-?>
-            '                               <option value="<?php echo $dominioVALUE['tipo_codigo']; ?>" <?php echo $selected; ?>><?php echo $dominioVALUE['tipo_nombre']; ?></option>'+
-<?php
-            }
-        }
-    }
-?>
-            '                           </optgroup>'+
-            '                       </select>'+
-            '                   </div>'+
-            '               </div>'+
-            '           </div>'+
-            '           <div class="row pt-3">'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var05">CATEGORÍA - SUBCATEGORÍA</label>'+
-            '                       <select id="var05" name="var05" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
-            '                           <optgroup label="Categoría - SubCategoría">'+
-<?php
-    if ($triDominioJSON['code'] === 200){
-        foreach ($triDominioJSON['data'] as $triDominioKEY => $triDominioVALUE) {
-            foreach ($dominioJSON['data'] as $dominioKEY => $dominioVALUE) {
-                if ($dominioVALUE['tipo_estado_codigo'] === 1 && $dominioVALUE['tipo_dominio'] === 'ANIMALSUBCATEGORIA' && $dominioVALUE['tipo_codigo'] === $triDominioVALUE['tipo_dominio3_codigo'] && $triDominioVALUE['tipo_dominio2_codigo'] === 45){
-?>
-            '                                   <option value="<?php echo $triDominioVALUE['tipo_dominio2_codigo'].'_'.$dominioVALUE['tipo_codigo']; ?>"><?php echo $triDominioVALUE['tipo_dominio2_nombre'].' - '.$dominioVALUE['tipo_nombre']; ?></option>'+
-<?php
-                }
-            }
-        }
-    }
-?>
-            '                           </optgroup>'+
-            '                       </select>'+
-            '                   </div>'+
-            '               </div>'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var06">CÓDIGO NACIMIENTO</label>'+
-            '                       <input id="var06" name="var06" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="CÓDIGO NACIMIENTO" required>'+
-            '                   </div>'+
-            '               </div>'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var07">FECHA NACIMIENTO</label>'+
-            '                       <input id="var07" name="var07" class="form-control" type="date" style="text-transform:uppercase; height:40px;" placeholder="FECHA NACIMIENTO" required>'+
-            '                   </div>'+
-            '               </div>'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var08">PESO NACIMIENTO</label>'+
-            '                       <input id="var08" name="var08" class="form-control" type="number" step=".001" style="text-transform:uppercase; height:40px;" placeholder="PESO NACIMIENTO">'+
-            '                   </div>'+
-            '               </div>'+
-            '           </div>'+
-            '           <div class="row pt-3">'+
-            '                <div class="col-sm-12">'+
-            '                    <div class="form-group">'+
-            '                        <label for="var09">OBSERVACI&Oacute;N</label>'+
-            '                        <textarea id="var09" name="var09" class="form-control" rows="3" style="text-transform:uppercase;"></textarea>'+
-            '                    </div>'+
-            '                </div>'+
-            '           </div>'+
-            '	    </div>'+
-            '	    <div class="modal-footer">'+
-            '           <button type="submit" class="btn btn-info">Guardar</button>'+
-            '		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
-            '	    </div>'+
-            '   </form>'+
-            '</div>';
-
-            $("#modalcontent").empty();
-            $("#modalcontent").append(html);
-        }
-
-        function getDonacion(){
-            var html =
-            '<div class="modal-content">'+
-            '	<div class="modal-header" style="color:#fff; background: linear-gradient(to right, rgba(164,179,87,1) 0%, rgba(33,98,22,1) 100%);">'+
-            '		<h4 class="modal-title" id="vcenter"> Donación </h4>'+
-            '		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-            '	</div>'+
-            '	<div class="modal-body" >'+
-            '        <div class="table-responsive">'+
-            '            <table id="tableLoad" class="table v-middle" style="width: 100%;">'+
-            '                <thead id="tableCodigo" class="">'+
-            '                    <tr class="bg-light">'+
-            '                        <th class="border-top-0" style="text-align:center;">CÓDIGO DONACIÓN</th>'+
-            '                        <th class="border-top-0" style="text-align:center;">PROPIETARIO</th>'+
-            '                        <th class="border-top-0" style="text-align:center;">ORIGEN</th>'+
-            '                        <th class="border-top-0" style="text-align:center;">RAZA</th>'+
-            '                        <th class="border-top-0" style="text-align:center;">CATEGORÍA</th>'+
-            '                        <th class="border-top-0" style="text-align:center;">SUBCATEGORÍA</th>'+
-            '                    </tr>'+
-            '                </thead>'+
-            '                <tbody>'+
-<?php
-    if ($aniDonacionJSON['code'] === 200){
-        foreach ($aniDonacionJSON['data'] as $aniDonacionKEY => $aniDonacionVALUE) {
-            if ($aniDonacionVALUE['tipo_donacion_codigo'] === 77){
-?>
-            '                    <tr>'+
-            '                        <td><?php echo $aniDonacionVALUE['animal_codigo_donacion']; ?></td>'+
-            '                        <td><?php echo $aniDonacionVALUE['establecimiento_persona_completo']; ?></td>'+
-            '                        <td><?php echo $aniDonacionVALUE['tipo_origen_nombre']; ?></td>'+
-            '                        <td><?php echo $aniDonacionVALUE['tipo_raza_nombre']; ?></td>'+
-            '                        <td><?php echo $aniDonacionVALUE['tipo_categoria_nombre']; ?></td>'+
-            '                        <td><?php echo $aniDonacionVALUE['tipo_subcategoria_nombre']; ?></td>'+
-            '                    </tr>'+
-<?php
-            }
-        }
-    }
-?>
-            '                </tbody>'+
-            '            </table>'+
-            '        </div>'+
-            '	</div>'+
-            '	<div class="modal-footer">'+
-            '		<button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
-            '	</div>'+
-            '</div>';
-
-            $("#modalcontent").empty();
-            $("#modalcontent").append(html);
-        }
-
-        function setDonacion(){
-            var html =
-            '<div class="modal-content">'+
-            '   <form id="form" data-parsley-validate method="post" action="../class/crud/animal_donacion.php">'+
-            '	    <div class="modal-header" style="color:#fff; background: linear-gradient(to right, rgba(164,179,87,1) 0%, rgba(33,98,22,1) 100%);">'+
-            '		    <h4 class="modal-title" id="vcenter"> Donacion </h4>'+
-            '		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-            '	    </div>'+
-            '	    <div class="modal-body" >'+
-            '           <div class="form-group">'+
-            '               <input id="workCodigo" name="workCodigo" value="<?php echo $usu_04; ?>" class="form-control" type="hidden" placeholder="Codigo" required readonly>'+
-            '               <input id="workModo" name="workModo" value="C" class="form-control" type="hidden" placeholder="Modo" required readonly>'+
-            '               <input id="workPage" name="workPage" value="partediario" class="form-control" type="hidden" placeholder="Page" required readonly>'+
-            '               <input id="workPage" name="workDonacion" value="77" class="form-control" type="hidden" placeholder="Peso" required readonly>'+
-            '           </div>'+
-            '           <div class="row pt-3">'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var01">PROPIETARIO</label>'+
-            '                       <select id="var01" name="var01" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
-            '                           <optgroup label="Propietario">'+
-<?php
-    if ($estPersonaJSON['code'] === 200){
-        foreach ($estPersonaJSON['data'] as $estPersonaKEY => $estPersonaVALUE) {
-            if ($estPersonaVALUE['tipo_usuario_codigo'] === 49 && $estPersonaVALUE['tipo_estado_codigo'] === 1){
-?>
-            '                               <option value="<?php echo $estPersonaVALUE['establecimiento_persona_codigo']; ?>"><?php echo $estPersonaVALUE['establecimiento_persona_completo']; ?></option>'+
-<?php
-            }
-        }
-    }
-?>
-            '                           </optgroup>'+
-            '                       </select>'+
-            '                   </div>'+
-            '               </div>'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var02">ORIGEN</label>'+
-            '                       <select id="var02" name="var02" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
-            '                           <optgroup label="Origen">'+
-<?php
-    if ($dominioJSON['code'] === 200){
-        foreach ($dominioJSON['data'] as $dominioKEY => $dominioVALUE) {
-            if ($dominioVALUE['tipo_estado_codigo'] === 1 && $dominioVALUE['tipo_dominio'] === 'ANIMALORIGEN'){
-                $selected = '';
-
-                if ($dominioVALUE['tipo_codigo'] === 10){
-                    $selected = 'selected';
-                }
-?>
-            '                               <option value="<?php echo $dominioVALUE['tipo_codigo']; ?>" <?php echo $selected; ?>><?php echo $dominioVALUE['tipo_nombre']; ?></option>'+
-<?php
-            }
-        }
-    }
-?>
-            '                           </optgroup>'+
-            '                       </select>'+
-            '                   </div>'+
-            '               </div>'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var03">RAZA</label>'+
-            '                       <select id="var03" name="var03" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
-            '                           <optgroup label="Raza">'+
-<?php
-    if ($dominioJSON['code'] === 200){
-        foreach ($dominioJSON['data'] as $dominioKEY => $dominioVALUE) {
-            if ($dominioVALUE['tipo_estado_codigo'] === 1 && $dominioVALUE['tipo_dominio'] === 'ANIMALRAZA'){
-                $selected = '';
-
-                if ($dominioVALUE['tipo_codigo'] === 39){
-                    $selected = 'selected';
-                }
-?>
-            '                               <option value="<?php echo $dominioVALUE['tipo_codigo']; ?>" <?php echo $selected; ?>><?php echo $dominioVALUE['tipo_nombre']; ?></option>'+
-<?php
-            }
-        }
-    }
-?>
-            '                           </optgroup>'+
-            '                       </select>'+
-            '                   </div>'+
-            '               </div>'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var04">CATEGORÍA - SUBCATEGORÍA</label>'+
-            '                       <select id="var04" name="var04" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
-            '                           <optgroup label="Categoría - SubCategoría">'+
-<?php
-    if ($triDominioJSON['code'] === 200){
-        foreach ($triDominioJSON['data'] as $triDominioKEY => $triDominioVALUE) {
-            foreach ($dominioJSON['data'] as $dominioKEY => $dominioVALUE) {
-                if ($dominioVALUE['tipo_estado_codigo'] === 1 && $dominioVALUE['tipo_dominio'] === 'ANIMALSUBCATEGORIA' && $dominioVALUE['tipo_codigo'] === $triDominioVALUE['tipo_dominio3_codigo']){
-                    $selected = '';
-
-                    if ($triDominioVALUE['tipo_dominio2_codigo'] === 47 && $dominioVALUE['tipo_codigo'] === 66){
-                        $selected = 'selected';
-                    }
-?>
-            '                                   <option value="<?php echo $triDominioVALUE['tipo_dominio2_codigo'].'_'.$dominioVALUE['tipo_codigo']; ?>" <?php echo $selected; ?>><?php echo $triDominioVALUE['tipo_dominio2_nombre'].' - '.$dominioVALUE['tipo_nombre']; ?></option>'+
-<?php
-                }
-            }
-        }
-    }
-?>
-            '                           </optgroup>'+
-            '                       </select>'+
-            '                   </div>'+
-            '               </div>'+
-            '           </div>'+
-            '           <div class="row pt-3">'+
-            
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var05">CÓDIGO DONACIÓN</label>'+
-            '                       <input id="var05" name="var05" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="CÓDIGO DONACIÓN" required>'+
-            '                   </div>'+
-            '               </div>'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var06">FECHA DONACIÓN</label>'+
-            '                       <input id="var06" name="var06" class="form-control" type="date" style="text-transform:uppercase; height:40px;" placeholder="FECHA DONACIÓN" required>'+
-            '                   </div>'+
-            '               </div>'+
-            '           </div>'+
-            '           <div class="row pt-3">'+
-            '                <div class="col-sm-12">'+
-            '                    <div class="form-group">'+
-            '                        <label for="var07">OBSERVACI&Oacute;N</label>'+
-            '                        <textarea id="var07" name="var07" class="form-control" rows="3" style="text-transform:uppercase;"></textarea>'+
-            '                    </div>'+
-            '                </div>'+
-            '           </div>'+
-            '	    </div>'+
-            '	    <div class="modal-footer">'+
-            '           <button type="submit" class="btn btn-info">Guardar</button>'+
-            '		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
-            '	    </div>'+
-            '   </form>'+
-            '</div>';
-
-            $("#modalcontent").empty();
-            $("#modalcontent").append(html);
-        }
-
-        function setCompra(){
-            var html =
-            '<div class="modal-content">'+
-            '   <form id="form" data-parsley-validate method="post" action="../class/crud/animal_compra.php">'+
-            '	    <div class="modal-header" style="color:#fff; background: linear-gradient(to right, rgba(164,179,87,1) 0%, rgba(33,98,22,1) 100%);">'+
-            '		    <h4 class="modal-title" id="vcenter"> Compra </h4>'+
-            '		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-            '	    </div>'+
-            '	    <div class="modal-body" >'+
-            '           <div class="row pt-3">'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var01">CHOFER</label>'+
-            '                       <input id="var01" name="var01" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="CHOFER" required>'+
-            '                   </div>'+
-            '               </div>'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var02">NRO CHAPA</label>'+
-            '                       <input id="var02" name="var02" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="NRO CHAPA" required>'+
-            '                   </div>'+
-            '               </div>'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var03">ENTREGADO POR</label>'+
-            '                       <input id="var03" name="var03" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="ENTREGADO POR" required>'+
-            '                   </div>'+
-            '               </div>'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var04">RECIBIDO POR</label>'+
-            '                       <input id="var04" name="var04" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="RECIBIDO POR" required>'+
-            '                   </div>'+
-            '               </div>'+
-            '           </div>'+
-            '           <div class="row pt-3">'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var05">NRO COTA</label>'+
-            '                       <input id="var05" name="var05" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="NRO COTA" required>'+
-            '                   </div>'+
-            '               </div>'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var06">NRO GUIA</label>'+
-            '                       <input id="var06" name="var06" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="NRO GUIA" required>'+
-            '                   </div>'+
-            '               </div>'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var07">NRO FACTURA</label>'+
-            '                       <input id="var07" name="var07" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="NRO FACTURA" required>'+
-            '                   </div>'+
-            '               </div>'+
-            '               <div class="col-sm-12 col-md-3">'+
-            '                   <div class="form-group">'+
-            '                       <label for="var08">FECHA</label>'+
-            '                       <input id="var08" name="var08" class="form-control" type="date" style="text-transform:uppercase; height:40px;" placeholder="FECHA" required>'+
-            '                   </div>'+
-            '               </div>'+
-            '           </div>'+
-            '           <div class="table-responsive">'+
-            '               <table id="tableLoad" class="table v-middle" style="width: 100%;">'+
-            '                   <thead id="tableCodigo" class="">'+
-            '                       <tr class="bg-light">'+
-            '                           <th class="border-top-0" style="text-align:center;">PROPIETARIO</th>'+
-            '                           <th class="border-top-0" style="text-align:center;">RAZA</th>'+
-            '                           <th class="border-top-0" style="text-align:center;">CATEGORÍA</th>'+
-            '                           <th class="border-top-0" style="text-align:center;">CANTIDAD</th>'+
-            '                           <th class="border-top-0" style="text-align:center;">PESO PROMEDIO</th>'+
-            '                       </tr>'+
-            '                   </thead>'+
-            '                   <tbody>'+
-<?php
-    if ($dominioJSON['code'] === 200){
-        $i = 0;
-        foreach ($dominioJSON['data'] as $dominio1KEY => $dominio1VALUE) {
-            if ($dominio1VALUE['tipo_estado_codigo'] === 1 && $dominio1VALUE['tipo_dominio'] === 'ANIMALCATEGORIA'){
-?>
-            '                       <tr>'+
-            '                           <td style="text-align:left;">'+
-            '                               <select id="var09_<?php echo $i; ?>" name="var09_<?php echo $i; ?>" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
-            '                                   <optgroup label="Propietario">'+
-<?php
-                if ($estPersonaJSON['code'] === 200){
-                    foreach ($estPersonaJSON['data'] as $estPersonaKEY => $estPersonaVALUE) {
-                        if ($estPersonaVALUE['tipo_usuario_codigo'] === 49 && $estPersonaVALUE['tipo_estado_codigo'] === 1){
-?>
-            '                                       <option value="<?php echo $estPersonaVALUE['establecimiento_persona_codigo']; ?>"><?php echo $estPersonaVALUE['establecimiento_persona_completo']; ?></option>'+
-<?php
-                        }
-                    }
-                }
-?>
-            '                                   </optgroup>'+
-            '                               </select>'+
-            '                           </td>'+
-            '                           <td style="text-align:left;">'+
-            '                               <select id="var10_<?php echo $i; ?>" name="var10_<?php echo $i; ?>" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
-            '                                   <optgroup label="Raza">'+
-<?php
-                if ($dominioJSON['code'] === 200){
-                    foreach ($dominioJSON['data'] as $dominioKEY => $dominioVALUE) {
-                        if ($dominioVALUE['tipo_estado_codigo'] === 1 && $dominioVALUE['tipo_dominio'] === 'ANIMALRAZA'){
-                            $selected = '';
-
-                            if ($dominioVALUE['tipo_codigo'] === 39){
-                                $selected = 'selected';
-                            }
-?>
-            '                                       <option value="<?php echo $dominioVALUE['tipo_codigo']; ?>" <?php echo $selected; ?>><?php echo $dominioVALUE['tipo_nombre']; ?></option>'+
-<?php
-                        }
-                    }
-                }
-?>
-            '                                   </optgroup>'+
-            '                               </select>'+
-            '                           </td>'+
-            '                           <td style="text-align:left;">'+
-            '                               <select id="var11_<?php echo $i; ?>" name="var11_<?php echo $i; ?>" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
-            '                                   <option value="<?php echo $dominio1VALUE['tipo_codigo']; ?>"><?php echo $dominio1VALUE['tipo_nombre']; ?></option>'+
-            '                               </select>'+
-            '                           </td>'+
-            '                           <td style="text-align:left;">'+
-            '                               <input id="var12_<?php echo $i; ?>" name="var12_<?php echo $i; ?>" class="form-control" type="number" min="0" style="text-transform:uppercase; height:40px;" placeholder="CANTIDAD">'+
-            '                           </td>'+
-            '                           <td style="text-align:left;">'+
-            '                               <input id="var13_<?php echo $i; ?>" name="var13_<?php echo $i; ?>" class="form-control" type="number" step=".001" value="0" min="0" style="text-transform:uppercase; height:40px;" placeholder="PESO PROMEDIO">'+
-            '                           </td>'+
-            '                       </tr>'+
-<?php
-                $i = $i + 1;
-            }
-        }
-    }
-?>
-            '                   </tbody>'+
-            '               </table>'+
-            '           </div>'+
-            '           <div class="form-group">'+
-            '               <input id="workCodigo" name="workCodigo" value="<?php echo $usu_04; ?>" class="form-control" type="hidden" placeholder="Codigo" required readonly>'+
-            '               <input id="workModo" name="workModo" value="C" class="form-control" type="hidden" placeholder="Modo" required readonly>'+
-            '               <input id="workPage" name="workPage" value="partediario" class="form-control" type="hidden" placeholder="Page" required readonly>'+
-            '               <input id="workPage" name="workCount" value="<?php echo $i; ?>" class="form-control" type="hidden" placeholder="Compra" required readonly>'+
-            '           </div>'+
-            '	    </div>'+
-            '	    <div class="modal-footer">'+
-            '           <button type="submit" class="btn btn-info">Guardar</button>'+
-            '		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
-            '	    </div>'+
-            '   </form>'+
-            '</div>';
-
-            $("#modalcontent").empty();
-            $("#modalcontent").append(html);
-        }
-    </script>
+    <script src="../js/api.js"></script>
+    <script src="../js/partediario.js"></script>
 </body>
 </html>

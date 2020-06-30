@@ -169,3 +169,142 @@ function getPersona(){
 
     return xDATA;
 }
+
+function getEstablecimiento(){
+    if (localStorage.getItem('establecimientoJSON') === null){
+        getJSON('establecimientoJSON', '000/establecimiento');
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('establecimientoJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_codigo == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
+function getEstablecimientoId(codElem){
+    if (localStorage.getItem('establecimientoJSON') === null){
+        getJSON('establecimientoJSON', '000/establecimiento');
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('establecimientoJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.establecimiento_codigo == codElem) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
+function getSeccion(codElem){
+    if (localStorage.getItem('seccionJSON') === null){
+        getJSON('seccionJSON', '000/establecimientoseccion/' + codElem);
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('seccionJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_codigo == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
+function getPotrero(codElem){
+    if (localStorage.getItem('potreroJSON') === null){
+        getJSON('potreroJSON', '000/establecimientopotrero/' + codElem);
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('potreroJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_codigo == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
+function getLote(codElem){
+    if (localStorage.getItem('loteJSON') === null){
+        getJSON('loteJSON', '000/establecimientolote/' + codElem);
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('loteJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_codigo == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
+function getPropietario(codElem){
+    if (localStorage.getItem('propietarioJSON') === null){
+        getJSON('propietarioJSON', '000/establecimientopersona/' + codElem);
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('propietarioJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_codigo == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
+function getAnimalAll(codElem){
+    if (localStorage.getItem('animalJSON') === null){
+        getJSON('animalJSON', '000/animal/' + codElem);
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('animalJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_codigo == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
+function pad(num, size) {
+    var s = num+"";
+    while (s.length < size) s = "0" + s;
+    return s;
+}

@@ -90,6 +90,19 @@
         <script src="../assets/libs/raphael/raphael.min.js"></script>
         <script src="../assets/libs/morris.js/morris.min.js"></script>
 
+        <!-- This Page JS -->
+    <script src="../dist/js/pages/email/email.js"></script>
+    <script src="../assets/libs/summernote/dist/summernote-bs4.min.js"></script>
+    <script src="../assets/libs/dropzone/dist/min/dropzone.min.js"></script>
+    <script>
+    $('#summernote').summernote({
+        placeholder: 'Type your email Here',
+        tabsize: 2,
+        height: 250
+    });
+    $("#dzid").dropzone({ url: "/file/post" });
+    </script>
+
 <?php
     if(isset($_GET['code'])){
         $codeRest       = $_GET['code'];

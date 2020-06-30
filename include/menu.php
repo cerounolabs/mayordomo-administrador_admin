@@ -150,6 +150,44 @@
                             </ul>
                         </li>
 
+						<li class="sidebar-item">
+                        	<a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                           		<i class="icon-Farmer"></i>
+                           		<span class="hide-menu"> Animal </span>
+                           	</a>
+                            <ul aria-expanded="false" class="collapse first-level">
+<?php
+	foreach ($parm_01['data'] as $dominioKEY => $dominioVALUE) {
+		if ($dominioVALUE['tipo_dominio'] == 'ANIMALESPECIE' && $dominioVALUE['tipo_estado_codigo'] == 1) {
+?>
+                                <li class="sidebar-item">
+                               		<a href="../public/animal.php?especie=<?php echo $dominioVALUE['tipo_codigo']; ?>" class="sidebar-link">
+                               			<i class="mdi mdi-animal"></i>
+                               			<span class="hide-menu"> <?php echo $dominioVALUE['tipo_nombre']; ?> </span>
+                               		</a>
+                               	</li>
+<?php
+		}
+	}
+?>
+                            </ul>
+                        </li>
+
+						<li class="sidebar-item">
+                        	<a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                           		<i class="ti-clipboard"></i>
+                           		<span class="hide-menu"> Parte Diario </span>
+                           	</a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                            	<li class="sidebar-item">
+                               		<a href="../public/partediario.php" class="sidebar-link">
+                               			<i class="mdi mdi-parte-diario"></i>
+                               			<span class="hide-menu"> Parte Diario </span>
+                               		</a>
+                               	</li>
+                            </ul>
+                        </li>
+
                         <li class="sidebar-item">
                         	<a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                            		<i class="icon-Neutron"></i>
@@ -222,10 +260,34 @@
 												<span class="hide-menu"> Tipo Donacion </span>
 											</a>
 										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ANIMALGRADOSANGRE" class="sidebar-link">
+												<i class="mdi mdi-parametro-animal"></i>
+												<span class="hide-menu"> Tipo Grado Sangre </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ANIMALHACIENDA" class="sidebar-link">
+												<i class="mdi mdi-parametro-animal"></i>
+												<span class="hide-menu"> Tipo Hacienda </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ANIMALIDENTIFICACION" class="sidebar-link">
+												<i class="mdi mdi-parametro-animal"></i>
+												<span class="hide-menu"> Tipo Identificaci&oacute;n </span>
+											</a>
+										</li>
                                         <li class="sidebar-item">
 											<a href="../public/dominio.php?dominio=ANIMALORIGEN" class="sidebar-link">
 												<i class="mdi mdi-parametro-animal"></i>
 												<span class="hide-menu"> Tipo Origen </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ANIMALPELAJE" class="sidebar-link">
+												<i class="mdi mdi-parametro-animal"></i>
+												<span class="hide-menu"> Tipo Pelaje </span>
 											</a>
 										</li>
 										<li class="sidebar-item">
@@ -364,6 +426,39 @@
 									</ul>
                                 </li>
 
+								<li class="sidebar-item">
+                                  	<a href="javascript:void(0)" class="sidebar-link has-arrow waves-effect waves-dark" aria-expanded="false">
+                                   		<i class="mdi mdi-parametro-movimiento"></i>
+                                   		<span class="hide-menu"> Movimiento </span>
+                                   	</a>
+									<ul aria-expanded="false" class="collapse second-level">
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=MOVIMIENTODONACION" class="sidebar-link">
+												<i class="mdi mdi-parametro-movimiento"></i>
+												<span class="hide-menu"> Tipo Donaci&oacute;n </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=MOVIMIENTOFAENA" class="sidebar-link">
+												<i class="mdi mdi-parametro-movimiento"></i>
+												<span class="hide-menu"> Tipo Faena </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=MOVIMIENTOTIPO" class="sidebar-link">
+												<i class="mdi mdi-parametro-movimiento"></i>
+												<span class="hide-menu"> Tipo Movimiento </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=MOVIMIENTOMORTANDAD" class="sidebar-link">
+												<i class="mdi mdi-parametro-movimiento"></i>
+												<span class="hide-menu"> Tipo Mortandad </span>
+											</a>
+										</li>
+									</ul>
+                                </li>
+
                                 <li class="sidebar-item">
                                   	<a href="javascript:void(0)" class="sidebar-link has-arrow waves-effect waves-dark" aria-expanded="false">
                                    		<i class="mdi mdi-parametro-ot"></i>
@@ -422,6 +517,21 @@
 											<a href="../public/dominio.php?dominio=DOMINIOTIPO" class="sidebar-link">
 												<i class="mdi mdi-parametro-sistema"></i>
 												<span class="hide-menu"> Tipo Dominio </span>
+											</a>
+										</li>
+									</ul>
+                                </li>
+
+								<li class="sidebar-item">
+                                  	<a href="javascript:void(0)" class="sidebar-link has-arrow waves-effect waves-dark" aria-expanded="false">
+                                   		<i class="mdi mdi-parametro-servicio"></i>
+                                   		<span class="hide-menu"> Servicio </span>
+                                   	</a>
+									<ul aria-expanded="false" class="collapse second-level">
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=SERVICIOTIPO" class="sidebar-link">
+												<i class="mdi mdi-parametro-servicio"></i>
+												<span class="hide-menu"> Tipo Servicio </span>
 											</a>
 										</li>
 									</ul>
