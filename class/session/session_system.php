@@ -21,6 +21,8 @@
 //    $seg_03         = $_SESSION['seg_03'];
     $seg_04         = $_SESSION['seg_04'];
 
+    $parm_01        = $_SESSION['parm_01'];
+
     $expire         = $_SESSION['expire'];
 
     if ($expire < time()) {

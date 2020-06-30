@@ -13,7 +13,9 @@
 	<link href="../assets/libs/morris.js/morris.css" rel="stylesheet">
 	<link href="../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="../assets/libs/select2/dist/css/select2.min.css" type="text/css" rel="stylesheet">
-    <link href="../assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
+	<link href="../assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
+	<link href="../assets/libs/summernote/dist/summernote-bs4.css" rel="stylesheet">
+    <link href="../assets/libs/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
 	<link href="../assets/libs/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
 	<link href="../assets/extra-libs/c3/c3.min.css" rel="stylesheet">
 	<link href="../dist/css/style.css" rel="stylesheet">
