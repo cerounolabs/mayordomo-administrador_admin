@@ -303,6 +303,1682 @@ function getAnimalAll(codElem){
     return xDATA;
 }
 
+function getAnimal(codEst, codCat, codSub, codOrg, codRaz, codPro, codPel, codGra, codHac){
+    localStorage.removeItem('animalJSON');
+
+    if (localStorage.getItem('animalJSON') === null){
+        getJSON('animalJSON', '000/animal/' + codEst);
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('animalJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (codCat == 0) {
+                if (codSub == 0) {
+                    if (codOrg == 0) {
+                        if (codRaz == 0) {
+                            if (codPro == 0) {
+                                if (codPel == 0) {
+                                    if (codGra == 0) {
+                                        if (codHac == 0) {
+                                            xDATA.push(element);
+                                        } else {
+                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                xDATA.push(element);
+                                            }
+                                        }
+
+                                    } else {
+                                        if (element.tipo_grado_sangre_codigo == codGra) {
+                                            if (codHac == 0) {
+                                                xDATA.push(element);
+                                            } else {
+                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                    xDATA.push(element);
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                } else {
+                                    if (element.tipo_pelaje_codigo == codPel) {
+                                        if (codGra == 0) {
+                                            if (codHac == 0) {
+                                                xDATA.push(element);
+                                            } else {
+                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                    xDATA.push(element);
+                                                }
+                                            }
+
+                                        } else {
+                                            if (element.tipo_grado_sangre_codigo == codGra) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                            } else {
+                                if (element.persona_codigo == codPro) {
+                                    if (codPel == 0) {
+                                        if (codGra == 0) {
+                                            if (codHac == 0) {
+                                                xDATA.push(element);
+                                            } else {
+                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                    xDATA.push(element);
+                                                }
+                                            }
+    
+                                        } else {
+                                            if (element.tipo_grado_sangre_codigo == codGra) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+                                            }
+                                        }
+    
+                                    } else {
+                                        if (element.tipo_pelaje_codigo == codPel) {
+                                            if (codGra == 0) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+    
+                                            } else {
+                                                if (element.tipo_grado_sangre_codigo == codGra) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        } else {
+                            if (element.tipo_raza_codigo == codRaz) {
+                                if (codPro == 0) {
+                                    if (codPel == 0) {
+                                        if (codGra == 0) {
+                                            if (codHac == 0) {
+                                                xDATA.push(element);
+                                            } else {
+                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                    xDATA.push(element);
+                                                }
+                                            }
+    
+                                        } else {
+                                            if (element.tipo_grado_sangre_codigo == codGra) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+                                            }
+                                        }
+    
+                                    } else {
+                                        if (element.tipo_pelaje_codigo == codPel) {
+                                            if (codGra == 0) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+    
+                                            } else {
+                                                if (element.tipo_grado_sangre_codigo == codGra) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+    
+                                } else {
+                                    if (element.persona_codigo == codPro) {
+                                        if (codPel == 0) {
+                                            if (codGra == 0) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+        
+                                            } else {
+                                                if (element.tipo_grado_sangre_codigo == codGra) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+                                                }
+                                            }
+        
+                                        } else {
+                                            if (element.tipo_pelaje_codigo == codPel) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+        
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    } else {
+                        if (element.tipo_origen_codigo == codOrg) {
+                            if (codRaz == 0) {
+                                if (codPro == 0) {
+                                    if (codPel == 0) {
+                                        if (codGra == 0) {
+                                            if (codHac == 0) {
+                                                xDATA.push(element);
+                                            } else {
+                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                    xDATA.push(element);
+                                                }
+                                            }
+    
+                                        } else {
+                                            if (element.tipo_grado_sangre_codigo == codGra) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+                                            }
+                                        }
+    
+                                    } else {
+                                        if (element.tipo_pelaje_codigo == codPel) {
+                                            if (codGra == 0) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+    
+                                            } else {
+                                                if (element.tipo_grado_sangre_codigo == codGra) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+    
+                                } else {
+                                    if (element.persona_codigo == codPro) {
+                                        if (codPel == 0) {
+                                            if (codGra == 0) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+        
+                                            } else {
+                                                if (element.tipo_grado_sangre_codigo == codGra) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+                                                }
+                                            }
+        
+                                        } else {
+                                            if (element.tipo_pelaje_codigo == codPel) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+        
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+    
+                            } else {
+                                if (element.tipo_raza_codigo == codRaz) {
+                                    if (codPro == 0) {
+                                        if (codPel == 0) {
+                                            if (codGra == 0) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+        
+                                            } else {
+                                                if (element.tipo_grado_sangre_codigo == codGra) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+                                                }
+                                            }
+        
+                                        } else {
+                                            if (element.tipo_pelaje_codigo == codPel) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+        
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+        
+                                    } else {
+                                        if (element.persona_codigo == codPro) {
+                                            if (codPel == 0) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+            
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+            
+                                            } else {
+                                                if (element.tipo_pelaje_codigo == codPel) {
+                                                    if (codGra == 0) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+            
+                                                    } else {
+                                                        if (element.tipo_grado_sangre_codigo == codGra) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                } else {
+                    if (element.tipo_subcategoria_codigo == codSub) {
+                        if (codOrg == 0) {
+                            if (codRaz == 0) {
+                                if (codPro == 0) {
+                                    if (codPel == 0) {
+                                        if (codGra == 0) {
+                                            if (codHac == 0) {
+                                                xDATA.push(element);
+                                            } else {
+                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                    xDATA.push(element);
+                                                }
+                                            }
+    
+                                        } else {
+                                            if (element.tipo_grado_sangre_codigo == codGra) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+                                            }
+                                        }
+    
+                                    } else {
+                                        if (element.tipo_pelaje_codigo == codPel) {
+                                            if (codGra == 0) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+    
+                                            } else {
+                                                if (element.tipo_grado_sangre_codigo == codGra) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+    
+                                } else {
+                                    if (element.persona_codigo == codPro) {
+                                        if (codPel == 0) {
+                                            if (codGra == 0) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+        
+                                            } else {
+                                                if (element.tipo_grado_sangre_codigo == codGra) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+                                                }
+                                            }
+        
+                                        } else {
+                                            if (element.tipo_pelaje_codigo == codPel) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+        
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+    
+                            } else {
+                                if (element.tipo_raza_codigo == codRaz) {
+                                    if (codPro == 0) {
+                                        if (codPel == 0) {
+                                            if (codGra == 0) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+        
+                                            } else {
+                                                if (element.tipo_grado_sangre_codigo == codGra) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+                                                }
+                                            }
+        
+                                        } else {
+                                            if (element.tipo_pelaje_codigo == codPel) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+        
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+        
+                                    } else {
+                                        if (element.persona_codigo == codPro) {
+                                            if (codPel == 0) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+            
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+            
+                                            } else {
+                                                if (element.tipo_pelaje_codigo == codPel) {
+                                                    if (codGra == 0) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+            
+                                                    } else {
+                                                        if (element.tipo_grado_sangre_codigo == codGra) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+    
+                        } else {
+                            if (element.tipo_origen_codigo == codOrg) {
+                                if (codRaz == 0) {
+                                    if (codPro == 0) {
+                                        if (codPel == 0) {
+                                            if (codGra == 0) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+        
+                                            } else {
+                                                if (element.tipo_grado_sangre_codigo == codGra) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+                                                }
+                                            }
+        
+                                        } else {
+                                            if (element.tipo_pelaje_codigo == codPel) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+        
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+        
+                                    } else {
+                                        if (element.persona_codigo == codPro) {
+                                            if (codPel == 0) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+            
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+            
+                                            } else {
+                                                if (element.tipo_pelaje_codigo == codPel) {
+                                                    if (codGra == 0) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+            
+                                                    } else {
+                                                        if (element.tipo_grado_sangre_codigo == codGra) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+        
+                                } else {
+                                    if (element.tipo_raza_codigo == codRaz) {
+                                        if (codPro == 0) {
+                                            if (codPel == 0) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+            
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+            
+                                            } else {
+                                                if (element.tipo_pelaje_codigo == codPel) {
+                                                    if (codGra == 0) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+            
+                                                    } else {
+                                                        if (element.tipo_grado_sangre_codigo == codGra) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+            
+                                        } else {
+                                            if (element.persona_codigo == codPro) {
+                                                if (codPel == 0) {
+                                                    if (codGra == 0) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                
+                                                    } else {
+                                                        if (element.tipo_grado_sangre_codigo == codGra) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                
+                                                } else {
+                                                    if (element.tipo_pelaje_codigo == codPel) {
+                                                        if (codGra == 0) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                
+                                                        } else {
+                                                            if (element.tipo_grado_sangre_codigo == codGra) {
+                                                                if (codHac == 0) {
+                                                                    xDATA.push(element);
+                                                                } else {
+                                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                                        xDATA.push(element);
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            } else {
+                if (element.tipo_categoria_codigo == codCat) {
+                    if (codSub == 0) {
+                        if (codOrg == 0) {
+                            if (codRaz == 0) {
+                                if (codPro == 0) {
+                                    if (codPel == 0) {
+                                        if (codGra == 0) {
+                                            if (codHac == 0) {
+                                                xDATA.push(element);
+                                            } else {
+                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                    xDATA.push(element);
+                                                }
+                                            }
+    
+                                        } else {
+                                            if (element.tipo_grado_sangre_codigo == codGra) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+                                            }
+                                        }
+    
+                                    } else {
+                                        if (element.tipo_pelaje_codigo == codPel) {
+                                            if (codGra == 0) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+    
+                                            } else {
+                                                if (element.tipo_grado_sangre_codigo == codGra) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+    
+                                } else {
+                                    if (element.persona_codigo == codPro) {
+                                        if (codPel == 0) {
+                                            if (codGra == 0) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+        
+                                            } else {
+                                                if (element.tipo_grado_sangre_codigo == codGra) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+                                                }
+                                            }
+        
+                                        } else {
+                                            if (element.tipo_pelaje_codigo == codPel) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+        
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+    
+                            } else {
+                                if (element.tipo_raza_codigo == codRaz) {
+                                    if (codPro == 0) {
+                                        if (codPel == 0) {
+                                            if (codGra == 0) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+        
+                                            } else {
+                                                if (element.tipo_grado_sangre_codigo == codGra) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+                                                }
+                                            }
+        
+                                        } else {
+                                            if (element.tipo_pelaje_codigo == codPel) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+        
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+        
+                                    } else {
+                                        if (element.persona_codigo == codPro) {
+                                            if (codPel == 0) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+            
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+            
+                                            } else {
+                                                if (element.tipo_pelaje_codigo == codPel) {
+                                                    if (codGra == 0) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+            
+                                                    } else {
+                                                        if (element.tipo_grado_sangre_codigo == codGra) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+    
+                        } else {
+                            if (element.tipo_origen_codigo == codOrg) {
+                                if (codRaz == 0) {
+                                    if (codPro == 0) {
+                                        if (codPel == 0) {
+                                            if (codGra == 0) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+        
+                                            } else {
+                                                if (element.tipo_grado_sangre_codigo == codGra) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+                                                }
+                                            }
+        
+                                        } else {
+                                            if (element.tipo_pelaje_codigo == codPel) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+        
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+        
+                                    } else {
+                                        if (element.persona_codigo == codPro) {
+                                            if (codPel == 0) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+            
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+            
+                                            } else {
+                                                if (element.tipo_pelaje_codigo == codPel) {
+                                                    if (codGra == 0) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+            
+                                                    } else {
+                                                        if (element.tipo_grado_sangre_codigo == codGra) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+        
+                                } else {
+                                    if (element.tipo_raza_codigo == codRaz) {
+                                        if (codPro == 0) {
+                                            if (codPel == 0) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+            
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+            
+                                            } else {
+                                                if (element.tipo_pelaje_codigo == codPel) {
+                                                    if (codGra == 0) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+            
+                                                    } else {
+                                                        if (element.tipo_grado_sangre_codigo == codGra) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+            
+                                        } else {
+                                            if (element.persona_codigo == codPro) {
+                                                if (codPel == 0) {
+                                                    if (codGra == 0) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                
+                                                    } else {
+                                                        if (element.tipo_grado_sangre_codigo == codGra) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                
+                                                } else {
+                                                    if (element.tipo_pelaje_codigo == codPel) {
+                                                        if (codGra == 0) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                
+                                                        } else {
+                                                            if (element.tipo_grado_sangre_codigo == codGra) {
+                                                                if (codHac == 0) {
+                                                                    xDATA.push(element);
+                                                                } else {
+                                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                                        xDATA.push(element);
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+    
+                    } else {
+                        if (element.tipo_subcategoria_codigo == codSub) {
+                            if (codOrg == 0) {
+                                if (codRaz == 0) {
+                                    if (codPro == 0) {
+                                        if (codPel == 0) {
+                                            if (codGra == 0) {
+                                                if (codHac == 0) {
+                                                    xDATA.push(element);
+                                                } else {
+                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                        xDATA.push(element);
+                                                    }
+                                                }
+        
+                                            } else {
+                                                if (element.tipo_grado_sangre_codigo == codGra) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+                                                }
+                                            }
+        
+                                        } else {
+                                            if (element.tipo_pelaje_codigo == codPel) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+        
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+        
+                                    } else {
+                                        if (element.persona_codigo == codPro) {
+                                            if (codPel == 0) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+            
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+            
+                                            } else {
+                                                if (element.tipo_pelaje_codigo == codPel) {
+                                                    if (codGra == 0) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+            
+                                                    } else {
+                                                        if (element.tipo_grado_sangre_codigo == codGra) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+        
+                                } else {
+                                    if (element.tipo_raza_codigo == codRaz) {
+                                        if (codPro == 0) {
+                                            if (codPel == 0) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+            
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+            
+                                            } else {
+                                                if (element.tipo_pelaje_codigo == codPel) {
+                                                    if (codGra == 0) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+            
+                                                    } else {
+                                                        if (element.tipo_grado_sangre_codigo == codGra) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+            
+                                        } else {
+                                            if (element.persona_codigo == codPro) {
+                                                if (codPel == 0) {
+                                                    if (codGra == 0) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                
+                                                    } else {
+                                                        if (element.tipo_grado_sangre_codigo == codGra) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                
+                                                } else {
+                                                    if (element.tipo_pelaje_codigo == codPel) {
+                                                        if (codGra == 0) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                
+                                                        } else {
+                                                            if (element.tipo_grado_sangre_codigo == codGra) {
+                                                                if (codHac == 0) {
+                                                                    xDATA.push(element);
+                                                                } else {
+                                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                                        xDATA.push(element);
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+        
+                            } else {
+                                if (element.tipo_origen_codigo == codOrg) {
+                                    if (codRaz == 0) {
+                                        if (codPro == 0) {
+                                            if (codPel == 0) {
+                                                if (codGra == 0) {
+                                                    if (codHac == 0) {
+                                                        xDATA.push(element);
+                                                    } else {
+                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                            xDATA.push(element);
+                                                        }
+                                                    }
+            
+                                                } else {
+                                                    if (element.tipo_grado_sangre_codigo == codGra) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+            
+                                            } else {
+                                                if (element.tipo_pelaje_codigo == codPel) {
+                                                    if (codGra == 0) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+            
+                                                    } else {
+                                                        if (element.tipo_grado_sangre_codigo == codGra) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+            
+                                        } else {
+                                            if (element.persona_codigo == codPro) {
+                                                if (codPel == 0) {
+                                                    if (codGra == 0) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                
+                                                    } else {
+                                                        if (element.tipo_grado_sangre_codigo == codGra) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                
+                                                } else {
+                                                    if (element.tipo_pelaje_codigo == codPel) {
+                                                        if (codGra == 0) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                
+                                                        } else {
+                                                            if (element.tipo_grado_sangre_codigo == codGra) {
+                                                                if (codHac == 0) {
+                                                                    xDATA.push(element);
+                                                                } else {
+                                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                                        xDATA.push(element);
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+            
+                                    } else {
+                                        if (element.tipo_raza_codigo == codRaz) {
+                                            if (codPro == 0) {
+                                                if (codPel == 0) {
+                                                    if (codGra == 0) {
+                                                        if (codHac == 0) {
+                                                            xDATA.push(element);
+                                                        } else {
+                                                            if (element.tipo_hacienda_codigo == codHac) {
+                                                                xDATA.push(element);
+                                                            }
+                                                        }
+                
+                                                    } else {
+                                                        if (element.tipo_grado_sangre_codigo == codGra) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                
+                                                } else {
+                                                    if (element.tipo_pelaje_codigo == codPel) {
+                                                        if (codGra == 0) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                
+                                                        } else {
+                                                            if (element.tipo_grado_sangre_codigo == codGra) {
+                                                                if (codHac == 0) {
+                                                                    xDATA.push(element);
+                                                                } else {
+                                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                                        xDATA.push(element);
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                
+                                            } else {
+                                                if (element.persona_codigo == codPro) {
+                                                    if (codPel == 0) {
+                                                        if (codGra == 0) {
+                                                            if (codHac == 0) {
+                                                                xDATA.push(element);
+                                                            } else {
+                                                                if (element.tipo_hacienda_codigo == codHac) {
+                                                                    xDATA.push(element);
+                                                                }
+                                                            }
+                    
+                                                        } else {
+                                                            if (element.tipo_grado_sangre_codigo == codGra) {
+                                                                if (codHac == 0) {
+                                                                    xDATA.push(element);
+                                                                } else {
+                                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                                        xDATA.push(element);
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                    
+                                                    } else {
+                                                        if (element.tipo_pelaje_codigo == codPel) {
+                                                            if (codGra == 0) {
+                                                                if (codHac == 0) {
+                                                                    xDATA.push(element);
+                                                                } else {
+                                                                    if (element.tipo_hacienda_codigo == codHac) {
+                                                                        xDATA.push(element);
+                                                                    }
+                                                                }
+                    
+                                                            } else {
+                                                                if (element.tipo_grado_sangre_codigo == codGra) {
+                                                                    if (codHac == 0) {
+                                                                        xDATA.push(element);
+                                                                    } else {
+                                                                        if (element.tipo_hacienda_codigo == codHac) {
+                                                                            xDATA.push(element);
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    return xDATA;
+}
+
 function pad(num, size) {
     var s = num+"";
     while (s.length < size) s = "0" + s;

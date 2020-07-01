@@ -101,43 +101,64 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var01">Categoria</label>
+                                                    <label for="var01">Establecimiento</label>
                                                     <select id="var01" name="var01" onchange="changeCategoria(<?php echo $valueDominio; ?>, 'var01', 'var02');" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var02">SubCategoria</label>
-                                                    <select id="var02" name="var02" onchange="" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
+                                                    <label for="var02">Categoria</label>
+                                                    <select id="var02" name="var02" onchange="changeCategoria(<?php echo $valueDominio; ?>, 'var02', 'var03');" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var03">Origen</label>
+                                                    <label for="var03">SubCategoria</label>
                                                     <select id="var03" name="var03" onchange="" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var04">Raza</label>
+                                                    <label for="var04">Origen</label>
                                                     <select id="var04" name="var04" onchange="" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var05">Propietario</label>
+                                                    <label for="var05">Raza</label>
                                                     <select id="var05" name="var05" onchange="" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var06">Identificacion Individual</label>
-                                                    <select id="var06" name="var06" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
+                                                    <label for="var06">Propietario</label>
+                                                    <select id="var06" name="var06" onchange="" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var07">Pelaje</label>
+                                                    <select id="var07" name="var07" onchange="" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var08">Grado Sangre</label>
+                                                    <select id="var08" name="var08" onchange="" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var09">Hacienda</label>
+                                                    <select id="var09" name="var09" onchange="" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
                                                     </select>
                                                 </div>
                                             </div>
@@ -163,16 +184,22 @@
                                     <table id="tableLoad" class="table v-middle" style="width: 100%;">
                                         <thead id="tableCodigo" class="6">
                                             <tr class="bg-table-title" style="text-align:center;">
-                                                <th class="border-top-0" style="width:80px;">ORDEN</th>
                                                 <th class="border-top-0" style="width:80px;">C&Oacute;DIGO</th>
                                                 <th class="border-top-0" style="width:80px;">ESTADO</th>
-                                                <th class="border-top-0">TIPO</th>
-                                                <th class="border-top-0">DOMINIO</th>
-                                                <th class="border-top-0">OBSERVACI&Oacute;N</th>
-                                                <th class="border-top-0">EMPRESA</th>
-                                                <th class="border-top-0">USUARIO</th>
-                                                <th class="border-top-0">FECHA - HORA</th>
-                                                <th class="border-top-0">IP</th>
+                                                <th class="border-top-0">C&Oacute;D. ELECTRONICO</th>
+                                                <th class="border-top-0">C&Oacute;D. RP</th>
+                                                <th class="border-top-0">C&Oacute;D. HDP</th>
+                                                <th class="border-top-0">C&Oacute;D. SITRAP</th>
+                                                <th class="border-top-0">C&Oacute;D. INTERNO</th>
+                                                <th class="border-top-0">C&Oacute;D. NOMBRE</th>
+                                                <th class="border-top-0">CATEGORIA</th>
+                                                <th class="border-top-0">SUBCATEGORIA</th>
+                                                <th class="border-top-0">ORIGEN</th>
+                                                <th class="border-top-0">RAZA</th>
+                                                <th class="border-top-0">PROPIETARIO</th>
+                                                <th class="border-top-0">PELAJE</th>
+                                                <th class="border-top-0">GRADO SANGRE</th>
+                                                <th class="border-top-0">HACIENDA</th>
                                                 <th class="border-top-0" style="width:160px;">ACCI&Oacute;N</th>
                                             </tr>
                                         </thead>
@@ -223,12 +250,15 @@
     <script src="../js/api.js"></script>
     <script src="../js/animal.js"></script>
     <script>
-        selectDominio('var01', 'ANIMALCATEGORIA');
-        changeCategoria(<?php echo $valueDominio; ?>, 'var01', 'var02');
-        selectDominio('var03', 'ANIMALORIGEN');
-        selectDominio('var04', 'ANIMALRAZA');
-        selectPropietario('var05', 6);
-//        changeDominio('var05', '');
+        selectEstablecimiento('var01'),
+        selectDominio('var02', 'ANIMALCATEGORIA');
+        changeCategoria(<?php echo $valueDominio; ?>, 'var02', 'var03');
+        selectDominio('var04', 'ANIMALORIGEN');
+        selectDominio('var05', 'ANIMALRAZA');
+        selectPropietario('var06', 'var01');
+        selectDominio('var07', 'ANIMALPELAJE');
+        selectDominio('var08', 'ANIMALGRADOSANGRE');
+        selectDominio('var09', 'ANIMALHACIENDA');
     </script>
 </body>
 </html>
