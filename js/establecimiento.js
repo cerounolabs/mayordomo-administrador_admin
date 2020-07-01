@@ -1262,9 +1262,9 @@ function setPotrero(codElem, codAcc, codEst){
             '               </div>'+
             '               <div class="col-sm-12 col-md-4">'+
             '                   <div class="form-group">'+
-            '                       <label for="var05">SECCIÓN</label>'+
+            '                       <label for="var05">SECTOR</label>'+
             '                       <select id="var05" name="var05" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
-            '                           <optgroup label="Sección">'+ selSeccion + 
+            '                           <optgroup label="Sector">'+ selSeccion + 
             '                           </optgroup>'+
             '                       </select>'+
             '                   </div>'+
@@ -1402,9 +1402,9 @@ function setPotrero(codElem, codAcc, codEst){
                     '               </div>'+
                     '               <div class="col-sm-12 col-md-4">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var05">SECCIÓN</label>'+
+                    '                       <label for="var05">SECTOR</label>'+
                     '                       <select id="var05" name="var05" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
-                    '                           <optgroup label="Sección">'+ selSeccion + 
+                    '                           <optgroup label="Sector">'+ selSeccion + 
                     '                           </optgroup>'+
                     '                       </select>'+
                     '                   </div>'+
@@ -1483,7 +1483,7 @@ function setPotrero(codElem, codAcc, codEst){
         '						<th class="border-top-0">ESTADO</th>'+
         '						<th class="border-top-0">TIPO PASTURA 1</th>'+
         '						<th class="border-top-0">TIPO PASTURA 2</th>'+
-        '						<th class="border-top-0">SECCIÓN</th>'+
+        '						<th class="border-top-0">SECTOR</th>'+
         '						<th class="border-top-0">POTRERO</th>'+
         '						<th class="border-top-0">HECTAREA</th>'+
         '						<th class="border-top-0">CAPACIDAD RECEPTIVDAD </th>'+
