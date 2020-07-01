@@ -248,7 +248,7 @@
                         <div class="card" style="height:450px;">
                             <div class="card-body">
                                 <div class="row">
-                                	<h4 class="col-10 card-title">SECCIONES</h4>
+                                	<h4 class="col-10 card-title">SECTOR</h4>
                                     <h4 class="col-2 card-title" style="text-align: right;">
                                         <a href="javascript:void(0)" onclick="setSeccion(0, 1, <?php echo $codEstablecimiento; ?>);" title="Nuevo" class="btn btn-info" style="background-color:#005ea6; border-color:#005ea6;" role="button" data-toggle="modal" data-target="#modal-dialog"><i class="ti-plus"></i></a>
                                 	</h4>
@@ -258,7 +258,7 @@
                                         <thead>
                                             <tr class="bg-table-title" style="text-align:center;">
                                                 <th class="border-top-0" style="width:80px;">ORDEN</th>
-                                                <th class="border-top-0">SECCI&Oacute;N</th>
+                                                <th class="border-top-0">SECTOR</th>
                                                 <th class="border-top-0" style="width:80px;">ACCI&Oacute;N</th>
                                             </tr>
                                         </thead>
@@ -282,7 +282,7 @@
                                         <thead>
                                             <tr class="bg-table-title" style="text-align:center;">
                                                 <th class="border-top-0">ORDEN</th>
-                                                <th class="border-top-0">SECCI&Oacute;N</th>
+                                                <th class="border-top-0">SECTOR</th>
                                                 <th class="border-top-0">POTRERO</th>
                                                 <th class="border-top-0">PASTURA 1</th>
                                                 <th class="border-top-0">PASTURA 2</th>
