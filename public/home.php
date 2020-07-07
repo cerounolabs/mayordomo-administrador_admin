@@ -181,7 +181,7 @@
                 foreach ($char01['data'] as $char01KEY => $char01VALUE) {
     
 ?>
-                        ["<?php echo $char01VALUE['persona_completo']; ?>", <?php echo $char01VALUE['establecimiento_poblacion_cantidad']; ?>],
+                        ["<?php echo $char01VALUE['persona_completo'].' '.$char01VALUE['establecimiento_poblacion_cantidad']; ?>", <?php echo $char01VALUE['establecimiento_poblacion_cantidad']; ?>],
 <?php
                 }
             }
@@ -209,7 +209,7 @@
                 foreach ($char02['data'] as $char02KEY => $char02VALUE) {
     
 ?>
-                        ["<?php echo $char02VALUE['tipo_origen_nombre']; ?>", <?php echo $char02VALUE['establecimiento_poblacion_cantidad']; ?>],
+                        ["<?php echo $char02VALUE['tipo_origen_nombre'].' '.$char02VALUE['establecimiento_poblacion_cantidad']; ?>", <?php echo $char02VALUE['establecimiento_poblacion_cantidad']; ?>],
 <?php
                 }
             }
@@ -237,7 +237,7 @@
                 foreach ($char03['data'] as $char03KEY => $char03VALUE) {
     
 ?>
-                        ["<?php echo $char03VALUE['tipo_raza_nombre']; ?>", <?php echo $char03VALUE['establecimiento_poblacion_cantidad']; ?>],
+                        ["<?php echo $char03VALUE['tipo_raza_nombre'].' '.$char03VALUE['establecimiento_poblacion_cantidad']; ?>", <?php echo $char03VALUE['establecimiento_poblacion_cantidad']; ?>],
 <?php
                 }
             }
@@ -265,7 +265,7 @@
                 foreach ($char04['data'] as $char04KEY => $char04VALUE) {
     
 ?>
-                        ["<?php echo $char04VALUE['tipo_categoria_nombre']; ?>", <?php echo $char04VALUE['establecimiento_poblacion_cantidad']; ?>],
+                        ["<?php echo $char04VALUE['tipo_categoria_nombre'].' '.$char04VALUE['establecimiento_poblacion_cantidad']; ?>", <?php echo $char04VALUE['establecimiento_poblacion_cantidad']; ?>],
 <?php
                 }
             }
