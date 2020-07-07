@@ -104,7 +104,7 @@ $(document).ready(function() {
     var codPel      = document.getElementById('var07');
     var codGra      = document.getElementById('var08');
     var codHac      = document.getElementById('var09');
-    var xDATA       = getAnimal(codEst, codCat, codSub, codOrg, codRaz, codPro, codPel, codGra, codHac);
+    var xDATA       = getAnimal(codEst.value, codCat.value, codSub.value, codOrg.value, codRaz.value, codPro.value, codPel.value, codGra.value, codHac.value);
 
     var tableData   = $('#tableLoad').DataTable(
         {
@@ -183,7 +183,7 @@ $(document).ready(function() {
         var codPel      = document.getElementById('var07');
         var codGra      = document.getElementById('var08');
         var codHac      = document.getElementById('var09');
-        var xDATA       = getAnimal(codEst, codCat, codSub, codOrg, codRaz, codPro, codPel, codGra, codHac);
+        var xDATA       = getAnimal(codEst.value, codCat.value, codSub.value, codOrg.value, codRaz.value, codPro.value, codPel.value, codGra.value, codHac.value);
         tableData.clear().rows.add(xDATA).draw();
     });
 });
