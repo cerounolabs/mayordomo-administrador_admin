@@ -110,12 +110,12 @@ $(document).ready(function() {
         {
             processing	: true,
             destroy		: true,
-            searching	: false,
+            searching	: true,
             paging		: true,
             lengthChange: true,
-            info		: false,
-            orderCellsTop: false,
-            fixedHeader	: false,
+            info		: true,
+            orderCellsTop: true,
+            fixedHeader	: true,
             language	: {
                 lengthMenu: "Mostrar _MENU_ registros por pagina",
                 zeroRecords: "Nothing found - sorry",

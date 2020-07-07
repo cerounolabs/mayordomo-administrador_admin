@@ -188,7 +188,7 @@
                                                 <th class="border-top-0" style="width:80px;">ESTADO</th>
                                                 <th class="border-top-0">C&Oacute;D. ELECTRONICO</th>
                                                 <th class="border-top-0">C&Oacute;D. RP</th>
-                                                <th class="border-top-0">C&Oacute;D. HDP</th>
+                                                <th class="border-top-0">C&Oacute;D. HBP</th>
                                                 <th class="border-top-0">C&Oacute;D. SITRAP</th>
                                                 <th class="border-top-0">C&Oacute;D. INTERNO</th>
                                                 <th class="border-top-0">C&Oacute;D. NOMBRE</th>
