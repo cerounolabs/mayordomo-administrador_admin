@@ -111,7 +111,7 @@ $(document).ready(function() {
             processing	: true,
             destroy		: true,
             searching	: false,
-            paging		: false,
+            paging		: true,
             lengthChange: true,
             info		: false,
             orderCellsTop: false,
@@ -133,7 +133,7 @@ $(document).ready(function() {
             },
             data : xDATA,
             columnDefs	: [
-                { targets			: [0],	visible : true, searchable : true,	orderData : [0, 0] },
+                { targets			: [0],	visible : false, searchable : false,	orderData : [0, 0] },
                 { targets			: [1],	visible : true,	searchable : true,	orderData : [1, 0] },
                 { targets			: [2],	visible : true,	searchable : true,	orderData : [2, 0] },
                 { targets			: [3],	visible : true,	searchable : true,	orderData : [3, 0] },
@@ -149,7 +149,7 @@ $(document).ready(function() {
                 { targets			: [13],	visible : true,	searchable : true,	orderData : [13, 0] },
                 { targets			: [14],	visible : true,	searchable : true,	orderData : [14, 0] },
                 { targets			: [15],	visible : true,	searchable : true,	orderData : [15, 0] },
-                { targets			: [16],	visible : true,	searchable : true,	orderData : [16, 0] },
+                { targets			: [16],	visible : false,searchable : false,	orderData : [16, 0] },
             ],
             columns		: [
                 { data				: 'animal_codigo', name : 'animal_codigo'},
