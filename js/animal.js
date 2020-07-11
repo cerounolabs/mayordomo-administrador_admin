@@ -95,6 +95,7 @@ function changeCategoria(rowEspecie, rowCategoria, rowInput) {
 }
 
 $(document).ready(function() {
+	var codigo	    = document.getElementById('tableCodigo').className;	
     var codEst      = document.getElementById('var01');
     var codCat      = document.getElementById('var02');
     var codSub      = document.getElementById('var03');
@@ -149,7 +150,7 @@ $(document).ready(function() {
                 { targets			: [13],	visible : true,	searchable : true,	orderData : [13, 0] },
                 { targets			: [14],	visible : true,	searchable : true,	orderData : [14, 0] },
                 { targets			: [15],	visible : true,	searchable : true,	orderData : [15, 0] },
-                { targets			: [16],	visible : false,searchable : false,	orderData : [16, 0] },
+                { targets			: [16],	visible : true, searchable : true,	orderData : [16, 0] },
             ],
             columns		: [
                 { data				: 'animal_codigo', name : 'animal_codigo'},
@@ -168,7 +169,15 @@ $(document).ready(function() {
                 { data				: 'tipo_pelaje_nombre', name : 'tipo_pelaje_nombre'},
                 { data				: 'tipo_grado_sangre_nombre', name : 'tipo_grado_sangre_nombre'},
                 { data				: 'tipo_hacienda_nombre', name : 'tipo_hacienda_nombre'},
-                { data				: 'tipo_subcategoria_nombre', name : 'tipo_subcategoria_nombre'},
+                { render			: 
+                    function (data, type, full, meta) {
+                        var btnDSP	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +', 2);" title="Ver" type="button" class="btn btn-primary btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-eye"></i></button>';
+                        var btnUPD	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +', 3);" title="Editar" type="button" class="btn btn-success btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-edit"></i></button>';
+                        var btnDLT	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +', 4);" title="Eliminar" type="button" class="btn btn-danger btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-eraser"></i></button>';
+                        var btnAUD	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +', 5);" title="Auditoria" type="button" class="btn btn-warning btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-user-secret"></i></button>';
+                        return (btnDSP + '&nbsp;' + btnUPD + '&nbsp;' + btnDLT + '&nbsp;' + btnAUD);
+                    }
+                },
             ]
         }
     );
@@ -189,33 +198,27 @@ $(document).ready(function() {
 });
 
 function setAnimal(rowEspecie, rowEst, codElem, codAcc){
-    var codEst		    = document.getElementById(rowEst);
-    var xJSON           = getAnimal(2, codEst.value, codElem, 0, 0, 0, 0, 0, 0, 0, 0);
-    var xJSON1          = getDominio('ANIMALCATEGORIA');
-    var xJSON2          = getDominio('ANIMALSUBCATEGORIA');
-    var xJSON3          = getDominio('ANIMALORIGEN');
-    var xJSON4          = getDominio('ANIMALRAZA');
-    var xJSON5          = getDominio('ANIMALRAZA');
-    var xJSON6          = getDominio('ANIMALPELAJE');
-    var xJSON7          = getDominio('ANIMALGRADOSANGRE');
-    var xJSON8          = getDominio('ANIMALHACIENDA');
+    var codEst = '';
+
+    if (codElem != 0) {
+        codEst  = rowEst;
+    } else {
+        codEst  = document.getElementById(rowEst).value;
+    }
+    
+    var xJSON           = getAnimal(2, codEst, codElem, 0, 0, 0, 0, 0, 0, 0, 0);
+    var xJSON1          = getDominio('ANIMALPELAJE');
+    var xJSON2          = getDominio('ANIMALGRADOSANGRE');
+    var xJSON3          = getDominio('ANIMALHACIENDA');
     var html            = '';
     var bodyCol         = '';
     var bodyTit         = '';
     var bodyMod         = '';
     var bodyOnl         = '';
     var bodyBot         = '';
-    var selEstado       = '';
-    var selCategoria    = '';
-    var selSubCategoria = '';
-    var selOrigen       = '';
-    var selPropietario  = '';
-    var selRaza         = '';
     var selPelaje       = '';
     var selSangre       = '';
     var selHacienda     = '';
-    var inpCategoria    = 'var002';
-    var inpSubCategoria = 'var003';
     var rowAuditoria    = '';
 
     switch (codAcc) {
@@ -411,85 +414,182 @@ function setAnimal(rowEspecie, rowEst, codElem, codAcc){
             '</div>';
 	} else if (codAcc > 1 && codAcc < 5) {
 		xJSON.forEach(element => {
-			if (element.tipo_codigo == codElem) {
-				switch (element.tipo_estado_codigo) {
-					case 1:
-						selEstado = 
-						'                               <option value="1" selected>ACTIVO</option>'+
-						'                               <option value="2">INACTIVO</option>'+
-						'                               <option value="3">BLOQUEADO</option>';
-						break;
-				
-					case 2:
-						selEstado = 
-						'                               <option value="1">ACTIVO</option>'+
-						'                               <option value="2" selected>INACTIVO</option>'+
-						'                               <option value="3">BLOQUEADO</option>';
-						break;
+			if (element.animal_codigo == codElem) {
+                xJSON1.forEach(element1 => {
+					if (element1.tipo_estado_codigo == 1 && element1.tipo_codigo == element.tipo_pelaje_codigo) {
+						selPelaje = selPelaje + '                               <option value="'+ element1.tipo_codigo +'" selected>'+ element1.tipo_nombre +'</option>';
+					} else {
+						selPelaje = selPelaje + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
+					}
+                });
 
-					case 3:
-						selEstado = 
-						'                               <option value="1">ACTIVO</option>'+
-						'                               <option value="2">INACTIVO</option>'+
-						'                               <option value="3" selected>BLOQUEADO</option>';
-						break;
-				}
+                xJSON2.forEach(element1 => {
+					if (element1.tipo_estado_codigo == 1 && element1.tipo_codigo == element.tipo_grado_sangre_codigo) {
+						selSangre = selSangre + '                               <option value="'+ element1.tipo_codigo +'" selected>'+ element1.tipo_nombre +'</option>';
+					} else {
+						selSangre = selSangre + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
+					}
+                });
 
-				html = 
-					'<div class="modal-content">'+
-					'   <form id="form" data-parsley-validate method="post" action="../class/crud/dominio.php">'+
-					'	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
-					'		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
-					'		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-					'	    </div>'+
-					'	    <div class="modal-body" >'+
-					'           <div class="form-group">'+
-					'               <input id="workDominio" name="workDominio" value="' + codDom + '" class="form-control" type="hidden" required readonly>'+
-					'               <input id="workCodigo" name="workCodigo" value="'+ element.tipo_codigo +'" class="form-control" type="hidden" required readonly>'+
-					'               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
-					'               <input id="workPage" name="workPage" value="dominio" class="form-control" type="hidden" required readonly>'+
-					'           </div>'+
-					'           <div class="row pt-3">'+
-					'               <div class="col-sm-12 col-md-6">'+
-					'                   <div class="form-group">'+
-					'                       <label for="var01">ESTADO</label>'+
-					'                       <select id="var01" name="var01" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
-					'                           <optgroup label="Estado">'+ selEstado +
-					'                           </optgroup>'+
-					'                       </select>'+
-					'                   </div>'+
-					'               </div>'+
-					'               <div class="col-sm-12 col-md-6">'+
-					'                   <div class="form-group">'+
-					'                       <label for="var02">ORDEN</label>'+
-					'                       <input id="var02" name="var02" value="'+ element.tipo_orden +'" class="form-control" type="number" min="0" max="999" style="text-transform:uppercase; height:40px;" placeholder="NRO ORDEN" '+ bodyOnl +'>'+
-					'                   </div>'+
-					'               </div>'+
-					'               <div class="col-sm-12 col-md-12">'+
-					'                   <div class="form-group">'+
-					'                       <label for="var03">TIPO</label>'+
-					'                       <input id="var03" name="var03" value="'+ element.tipo_nombre +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="TIPO" required '+ bodyOnl +'>'+
-					'                   </div>'+
-					'               </div>'+
-					'               <div class="col-sm-12 col-md-12">'+
-					'                   <div class="form-group">'+
-					'                       <label for="var04">PATH</label>'+
-					'                       <input id="var04" name="var04" value="'+ element.tipo_path +'" class="form-control" type="text" style="text-transform:lowercase; height:40px;" placeholder="PATH" '+ bodyOnl +'>'+
-					'                   </div>'+
-					'               </div>'+
-					'               <div class="col-sm-12">'+
-					'                   <div class="form-group">'+
-					'                       <label for="var05">OBSERVACIÓN</label>'+
-					'                       <textarea id="var05" name="var05" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.tipo_observacion +'</textarea>'+
-					'                   </div>'+
-					'               </div>'+
-					'           </div>'+
-					'	    </div>'+
-					'	    <div class="modal-footer">'+ bodyBot +
-					'		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
-					'	    </div>'+
-					'   </form>'+
-					'</div>';
+                xJSON3.forEach(element1 => {
+					if (element1.tipo_estado_codigo == 1 && element1.tipo_codigo == element.tipo_hacienda_codigo) {
+						selHacienda = selHacienda + '                               <option value="'+ element1.tipo_codigo +'" selected>'+ element1.tipo_nombre +'</option>';
+					} else {
+						selHacienda = selHacienda + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
+					}
+                });
+
+                html = 
+                    '<div class="modal-content">'+
+                    '   <form id="form" data-parsley-validate method="post" action="../class/crud/animal.php">'+
+                    '	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
+                    '		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
+                    '		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+                    '	    </div>'+
+                    '	    <div class="modal-body" >'+
+                    '           <div class="form-group">'+
+                    '               <input id="workCodigo" name="workCodigo" value="'+ element.animal_codigo +'" class="form-control" type="hidden" required readonly>'+
+                    '               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
+                    '               <input id="workPage" name="workPage" value="animal" class="form-control" type="hidden" required readonly>'+
+                    '               <input id="workEspecie" name="workEspecie" value="'+ rowEspecie +'" class="form-control" type="hidden" required readonly>'+
+                    '           </div>'+
+                    '           <div class="row pt-3">'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var001">Establecimiento</label>'+
+                    '                       <select id="var001" name="var001" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                    '                           <optgroup label="Establecimiento">'+
+                    '                               <option value="'+ element.establecimiento_codigo +'" selected>'+ element.establecimiento_nombre +'</option>'+
+                    '                           </optgroup>'+
+                    '                       </select>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var002">Categoría</label>'+
+                    '                       <select id="var002" name="var002" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                    '                           <optgroup label="Categoría">'+
+                    '                               <option value="'+ element.tipo_categoria_codigo +'" selected>'+ element.tipo_categoria_nombre +'</option>'+
+                    '                           </optgroup>'+
+                    '                       </select>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var003">SubCategoría</label>'+
+                    '                       <select id="var003" name="var003" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                    '                           <optgroup label="SubCategoría">'+
+                    '                               <option value="'+ element.tipo_subcategoria_codigo +'" selected>'+ element.tipo_subcategoria_nombre +'</option>'+
+                    '                           </optgroup>'+
+                    '                       </select>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var004">Origen</label>'+
+                    '                       <select id="var004" name="var004" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                    '                           <optgroup label="Origen">'+
+                    '                               <option value="'+ element.tipo_origen_codigo +'" selected>'+ element.tipo_origen_nombre +'</option>'+
+                    '                           </optgroup>'+
+                    '                       </select>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var005">Raza</label>'+
+                    '                       <select id="var005" name="var005" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                    '                           <optgroup label="Raza">'+
+                    '                               <option value="'+ element.tipo_raza_codigo +'" selected>'+ element.tipo_raza_nombre +'</option>'+
+                    '                           </optgroup>'+
+                    '                       </select>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var006">Propietario</label>'+
+                    '                       <select id="var006" name="var006" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                    '                           <optgroup label="Propietario">'+
+                    '                               <option value="'+ element.persona_codigo +'" selected>'+ element.persona_completo +'</option>'+
+                    '                           </optgroup>'+
+                    '                       </select>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var007">Pelaje</label>'+
+                    '                       <select id="var007" name="var007" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                    '                           <optgroup label="Pelaje">'+ selPelaje +
+                    '                           </optgroup>'+
+                    '                       </select>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var008">Grado Sangre</label>'+
+                    '                       <select id="var008" name="var008" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                    '                           <optgroup label="Grado Sangre">'+ selSangre +
+                    '                           </optgroup>'+
+                    '                       </select>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var009">Hacienda</label>'+
+                    '                       <select id="var009" name="var009" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                    '                           <optgroup label="Hacienda">'+ selHacienda +
+                    '                           </optgroup>'+
+                    '                       </select>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var010">Cód. Electrónico</label>'+
+                    '                       <input id="var010" name="var010" value="'+ element.animal_codigo_electronico +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código Electrónico" '+ bodyOnl +'>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var011">Cód. RP</label>'+
+                    '                       <input id="var011" name="var011" value="'+ element.animal_codigo_rp +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código RP" '+ bodyOnl +'>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var012">Cód. HBP</label>'+
+                    '                       <input id="var012" name="var012" value="'+ element.animal_codigo_hbp +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código HBP" '+ bodyOnl +'>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var013">Cód. SITRAP</label>'+
+                    '                       <input id="var013" name="var013" value="'+ element.animal_codigo_sitrap +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código SITRAP" '+ bodyOnl +'>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var014">Cód. Interno</label>'+
+                    '                       <input id="var014" name="var014" value="'+ element.animal_codigo_interno +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código Interno" '+ bodyOnl +'>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var015">Cód. Nombre</label>'+
+                    '                       <input id="var015" name="var015" value="'+ element.animal_codigo_nombre +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código Nombre" '+ bodyOnl +'>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var016">OBSERVACIÓN</label>'+
+                    '                       <textarea id="var016" name="var016" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.animal_observacion +'</textarea>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '           </div>'+
+                    '	    </div>'+
+                    '	    <div class="modal-footer">'+ bodyBot +
+                    '		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
+                    '	    </div>'+
+                    '   </form>'+
+                    '</div>';
 			}
 		});
 	} else if (codAcc == 5) {
@@ -546,15 +646,17 @@ function setAnimal(rowEspecie, rowEst, codElem, codAcc){
 	$("#modal-content").empty();
     $("#modal-content").append(html);
     
-    selectEstablecimiento('var001'),
-    selectDominio('var002', 'ANIMALCATEGORIA');
-    changeCategoria(rowEspecie, 'var002', 'var003');
-    selectDominio('var004', 'ANIMALORIGEN');
-    selectDominio('var005', 'ANIMALRAZA');
-    selectPropietario('var006', 'var001');
-    selectDominio('var007', 'ANIMALPELAJE');
-    selectDominio('var008', 'ANIMALGRADOSANGRE');
-    selectDominio('var009', 'ANIMALHACIENDA');
+    if (codAcc == 1) {
+        selectEstablecimiento('var001'),
+        selectDominio('var002', 'ANIMALCATEGORIA');
+        changeCategoria(rowEspecie, 'var002', 'var003');
+        selectDominio('var004', 'ANIMALORIGEN');
+        selectDominio('var005', 'ANIMALRAZA');
+        selectPropietario('var006', 'var001');
+        selectDominio('var007', 'ANIMALPELAJE');
+        selectDominio('var008', 'ANIMALGRADOSANGRE');
+        selectDominio('var009', 'ANIMALHACIENDA');
+    }
 
     $('#var001').change(function() {
         selectPropietario('var006', 'var001');

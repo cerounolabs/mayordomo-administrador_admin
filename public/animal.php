@@ -96,6 +96,9 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
+                                <div class="row">
+                                    <h4 class="col-10 card-title"> FILTRO DE B&Uacute;SQUEDA</h4>
+								</div>
                                 <form action="#">
                                     <div class="form-body">
                                         <div class="row">
@@ -182,7 +185,7 @@
 								</div>
                                 <div class="table-responsive">
                                     <table id="tableLoad" class="table v-middle" style="width: 100%;">
-                                        <thead id="tableCodigo" class="">
+                                        <thead id="tableCodigo" class="<?php echo $valueDominio; ?>">
                                             <tr class="bg-table-title" style="text-align:center;">
                                                 <th class="border-top-0" style="width:80px;">C&Oacute;DIGO</th>
                                                 <th class="border-top-0" style="width:80px;">ESTADO</th>
