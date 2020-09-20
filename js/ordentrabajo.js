@@ -91,9 +91,10 @@ function setOrdenTrabajo(rowOTC, rowOTP, rowEst, codElem, codAcc){
         codEst  = document.getElementById(rowEst).value;
     }
     
-    var xJSON           = getOrdenTrabajo(rowOTC, codEst, 0, 0, 0);
+    var xJSON           = getOrdenTrabajo(rowOTP, codEst, 0, 0, 0);
     var xJSON1          = getDominio('ORDENTRABAJOESTADO');
     var xJSON2          = getDominio('ORDENTRABAJOTIPO');
+    var xJSON3          = getEstablecimientoPersona(codEst);
     var html            = '';
     var bodyCol         = '';
     var bodyTit         = '';
@@ -101,9 +102,10 @@ function setOrdenTrabajo(rowOTC, rowOTP, rowEst, codElem, codAcc){
     var bodyOnl         = '';
     var bodyBot         = '';
     var inpOT           = getFechaHora(6);
-    var selPelaje       = '';
     var selEstado       = '';
     var selTipo         = '';
+    var selPAdm         = '';
+    var selPVet         = '';
     var rowAuditoria    = '';
 
     switch (codAcc) {
@@ -176,17 +178,17 @@ function setOrdenTrabajo(rowOTC, rowOTP, rowEst, codElem, codAcc){
             ''+
             '	    <div class="modal-body" >'+
             '           <div class="form-group">'+
-            '               <input class="form-control" type="hidden" id="workCodigo"   name="workCodigo"   value="0" required readonly>'+
-            '               <input class="form-control" type="hidden" id="workModo"     name="workModo"     value="'+ bodyMod +'" required readonly>'+
-            '               <input class="form-control" type="hidden" id="workPage"     name="workPage"     value="ordentrabajo?codigo'+ rowOTP +'" required readonly>'+
-            '               <input class="form-control" type="hidden" id="workTipo"     name="workTipo"     value="'+ rowOTC +'" required readonly>'+
+            '               <input class="form-control" type="hidden" id="workCodigo"   name="workCodigo"   value="0"                                       required readonly>'+
+            '               <input class="form-control" type="hidden" id="workModo"     name="workModo"     value="'+ bodyMod +'"                           required readonly>'+
+            '               <input class="form-control" type="hidden" id="workPage"     name="workPage"     value="ordentrabajo.php?codigo='+ rowOTP +'&"    required readonly>'+
+            '               <input class="form-control" type="hidden" id="workTipo"     name="workTipo"     value="'+ rowOTC +'"                            required readonly>'+
             '           </div>'+
             ''+
             '           <div class="row">'+
             '               <div class="col-sm-12 col-md-4">'+
             '                   <div class="form-group">'+
             '                       <label for="var001">Establecimiento</label>'+
-            '                       <select id="var001" name="var001" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+            '                       <select id="var001" name="var001" class="form-control" style="width:100%; height:40px;" readonly required>'+
             '                           <optgroup label="Establecimiento">'+
             '                           </optgroup>'+
             '                       </select>'+
@@ -270,177 +272,138 @@ function setOrdenTrabajo(rowOTC, rowOTP, rowEst, codElem, codAcc){
             '</div>';
 	} else if (codAcc > 1 && codAcc < 5) {
 		xJSON.forEach(element => {
-			if (element.animal_codigo == codElem) {
+			if (element.orden_trabajo_codigo == codElem) {
                 xJSON1.forEach(element1 => {
-					if (element1.tipo_estado_codigo == 1 && element1.tipo_codigo == element.tipo_pelaje_codigo) {
-						selPelaje = selPelaje + '                               <option value="'+ element1.tipo_codigo +'" selected>'+ element1.tipo_nombre +'</option>';
-					} else {
-						selPelaje = selPelaje + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
-					}
-                });
+                    if (element1.tipo_estado_parametro == 1) {
+                        var item    = pad(element1.tipo_codigo, 3);
 
-                xJSON2.forEach(element1 => {
-					if (element1.tipo_estado_codigo == 1 && element1.tipo_codigo == element.tipo_grado_sangre_codigo) {
-						selSangre = selSangre + '                               <option value="'+ element1.tipo_codigo +'" selected>'+ element1.tipo_nombre +'</option>';
-					} else {
-						selSangre = selSangre + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
-					}
+                        if(element.tipo_estado_codigo == element1.tipo_codigo){
+                            selEstado   = selEstado + '                               <option value="'+ element1.tipo_codigo +'" selected>'+ item + ' - ' + element1.tipo_nombre +'</option>';
+                        } else {
+                            selEstado   = selEstado + '                               <option value="'+ element1.tipo_codigo +'">'+ item + ' - ' + element1.tipo_nombre +'</option>';
+                        }
+                    }
                 });
 
                 xJSON3.forEach(element1 => {
-					if (element1.tipo_estado_codigo == 1 && element1.tipo_codigo == element.tipo_hacienda_codigo) {
-						selHacienda = selHacienda + '                               <option value="'+ element1.tipo_codigo +'" selected>'+ element1.tipo_nombre +'</option>';
-					} else {
-						selHacienda = selHacienda + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
-					}
+                    var item    = pad(element1.persona_codigo, 3);
+
+                    if (element1.tipo_estado_parametro == 1 && element1.tipo_rol_parametro == 2) {
+                        if(element.persona_administrador_codigo == element1.persona_codigo){
+                            selPAdm   = selPAdm + '                               <option value="'+ element1.persona_codigo +'" selected>'+ item + ' - ' + element1.persona_completo +'</option>';
+                        } else {
+                            selPAdm   = selPAdm + '                               <option value="'+ element1.persona_codigo +'">'+ item + ' - ' + element1.persona_completo +'</option>';
+                        }
+                    }
+
+                    if (element1.tipo_estado_parametro == 1 && element1.tipo_rol_parametro == 3) {
+                        if(element.persona_veterinario_codigo == element1.persona_codigo){
+                            selPVet   = selPVet + '                               <option value="'+ element1.persona_codigo +'" selected>'+ item + ' - ' + element1.persona_completo +'</option>';
+                        } else {
+                            selPVet   = selPVet + '                               <option value="'+ element1.persona_codigo +'">'+ item + ' - ' + element1.persona_completo +'</option>';
+                        }
+                    }
                 });
 
                 html = 
                     '<div class="modal-content">'+
-                    '   <form id="form" data-parsley-validate method="post" action="../class/crud/animal.php">'+
+                    '   <form id="form" data-parsley-validate method="post" action="../class/crud/ordentrabajo.php">'+
                     '	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
                     '		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
                     '		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
                     '	    </div>'+
+                    ''+
                     '	    <div class="modal-body" >'+
                     '           <div class="form-group">'+
-                    '               <input id="workCodigo" name="workCodigo" value="'+ element.animal_codigo +'" class="form-control" type="hidden" required readonly>'+
-                    '               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
-                    '               <input id="workPage" name="workPage" value="animal" class="form-control" type="hidden" required readonly>'+
-                    '               <input id="workEspecie" name="workEspecie" value="'+ rowOTC +'" class="form-control" type="hidden" required readonly>'+
+                    '               <input class="form-control" type="hidden" id="workCodigo"   name="workCodigo"   value="'+ codElem +'"                           required readonly>'+
+                    '               <input class="form-control" type="hidden" id="workModo"     name="workModo"     value="'+ bodyMod +'"                           required readonly>'+
+                    '               <input class="form-control" type="hidden" id="workPage"     name="workPage"     value="ordentrabajo.php?codigo='+ rowOTP +'&"   required readonly>'+
+                    '               <input class="form-control" type="hidden" id="workTipo"     name="workTipo"     value="'+ rowOTC +'"                            required readonly>'+
                     '           </div>'+
-                    '           <div class="row pt-3">'+
+                    ''+
+                    '           <div class="row">'+
                     '               <div class="col-sm-12 col-md-4">'+
                     '                   <div class="form-group">'+
                     '                       <label for="var001">Establecimiento</label>'+
-                    '                       <select id="var001" name="var001" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                    '                       <select id="var001" name="var001" class="form-control" style="width:100%; height:40px;" readonly required>'+
                     '                           <optgroup label="Establecimiento">'+
-                    '                               <option value="'+ element.establecimiento_codigo +'" selected>'+ element.establecimiento_nombre +'</option>'+
+                    '                               <option value="'+ element.establecimiento_codigo +'">'+ element.establecimiento_nombre +'</option>'+
                     '                           </optgroup>'+
                     '                       </select>'+
                     '                   </div>'+
                     '               </div>'+
+                    ''+
                     '               <div class="col-sm-12 col-md-4">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var002">Categoría</label>'+
+                    '                       <label for="var002">Estado</label>'+
                     '                       <select id="var002" name="var002" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
-                    '                           <optgroup label="Categoría">'+
-                    '                               <option value="'+ element.tipo_categoria_codigo +'" selected>'+ element.tipo_categoria_nombre +'</option>'+
+                    '                           <optgroup label="Estado">'+ selEstado +
                     '                           </optgroup>'+
                     '                       </select>'+
                     '                   </div>'+
                     '               </div>'+
+                    ''+
                     '               <div class="col-sm-12 col-md-4">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var003">SubCategoría</label>'+
-                    '                       <select id="var003" name="var003" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
-                    '                           <optgroup label="SubCategoría">'+
-                    '                               <option value="'+ element.tipo_subcategoria_codigo +'" selected>'+ element.tipo_subcategoria_nombre +'</option>'+
+                    '                       <label for="var003">Tipo O.T.</label>'+
+                    '                       <select id="var003" name="var003" class="form-control" style="width:100%; height:40px;" readonly required>'+
+                    '                           <optgroup label="Tipo O.T.">'+
+                    '                               <option value="'+ element.tipo_orden_trabajo_codigo +'">'+ element.tipo_orden_trabajo_nombre +'</option>'+
                     '                           </optgroup>'+
                     '                       </select>'+
                     '                   </div>'+
                     '               </div>'+
+                    ''+
                     '               <div class="col-sm-12 col-md-4">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var004">Origen</label>'+
-                    '                       <select id="var004" name="var004" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
-                    '                           <optgroup label="Origen">'+
-                    '                               <option value="'+ element.tipo_origen_codigo +'" selected>'+ element.tipo_origen_nombre +'</option>'+
-                    '                           </optgroup>'+
-                    '                       </select>'+
+                    '                       <label for="var004">O.T. Nro.</label>'+
+                    '                       <input id="var004" name="var004" value="'+ element.orden_trabajo_numero +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" readonly required>'+
                     '                   </div>'+
                     '               </div>'+
+                    ''+
                     '               <div class="col-sm-12 col-md-4">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var005">Raza</label>'+
+                    '                       <label for="var005">Administrador</label>'+
                     '                       <select id="var005" name="var005" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
-                    '                           <optgroup label="Raza">'+
-                    '                               <option value="'+ element.tipo_raza_codigo +'" selected>'+ element.tipo_raza_nombre +'</option>'+
+                    '                           <optgroup label="Administrador">'+ selPAdm +
                     '                           </optgroup>'+
                     '                       </select>'+
                     '                   </div>'+
                     '               </div>'+
+                    ''+
                     '               <div class="col-sm-12 col-md-4">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var006">Propietario</label>'+
+                    '                       <label for="var006">Veterinario</label>'+
                     '                       <select id="var006" name="var006" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
-                    '                           <optgroup label="Propietario">'+
-                    '                               <option value="'+ element.persona_codigo +'" selected>'+ element.persona_completo +'</option>'+
+                    '                           <optgroup label="Veterinario">'+ selPVet +
                     '                           </optgroup>'+
                     '                       </select>'+
                     '                   </div>'+
                     '               </div>'+
+                    ''+
                     '               <div class="col-sm-12 col-md-4">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var007">Pelaje</label>'+
-                    '                       <select id="var007" name="var007" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
-                    '                           <optgroup label="Pelaje">'+ selPelaje +
-                    '                           </optgroup>'+
-                    '                       </select>'+
+                    '                       <label for="var007">Inicio Actividad</label>'+
+                    '                       <input id="var007" name="var007" value="'+ element.orden_trabajo_fecha_inicio +'" class="form-control" type="date" style="text-transform:uppercase; height:40px;" '+ bodyOnl +' required>'+
                     '                   </div>'+
                     '               </div>'+
+                    ''+
                     '               <div class="col-sm-12 col-md-4">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var008">Grado Sangre</label>'+
-                    '                       <select id="var008" name="var008" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
-                    '                           <optgroup label="Grado Sangre">'+ selSangre +
-                    '                           </optgroup>'+
-                    '                       </select>'+
+                    '                       <label for="var008">Fin Actividad</label>'+
+                    '                       <input id="var008" name="var008" value="'+ element.orden_trabajo_fecha_fin +'" class="form-control" type="date" style="text-transform:uppercase; height:40px;" '+ bodyOnl +'>'+
                     '                   </div>'+
                     '               </div>'+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var009">Hacienda</label>'+
-                    '                       <select id="var009" name="var009" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
-                    '                           <optgroup label="Hacienda">'+ selHacienda +
-                    '                           </optgroup>'+
-                    '                       </select>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var010">Cód. Electrónico</label>'+
-                    '                       <input id="var010" name="var010" value="'+ element.animal_codigo_electronico +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código Electrónico" '+ bodyOnl +'>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var011">Cód. RP</label>'+
-                    '                       <input id="var011" name="var011" value="'+ element.animal_codigo_rp +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código RP" '+ bodyOnl +'>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var012">Cód. HBP</label>'+
-                    '                       <input id="var012" name="var012" value="'+ element.animal_codigo_hbp +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código HBP" '+ bodyOnl +'>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var013">Cód. SITRAP</label>'+
-                    '                       <input id="var013" name="var013" value="'+ element.animal_codigo_sitrap +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código SITRAP" '+ bodyOnl +'>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var014">Cód. Interno</label>'+
-                    '                       <input id="var014" name="var014" value="'+ element.animal_codigo_interno +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código Interno" '+ bodyOnl +'>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var015">Cód. Nombre</label>'+
-                    '                       <input id="var015" name="var015" value="'+ element.animal_codigo_nombre +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código Nombre" '+ bodyOnl +'>'+
-                    '                   </div>'+
-                    '               </div>'+
+                    ''+
                     '               <div class="col-sm-12">'+
                     '                   <div class="form-group">'+
-                    '                       <label for="var016">OBSERVACIÓN</label>'+
-                    '                       <textarea id="var016" name="var016" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.animal_observacion +'</textarea>'+
+                    '                       <label for="var009">COMENTARIO</label>'+
+                    '                       <textarea id="var009" name="var009" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.orden_trabajo_observacion +'</textarea>'+
                     '                   </div>'+
                     '               </div>'+
                     '           </div>'+
                     '	    </div>'+
+                    ''+
                     '	    <div class="modal-footer">'+ bodyBot +
                     '		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
                     '	    </div>'+
@@ -466,37 +429,37 @@ function setOrdenTrabajo(rowOTC, rowOTP, rowEst, codElem, codAcc){
 		});
 
 		html = 
-		'<div class="modal-content">'+
-		'   <form id="form" data-parsley-validate method="" action="">'+
-		'	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
-		'		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
-		'		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-		'	    </div>'+
-		'	    <div class="modal-body" >'+
-		'			<table id="tableLoad" class="table v-middle" style="width: 100%;">'+
-		'				<thead id="tableAuditoria">'+
-		'					<tr class="bg-conmebol" style="text-align:center;">'+
-		'						<th class="border-top-0">M&Eacute;TODO</th>'+
-		'						<th class="border-top-0">EMPRESA</th>'+
-		'						<th class="border-top-0">USUARIO</th>'+
-		'						<th class="border-top-0">FECHA HORA</th>'+
-		'						<th class="border-top-0">IP</th>'+
-		'						<th class="border-top-0">ORDEN</th>'+
-		'						<th class="border-top-0">IMAGEN</th>'+
-		'						<th class="border-top-0">ESTADO</th>'+
-		'						<th class="border-top-0">TIPO</th>'+
-		'						<th class="border-top-0">OBSERVACI&Oacute;N</th>'+
-		'					</tr>'+
-		'				</thead>'+
-		'				<tbody>'+rowAuditoria+
-		'				</tbody>'+
-		'			</table>'+
-		'	    </div>'+
-		'	    <div class="modal-footer">'+ bodyBot +
-		'		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
-		'	    </div>'+
-		'   </form>'+
-		'</div>';
+            '<div class="modal-content">'+
+            '   <form id="form" data-parsley-validate method="" action="">'+
+            '	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
+            '		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
+            '		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+            '	    </div>'+
+            '	    <div class="modal-body" >'+
+            '			<table id="tableLoad" class="table v-middle" style="width: 100%;">'+
+            '				<thead id="tableAuditoria">'+
+            '					<tr class="bg-conmebol" style="text-align:center;">'+
+            '						<th class="border-top-0">M&Eacute;TODO</th>'+
+            '						<th class="border-top-0">EMPRESA</th>'+
+            '						<th class="border-top-0">USUARIO</th>'+
+            '						<th class="border-top-0">FECHA HORA</th>'+
+            '						<th class="border-top-0">IP</th>'+
+            '						<th class="border-top-0">ORDEN</th>'+
+            '						<th class="border-top-0">IMAGEN</th>'+
+            '						<th class="border-top-0">ESTADO</th>'+
+            '						<th class="border-top-0">TIPO</th>'+
+            '						<th class="border-top-0">OBSERVACI&Oacute;N</th>'+
+            '					</tr>'+
+            '				</thead>'+
+            '				<tbody>'+rowAuditoria+
+            '				</tbody>'+
+            '			</table>'+
+            '	    </div>'+
+            '	    <div class="modal-footer">'+ bodyBot +
+            '		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
+            '	    </div>'+
+            '   </form>'+
+            '</div>';
 	}
 
 	$("#modal-content").empty();
