@@ -150,7 +150,7 @@ function selectCategoria(valRow) {
 
 function selectPropietario(valRow, estRow) {
     var codEst  = document.getElementById(estRow).value;
-    var xJSON   = getPropietario(codEst);
+    var xJSON   = getEstablecimientoPersona(codEst);
     var xSELC   = document.getElementById(valRow);
 
     while (xSELC.length > 0) {
@@ -201,7 +201,7 @@ function selectMortandad(valRow) {
 
 function selectDenunciante(valRow, estRow) {
     var codEst  = document.getElementById(estRow).value;
-    var xJSON   = getPropietario(codEst);
+    var xJSON   = getEstablecimientoPersona(codEst);
     var xSELC   = document.getElementById(valRow);
 
     while (xSELC.length > 0) {
@@ -227,7 +227,7 @@ function selectDenunciante(valRow, estRow) {
 
 function selectCertificado(valRow, estRow) {
     var codEst  = document.getElementById(estRow).value;
-    var xJSON   = getPropietario(codEst);
+    var xJSON   = getEstablecimientoPersona(codEst);
     var xSELC   = document.getElementById(valRow);
 
     while (xSELC.length > 0) {

@@ -85,7 +85,7 @@ function sumaTotalPoblacion() {
 }
 
 function selectPropietario(codElem, valRow, indRow) {
-    var xJSON   = getPropietario(codElem);
+    var xJSON   = getEstablecimientoPersona(codElem);
     var xSELC   = document.getElementById(valRow + '_' + indRow);
 
     while (xSELC.length > 0) {
@@ -1746,8 +1746,8 @@ function setLote(codElem, codAcc, codEst){
 }
 
 function setPropietario(codElem, codAcc, codEst){
-    var xJSON       = getPropietario(codEst);
-    var aJSON       = getPropietario(codEst);
+    var xJSON       = getEstablecimientoPersona(codEst);
+    var aJSON       = getEstablecimientoPersona(codEst);
     var xJSON1      = getDominio('USUARIOROL');
     var xJSON2      = getPersona();
     var html        = '';

@@ -9,9 +9,10 @@
 
 	$val01          = $_POST['var01'];
     $val02          = $_POST['var02'];
-    $val03          = strtoupper(strtolower(trim($_POST['var03'])));
+    $val03          = $_POST['var03'];
 	$val04          = strtoupper(strtolower(trim($_POST['var04'])));
-	$val05          = strtoupper(strtolower(trim($_POST['var05'])));
+	$val05          = strtolower(trim($_POST['var05']));
+	$val06          = strtoupper(strtolower(trim($_POST['var06'])));
 
 	$work01         = $_POST['workCodigo'];
 	$work02         = $_POST['workModo'];
@@ -24,15 +25,16 @@
 	
 	$seg_04         = $_SESSION['seg_04'];
 
-    if (isset($val01) && isset($val02) && isset($val03)) {
+    if (isset($val01) && isset($val02) && isset($val04)) {
         $dataJSON = json_encode(
 			array(
 				'tipo_estado_codigo'        => $val01,
 				'tipo_orden'    		    => $val02,
-                'tipo_nombre'        		=> $val03,
-				'tipo_path'                 => $val04,
+                'tipo_nombre'        		=> $val04,
+				'tipo_path'                 => $val05,
+				'tipo_parametro'			=> $val03,
 				'tipo_dominio'              => $work04,
-				'tipo_observacion'          => $val05,
+				'tipo_observacion'          => $val06,
 				'auditoria_usuario'         => $usu_03,
                 'auditoria_fecha_hora'	    => date('Y-m-d H:i:s'),
 				'auditoria_ip'        	    => $log_04,
@@ -54,7 +56,7 @@
 
 	$result		= json_decode($result, true);
 	$msg		= str_replace("\n", ' ', $result['message']);
-
+	
 	header('Location: ../../public/'.$work03.'.php?dominio='.$work04.'&code='.$result['code'].'&msg='.$msg);
 
 	ob_end_flush();
