@@ -106,6 +106,7 @@
                                                 <th class="border-top-0" style="width:80px;">C&Oacute;DIGO</th>
                                                 <th class="border-top-0" style="width:80px;">ESTADO</th>
                                                 <th class="border-top-0">TIPO</th>
+                                                <th class="border-top-0">PAR&Aacute;METRO</th>
                                                 <th class="border-top-0">DOMINIO</th>
                                                 <th class="border-top-0">OBSERVACI&Oacute;N</th>
                                                 <th class="border-top-0">EMPRESA</th>

@@ -33,19 +33,21 @@ $(document).ready(function() {
 			{ targets			: [1],	visible : true,searchable : true,	orderData : [1, 0] },
 			{ targets			: [2],	visible : true,	searchable : true,	orderData : [2, 0] },
 			{ targets			: [3],	visible : true,	searchable : true,	orderData : [3, 0] },
-			{ targets			: [4],	visible : false,searchable : false,	orderData : [4, 0] },
-			{ targets			: [5],	visible : true,	searchable : true,	orderData : [5, 0] },
-			{ targets			: [6],	visible : false,searchable : false,	orderData : [6, 0] },
+			{ targets			: [4],	visible : true,	searchable : true,	orderData : [4, 0] },
+			{ targets			: [5],	visible : false,searchable : false,	orderData : [5, 0] },
+			{ targets			: [6],	visible : true,	searchable : true,	orderData : [6, 0] },
 			{ targets			: [7],	visible : false,searchable : false,	orderData : [7, 0] },
 			{ targets			: [8],	visible : false,searchable : false,	orderData : [8, 0] },
 			{ targets			: [9],	visible : false,searchable : false,	orderData : [9, 0] },
-			{ targets			: [10],	visible : true,	searchable : true,	orderData : [10, 0] },
+			{ targets			: [10],	visible : false,searchable : false,	orderData : [10, 0] },
+			{ targets			: [11],	visible : true,	searchable : true,	orderData : [11, 0] },
 		],
 		columns		: [
 			{ data				: 'tipo_orden', name : 'tipo_orden'},
 			{ data				: 'tipo_codigo', name : 'tipo_codigo'},
 			{ data				: 'tipo_estado_nombre', name : 'tipo_estado_nombre'},
 			{ data				: 'tipo_nombre', name : 'tipo_nombre'},
+			{ data				: 'tipo_parametro', name : 'tipo_parametro'},
 			{ data				: 'tipo_dominio', name : 'tipo_dominio'},
 			{ data				: 'tipo_observacion', name : 'tipo_observacion'},
 			{ data				: 'auditoria_empresa_nombre', name : 'auditoria_empresa_nombre'},
@@ -131,6 +133,7 @@ function setDominio(codElem, codAcc){
 			'		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
 			'		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 			'	    </div>'+
+			''+
 			'	    <div class="modal-body" >'+
 			'           <div class="form-group">'+
 			'               <input id="workDominio" name="workDominio" value="' + codDom + '" class="form-control" type="hidden" required readonly>'+
@@ -138,8 +141,9 @@ function setDominio(codElem, codAcc){
 			'               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
 			'               <input id="workPage" name="workPage" value="dominio" class="form-control" type="hidden" required readonly>'+
 			'           </div>'+
+			''+
 			'           <div class="row pt-3">'+
-			'               <div class="col-sm-12 col-md-6">'+
+			'               <div class="col-sm-12 col-md-4">'+
 			'                   <div class="form-group">'+
 			'                       <label for="var01">ESTADO</label>'+
 			'                       <select id="var01" name="var01" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
@@ -151,32 +155,44 @@ function setDominio(codElem, codAcc){
 			'                       </select>'+
 			'                   </div>'+
 			'               </div>'+
-			'               <div class="col-sm-12 col-md-6">'+
+			''+
+			'               <div class="col-sm-12 col-md-4">'+
 			'                   <div class="form-group">'+
 			'                       <label for="var02">ORDEN</label>'+
-			'                       <input id="var02" name="var02" value="" class="form-control" type="number" min="0" max="999" style="text-transform:uppercase; height:40px;" placeholder="NRO ORDEN" '+ bodyOnl +'>'+
+			'                       <input id="var02" name="var02" value="0" class="form-control" type="number" min="0" max="999" style="text-transform:uppercase; height:40px;" placeholder="NRO ORDEN" '+ bodyOnl +'>'+
 			'                   </div>'+
 			'               </div>'+
+			''+
+			'               <div class="col-sm-12 col-md-4">'+
+			'                   <div class="form-group">'+
+			'                       <label for="var03">PARÁMERTRO</label>'+
+			'                       <input id="var03" name="var03" value="0" class="form-control" type="number" min="0" max="999" style="text-transform:uppercase; height:40px;" placeholder="PARÁMERTRO" '+ bodyOnl +'>'+
+			'                   </div>'+
+			'               </div>'+
+			''+
 			'               <div class="col-sm-12 col-md-12">'+
 			'                   <div class="form-group">'+
-			'                       <label for="var03">TIPO</label>'+
-			'                       <input id="var03" name="var03" value="" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="TIPO" required '+ bodyOnl +'>'+
+			'                       <label for="var04">TIPO</label>'+
+			'                       <input id="var04" name="var04" value="" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="TIPO" required '+ bodyOnl +'>'+
 			'                   </div>'+
 			'               </div>'+
+			''+
 			'               <div class="col-sm-12 col-md-12">'+
 			'                   <div class="form-group">'+
-			'                       <label for="var04">PATH</label>'+
-			'                       <input id="var04" name="var04" value="" class="form-control" type="text" style="text-transform:lowercase; height:40px;" placeholder="PATH" '+ bodyOnl +'>'+
+			'                       <label for="var05">PATH</label>'+
+			'                       <input id="var05" name="var05" value="" class="form-control" type="text" style="text-transform:lowercase; height:40px;" placeholder="PATH" '+ bodyOnl +'>'+
 			'                   </div>'+
 			'               </div>'+
+			''+
 			'               <div class="col-sm-12">'+
 			'                   <div class="form-group">'+
-			'                       <label for="var05">OBSERVACIÓN</label>'+
-			'                       <textarea id="var05" name="var05" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'></textarea>'+
+			'                       <label for="var06">OBSERVACIÓN</label>'+
+			'                       <textarea id="var06" name="var06" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'></textarea>'+
 			'                   </div>'+
 			'               </div>'+
 			'           </div>'+
 			'	    </div>'+
+			''+
 			'	    <div class="modal-footer">'+ bodyBot +
 			'		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
 			'	    </div>'+
@@ -215,15 +231,17 @@ function setDominio(codElem, codAcc){
 					'		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
 					'		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 					'	    </div>'+
+					''+
 					'	    <div class="modal-body" >'+
 					'           <div class="form-group">'+
-					'               <input id="workDominio" name="workDominio" value="' + codDom + '" class="form-control" type="hidden" required readonly>'+
-					'               <input id="workCodigo" name="workCodigo" value="'+ element.tipo_codigo +'" class="form-control" type="hidden" required readonly>'+
-					'               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
-					'               <input id="workPage" name="workPage" value="dominio" class="form-control" type="hidden" required readonly>'+
+					'               <input class="form-control" type="hidden" id="workDominio"	name="workDominio"	value="' + codDom + '"				required readonly>'+
+					'               <input class="form-control" type="hidden" id="workCodigo"	name="workCodigo"	value="'+ element.tipo_codigo +'"	required readonly>'+
+					'               <input class="form-control" type="hidden" id="workModo"		name="workModo"		value="'+ bodyMod +'"				required readonly>'+
+					'               <input class="form-control" type="hidden" id="workPage"		name="workPage"		value="dominio"						required readonly>'+
 					'           </div>'+
+					''+
 					'           <div class="row pt-3">'+
-					'               <div class="col-sm-12 col-md-6">'+
+					'               <div class="col-sm-12 col-md-4">'+
 					'                   <div class="form-group">'+
 					'                       <label for="var01">ESTADO</label>'+
 					'                       <select id="var01" name="var01" class="select2 form-control custom-select" style="width:100%; height:40px;" '+ bodyOnl +'>'+
@@ -232,32 +250,44 @@ function setDominio(codElem, codAcc){
 					'                       </select>'+
 					'                   </div>'+
 					'               </div>'+
-					'               <div class="col-sm-12 col-md-6">'+
+					''+
+					'               <div class="col-sm-12 col-md-4">'+
 					'                   <div class="form-group">'+
 					'                       <label for="var02">ORDEN</label>'+
 					'                       <input id="var02" name="var02" value="'+ element.tipo_orden +'" class="form-control" type="number" min="0" max="999" style="text-transform:uppercase; height:40px;" placeholder="NRO ORDEN" '+ bodyOnl +'>'+
 					'                   </div>'+
 					'               </div>'+
-					'               <div class="col-sm-12 col-md-12">'+
+					''+
+					'               <div class="col-sm-12 col-md-4">'+
 					'                   <div class="form-group">'+
-					'                       <label for="var03">TIPO</label>'+
-					'                       <input id="var03" name="var03" value="'+ element.tipo_nombre +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="TIPO" required '+ bodyOnl +'>'+
+					'                       <label for="var03">PARÁMETRO</label>'+
+					'                       <input id="var03" name="var03" value="'+ element.tipo_parametro +'" class="form-control" type="number" min="0" max="999" style="text-transform:uppercase; height:40px;" placeholder="PARÁMETRO" '+ bodyOnl +'>'+
 					'                   </div>'+
 					'               </div>'+
+					''+
 					'               <div class="col-sm-12 col-md-12">'+
 					'                   <div class="form-group">'+
-					'                       <label for="var04">PATH</label>'+
-					'                       <input id="var04" name="var04" value="'+ element.tipo_path +'" class="form-control" type="text" style="text-transform:lowercase; height:40px;" placeholder="PATH" '+ bodyOnl +'>'+
+					'                       <label for="var04">TIPO</label>'+
+					'                       <input id="var04" name="var04" value="'+ element.tipo_nombre +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="TIPO" required '+ bodyOnl +'>'+
 					'                   </div>'+
 					'               </div>'+
+					''+
+					'               <div class="col-sm-12 col-md-12">'+
+					'                   <div class="form-group">'+
+					'                       <label for="var05">PATH</label>'+
+					'                       <input id="var05" name="var05" value="'+ element.tipo_path +'" class="form-control" type="text" style="text-transform:lowercase; height:40px;" placeholder="PATH" '+ bodyOnl +'>'+
+					'                   </div>'+
+					'               </div>'+
+					''+
 					'               <div class="col-sm-12">'+
 					'                   <div class="form-group">'+
-					'                       <label for="var05">OBSERVACIÓN</label>'+
-					'                       <textarea id="var05" name="var05" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.tipo_observacion +'</textarea>'+
+					'                       <label for="var06">OBSERVACIÓN</label>'+
+					'                       <textarea id="var06" name="var06" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.tipo_observacion +'</textarea>'+
 					'                   </div>'+
 					'               </div>'+
 					'           </div>'+
 					'	    </div>'+
+					''+
 					'	    <div class="modal-footer">'+ bodyBot +
 					'		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
 					'	    </div>'+

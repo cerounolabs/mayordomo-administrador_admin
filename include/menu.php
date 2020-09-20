@@ -194,12 +194,20 @@
                            		<span class="hide-menu"> Orden Trabajo </span>
                            	</a>
                             <ul aria-expanded="false" class="collapse first-level">
-                            	<li class="sidebar-item">
-                               		<a href="javascript:void(0)" class="sidebar-link">
+<?php
+	foreach ($parm_01['data'] as $dominioKEY => $dominioVALUE) {
+		if ($dominioVALUE['tipo_dominio'] == 'ORDENTRABAJOTIPO' && $dominioVALUE['tipo_estado_codigo'] == 1) {
+?>
+                                <li class="sidebar-item">
+                               		<a href="../public/ordentrabajo.php?codigo=<?php echo $dominioVALUE['tipo_parametro']; ?>" class="sidebar-link">
                                			<i class="mdi mdi-ot"></i>
-                               			<span class="hide-menu"> Orden Trabajo </span>
+                               			<span class="hide-menu"> <?php echo $dominioVALUE['tipo_nombre']; ?> </span>
                                		</a>
                                	</li>
+<?php
+		}
+	}
+?>
                             </ul>
                         </li>
 						

@@ -20,17 +20,16 @@
 //    $seg_02         = $_SESSION['seg_02'];
 //    $seg_03         = $_SESSION['seg_03'];
     $seg_04         = $_SESSION['seg_04'];
-
+    
     $parm_01        = $_SESSION['parm_01'];
-
     $expire         = $_SESSION['expire'];
 
     if ($expire < time()) {
-        header('Location: ../../class/session/session_logout.php');
+        header('Location: ../class/session/session_logout.php');
     } else {
         if (isset($log_01) && isset($log_04) && isset($val_04)) {
             if ($log_04 != $val_04) {
-                header('Location: ../../class/session/session_logout.php');
+                header('Location: ../class/session/session_logout.php');
             } else {
                 setlocale(LC_MONETARY, 'es_PY');
                 setlocale(LC_TIME, 'es_ES.UTF-8');
@@ -52,7 +51,7 @@
 */
             }
         } else {
-            header('Location: ../../class/session/session_logout.php');
+            header('Location: ../class/session/session_logout.php');
         }
     }
 ?>

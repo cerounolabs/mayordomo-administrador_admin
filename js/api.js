@@ -1,4 +1,4 @@
-const urlBASE   = 'https://www.cerouno.me/mayorcontrol_api/apiv1';
+const urlBASE   = 'https://cerouno.me/mayorcontrol_api/apiv1';
 const xHTTP	    = new XMLHttpRequest();
 const autBASE   = 'dXNlcl9zZmhvbG94OnVzZXJfc2Zob2xveDIwMjA=';
 
@@ -35,6 +35,42 @@ function postJSON(codPAGE, codURL, codPARS){
     xHTTP.setRequestHeader('Authorization', 'Basic ' + autBASE);
     xHTTP.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
     xHTTP.send(codPARS);
+}
+
+function getFechaHora(codTipo){
+    var xDATE   = new Date();
+    var xDATA   = '';
+    var xMONTH  = pad((xDATE.getMonth() + 1), 2);
+    var xDAY    = pad(xDATE.getDate(), 2);
+    var xMILS  = pad(xDATE.getMilliseconds(), 3);
+
+    switch (codTipo) {
+        case 1:
+            xDATA   = xDATE.getFullYear() + '-' + xMONTH + '-' + xDAY;
+            break;
+    
+        case 2:
+            xDATA   = xDATE.getFullYear() + '/' + xMONTH + '/' + xDAY;
+            break;
+
+        case 3:
+            xDATA   = xDAY + '-' + xMONTH + '-' + xDATE.getFullYear();
+            break;
+
+        case 4:
+            xDATA   = xDAY + '/' + xMONTH + '/' + xDATE.getFullYear();
+            break;
+
+        case 5:
+            xDATA   = xDATE.getHours() + ':' + xDATE.getMinutes() + ':' + xDATE.getSeconds();
+            break;
+
+        case 6:
+            xDATA   = xDATE.getFullYear() + '' + xMONTH + '' + xDAY + '' + xDATE.getHours() + '' + xDATE.getMinutes() + '' + xDATE.getSeconds() + '' + xMILS;
+            break;
+    }
+
+    return xDATA;
 }
 
 function getDominio(codDom){
@@ -208,6 +244,31 @@ function getEstablecimientoId(codElem){
     return xDATA;
 }
 
+function getEstablecimientoPersona(codElem){
+    if (localStorage.getItem('establecimientoPersonaCOD') != codElem) {
+        localStorage.removeItem('establecimientoPersonaJSON');
+    }
+
+    if (localStorage.getItem('establecimientoPersonaJSON') === null){
+        localStorage.setItem('establecimientoPersonaCOD', codElem);
+
+        getJSON('establecimientoPersonaJSON', '000/establecimientopersona/' + codElem);
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('establecimientoPersonaJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_codigo == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
 function getSeccion(codElem){
     if (localStorage.getItem('seccionJSON') === null){
         getJSON('seccionJSON', '000/establecimientoseccion/' + codElem);
@@ -252,25 +313,6 @@ function getLote(codElem){
     }
 
     var xJSON = JSON.parse(localStorage.getItem('loteJSON'));
-    var xDATA = [];
-
-    if (xJSON['code'] == 200) {
-        xJSON['data'].forEach(element => {
-            if (element.tipo_estado_codigo == 1) {
-                xDATA.push(element);
-            }
-        });
-    }
-
-    return xDATA;
-}
-
-function getPropietario(codElem){
-    if (localStorage.getItem('propietarioJSON') === null){
-        getJSON('propietarioJSON', '000/establecimientopersona/' + codElem);
-    }
-
-    var xJSON = JSON.parse(localStorage.getItem('propietarioJSON'));
     var xDATA = [];
 
     if (xJSON['code'] == 200) {
@@ -1984,6 +2026,31 @@ function getAnimal(codTip, codEst, codAni, codCat, codSub, codOrg, codRaz, codPr
                     }
                     
                     break;
+            }
+        });
+    }
+
+    return xDATA;
+}
+
+function getOrdenTrabajo(codTip, codEst, codEsta, codPAdmin, codPVete){
+    if (localStorage.getItem('ordentrabajoCOD') != codEst) {
+        localStorage.removeItem('ordentrabajoJSON');
+    }
+
+    if (localStorage.getItem('ordentrabajoJSON') === null){
+        localStorage.setItem('ordentrabajoCOD', codEst);
+
+        getJSON('ordentrabajoJSON', '000/ordentrabajo/' + codEst);
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('ordentrabajoJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_orden_trabajo_parametro == codTip) {
+                xDATA.push(element);
             }
         });
     }

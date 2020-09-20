@@ -5,7 +5,7 @@ $(document).ready(function() {
 	var secJSON		= getSeccion(codEst);
 	var potJSON		= getPotrero(codEst);
 	var lotJSON		= getLote(codEst);
-	var porJSON		= getPropietario(codEst);
+	var porJSON		= getEstablecimientoPersona(codEst);
 	
 	$('#tableEstablecimiento').DataTable({
 		scrollY			: "300px",
