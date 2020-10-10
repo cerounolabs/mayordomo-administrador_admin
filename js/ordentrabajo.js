@@ -62,8 +62,9 @@ $(document).ready(function() {
                         var btnUPD	= '<button onclick="setOrdenTrabajo('+ full.tipo_orden_trabajo_codigo +', '+ full.tipo_orden_trabajo_parametro +', '+ full.establecimiento_codigo +', '+ full.orden_trabajo_codigo +', 3);" title="Editar" type="button" class="btn btn-success btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-edit"></i></button>';
                         var btnDLT	= '<button onclick="setOrdenTrabajo('+ full.tipo_orden_trabajo_codigo +', '+ full.tipo_orden_trabajo_parametro +', '+ full.establecimiento_codigo +', '+ full.orden_trabajo_codigo +', 4);" title="Eliminar" type="button" class="btn btn-danger btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-eraser"></i></button>';
                         var btnAUD	= '<button onclick="setOrdenTrabajo('+ full.tipo_orden_trabajo_codigo +', '+ full.tipo_orden_trabajo_parametro +', '+ full.establecimiento_codigo +', '+ full.orden_trabajo_codigo +', 5);" title="Auditoria" type="button" class="btn btn-warning btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-user-secret"></i></button>';
-                        
-                        return (btnDSP + '&nbsp;' + btnUPD + '&nbsp;' + btnDLT + '&nbsp;' + btnAUD);
+                        var btnFIC	= '<button onclick="setOrdenTrabajo('+ full.tipo_orden_trabajo_codigo +', '+ full.tipo_orden_trabajo_parametro +', '+ full.establecimiento_codigo +', '+ full.orden_trabajo_codigo +', 6);" title="Auditoria" type="button" class="btn btn-info btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-warehouse"></i></button>';
+
+                        return (btnFIC + '&nbsp;' + btnDSP + '&nbsp;' + btnUPD + '&nbsp;' + btnDLT + '&nbsp;' + btnAUD + '&nbsp;');
                     }
                 },
             ]
@@ -460,7 +461,9 @@ function setOrdenTrabajo(rowOTC, rowOTP, rowEst, codElem, codAcc){
             '	    </div>'+
             '   </form>'+
             '</div>';
-	}
+	} else if (codAcc == 6) {
+        window.location.href = '../public/ordentrabajo_crud.php?codigo='+rowOTP+'&ot='+codElem;
+    }
 
 	$("#modal-content").empty();
     $("#modal-content").append(html);
