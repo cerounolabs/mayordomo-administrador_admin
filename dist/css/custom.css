@@ -17,6 +17,7 @@
 }
 
 .header-nav{
+/*
 	background: rgba(164,179,87,1);
 	background: -moz-linear-gradient(left, rgba(164,179,87,1) 0%, rgba(33,98,22,1) 100%);
 	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(164,179,87,1)), color-stop(100%, rgba(33,98,22,1)));
@@ -25,6 +26,8 @@
 	background: -ms-linear-gradient(left, rgba(164,179,87,1) 0%, rgba(33,98,22,1) 100%);
 	background: linear-gradient(to right, rgba(164,179,87,1) 0%, rgba(33,98,22,1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a4b357', endColorstr='#216216', GradientType=1 );
+*/
+	background-color: #24d8b7 !important;
 }
 
 .position-shadow:hover {

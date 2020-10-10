@@ -87,7 +87,7 @@
                                             </div>
 
                                             <div>
-                                                <h3 class="m-b-0"><?php echo $otJSON['data'][0]['establecimiento_nombre']; ?> </h3>
+                                                <h3 class="m-b-0"><?php echo $otJSON['data'][0]['establecimiento_nombre'].' - O.T. NRO.: '.$otJSON['data'][0]['orden_trabajo_numero']; ?> </h3>
                                                 <span><?php echo strftime("%A, %d %B %G", strtotime(date('l d F Y'))); ?></span>
                                             </div>
                                         </div>
@@ -114,7 +114,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <h4 class="col-10 card-title"> O.T. NRO.: <?php echo $otJSON['data'][0]['orden_trabajo_numero']; ?></h4>
+                                    <h4 class="col-10 card-title"> DETALLE O.T.</h4>
 								</div>
 
                                 <form action="#">
@@ -136,20 +136,6 @@
 
                                             <div class="col-sm-12 col-md-2">
                                                 <div class="form-group">
-                                                    <label>Administrador</label>
-                                                    <input value="<?php echo $otJSON['data'][0]['persona_administrador_completo']; ?>" class="form-control" type="text" style="text-transform:uppercase; height:40px;" required readonly>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-12 col-md-2">
-                                                <div class="form-group">
-                                                    <label>Veterinario</label>
-                                                    <input value="<?php echo $otJSON['data'][0]['persona_veterinario_completo']; ?>" class="form-control" type="text" style="text-transform:uppercase; height:40px;" required readonly>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-12 col-md-2">
-                                                <div class="form-group">
                                                     <label>Inicio Actividad</label>
                                                     <input value="<?php echo $otJSON['data'][0]['orden_trabajo_fecha_inicio']; ?>" class="form-control" type="text" style="text-transform:uppercase; height:40px;" required readonly>
                                                 </div>
@@ -159,6 +145,20 @@
                                                 <div class="form-group">
                                                     <label>Fin Actividad</label>
                                                     <input value="<?php echo $otJSON['data'][0]['orden_trabajo_fecha_fin']; ?>" class="form-control" type="text" style="text-transform:uppercase; height:40px;" required readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-2">
+                                                <div class="form-group">
+                                                    <label>Administrador</label>
+                                                    <input value="<?php echo $otJSON['data'][0]['persona_administrador_completo']; ?>" class="form-control" type="text" style="text-transform:uppercase; height:40px;" required readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-2">
+                                                <div class="form-group">
+                                                    <label>Veterinario</label>
+                                                    <input value="<?php echo $otJSON['data'][0]['persona_veterinario_completo']; ?>" class="form-control" type="text" style="text-transform:uppercase; height:40px;" required readonly>
                                                 </div>
                                             </div>
                                         </div>
