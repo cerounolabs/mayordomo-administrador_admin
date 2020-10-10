@@ -7,12 +7,20 @@
         $valuePARM = $_GET['codigo'];
 
         foreach ($parm_01['data'] as $dominioKEY => $dominioVALUE) {
-            if ($dominioVALUE['tipo_dominio'] == 'ORDENTRABAJOTIPO' && $dominioVALUE['tipo_estado_codigo'] == 1 && $dominioVALUE['tipo_parametro'] == $valuePARM) {
+            if ($dominioVALUE['tipo_dominio'] == 'ORDENTRABAJOTIPO' && $dominioVALUE['tipo_estado_parametro'] == 1 && $dominioVALUE['tipo_parametro'] == $valuePARM) {
                 $valueTITLE = $dominioVALUE['tipo_nombre'];
                 $valueCODIGO= $dominioVALUE['tipo_codigo'];
             }
         }
     }
+
+    if(isset($_GET['ot'])){
+        $valueOT = $_GET['ot'];
+    } else {
+        $valueOT = 0;
+    }
+
+    $otJSON = get_curl('000/ordentrabajo/'.$valueOT);
 ?>
 
 <!DOCTYPE html>
@@ -60,19 +68,26 @@
                                                 <li class="breadcrumb-item">
                                                     <a href="../public/home.php">HOME</a>
                                                 </li>
-                                                <li class="breadcrumb-item active" aria-current="page"><?php echo $valueTITLE; ?></li>
+
+                                                <li class="breadcrumb-item">
+                                                    <a href="../public/ordentrabajo.php?codigo=<?php echo $valuePARM; ?>"><?php echo $valueTITLE; ?></a>
+                                                </li>
+
+                                                <li class="breadcrumb-item active" aria-current="page">DETALLE O.T.</li>
                                             </ol>
                                         </nav>
                                     </div>
                                 </div>
+
                                 <div class="col-8 align-self-center">
                                     <div class="d-flex align-items-center">
                                         <div class="d-flex align-items-center">
                                             <div class="m-r-10">
                                                 <img src="../assets/images/logo_menu01.png" alt="user" width="60"/>
                                             </div>
+
                                             <div>
-                                                <h3 class="m-b-0">BIENVENIDO: <?php echo strtoupper($usu_01); ?> </h3>
+                                                <h3 class="m-b-0"><?php echo $otJSON['data'][0]['establecimiento_nombre']; ?> </h3>
                                                 <span><?php echo strftime("%A, %d %B %G", strtotime(date('l d F Y'))); ?></span>
                                             </div>
                                         </div>
@@ -99,30 +114,94 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <h4 class="col-10 card-title"> FILTRO DE B&Uacute;SQUEDA</h4>
+                                    <h4 class="col-10 card-title"> O.T. NRO.: <?php echo $otJSON['data'][0]['orden_trabajo_numero']; ?></h4>
 								</div>
+
                                 <form action="#">
                                     <div class="form-body">
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-3">
+                                            <div class="col-sm-12 col-md-2">
+                                                <div class="form-group">
+                                                    <label>Estado</label>
+                                                    <input value="<?php echo $otJSON['data'][0]['tipo_estado_nombre']; ?>" class="form-control" type="text" style="text-transform:uppercase; height:40px;" required readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-2">
+                                                <div class="form-group">
+                                                    <label>Tipo</label>
+                                                    <input value="<?php echo $otJSON['data'][0]['tipo_orden_trabajo_nombre']; ?>" class="form-control" type="text" style="text-transform:uppercase; height:40px;" required readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-2">
+                                                <div class="form-group">
+                                                    <label>Administrador</label>
+                                                    <input value="<?php echo $otJSON['data'][0]['persona_administrador_completo']; ?>" class="form-control" type="text" style="text-transform:uppercase; height:40px;" required readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-2">
+                                                <div class="form-group">
+                                                    <label>Veterinario</label>
+                                                    <input value="<?php echo $otJSON['data'][0]['persona_veterinario_completo']; ?>" class="form-control" type="text" style="text-transform:uppercase; height:40px;" required readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-2">
+                                                <div class="form-group">
+                                                    <label>Inicio Actividad</label>
+                                                    <input value="<?php echo $otJSON['data'][0]['orden_trabajo_fecha_inicio']; ?>" class="form-control" type="text" style="text-transform:uppercase; height:40px;" required readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-2">
+                                                <div class="form-group">
+                                                    <label>Fin Actividad</label>
+                                                    <input value="<?php echo $otJSON['data'][0]['orden_trabajo_fecha_fin']; ?>" class="form-control" type="text" style="text-transform:uppercase; height:40px;" required readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <h4 class="col-10 card-title"> FILTRO DE B&Uacute;SQUEDA</h4>
+								</div>
+
+                                <form action="#">
+                                    <div class="form-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-3" style="display:none;">
                                                 <div class="form-group">
                                                     <label for="var01">Establecimiento</label>
-                                                    <select id="var01" name="var01" onchange="selectEstablecimientoPersona('var03', 'var01', 2, 1); selectEstablecimientoPersona('var04', 'var01', 3, 1);" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
+                                                    <select id="var01" name="var01" onchange="selectEstablecimientoPersona('var06', 'var01', 2, 1);" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
+                                                        <optgroup label="Establecimiento">
+                                                            <option value="<?php echo $otJSON['data'][0]['establecimiento_codigo']; ?>"><?php echo $otJSON['data'][0]['establecimiento_nombre']; ?></option>
+                                                        </optgroup>
                                                     </select>
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var02">Estado</label>
-                                                    <select id="var02" name="var02" onchange="" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
+                                                    <label for="var02">Categoria</label>
+                                                    <select id="var02" name="var02" onchange="selectAnimalCategoria(26, 'var02', 'var03', 1);" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
                                                     </select>
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var03">Administrador</label>
+                                                    <label for="var03">SubCategoria</label>
                                                     <select id="var03" name="var03" onchange="" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
                                                     </select>
                                                 </div>
@@ -130,8 +209,48 @@
 
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var04">Veterinario</label>
+                                                    <label for="var04">Origen</label>
                                                     <select id="var04" name="var04" onchange="" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var05">Raza</label>
+                                                    <select id="var05" name="var05" onchange="" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var06">Propietario</label>
+                                                    <select id="var06" name="var06" onchange="" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var07">Pelaje</label>
+                                                    <select id="var07" name="var07" onchange="" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var08">Grado Sangre</label>
+                                                    <select id="var08" name="var08" onchange="" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var09">Hacienda</label>
+                                                    <select id="var09" name="var09" onchange="" class="select2 form-control custom-select" style="width:100%; height:40px;" required>
                                                     </select>
                                                 </div>
                                             </div>
@@ -148,11 +267,10 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <h4 class="col-10 card-title"><?php echo $valueTITLE; ?></h4>
-                                    <h4 class="col-2 card-title" style="text-align: right;">
-                                        <a href="javascript:void(0)" onclick="setOrdenTrabajo(<?php echo $valueCODIGO; ?>, <?php echo $valuePARM; ?>, 'var01', 0, 1);" title="Nuevo" class="btn btn-info" style="background-color:#005ea6; border-color:#005ea6;" role="button" data-toggle="modal" data-target="#modal-dialog"><i class="ti-plus"></i></a>
-                                	</h4>
+                                    <h4 class="col-10 card-title">ANIMALES</h4>
+                                    <h4 class="col-2 card-title" style="text-align: right;"></h4>
 								</div>
+
                                 <div class="table-responsive">
                                     <table id="tableLoad" class="table v-middle" style="width: 100%;">
                                         <thead id="tableCodigo" class="<?php echo $valuePARM; ?>">
@@ -216,12 +334,15 @@
     
     <script src="../js/api.js"></script>
     <script src="../js/select.js"></script>
-    <script src="../js/ordentrabajo.js"></script>
     <script>
-        selectEstablecimiento('var01'),
-        selectDominio('var02', 'ORDENTRABAJOESTADO', 1);
-        selectEstablecimientoPersona('var03', 'var01', 2, 1);
-        selectEstablecimientoPersona('var04', 'var01', 3, 1);
+        selectDominio('var02', 'ANIMALCATEGORIA', 1);
+        selectAnimalCategoria(26, 'var02', 'var03', 1);
+        selectDominio('var04', 'ANIMALORIGEN', 1);
+        selectDominio('var05', 'ANIMALRAZA', 1);
+        selectEstablecimientoPersona('var06', 'var01', 2, 1);
+        selectDominio('var07', 'ANIMALPELAJE', 1);
+        selectDominio('var08', 'ANIMALGRADOSANGRE', 1);
+        selectDominio('var09', 'ANIMALHACIENDA', 1);
     </script>
 </body>
 </html>

@@ -99,6 +99,7 @@
                                 <div class="row">
                                     <h4 class="col-10 card-title"> FILTRO DE B&Uacute;SQUEDA</h4>
 								</div>
+
                                 <form action="#">
                                     <div class="form-body">
                                         <div class="row">
@@ -109,6 +110,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var02">Categoria</label>
@@ -116,6 +118,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var03">SubCategoria</label>
@@ -123,6 +126,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var04">Origen</label>
@@ -130,6 +134,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var05">Raza</label>
@@ -137,6 +142,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var06">Propietario</label>
@@ -144,6 +150,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var07">Pelaje</label>
@@ -151,6 +158,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var08">Grado Sangre</label>
@@ -158,6 +166,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var09">Hacienda</label>
@@ -183,6 +192,7 @@
                                         <a href="javascript:void(0)" onclick="setAnimal(<?php echo $valueDominio; ?>, 'var01', 0, 1);" title="Nuevo" class="btn btn-info" style="background-color:#005ea6; border-color:#005ea6;" role="button" data-toggle="modal" data-target="#modal-dialog"><i class="ti-plus"></i></a>
                                 	</h4>
 								</div>
+                                
                                 <div class="table-responsive">
                                     <table id="tableLoad" class="table v-middle" style="width: 100%;">
                                         <thead id="tableCodigo" class="<?php echo $valueDominio; ?>">
