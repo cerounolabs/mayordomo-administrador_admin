@@ -180,13 +180,35 @@
             case 'ANIMALSUBCATEGORIA':
                 $result = 'ANIMAL TIPO SUB-CATEGORÍA';
                 break;
-
+            
+            //ORDERTRABAJO
             case 'ORDENTRABAJOESTADO':
-                $result = 'ORDEN Trabajo TIPO ESTADO';
+                $result = 'ORDEN TRABAJO TIPO ESTADO';
                 break;
-
+            
             case 'ORDENTRABAJOTIPO':
                 $result = 'ORDEN TRABAJO TIPO';
+                break;
+
+            //ORDERTRABAJOANDROLOGIA
+            case 'ORDENTRABAJOANDROLOGIAESTADO':
+                $result = 'ORDEN TRABAJO ANDROLOGÍA TIPO ESTADO';
+                break;
+
+            case 'ORDENTRABAJOANDROLOGIAESCROTO':
+                $result = 'ORDEN TRABAJO ANDROLOGÍA TIPO ESCROTO';
+                break;
+
+            case 'ORDENTRABAJOANDROLOGIACONSISTENCIA':
+                $result = 'ORDEN TRABAJO ANDROLOGÍA TIPO CONSISTENCIA';
+                break;
+
+            case 'ORDENTRABAJOANDROLOGIAMOTIVO':
+                $result = 'ORDEN TRABAJO ANDROLOGÍA TIPO MOTIVO';
+                break;
+
+            case 'ORDENTRABAJOANDROLOGIARESULTADO':
+                $result = 'ORDEN TRABAJO ANDROLOGÍA TIPO RESULTADO';
                 break;
 
             case 'PERSONATIPO':
