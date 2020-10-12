@@ -29,7 +29,7 @@
 	$seg_04         = $_SESSION['seg_04'];
 
     if (isset($val01) && isset($val02) && isset($val03) && isset($val04) && isset($val05) && isset($val06) && isset($val07)) {
-        $dataJSON = json_encode(
+        $dataJSON	= json_encode(
 			array(
 				'tipo_estado_codigo'			=> $val02,
 				'tipo_orden_trabajo_codigo'		=> $val03,
@@ -45,12 +45,15 @@
 				'auditoria_ip'        	    	=> $log_04,
 				'auditoria_empresa'       		=> $seg_04
 			));
-		
+
 		switch($work02){
 			case 'C':
 				$result	= post_curl('000/ordentrabajo', $dataJSON);
 				break;
 			case 'U':
+				$result	= put_curl('000/ordentrabajo/'.$work01, $dataJSON);
+				break;
+			case 'P':
 				$result	= put_curl('000/ordentrabajo/'.$work01, $dataJSON);
 				break;
 			case 'D':
@@ -59,10 +62,30 @@
 		}
 	}
 
+	if ($work02 == 'P'){
+		$dataJSON	= json_encode(
+			array(
+				'tipo_estado_codigo'					=> 1,
+				'tipo_motivo_codigo'					=> 999,
+				'tipo_escroto_codigo'					=> 999,
+				'tipo_consistencia_codigo'				=> 999,
+				'establecimiento_codigo'				=> $val01,
+				'animal_codigo'							=> 0,
+				'orden_trabajo_codigo'					=> $work01,
+				'orden_trabajo_andrologia_fecha_carga'	=> date('Y-m-d'),
+				'auditoria_usuario'						=> $usu_03,
+				'auditoria_fecha_hora'					=> date('Y-m-d H:i:s'),
+				'auditoria_ip'							=> $log_04,
+				'auditoria_empresa'						=> $seg_04
+			));
+
+		$result1	= post_curl('000/ordentrabajoandrologia', $dataJSON);
+	}
+echo json_encode($result1);
 	$result		= json_decode($result, true);
 	$msg		= str_replace("\n", ' ', $result['message']);
 	
-	header('Location: ../../public/'.$work03.'code='.$result['code'].'&msg='.$msg);
+//	header('Location: ../../public/'.$work03.'code='.$result['code'].'&msg='.$msg);
 
 	ob_end_flush();
 ?>

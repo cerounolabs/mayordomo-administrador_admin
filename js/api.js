@@ -2058,6 +2058,29 @@ function getOrdenTrabajo(codTip, codEst, codEsta, codPAdmin, codPVete){
     return xDATA;
 }
 
+function getOrdenTrabajoDetalle(codOT){
+    if (localStorage.getItem('ordentrabajodetalleCOD') != codOT) {
+        localStorage.removeItem('ordentrabajodetalleJSON');
+    }
+
+    if (localStorage.getItem('ordentrabajodetalleJSON') === null){
+        localStorage.setItem('ordentrabajodetalleCOD', codOT);
+
+        getJSON('ordentrabajodetalleJSON', '000/ordentrabajoandrologia/' + codOT);
+    }
+
+    var xJSON = JSON.parse(localStorage.getItem('ordentrabajodetalleJSON'));
+    var xDATA = [];
+
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            xDATA.push(element);
+        });
+    }
+
+    return xDATA;
+}
+
 function pad(num, size) {
     var s = num+"";
     while (s.length < size) s = "0" + s;

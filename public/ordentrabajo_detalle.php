@@ -169,6 +169,76 @@
                     </div>
                 </div>
 
+                <div class="row" id="rowVac">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card card bg-light-info">
+                            <div class="card-body">
+                                <div class="row p-t-10 p-b-10">
+                                    <div class="col p-r-0">
+                                        <h1 class="font-light" id="titPER02"></h1>
+                                        <h6 class="text-muted">Total Animales</h6>
+                                    </div>
+
+                                    <div class="col text-right align-self-center">
+                                        <div id="valPER02" class="css-bar m-b-0 css-bar-info"><i class="mdi mdi-star-circle"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card bg-light-success">
+                            <div class="card-body">
+                                <div class="row p-t-10 p-b-10">
+                                    <div class="col p-r-0">
+                                        <h1 class="font-light" id="titCOR02"></h1>
+                                        <h6 class="text-muted">Pendientes</h6>
+                                    </div>
+
+                                    <div class="col text-right align-self-center">
+                                        <div id="valCOR02" class="css-bar m-b-0 css-bar-success"><i class="mdi mdi-star-circle"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card bg-light-danger">
+                            <div class="card-body">
+                                <div class="row p-t-10 p-b-10">
+                                    <div class="col p-r-0">
+                                        <h1 class="font-light" id="titUSU02"></h1>
+                                        <h6 class="text-muted">Analizados</h6>
+                                    </div>
+
+                                    <div class="col text-right align-self-center">
+                                        <div id="valUSU02" class="css-bar m-b-0 css-bar-danger"><i class="mdi mdi-star-circle"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card bg-light-warning">
+                            <div class="card-body">
+                                <div class="row p-t-10 p-b-10">
+                                    <div class="col p-r-0">
+                                        <h1 class="font-light" id="titDIS02"></h1>
+                                        <h6 class="text-muted">Finalizados</h6>
+                                    </div>
+
+                                    <div class="col text-right align-self-center">
+                                        <div id="valDIS02" class="css-bar m-b-0 css-bar-warning css-bar-100" data-label="100"><i class="mdi mdi-star-circle"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -272,20 +342,24 @@
 								</div>
 
                                 <div class="table-responsive">
-                                    <table id="tableLoad" class="table v-middle" style="width: 100%;">
-                                        <thead id="tableCodigo" class="<?php echo $valuePARM; ?>">
+                                    <table id="tableLoadAndrologia" class="table v-middle" style="width: 100%;">
+                                        <thead id="tableCodigo" class="<?php echo $valueOT; ?>">
                                             <tr class="bg-table-title" style="text-align:center;">
                                                 <th class="border-top-0" style="width:80px;">C&Oacute;DIGO</th>
+                                                <th class="border-top-0" style="width:200px;">ANIMAL</th>
                                                 <th class="border-top-0" style="width:80px;">ESTADO</th>
-                                                <th class="border-top-0">ESTABLECIMIENTO</th>
-                                                <th class="border-top-0">TIPO</th>
-                                                <th class="border-top-0">O.T. NRO.</th>
-                                                <th class="border-top-0">FECHA INICIO</th>
-                                                <th class="border-top-0">FECHA FIN</th>
-                                                <th class="border-top-0">ADMINISTRADOR</th>
-                                                <th class="border-top-0">VETERINARIO</th>
-                                                <th class="border-top-0">OBSERVACI&Oacute;N</th>
-                                                <th class="border-top-0" style="width:210px;">ACCI&Oacute;N</th>
+                                                <th class="border-top-0">MOTIVO</th>
+                                                <th class="border-top-0">ESCROTO</th>
+                                                <th class="border-top-0">CONSISTENCIA</th>
+                                                <th class="border-top-0">RESULTADO CORRAL</th>
+                                                <th class="border-top-0">RESULTADO LABORATORIO</th>
+                                                <th class="border-top-0">FECHA CARGA</th>
+                                                <th class="border-top-0">PESO</th>
+                                                <th class="border-top-0">C.E.</th>
+                                                <th class="border-top-0">COLA</th>
+                                                <th class="border-top-0">VESICULA</th>
+                                                <th class="border-top-0">COMENTARIO</th>
+                                                <th class="border-top-0" style="width:90px;">ACCI&Oacute;N</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -333,6 +407,7 @@
 ?>
     
     <script src="../js/api.js"></script>
+    <script src="../js/ordentrabajo_detalle.js"></script>
     <script src="../js/select.js"></script>
     <script>
         selectDominio('var02', 'ANIMALCATEGORIA', 1);

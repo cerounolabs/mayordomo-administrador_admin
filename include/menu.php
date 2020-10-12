@@ -488,6 +488,45 @@
 									</ul>
                                 </li>
 
+								<li class="sidebar-item">
+                                  	<a href="javascript:void(0)" class="sidebar-link has-arrow waves-effect waves-dark" aria-expanded="false">
+                                   		<i class="mdi mdi-parametro-ot-andrologia"></i>
+                                   		<span class="hide-menu"> Orden Trabajo Androlog&iacute;a </span>
+                                   	</a>
+									<ul aria-expanded="false" class="collapse second-level">
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ORDENTRABAJOANDROLOGIAESTADO" class="sidebar-link">
+												<i class="mdi mdi-parametro-ot-andrologia"></i>
+												<span class="hide-menu"> Tipo Estado </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ORDENTRABAJOANDROLOGIAESCROTO" class="sidebar-link">
+												<i class="mdi mdi-parametro-ot-andrologia"></i>
+												<span class="hide-menu"> Tipo Escroto </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ORDENTRABAJOANDROLOGIACONSISTENCIA" class="sidebar-link">
+												<i class="mdi mdi-parametro-ot-andrologia"></i>
+												<span class="hide-menu"> Tipo Consistencia </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ORDENTRABAJOANDROLOGIAMOTIVO" class="sidebar-link">
+												<i class="mdi mdi-parametro-ot-andrologia"></i>
+												<span class="hide-menu"> Tipo Motivo </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ORDENTRABAJOANDROLOGIARESULTADO" class="sidebar-link">
+												<i class="mdi mdi-parametro-ot-andrologia"></i>
+												<span class="hide-menu"> Tipo Resultado </span>
+											</a>
+										</li>
+									</ul>
+                                </li>
+
                                 <li class="sidebar-item">
                                   	<a href="javascript:void(0)" class="sidebar-link has-arrow waves-effect waves-dark" aria-expanded="false">
                                    		<i class="mdi mdi-parametro-persona"></i>
