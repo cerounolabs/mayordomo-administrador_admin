@@ -359,7 +359,7 @@
                                                 <th class="border-top-0">COLA</th>
                                                 <th class="border-top-0">VESICULA</th>
                                                 <th class="border-top-0">COMENTARIO</th>
-                                                <th class="border-top-0" style="width:90px;">ACCI&Oacute;N</th>
+                                                <th class="border-top-0" style="width:70px;">ACCI&Oacute;N</th>
                                             </tr>
                                         </thead>
                                     </table>
