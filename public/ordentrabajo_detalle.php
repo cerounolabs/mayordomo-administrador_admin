@@ -409,6 +409,8 @@
     <script src="../js/api.js"></script>
     <script src="../js/ordentrabajo_detalle.js"></script>
     <script src="../js/select.js"></script>
+    <script src="../js/animal.js"></script>
+    
     <script>
         selectDominio('var02', 'ANIMALCATEGORIA', 1);
         selectAnimalCategoria(26, 'var02', 'var03', 1);

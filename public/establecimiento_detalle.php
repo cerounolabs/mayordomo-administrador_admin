@@ -361,6 +361,11 @@
                     <div class="modal-dialog modal-dialog-centered" id="modal-content2">
                     </div>
                 </div>
+
+                <div id="modal-dialog3" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="vcenter" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" id="modal-content3">
+                    </div>
+                </div>
                 <!-- Modal Procesar -->
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
@@ -397,7 +402,7 @@
     <script src="../js/api.js"></script>
     <script src="../js/establecimiento.js"></script>
     <script src="../js/establecimiento_detalle.js"></script>
-
+ 
     <script>
         getTitle(<?php echo $codEstablecimiento; ?>);
     </script>

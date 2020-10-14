@@ -75,10 +75,11 @@ $(document).ready(function() {
                 { data				: 'tipo_hacienda_nombre', name : 'tipo_hacienda_nombre'},
                 { render			: 
                     function (data, type, full, meta) {
-                        var btnDSP	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +', 2);" title="Ver" type="button" class="btn btn-primary btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-eye"></i></button>';
-                        var btnUPD	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +', 3);" title="Editar" type="button" class="btn btn-success btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-edit"></i></button>';
-                        var btnDLT	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +', 4);" title="Eliminar" type="button" class="btn btn-danger btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-eraser"></i></button>';
-                        var btnAUD	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +', 5);" title="Auditoria" type="button" class="btn btn-warning btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-user-secret"></i></button>';
+                        var codPag  = "'"+'animal.php?especie='+ codigo +"'";
+                        var btnDSP	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 2);" title="Ver" type="button" class="btn btn-primary btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-eye"></i></button>';
+                        var btnUPD	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 3);" title="Editar" type="button" class="btn btn-success btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-edit"></i></button>';
+                        var btnDLT	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 4);" title="Eliminar" type="button" class="btn btn-danger btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-eraser"></i></button>';
+                        var btnAUD	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +',5);" title="Auditoria" type="button" class="btn btn-warning btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-user-secret"></i></button>';
                         return (btnDSP + '&nbsp;' + btnUPD + '&nbsp;' + btnDLT + '&nbsp;' + btnAUD);
                     }
                 },
@@ -101,7 +102,7 @@ $(document).ready(function() {
     });
 });
 
-function setAnimal(rowEspecie, rowEst, codElem, codAcc){
+function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
     var codEst = '';
 
     if (codElem != 0) {
@@ -182,7 +183,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codAcc){
             '           <div class="form-group">'+
             '               <input class="form-control" type="hidden" id="workCodigo"   name="workCodigo"   value="0"                   required readonly>'+
             '               <input class="form-control" type="hidden" id="workModo"     name="workModo"     value="'+ bodyMod +'"       required readonly>'+
-            '               <input class="form-control" type="hidden" id="workPage"     name="workPage"     value="animal"              required readonly>'+
+            '               <input class="form-control" type="hidden" id="workPage"     name="workPage"     value="'+ codPag +'"        required readonly>'+
             '               <input class="form-control" type="hidden" id="workEspecie"  name="workEspecie"  value="'+ rowEspecie +'"    required readonly>'+
             '           </div>'+
             '           <div class="row pt-3">'+
@@ -355,7 +356,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codAcc){
                     '           <div class="form-group">'+
                     '               <input class="form-control" type="hidden" id="workCodigo"   name="workCodigo"   value="'+ element.animal_codigo +'" required readonly>'+
                     '               <input class="form-control" type="hidden" id="workModo"     name="workModo"     value="'+ bodyMod +'"               required readonly>'+
-                    '               <input class="form-control" type="hidden" id="workPage"     name="workPage"     value="animal"                      required readonly>'+
+                    '               <input class="form-control" type="hidden" id="workPage"     name="workPage"     value="'+ codPag +'"                required readonly>'+
                     '               <input class="form-control" type="hidden" id="workEspecie"  name="workEspecie"  value="'+ rowEspecie +'"            required readonly>'+
                     '           </div>'+
                     ''+

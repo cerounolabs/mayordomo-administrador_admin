@@ -217,6 +217,7 @@
     <script src="../js/api.js"></script>
     <script src="../js/select.js"></script>
     <script src="../js/ordentrabajo.js"></script>
+   
     <script>
         selectEstablecimiento('var01'),
         selectDominio('var02', 'ORDENTRABAJOESTADO', 1);
