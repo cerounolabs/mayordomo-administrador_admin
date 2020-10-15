@@ -80,8 +80,9 @@ $(document).ready(function() {
                         var btnUPD	= '<button onclick="setOrdenTrabajoDetalle('+ full.tipo_orden_trabajo_parametro + ', '+ full.orden_trabajo_codigo +', '+full.orden_trabajo_andrologia_codigo +', 3);" title="Editar" type="button" class="btn btn-success btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-edit"></i></button>';
                         var btnDLT	= '<button onclick="setOrdenTrabajoDetalle('+ full.tipo_orden_trabajo_parametro + ', '+ full.orden_trabajo_codigo +', '+full.orden_trabajo_andrologia_codigo +', 4);" title="Eliminar" type="button" class="btn btn-danger btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-eraser"></i></button>';
                         var btnAUD	= '<button onclick="setOrdenTrabajoDetalle('+ full.tipo_orden_trabajo_parametro + ', '+ full.orden_trabajo_codigo +', '+full.orden_trabajo_andrologia_codigo +', 5);" title="Auditoria" type="button" class="btn btn-warning btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-user-secret"></i></button>';
+                        var btnLAB	= '<button onclick="setOrdenTrabajoDetalle('+ full.tipo_orden_trabajo_parametro + ', '+ full.orden_trabajo_codigo +', '+full.orden_trabajo_andrologia_codigo +', 6);" title="Laboratorio" type="button" class=" btn btn-circle" style="background-color:#07E0EC" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-flask"></i></button>';
                         var btnFIC	= '<button onclick="setAnimal(26,'+ full.establecimiento_codigo +', '+ full.animal_codigo +', '+ codPag +', 3);" title="Editar" type="button" class="btn btn-success btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-paw"></i></button>';
-                        btnCOM = btnDSP + '&nbsp;' + btnUPD + btnDLT + '&nbsp;' + btnAUD + '&nbsp;' + btnFIC;
+                        btnCOM = btnDSP + '&nbsp;' + btnUPD + btnDLT + '&nbsp;' + btnAUD   + btnFIC + '&nbsp;' + btnLAB;
                         return btnCOM;
                     }
                 },
@@ -98,23 +99,25 @@ $(document).ready(function() {
 });
 
 function setOrdenTrabajoDetalle(codTip, codOT, codElem, codAcc){
-	var xJSON       = getOrdenTrabajoDetalle(codOT);
-	var aJSON       = getOrdenTrabajoDetalle(codOT); 
-    var xJSON1      = getDominio('ORDENTRABAJOANDROLOGIAESTADO');
-    var xJSON2      = getDominio('ORDENTRABAJOANDROLOGIAESCROTO');
-    var xJSON3      = getDominio('ORDENTRABAJOANDROLOGIACONSISTENCIA');
-    var xJSON4      = getDominio('ORDENTRABAJOANDROLOGIAMOTIVO');
-	var html        = '';
-	var bodyCol     = '';
-	var bodyTit     = '';
-	var bodyMod     = '';
-	var bodyOnl     = '';
-	var bodyBot     = '';
-    var selEstado   = '';
-    var selEscroto  = '';
+	var xJSON           = getOrdenTrabajoDetalle(codOT);
+	var aJSON           = getOrdenTrabajoDetalle(codOT); 
+    var xJSON1          = getDominio('ORDENTRABAJOANDROLOGIAESTADO');
+    var xJSON2          = getDominio('ORDENTRABAJOANDROLOGIAESCROTO');
+    var xJSON3          = getDominio('ORDENTRABAJOANDROLOGIACONSISTENCIA');
+    var xJSON4          = getDominio('ORDENTRABAJOANDROLOGIAMOTIVO');
+    var xJSON5          = getDominio('ORDENTRABAJOANDROLOGIARESULTADO');
+	var html            = '';
+	var bodyCol         = '';
+	var bodyTit         = '';
+	var bodyMod         = '';
+	var bodyOnl         = '';
+	var bodyBot         = '';
+    var selEstado       = '';
+    var selEscroto      = '';
     var selConsistencia = '';
-    var selMotivo   = '';
-	var rowAuditoria= '';
+    var selMotivo       = '';
+    var rowAuditoria    = '';
+    var selResultado    = '';
 
 	switch (codAcc) {
 		case 1:
@@ -155,7 +158,15 @@ function setOrdenTrabajoDetalle(codTip, codOT, codElem, codAcc){
 			bodyMod = 'A';
 			bodyOnl = 'readonly';
 			bodyBot = '';
-			break;
+            break;
+            
+        case 6:
+            bodyTit = 'LABORATORIO';
+            bodyCol = '#07E0EC;';
+            bodyMod = 'U';
+            bodyOnl = '';
+            bodyBot = '           <button type="submit" class="btn btn-success">Actualizar</button>';
+            break;
 
 		default:
 			break;
@@ -464,8 +475,85 @@ function setOrdenTrabajoDetalle(codTip, codOT, codElem, codAcc){
 		'	    </div>'+
 		'   </form>'+
 		'</div>';
-	}
+	}else if (codAcc == 6) {
+        xJSON.forEach(element => {
+            if (element.orden_trabajo_codigo == codOT && element.orden_trabajo_andrologia_codigo == codElem) {
+                xJSON5.forEach(element1 => {
+                    if (element1.tipo_codigo == element.tipo_resultado_laboratorio_codigo) {
+                        selResultado = selResultado + '                         <option value="'+ element1.tipo_codigo +'" selected>'+ element1.tipo_nombre +'</option>';
+                    } else {
+                        selResultado = selResultado + '                         <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
+                    }
+                });
 
+                html = 
+                    '<div class="modal-content">'+
+                    '   <form id="form" data-parsley-validate method="post" action="../class/crud/ordentrabajo_detalle.php">'+
+                    '	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
+                    '		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
+                    '		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+                    '	    </div>'+
+                    '	    <div class="modal-body" >'+
+                    '           <div class="form-group">'+
+                    '               <input class="form-control" type="hidden" id="workCodigo"   name="workCodigo"   value="'+ codElem +'"                                                        required readonly>'+
+                    '               <input class="form-control" type="hidden" id="workModo"     name="workModo"     value="'+ bodyMod +'"                                                        required readonly>'+
+                    '               <input class="form-control" type="hidden" id="workPage"     name="workPage"     value="ordentrabajo_detalle.php?codigo='+ codTip +'&ot='+ codOT +'"          required readonly>'+
+                    '               <input class="form-control" type="hidden" id="workOT"       name="workOT"       value="'+ codOT +'"                                                          required readonly>'+
+                    '               <input class="form-control" type="hidden" id="workAnimal"   name="workAnimal"   value="'+ element.animal_codigo +'"                                          required readonly>'+
+                    '               <input class="form-control" type="hidden" id="workAccion"   name="workAccion"   value="2"                                                                    required readonly>'+
+                    '               <input class="form-control" type="hidden" id="workCorral"   name="workCorral"   value="'+ element.tipo_resultado_corral_codigo +'"                           required readonly>'+
+                    '               <input class="form-control" type="hidden" id="workEst"      name="workEst"      value="'+ element.establecimiento_codigo +'"                                 required readonly>'+
+                    '           </div>'+
+                    '           <div class="row pt-3">'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var010">RESULTADO</label>'+
+                    '                       <select id="var010" name="var010" class="select2 form-control custom-select" style="width:100%; height:40px;">'+
+                    '                           <optgroup label="Tipo">'+ selResultado + 
+                    '                           </optgroup>'+
+                    '                       </select>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var011">LABORATORIO</label>'+
+                    '                       <input id="var011" name="var011" value="'+ element.orden_trabajo_andrologia_laborario_nombre +'"class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="LABORATORIO" >'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12 col-md-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var012">FECHA ENVIO</label>'+
+                    '                       <input id="var012" name="var012" value="'+ element.orden_trabajo_andrologia_laborario_fecha_envio +'" class="form-control" type="date" style="text-transform:uppercase; height:40px;" placeholder="FECHA ENVIO" >'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var013">FECHA RETORNO</label>'+
+                    '                       <input id="var013" name="var013" value="'+ element.orden_trabajo_andrologia_laborario_fecha_retorno +'" class="form-control" type="date" style="text-transform:uppercase; height:40px;" placeholder="FECHA RETORNO" >'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-4">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var014">ADJUNTO</label>'+
+                    '                       <input id="var014" name="var014" value="'+ element.orden_trabajo_andrologia_laborario_adjunto +'" class="form-control" type="file" style="text-transform:uppercase; height:40px;" placeholder="ADJUNTO" >'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '               <div class="col-sm-12">'+
+                    '                   <div class="form-group">'+
+                    '                       <label for="var015">COMENTARIO</label>'+
+                    '                       <textarea id="var015" name="var015" value="" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.orden_trabajo_andrologia_laborario_comentario +'</textarea>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '           </div>'+
+                    '	    </div>'+
+                    '	    <div class="modal-footer">'+ bodyBot +
+                    '		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
+                    '	    </div>'+
+                    '   </form>'+
+                    '</div>';
+            }
+        });
+    }
 	$("#modal-content").empty();
 	$("#modal-content").append(html);
 }

@@ -7,6 +7,18 @@
     
     require '../../class/function/curl_api.php';
 
+
+	$work01         = $_POST['workCodigo'];
+	$work02         = $_POST['workModo'];
+	$work03         = $_POST['workPage'];
+	$work04         = $_POST['workOT'];
+	$work05         = $_POST['workAnimal'];
+	$work06         = $_POST['workAccion'];
+	$work07         = $_POST['workCorral'];
+	$work08         = $_POST['workEst'];
+
+if ($work06 == '1') {
+	//Actualización de Veterinario
 	$val01          = $_POST['var01'];
     $val02          = $_POST['var02'];
     $val03          = $_POST['var03'];
@@ -17,15 +29,34 @@
 	$val08          = strtoupper(strtolower(trim($_POST['var08'])));
 	$val09          = strtoupper(strtolower(trim($_POST['var09'])));
 
-	$work01         = $_POST['workCodigo'];
-	$work02         = $_POST['workModo'];
-	$work03         = $_POST['workPage'];
-	$work04         = $_POST['workOT'];
-	$work05         = $_POST['workAnimal'];
-	$work06         = $_POST['workAccion'];
-	$work07         = $_POST['workCorral'];
-	$work08         = $_POST['workEst'];
-	$work09         = $_POST['workLab'];
+	$val010         = '';
+	$val011         = '';
+	$val012         = '';
+	$val013         = '';
+	$val014         = '';
+	$val015         = '';
+}
+
+if ($work06 == '2') {
+	//Actualización de Laboratorio
+	$val01          = '';
+    $val02          = '';
+    $val03          = '';
+	$val04        	= '';
+	$val05          = '';
+	$val06          = '';
+	$val07          = '';
+	$val08          = '';
+	$val09          = '';
+
+	$val010         = $_POST['var010'];
+	$val011         = strtoupper(strtolower(trim($_POST['var011'])));
+	$val012         = $_POST['var012'];
+	$val013         = $_POST['var013'];
+	$val014         = 'var014';
+	$val015         = strtoupper(strtolower(trim($_POST['var015'])));
+}
+
 
 	$usu_03         = $_SESSION['usu_03'];
 
@@ -33,7 +64,7 @@
 	
 	$seg_04         = $_SESSION['seg_04'];
 
-    if (isset($val01) && isset($val02) && isset($val03) && isset($val04) && isset($val05)) {
+    if (isset($work01)) {
         $dataJSON = json_encode(
 			array(
 				'orden_trabajo_andrologia_codigo'						=> $work01,
@@ -44,7 +75,12 @@
 				'tipo_resultado_corral_codigo'							=> $work07,
 				'animal_codigo'											=> $work05,
 				'establecimiento_codigo'								=> $work08,
-				'tipo_resultado_laboratorio_codigo'						=> $work09,
+				'tipo_resultado_laboratorio_codigo'						=> $val010,
+				'orden_trabajo_andrologia_laborario_nombre'				=> $val011,
+				'orden_trabajo_andrologia_laborario_fecha_envio'		=> $val012,
+				'orden_trabajo_andrologia_laborario_fecha_retorno'		=> $val013,
+				'orden_trabajo_andrologia_laborario_adjunto'			=> $val014,
+				'orden_trabajo_andrologia_laborario_comentario'			=> $val015,
 				'tipo_accion_codigo'									=> $work06,
 				'orden_trabajo_codigo'									=> $work04,				
 				'orden_trabajo_andrologia_peso'							=> $val05,
@@ -70,10 +106,10 @@
 				break;
 		}
 	}
-	
+
 	$result		= json_decode($result, true);
 	$msg		= str_replace("\n", ' ', $result['message']);
-	
+
 	header('Location: ../../public/'.$work03.'&code='.$result['code'].'&msg='.$msg);
 
 	ob_end_flush();
