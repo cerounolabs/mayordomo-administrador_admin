@@ -115,6 +115,8 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
     var xJSON1          = getDominio('ANIMALPELAJE');
     var xJSON2          = getDominio('ANIMALGRADOSANGRE');
     var xJSON3          = getDominio('ANIMALHACIENDA');
+    var xJSON4          = getDominio('ANIMALCARIMBO');
+    
     var html            = '';
     var bodyCol         = '';
     var bodyTit         = '';
@@ -124,7 +126,12 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
     var selPelaje       = '';
     var selSangre       = '';
     var selHacienda     = '';
+    var selCarimbo      = '';
     var rowAuditoria    = '';
+    var fechpeso        = '';
+    var pesokilogramo   = 0;
+    var pesocodigo      = 0;
+    
 
     switch (codAcc) {
         case 1:
@@ -170,7 +177,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
         default:
             break;
     }
-    
+   
     if (codAcc == 1) {
         html = 
             '<div class="modal-content">'+
@@ -181,10 +188,11 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
             '	    </div>'+
             '	    <div class="modal-body" >'+
             '           <div class="form-group">'+
-            '               <input class="form-control" type="hidden" id="workCodigo"   name="workCodigo"   value="0"                   required readonly>'+
-            '               <input class="form-control" type="hidden" id="workModo"     name="workModo"     value="'+ bodyMod +'"       required readonly>'+
-            '               <input class="form-control" type="hidden" id="workPage"     name="workPage"     value="'+ codPag +'"        required readonly>'+
-            '               <input class="form-control" type="hidden" id="workEspecie"  name="workEspecie"  value="'+ rowEspecie +'"    required readonly>'+
+            '               <input class="form-control" type="hidden" id="workCodigo"       name="workCodigo"       value="0"                   required readonly>'+
+            '               <input class="form-control" type="hidden" id="workModo"         name="workModo"         value="'+ bodyMod +'"       required readonly>'+
+            '               <input class="form-control" type="hidden" id="workPage"         name="workPage"         value="'+ codPag +'"        required readonly>'+
+            '               <input class="form-control" type="hidden" id="workEspecie"      name="workEspecie"      value="'+ rowEspecie +'"    required readonly>'+
+            '               <input class="form-control" type="hidden" id="workAnimalPeso"   name="workAnimalPeso"   value="0"                   required readonly>'+
             '           </div>'+
             '           <div class="row pt-3">'+
             '               <div class="col-sm-12 col-md-4">'+
@@ -304,6 +312,27 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
             '                       <input id="var015" name="var015" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código Nombre" '+ bodyOnl +'>'+
             '                   </div>'+
             '               </div>'+
+            '               <div class="col-sm-12 col-md-4">'+
+            '                   <div class="form-group">'+
+            '                       <label for="var018">Carimbo</label>'+
+            '                       <select id="var018" name="var018" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+            '                           <optgroup label="Carimbo">'+ selCarimbo +
+            '                           </optgroup>'+
+            '                       </select>'+
+            '                   </div>'+
+            '               </div>'+
+            '               <div class="col-sm-12 col-md-4">'+
+            '                   <div class="form-group">'+
+            '                       <label for="var017">Fecha Nacimiento</label>'+
+            '                       <input id="var017" name="var017" class="form-control" type="month" style="text-transform:uppercase; height:40px;" placeholder="Fecha Nacimiento" '+ bodyOnl +'>'+
+            '                   </div>'+
+            '               </div>'+
+            '               <div class="col-sm-12 col-md-4">'+
+            '                   <div class="form-group">'+
+            '                       <label for="var019">Peso</label>'+
+            '                       <input id="var019" name="var019" class="form-control" type="number" style="text-transform:uppercase; height:40px;" placeholder="Peso" '+ bodyOnl +'>'+
+            '                   </div>'+
+            '               </div>'+
             '               <div class="col-sm-12">'+
             '                   <div class="form-group">'+
             '                       <label for="var016">COMENTARIO</label>'+
@@ -317,202 +346,248 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
             '	    </div>'+
             '   </form>'+
             '</div>';
+            
 	} else if (codAcc > 1 && codAcc < 5) {
+        
+        var xJSON5          = getAnimalPeso(codElem);
+        
 		xJSON.forEach(element => {
 			if (element.animal_codigo == codElem) {
                 xJSON1.forEach(element1 => {
-					if (element1.tipo_estado_codigo == 1 && element1.tipo_codigo == element.tipo_pelaje_codigo) {
-						selPelaje = selPelaje + '                               <option value="'+ element1.tipo_codigo +'" selected>'+ element1.tipo_nombre +'</option>';
+					if (element1.tipo_estado_parametro == 1 && element1.tipo_parametro == element.tipo_pelaje_parametro) {
+						selPelaje = selPelaje + '                               <option value="'+ element1.tipo_parametro +'" selected>'+ element1.tipo_nombre +'</option>';
 					} else {
-						selPelaje = selPelaje + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
+						selPelaje = selPelaje + '                               <option value="'+ element1.tipo_parametro +'">'+ element1.tipo_nombre +'</option>';
 					}
                 });
 
                 xJSON2.forEach(element1 => {
-					if (element1.tipo_estado_codigo == 1 && element1.tipo_codigo == element.tipo_grado_sangre_codigo) {
-						selSangre = selSangre + '                               <option value="'+ element1.tipo_codigo +'" selected>'+ element1.tipo_nombre +'</option>';
+					if (element1.tipo_estado_parametro == 1 && element1.tipo_parametro == element.tipo_grado_sangre_parametro) {
+						selSangre = selSangre + '                               <option value="'+ element1.tipo_parametro +'" selected>'+ element1.tipo_nombre +'</option>';
 					} else {
-						selSangre = selSangre + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
+						selSangre = selSangre + '                               <option value="'+ element1.tipo_parametro +'">'+ element1.tipo_nombre +'</option>';
 					}
                 });
-
+                
                 xJSON3.forEach(element1 => {
-					if (element1.tipo_estado_codigo == 1 && element1.tipo_codigo == element.tipo_hacienda_codigo) {
-						selHacienda = selHacienda + '                               <option value="'+ element1.tipo_codigo +'" selected>'+ element1.tipo_nombre +'</option>';
+					if (element1.tipo_estado_parametro == 1 && element1.tipo_parametro == element.tipo_hacienda_parametro) {
+						selHacienda = selHacienda + '                               <option value="'+ element1.tipo_parametro +'" selected>'+ element1.tipo_nombre +'</option>';
 					} else {
-						selHacienda = selHacienda + '                               <option value="'+ element1.tipo_codigo +'">'+ element1.tipo_nombre +'</option>';
+						selHacienda = selHacienda + '                               <option value="'+ element1.tipo_parametro +'">'+ element1.tipo_nombre +'</option>';
 					}
                 });
 
-                html = 
-                    '<div class="modal-content">'+
-                    '   <form id="form" data-parsley-validate method="post" action="../class/crud/animal.php">'+
-                    '	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
-                    '		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
-                    '		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-                    '	    </div>'+
-                    ''+
-                    '	    <div class="modal-body" >'+
-                    '           <div class="form-group">'+
-                    '               <input class="form-control" type="hidden" id="workCodigo"   name="workCodigo"   value="'+ element.animal_codigo +'" required readonly>'+
-                    '               <input class="form-control" type="hidden" id="workModo"     name="workModo"     value="'+ bodyMod +'"               required readonly>'+
-                    '               <input class="form-control" type="hidden" id="workPage"     name="workPage"     value="'+ codPag +'"                required readonly>'+
-                    '               <input class="form-control" type="hidden" id="workEspecie"  name="workEspecie"  value="'+ rowEspecie +'"            required readonly>'+
-                    '           </div>'+
-                    ''+
-                    '           <div class="row">'+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var001">Establecimiento</label>'+
-                    '                       <select id="var001" name="var001" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
-                    '                           <optgroup label="Establecimiento">'+
-                    '                               <option value="'+ element.establecimiento_codigo +'" selected>'+ element.establecimiento_nombre +'</option>'+
-                    '                           </optgroup>'+
-                    '                       </select>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    ''+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var002">Categoría</label>'+
-                    '                       <select id="var002" name="var002" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
-                    '                           <optgroup label="Categoría">'+
-                    '                               <option value="'+ element.tipo_categoria_codigo +'" selected>'+ element.tipo_categoria_nombre +'</option>'+
-                    '                           </optgroup>'+
-                    '                       </select>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    ''+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var003">SubCategoría</label>'+
-                    '                       <select id="var003" name="var003" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
-                    '                           <optgroup label="SubCategoría">'+
-                    '                               <option value="'+ element.tipo_subcategoria_codigo +'" selected>'+ element.tipo_subcategoria_nombre +'</option>'+
-                    '                           </optgroup>'+
-                    '                       </select>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    ''+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var004">Origen</label>'+
-                    '                       <select id="var004" name="var004" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
-                    '                           <optgroup label="Origen">'+
-                    '                               <option value="'+ element.tipo_origen_codigo +'" selected>'+ element.tipo_origen_nombre +'</option>'+
-                    '                           </optgroup>'+
-                    '                       </select>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    ''+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var005">Raza</label>'+
-                    '                       <select id="var005" name="var005" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
-                    '                           <optgroup label="Raza">'+
-                    '                               <option value="'+ element.tipo_raza_codigo +'" selected>'+ element.tipo_raza_nombre +'</option>'+
-                    '                           </optgroup>'+
-                    '                       </select>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    ''+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var006">Propietario</label>'+
-                    '                       <select id="var006" name="var006" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
-                    '                           <optgroup label="Propietario">'+
-                    '                               <option value="'+ element.persona_codigo +'" selected>'+ element.persona_completo +'</option>'+
-                    '                           </optgroup>'+
-                    '                       </select>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    ''+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var007">Pelaje</label>'+
-                    '                       <select id="var007" name="var007" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
-                    '                           <optgroup label="Pelaje">'+ selPelaje +
-                    '                           </optgroup>'+
-                    '                       </select>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    ''+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var008">Grado Sangre</label>'+
-                    '                       <select id="var008" name="var008" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
-                    '                           <optgroup label="Grado Sangre">'+ selSangre +
-                    '                           </optgroup>'+
-                    '                       </select>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    ''+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var009">Hacienda</label>'+
-                    '                       <select id="var009" name="var009" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
-                    '                           <optgroup label="Hacienda">'+ selHacienda +
-                    '                           </optgroup>'+
-                    '                       </select>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    ''+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var010">Cód. Electrónico</label>'+
-                    '                       <input id="var010" name="var010" value="'+ element.animal_codigo_electronico +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código Electrónico" '+ bodyOnl +'>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    ''+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var011">Cód. RP</label>'+
-                    '                       <input id="var011" name="var011" value="'+ element.animal_codigo_rp +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código RP" '+ bodyOnl +'>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    ''+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var012">Cód. HBP</label>'+
-                    '                       <input id="var012" name="var012" value="'+ element.animal_codigo_hbp +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código HBP" '+ bodyOnl +'>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    ''+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var013">Cód. SITRAP</label>'+
-                    '                       <input id="var013" name="var013" value="'+ element.animal_codigo_sitrap +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código SITRAP" '+ bodyOnl +'>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    ''+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var014">Cód. Interno</label>'+
-                    '                       <input id="var014" name="var014" value="'+ element.animal_codigo_interno +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código Interno" '+ bodyOnl +'>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    ''+
-                    '               <div class="col-sm-12 col-md-4">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var015">Cód. Nombre</label>'+
-                    '                       <input id="var015" name="var015" value="'+ element.animal_codigo_nombre +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código Nombre" '+ bodyOnl +'>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    ''+
-                    '               <div class="col-sm-12">'+
-                    '                   <div class="form-group">'+
-                    '                       <label for="var016">COMENTARIO</label>'+
-                    '                       <textarea id="var016" name="var016" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.animal_observacion +'</textarea>'+
-                    '                   </div>'+
-                    '               </div>'+
-                    '           </div>'+
-                    '	    </div>'+
-                    ''+
-                    '	    <div class="modal-footer">'+ bodyBot +
-                    '		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
-                    '	    </div>'+
-                    '   </form>'+
-                    '</div>';
+                xJSON4.forEach(element1 => {
+                    if (element1.tipo_estado_parametro == 1 && element1.tipo_parametro == element.tipo_carimbo_parametro) {
+                        selCarimbo = selCarimbo + '                               <option value="'+ element1.tipo_parametro +'" selected>'+ element1.tipo_nombre +'</option>';
+                    } else {
+                        selCarimbo = selCarimbo + '                               <option value="'+ element1.tipo_parametro +'">'+ element1.tipo_nombre +'</option>';
+                    }
+                });
+
+                xJSON5.forEach(element2 => {
+                    if (element2.animal_codigo == codElem) {
+                        fechpeso            = element2.animal_peso_fecha_1;
+                        pesokilogramo       = element2.animal_peso_kilogramo;
+                        pesocodigo          = element2.animal_peso_codigo;
+                    }
+                });
+                        html = 
+                            '<div class="modal-content">'+
+                            '   <form id="form" data-parsley-validate method="post" action="../class/crud/animal.php">'+
+                            '	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
+                            '		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
+                            '		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+                            '	    </div>'+
+                            ''+
+                            '	    <div class="modal-body" >'+
+                            '           <div class="form-group">'+
+                            '               <input class="form-control" type="hidden" id="workCodigo"       name="workCodigo"       value="'+ element.animal_codigo +'"       required readonly>'+
+                            '               <input class="form-control" type="hidden" id="workModo"         name="workModo"         value="'+ bodyMod +'"                     required readonly>'+
+                            '               <input class="form-control" type="hidden" id="workPage"         name="workPage"         value="'+ codPag +'"                      required readonly>'+
+                            '               <input class="form-control" type="hidden" id="workEspecie"      name="workEspecie"      value="'+ rowEspecie +'"                  required readonly>'+
+                            '               <input class="form-control" type="hidden" id="workAnimalPeso"   name="workAnimalPeso"   value="'+ pesocodigo  +'"                 required readonly>'+
+                            '           </div>'+
+                            ''+
+                            '           <div class="row">'+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var001">Establecimiento</label>'+
+                            '                       <select id="var001" name="var001" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                            '                           <optgroup label="Establecimiento">'+
+                            '                               <option value="'+ element.establecimiento_codigo +'" selected>'+ element.establecimiento_nombre +'</option>'+
+                            '                           </optgroup>'+
+                            '                       </select>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            ''+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var002">Categoría</label>'+
+                            '                       <select id="var002" name="var002" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                            '                           <optgroup label="Categoría">'+
+                            '                               <option value="'+ element.tipo_categoria_parametro +'" selected>'+ element.tipo_categoria_nombre +'</option>'+
+                            '                           </optgroup>'+
+                            '                       </select>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            ''+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var003">SubCategoría</label>'+
+                            '                       <select id="var003" name="var003" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                            '                           <optgroup label="SubCategoría">'+
+                            '                               <option value="'+ element.tipo_subcategoria_parametro +'" selected>'+ element.tipo_subcategoria_nombre +'</option>'+
+                            '                           </optgroup>'+
+                            '                       </select>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            ''+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var004">Origen</label>'+
+                            '                       <select id="var004" name="var004" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                            '                           <optgroup label="Origen">'+
+                            '                               <option value="'+ element.tipo_origen_parametro +'" selected>'+ element.tipo_origen_nombre +'</option>'+
+                            '                           </optgroup>'+
+                            '                       </select>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            ''+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var005">Raza</label>'+
+                            '                       <select id="var005" name="var005" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                            '                           <optgroup label="Raza">'+
+                            '                               <option value="'+ element.tipo_raza_parametro +'" selected>'+ element.tipo_raza_nombre +'</option>'+
+                            '                           </optgroup>'+
+                            '                       </select>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            ''+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var006">Propietario</label>'+
+                            '                       <select id="var006" name="var006" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                            '                           <optgroup label="Propietario">'+
+                            '                               <option value="'+ element.persona_codigo +'" selected>'+ element.persona_completo +'</option>'+
+                            '                           </optgroup>'+
+                            '                       </select>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            ''+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var007">Pelaje</label>'+
+                            '                       <select id="var007" name="var007" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                            '                           <optgroup label="Pelaje">'+ selPelaje +
+                            '                           </optgroup>'+
+                            '                       </select>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            ''+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var008">Grado Sangre</label>'+
+                            '                       <select id="var008" name="var008" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                            '                           <optgroup label="Grado Sangre">'+ selSangre +
+                            '                           </optgroup>'+
+                            '                       </select>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            ''+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var009">Hacienda</label>'+
+                            '                       <select id="var009" name="var009" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                            '                           <optgroup label="Hacienda">'+ selHacienda +
+                            '                           </optgroup>'+
+                            '                       </select>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            ''+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var010">Cód. Electrónico</label>'+
+                            '                       <input id="var010" name="var010" value="'+ element.animal_codigo_electronico +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código Electrónico" '+ bodyOnl +'>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            ''+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var011">Cód. RP</label>'+
+                            '                       <input id="var011" name="var011" value="'+ element.animal_codigo_rp +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código RP" '+ bodyOnl +'>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            ''+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var012">Cód. HBP</label>'+
+                            '                       <input id="var012" name="var012" value="'+ element.animal_codigo_hbp +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código HBP" '+ bodyOnl +'>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            ''+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var013">Cód. SITRAP</label>'+
+                            '                       <input id="var013" name="var013" value="'+ element.animal_codigo_sitrap +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código SITRAP" '+ bodyOnl +'>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            ''+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var014">Cód. Interno</label>'+
+                            '                       <input id="var014" name="var014" value="'+ element.animal_codigo_interno +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código Interno" '+ bodyOnl +'>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            ''+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var015">Cód. Nombre</label>'+
+                            '                       <input id="var015" name="var015" value="'+ element.animal_codigo_nombre +'" class="form-control" type="text" style="text-transform:uppercase; height:40px;" placeholder="Código Nombre" '+ bodyOnl +'>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            ''+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var018">Carimbo</label>'+
+                            '                       <select id="var018" name="var018" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+                            '                           <optgroup label="Carimbo">'+ selCarimbo +
+                            '                           </optgroup>'+
+                            '                       </select>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            ''+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var017">Fecha Nacimiento</label>'+
+                            '                       <input id="var017" name="var017" value="'+fechpeso+'" class="form-control" type="month" style="text-transform:uppercase; height:40px;" placeholder="Fecha Nacimiento" '+ bodyOnl +'>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            ''+
+                            '               <div class="col-sm-12 col-md-4">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var019">Peso</label>'+
+                            '                       <input id="var019" name="var019" value="'+pesokilogramo+'"  class="form-control" type="number" style="text-transform:uppercase; height:40px;" placeholder="Peso" '+ bodyOnl +'>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            ''+
+                            '               <div class="col-sm-12">'+
+                            '                   <div class="form-group">'+
+                            '                       <label for="var016">COMENTARIO</label>'+
+                            '                       <textarea id="var016" name="var016" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'>'+ element.animal_observacion +'</textarea>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            '           </div>'+
+                            '	    </div>'+
+                            ''+
+                            '	    <div class="modal-footer">'+ bodyBot +
+                            '		    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
+                            '	    </div>'+
+                            '   </form>'+
+                            '</div>';
+                    fechpeso = '';
+                    pesokilogramo = 0;
 			}
 		});
 	} else if (codAcc == 5) {
@@ -579,6 +654,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
         selectDominio('var007', 'ANIMALPELAJE', 2);
         selectDominio('var008', 'ANIMALGRADOSANGRE', 2);
         selectDominio('var009', 'ANIMALHACIENDA', 2);
+        selectDominio('var018', 'ANIMALCARIMBO', 2);
     }
 
     $('#var001').change(function() {

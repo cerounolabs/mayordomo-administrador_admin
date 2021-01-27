@@ -1,4 +1,4 @@
-const urlBASE   = 'https://cerouno.me/mayorcontrol_api/apiv1';
+const urlBASE   = 'https://cerouno.me/mayorcontrol_api/apiv2';
 const xHTTP	    = new XMLHttpRequest();
 const autBASE   = 'dXNlcl9zZmhvbG94OnVzZXJfc2Zob2xveDIwMjA=';
 
@@ -2026,6 +2026,25 @@ function getAnimal(codTip, codEst, codAni, codCat, codSub, codOrg, codRaz, codPr
                     }
                     
                     break;
+            }
+        });
+    }
+
+    return xDATA;
+}
+
+function getAnimalPeso(codElem){
+    localStorage.removeItem('animalpesoJSON');
+    if (localStorage.getItem('animalpesoJSON') === null){
+        getJSON('animalpesoJSON', '000/animalpeso/animal/' + codElem);
+    }
+ 
+    var xJSON = JSON.parse(localStorage.getItem('animalpesoJSON'));
+    var xDATA = [];
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_codigo == 1) {
+                xDATA.push(element);
             }
         });
     }

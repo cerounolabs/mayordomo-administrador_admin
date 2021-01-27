@@ -311,6 +311,12 @@
 											</a>
 										</li>
 										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=ANIMALCARIMBO" class="sidebar-link">
+												<i class="mdi mdi-parametro-animal"></i>
+												<span class="hide-menu"> Tipo Carimbo </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
 											<a href="../public/dominio.php?dominio=ANIMALESPECIE" class="sidebar-link">
 												<i class="mdi mdi-parametro-animal"></i>
 												<span class="hide-menu"> Tipo Especie </span>
