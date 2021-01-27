@@ -2033,6 +2033,25 @@ function getAnimal(codTip, codEst, codAni, codCat, codSub, codOrg, codRaz, codPr
     return xDATA;
 }
 
+function getAnimalPeso(codElem){
+    localStorage.removeItem('animalpesoJSON');
+    if (localStorage.getItem('animalpesoJSON') === null){
+        getJSON('animalpesoJSON', '000/animalpeso/animal/' + codElem);
+    }
+ 
+    var xJSON = JSON.parse(localStorage.getItem('animalpesoJSON'));
+    var xDATA = [];
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_codigo == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
 function getOrdenTrabajo(codTip, codEst, codEsta, codPAdmin, codPVete){
     if (localStorage.getItem('ordentrabajoCOD') != codEst) {
         localStorage.removeItem('ordentrabajoJSON');

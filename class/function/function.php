@@ -165,6 +165,10 @@
                 $result = 'ANIMAL TIPO RECUENTO';
                 break;
 
+            case 'ANIMALCARIMBO':
+                $result = 'ANIMAL TIPO CARIMBO';
+                break;
+
             case 'ANIMALESPECIE':
                 $result = 'ANIMAL TIPO ESPECIE';
                 break;

@@ -25,10 +25,10 @@ function selectDominio(rowInput, rowDominio, rowBand) {
     }
 
     xJSON.forEach(element => {
-        if (element.tipo_estado_codigo == 1) {
+        if (element.tipo_estado_parametro == 1) {
             var item        = pad(element.tipo_codigo, 3);
             var option      = document.createElement('option');
-            option.value    = element.tipo_codigo;
+            option.value    = element.tipo_parametro;
             option.text     = item + ' - ' + element.tipo_nombre;
             selItem.add(option, null);
         }
@@ -119,11 +119,13 @@ function selectAnimalCategoria(rowEspecie, rowCategoria, rowInput, rowBand) {
             break;
     }
 
+    console.log('rowEspecie => ' + rowEspecie);
+    console.log('selCate.value => ' + selCate.value);
     xJSON.forEach(element => {
-        if (element.tipo_dominio1_codigo == rowEspecie && element.tipo_dominio2_codigo == selCate.value) {
+        if (element.tipo_dominio1_codigo == rowEspecie && element.tipo_dominio2_parametro == selCate.value) {
             var item        = pad(element.tipo_dominio3_codigo, 3);
             var option      = document.createElement('option');
-            option.value    = element.tipo_dominio3_codigo;
+            option.value    = element.tipo_dominio3_parametro;
             option.text     = item + ' - ' + element.tipo_dominio3_nombre;
             selItem.add(option, null);
         }

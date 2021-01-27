@@ -23,11 +23,15 @@
 	$val14          = strtoupper(strtolower(trim($_POST['var014'])));
     $val15          = strtoupper(strtolower(trim($_POST['var015'])));
     $val16          = strtoupper(strtolower(trim($_POST['var016'])));
+    $val17          = $_POST['var017'];
+    $val18          = $_POST['var018'];
+    $val19          = $_POST['var019'];
 
 	$work01         = $_POST['workCodigo'];
 	$work02         = $_POST['workModo'];
     $work03         = $_POST['workPage'];
     $work04         = $_POST['workEspecie'];
+    $work05         = $_POST['workAnimalPeso'];
 
 	$usu_03         = $_SESSION['usu_03'];
 
@@ -38,22 +42,24 @@
     if (isset($val01) && isset($val02) && isset($val03) && isset($val04) && isset($val05) && isset($val06) && isset($val07) && isset($val08) && isset($val09)) {
         $dataJSON = json_encode(
 			array(
-				'tipo_estado_codigo'            => 75,
-				'tipo_origen_codigo'            => $val04,
-                'tipo_raza_codigo'              => $val05,
-				'tipo_categoria_codigo'         => $val02,
-				'tipo_subcategoria_codigo'      => $val03,
-				'tipo_pelaje_codigo'            => $val07,
-                'tipo_grado_sangre_codigo'      => $val08,
-                'tipo_hacienda_codigo'          => $val09,
-                'establecimiento_codigo'        => $val01,
-                'persona_codigo'                => $val06,
+				'tipo_estado_codigo'            => 2,
+				'tipo_origen_codigo'            => intval($val04),
+                'tipo_raza_codigo'              => intval($val05),
+				'tipo_categoria_codigo'         => intval($val02),
+				'tipo_subcategoria_codigo'      => intval($val03),
+				'tipo_pelaje_codigo'            => intval($val07),
+                'tipo_grado_sangre_codigo'      => intval($val08),
+                'tipo_hacienda_codigo'          => intval($val09),
+                'tipo_carimbo_parametro'        => intval($val18),
+                'establecimiento_codigo'        => intval($val01),
+                'persona_codigo'                => intval($val06),
                 'animal_codigo_electronico'     => $val10,
                 'animal_codigo_rp'              => $val11,
                 'animal_codigo_hbp'             => $val12,
                 'animal_codigo_sitrap'          => $val13,
                 'animal_codigo_interno'         => $val14,
                 'animal_codigo_nombre'          => $val15,
+                'animal_observacion'            => $val16,
                 'auditoria_usuario'             => $usu_03,
                 'auditoria_fecha_hora'	        => date('Y-m-d H:i:s'),
 				'auditoria_ip'        	        => $log_04,
@@ -62,21 +68,57 @@
 		
 		switch($work02){
 			case 'C':
-				$result	= post_curl('000/animal', $dataJSON);
+                $result = post_curl('000/animal', $dataJSON);
+                $result = json_decode($result, true);
+                $code   = $result['code'];
+                $msg    = str_replace("\n", ' ', $result['message']);
 				break;
 			case 'U':
-				$result	= put_curl('000/animal/'.$work01, $dataJSON);
+                $result	= put_curl('000/animal/'.$work01, $dataJSON);
+                $result		= json_decode($result, true);
+                $code       = $result['code'];
+                $msg		= str_replace("\n", ' ', $result['message']);
 				break;
-			case 'D':
-				$result	= delete_curl('000/animal/'.$work01, $dataJSON);
-				break;
-		}
+        }
 	}
 
-	$result		= json_decode($result, true);
-	$msg		= str_replace("\n", ' ', $result['message']);
+    if($work01 == 0){
+        $work01 = $result['codigo'];
+    }
 
-    header('Location: ../../public/'.$work03.'&code='.$result['code'].'&msg='.$msg);
+    if (isset($val01) && isset($work01)){
+        $dataJSON1 = json_encode(
+			array(
+				'tipo_estado_codigo'            => 1,
+				'tipo_peso_codigo'              => 1,
+                'establecimiento_codigo'        => $val01,
+				'animal_codigo'                 => $work01,
+				'animal_peso_fecha'             => $val17,
+				'animal_peso_kilogramos'        => $val19,
+                'auditoria_usuario'             => $usu_03,
+                'auditoria_fecha_hora'	        => date('Y-m-d H:i:s'),
+				'auditoria_ip'        	        => $log_04,
+				'auditoria_empresa'       	    => $seg_04
+			));
+		
+        switch($work02){
+			case 'C':
+				$result1	= post_curl('000/animalpeso', $dataJSON1);
+				break;
+            case 'U':
+                $result1	= put_curl('000/animalpeso/'.$work05, $dataJSON1);
+				break;
+			case 'D':
+                $result1    = delete_curl('000/animalpeso/'.$work05, $dataJSON1);
+                $result     = delete_curl('000/animal/'.$work01, $dataJSON);
+                $result     = json_decode($result, true);
+                $code       = $result['code'];
+                $msg        = str_replace("\n", ' ', $result['message']);
+				break;
+        }
+    }
+
+    header('Location: ../../public/'.$work03.'&code='.$code.'&msg='.$msg);
 
 	ob_end_flush();
 ?>

@@ -4,6 +4,7 @@
     require '../class/session/session_system.php';
 
     $establecimientoJSON = get_curl('000/establecimiento');
+    $peso = get_curl('000/animalpeso/animal/253');
 ?>
 
 <!DOCTYPE html>
