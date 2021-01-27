@@ -324,13 +324,13 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
             '               <div class="col-sm-12 col-md-4">'+
             '                   <div class="form-group">'+
             '                       <label for="var017">Fecha Nacimiento</label>'+
-            '                       <input id="var017" name="var017" class="form-control" type="month" style="text-transform:uppercase; height:40px;" placeholder="Fecha Nacimiento" '+ bodyOnl +'>'+
+            '                       <input id="var017" name="var017" class="form-control" type="month" style="text-transform:uppercase; height:40px;" placeholder="Fecha Nacimiento" '+ bodyOnl +'required>'+
             '                   </div>'+
             '               </div>'+
             '               <div class="col-sm-12 col-md-4">'+
             '                   <div class="form-group">'+
             '                       <label for="var019">Peso</label>'+
-            '                       <input id="var019" name="var019" class="form-control" type="number" style="text-transform:uppercase; height:40px;" placeholder="Peso" '+ bodyOnl +'>'+
+            '                       <input id="var019" name="var019" class="form-control" value="0" type="number" style="text-transform:uppercase; height:40px;" placeholder="Peso" '+ bodyOnl +'>'+
             '                   </div>'+
             '               </div>'+
             '               <div class="col-sm-12">'+

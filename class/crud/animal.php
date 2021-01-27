@@ -43,16 +43,16 @@
         $dataJSON = json_encode(
 			array(
 				'tipo_estado_codigo'            => 2,
-				'tipo_origen_codigo'            => $val04,
-                'tipo_raza_codigo'              => $val05,
-				'tipo_categoria_codigo'         => $val02,
-				'tipo_subcategoria_codigo'      => $val03,
-				'tipo_pelaje_codigo'            => $val07,
-                'tipo_grado_sangre_codigo'      => $val08,
-                'tipo_hacienda_codigo'          => $val09,
-                'tipo_carimbo_parametro'        => $val18,
-                'establecimiento_codigo'        => $val01,
-                'persona_codigo'                => $val06,
+				'tipo_origen_codigo'            => intval($val04),
+                'tipo_raza_codigo'              => intval($val05),
+				'tipo_categoria_codigo'         => intval($val02),
+				'tipo_subcategoria_codigo'      => intval($val03),
+				'tipo_pelaje_codigo'            => intval($val07),
+                'tipo_grado_sangre_codigo'      => intval($val08),
+                'tipo_hacienda_codigo'          => intval($val09),
+                'tipo_carimbo_parametro'        => intval($val18),
+                'establecimiento_codigo'        => intval($val01),
+                'persona_codigo'                => intval($val06),
                 'animal_codigo_electronico'     => $val10,
                 'animal_codigo_rp'              => $val11,
                 'animal_codigo_hbp'             => $val12,
@@ -68,27 +68,26 @@
 		
 		switch($work02){
 			case 'C':
-				$result	= post_curl('000/animal', $dataJSON);
+                $result = post_curl('000/animal', $dataJSON);
+                $result = json_decode($result, true);
+                $code   = $result['code'];
+                $msg    = str_replace("\n", ' ', $result['message']);
 				break;
 			case 'U':
-				$result	= put_curl('000/animal/'.$work01, $dataJSON);
+                $result	= put_curl('000/animal/'.$work01, $dataJSON);
+                $result		= json_decode($result, true);
+                $code       = $result['code'];
+                $msg		= str_replace("\n", ' ', $result['message']);
 				break;
-			case 'D':
-				$result	= delete_curl('000/animal/'.$work01, $dataJSON);
-				break;
-		}
+        }
 	}
-
-    $result		= json_decode($result, true);
-    $code       = $result['code'];
-	$msg		= str_replace("\n", ' ', $result['message']);
 
     if($work01 == 0){
         $work01 = $result['codigo'];
     }
 
     if (isset($val01) && isset($work01)){
-        $dataJSON = json_encode(
+        $dataJSON1 = json_encode(
 			array(
 				'tipo_estado_codigo'            => 1,
 				'tipo_peso_codigo'              => 1,
@@ -104,16 +103,20 @@
 		
         switch($work02){
 			case 'C':
-				$result1	= post_curl('000/animalpeso', $dataJSON);
+				$result1	= post_curl('000/animalpeso', $dataJSON1);
 				break;
             case 'U':
-				$result1	= put_curl('000/animalpeso/'.$work05, $dataJSON);
+                $result1	= put_curl('000/animalpeso/'.$work05, $dataJSON1);
 				break;
 			case 'D':
-				$result	= delete_curl('000/animal/'.$work05, $dataJSON);
+                $result1    = delete_curl('000/animalpeso/'.$work05, $dataJSON1);
+                $result     = delete_curl('000/animal/'.$work01, $dataJSON);
+                $result     = json_decode($result, true);
+                $code       = $result['code'];
+                $msg        = str_replace("\n", ' ', $result['message']);
 				break;
-		}
-	}
+        }
+    }
 
     header('Location: ../../public/'.$work03.'&code='.$code.'&msg='.$msg);
 
