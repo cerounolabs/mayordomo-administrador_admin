@@ -119,8 +119,6 @@ function selectAnimalCategoria(rowEspecie, rowCategoria, rowInput, rowBand) {
             break;
     }
 
-    console.log('rowEspecie => ' + rowEspecie);
-    console.log('selCate.value => ' + selCate.value);
     xJSON.forEach(element => {
         if (element.tipo_dominio1_codigo == rowEspecie && element.tipo_dominio2_parametro == selCate.value) {
             var item        = pad(element.tipo_dominio3_codigo, 3);
@@ -130,4 +128,41 @@ function selectAnimalCategoria(rowEspecie, rowCategoria, rowInput, rowBand) {
             selItem.add(option, null);
         }
     });
+}
+
+function selectCantDia(parm01, parm02, parm03){
+    console.log('entra=> '+ parm01.value + '    parm02=>'+ parm02.value + ' parm03=>'+ parm03.value);
+    var dia = '15-'+parm02.value;
+    parm02 = dia;
+   // parm01='29-01-2021';
+    //console.log('queda=> '+parm02);
+    //console.log('fqueda=> '+parm01);
+	var rowInp01 	= document.getElementById(parm01);
+	var rowInp02 	= document.getElementById(parm02);
+	var rowInp03 	= document.getElementById(parm03);
+	var date1 		= new Date(rowInp01);
+	var date2 		= new Date(rowInp02);
+	var diffTime 	= Math.abs(date2 - date1);
+	var diffDays 	= Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    //rowInp03.value	= diffDays;
+    rowInp03	= diffDays;
+    console.log('queda=> '+rowInp03);
+}
+
+function selectDifPeso(parm01, parm02, parm03){
+    console.log('entra=> '+ parm01.value + '    parm02=>'+ parm02.value + ' parm03=>'+ parm03.value);
+   // var dia = '15-'+parm02.value;
+   // parm02 = dia;
+   // parm01='29-01-2021';
+    //console.log('queda=> '+parm02);
+    //console.log('fqueda=> '+parm01);
+	var rowInp01 	= parm01.value;
+	var rowInp02 	= parm02.value;
+   // var rowInp03 	= parm03.value;
+    console.log('entra=> '+ rowInp01 + '    rowInp02=>'+ rowInp02 + ' rowInp03=>'+ rowInp03);
+    parm03.value	= (rowInp01 - rowInp02);
+    //console.log('faaaaqueda=> '+rowInp03);
+    console.log('faaqueda=> '+parm03);
+
 }
