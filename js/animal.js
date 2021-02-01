@@ -667,17 +667,15 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                 xJSON5.forEach(element2 => {
                     if (element2.animal_codigo == codElem) {
                         selPeso = selPeso +
-                            '                      <div class="col-sm-12 col-md-3">'+
-                            '                        <div class="form-group">'+
-                            '                            <label for="var025">   Peso </label><br>'+
+                            '                      <div class="col-sm-12 col-md-5">'+
+                            '                        <div class="form-group" >'+
                             '                            <label for="var025">'+element2.animal_peso_kilogramo+'</label>'+
                             '                        </div>'+
                             '                      </div>'+
                             ''+
-                            '                      <div class="col-sm-12 col-md-3">'+
-                            '                        <div class="form-group">'+
-                            '                            <label for="var026"> Fecha    </label><br>'+
-                            '                            <label for="var026">'+element2.animal_peso_fecha_2+'</label>'+
+                            '                      <div class="col-sm-12 col-md-6">'+
+                            '                        <div class="form-group" style="text-align:center">'+
+                            '                            <label for="var026">'+element2.animal_peso_fecha_2+'</label><br>'+
                             '                        </div>'+
                             '                      </div>';
                     }
@@ -703,7 +701,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                             '               <div class="col-sm-12 col-md-12">'+
                             '                  <div class="col-sm-12 col-md-3">'+
                             '                   <div class="form-group">'+
-                            '                       <label for="var001"> Establecimiento:       '+element.establecimiento_nombre +'</label>'+              
+                            '                       <label for="var001"> Establecimiento:       '+element.establecimiento_nombre +'</label>'+        
                             '                       <label for="var002">Categoría:  '+ element.tipo_categoria_nombre +'</label>'+
                             '                       <label for="var003">SubCategoría:   '+ element.tipo_subcategoria_nombre +'</label>'+
                             '                       <label for="var004">Origen: '+ element.tipo_origen_nombre +'</label><br>'+
@@ -713,7 +711,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                             '                       <label for="var009">Hacienda:   '+ element.tipo_hacienda_nombre +'</label>'+
                             '                       <label for="var018">Carimbo:    '+ element.tipo_carimbo_nombre +'</label>'+
                             '                    </div>'+
-                            '                   </div>'+
+                            '                  </div>'+
                             '               </div>'+
                             '            </div>'+
                             ''+
@@ -724,7 +722,6 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                             '                        <div class="form-group">'+
                             '                            <label for="var021">Ultimo Peso:</label><br>'+
                             '                              <input type="text" id="var021" name="var021" value="'+ultpeso+'" style="height:40px" readonly>'+
-                           // '                            <label for="var021" id="var021">'+ultpeso+'</label>'+
                             '                        </div>'+
                             '                      </div>'+
                             ''+
@@ -732,7 +729,6 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                             '                        <div class="form-group">'+
                             '                            <label for="var022">Ultimo Fecha</label><br>'+
                              '                               <input type="text" id="var022" name="var022" value="'+ultfecha+'" style="height:40px" readonly>'+
-                           // '                            <label for="var022" id="var022" value="'+ultfecha+'">'+ultfecha+'</label>'+
                             '                        </div>'+
                             '                      </div>'+
                             ''+
@@ -741,9 +737,9 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                             '                        </div>'+
                             '                      </div>'+
                             ''+
-                            '                       <div class="col-sm-12 col-md-4">'+
-                            '                           <div class="form-group">'+
-                            '                               <label for="var020">Peso</label>'+
+                            '                      <div class="col-sm-12 col-md-4">'+
+                            '                         <div class="form-group">'+
+                            '                            <label for="var020">Peso</label>'+
                             '                               <select id="var020" name="var020" class="form-control" style="width:100%; height:40px;">'+
                             '                                   <optgroup label="Peso">'+
                             '                                   </optgroup>'+
@@ -751,8 +747,8 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                             '                           </div>'+
                             '                       </div>'+
                             ''+     
-                            '                       <div class="col-sm-12 col-md-3">'+
-                            '                          <div class="form-group">'+
+                            '                      <div class="col-sm-12 col-md-3">'+
+                            '                         <div class="form-group">'+
                             '                             <label for="var019">Ingresar Peso</label>'+
                             '                             <input id="var019" name="var019" class="form-control" value="0" onblur="selectDifPeso(var019, var021, var023);"  type="number" min="0" style="text-transform:uppercase; height:40px;" placeholder="Peso" '+ bodyOnl +'>'+
                             '                           </div>'+
@@ -768,28 +764,42 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                             '                      <div class="col-sm-12 col-md-3">'+
                             '                           <div class="form-group">'+
                             '                               <label for="var023">Diferencia de Peso</label>'+
-                            '                               <input type="number" id="var023" name="var023" style="height:40px" readonly>'+
+                            '                               <input type="number" id="var023" name="var023" class="form-control" style="height:40px" placeholder="Diferencia de Peso" readonly>'+
                             '                           </div>'+
                             '                      </div>'+
                             ''+ 
-                            '                      <div class="form-holder">'+
-                            '                        <label for="var024">Cantidad de Dias</label>'+
-                            '                        <input type="number" id="var024" name="var024" value="var024" style="height:40px" readonly>'+
+                            '                      <div class="col-sm-12 col-md-3">'+
+                            '                           <div class="form-group">'+
+                            '                               <label for="var024">Cantidad de Dias</label>'+
+                            '                               <input type="number" id="var024" name="var024" value="var024" class="form-control" style="height:40px" placeholder="Cantidad de Días" readonly>'+
+                            '                           </div>'+
                             '                      </div>'+
                             '                   </div>'+
                             '               </div>'+
                             ''+
                             '                      <div class="col-sm-12 col-md-3">'+
                             '                         <div class="row">'+
-                            '                            <div class="col-sm-12 col-md-12">'+
-                            '                              <div class="form-group">'+
-                            '                                 <h4><label for="">Historico de Peso</label></h4>'+
-                            '	                           </div>'+ 
-                            '	                         </div>'+selPeso +
+                            '                           <div class="col-sm-12 col-md-12">'+
+                            '                               <div class="form-group">'+
+                            '                                   <h3><label for="" >Histórico de Peso</label></h3>'+
+                            '	                            </div>'+
+                            '	                        </div>'+
+                            ''+
+                            '                           <div class="col-sm-6">'+
+                            '                               <div class="form-group" >'+
+                            '                                   <h5><label for="var025">   Peso </label></h5>'+
+                            '	                            </div>'+
+                            '	                        </div>'+
+                            ''+
+                            '                           <div class="col-sm-6">'+
+                            '                               <div class="form-group" >'+
+                            '                                   <h5><label for="var026">    Fecha   </label></h5>'+ 
+                            '	                            </div>'+
+                            '	                        </div>'+ selPeso +
                             '	                      </div>'+
                             '	                   </div>'+
-                           // '                   </div>'+
-                            //'               </div>'+
+                           // '                   </div>'+style="text-align:center"
+                         //   '               </div>'+
                             '	         </div>'+
                             ''+
                             '	         <div class="modal-footer">'+ bodyBot +

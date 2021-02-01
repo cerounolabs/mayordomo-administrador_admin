@@ -54,6 +54,7 @@
                 'establecimiento_codigo'        => intval($val01),
                 'persona_codigo'                => intval($val06),
                 'animal_codigo_electronico'     => $val10,
+                'animal_fecha_nacimiento'       => $val17,
                 'animal_codigo_rp'              => $val11,
                 'animal_codigo_hbp'             => $val12,
                 'animal_codigo_sitrap'          => $val13,
@@ -74,10 +75,10 @@
                 $msg    = str_replace("\n", ' ', $result['message']);
 				break;
 			case 'U':
-                $result	= put_curl('000/animal/'.$work01, $dataJSON);
-                $result		= json_decode($result, true);
-                $code       = $result['code'];
-                $msg		= str_replace("\n", ' ', $result['message']);
+                $result = put_curl('000/animal/'.$work01, $dataJSON);
+                $result	= json_decode($result, true);
+                $code   = $result['code'];
+                $msg    = str_replace("\n", ' ', $result['message']);
 				break;
         }
 	}
