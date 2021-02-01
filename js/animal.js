@@ -177,9 +177,9 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
         case 6:
             bodyTit = 'REGISTRAR PESO';
             bodyCol = '#0BD9F4;';
-            bodyMod = 'C';//PREGUNTAR
+            bodyMod = 'C';
             bodyOnl = '';
-            bodyBot = '';//'           <button type="submit" class="btn btn-info">Agregar</button>';
+            bodyBot = '           <button type="submit" class="btn btn-info">Agregar</button>';
             break;
         default:
             break;
@@ -699,18 +699,55 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                             ''+
                             '           <div class="row">'+
                             '               <div class="col-sm-12 col-md-12">'+
-                            '                  <div class="col-sm-12 col-md-3">'+
-                            '                   <div class="form-group">'+
-                            '                       <label for="var001"> Establecimiento:       '+element.establecimiento_nombre +'</label>'+        
-                            '                       <label for="var002">Categoría:  '+ element.tipo_categoria_nombre +'</label>'+
-                            '                       <label for="var003">SubCategoría:   '+ element.tipo_subcategoria_nombre +'</label>'+
-                            '                       <label for="var004">Origen: '+ element.tipo_origen_nombre +'</label><br>'+
-                            '                       <label for="var005">Raza:   '+ element.tipo_raza_nombre +'</label>'+
-                            '                       <label for="var007">Pelaje: '+ element.tipo_pelaje_nombre +'</label>'+
-                            '                       <label for="var008">Grado Sangre:   '+ element.tipo_grado_sangre_nombre +'</label>'+
-                            '                       <label for="var009">Hacienda:   '+ element.tipo_hacienda_nombre +'</label>'+
-                            '                       <label for="var018">Carimbo:    '+ element.tipo_carimbo_nombre +'</label>'+
-                            '                    </div>'+
+                            '                   <div class="row">'+
+                            '                     <div class="col-sm-12 col-md-3">'+
+                            '                       <div class="form-group">'+
+                            '                          <label for="var001"> Establecimiento:       '+element.establecimiento_nombre +'</label>'+   
+                            '                       </div>'+
+                            '                     </div>'+
+                            ''+
+                            '                           <div class="col-sm-12 col-md-3">'+
+                            '                               <div class="form-group" >'+
+                            '                                   <label for="var003">SubCategoría:   '+ element.tipo_subcategoria_nombre +'</label>'+
+                            '	                            </div>'+
+                            '	                        </div>'+
+                            ''+     
+                            '                           <div class="col-sm-12 col-md-3">'+
+                            '                               <div class="form-group" >'+
+                            '                                   <label for="var004">Origen: '+ element.tipo_origen_nombre +'</label><br>'+
+                            '	                            </div>'+
+                            '	                        </div>'+
+                            ''+     
+                            '                           <div class="col-sm-12 col-md-3">'+
+                            '                               <div class="form-group" >'+
+                            '                                   <label for="var005">Raza:   '+ element.tipo_raza_nombre +'</label>'+
+                            '	                            </div>'+
+                            '	                        </div>'+
+                            ''+     
+                            '                           <div class="col-sm-12 col-md-3">'+
+                            '                               <div class="form-group" >'+
+                            '                                   <label for="var007">Pelaje: '+ element.tipo_pelaje_nombre +'</label>'+
+                            '	                            </div>'+
+                            '	                        </div>'+
+                            ''+     
+                            '                           <div class="col-sm-12 col-md-3">'+
+                            '                               <div class="form-group" >'+
+                            '                                   <label for="var008">Grado Sangre:   '+ element.tipo_grado_sangre_nombre +'</label>'+
+                            '	                            </div>'+
+                            '	                        </div>'+
+                            ''+     
+                            '                           <div class="col-sm-12 col-md-3">'+
+                            '                               <div class="form-group" >'+
+                            '                                   <label for="var009">Hacienda:   '+ element.tipo_hacienda_nombre +'</label>'+
+                            '	                            </div>'+
+                            '	                        </div>'+
+                            ''+     
+                            '                           <div class="col-sm-12 col-md-3">'+
+                            '                               <div class="form-group" >'+
+                            '                                   <label for="var018">Carimbo:    '+ element.tipo_carimbo_nombre +'</label>'+
+                            '	                            </div>'+
+                            '	                        </div>' +
+                        //    '                    </div>'+
                             '                  </div>'+
                             '               </div>'+
                             '            </div>'+
@@ -721,23 +758,23 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                             '                      <div class="col-sm-12 col-md-3">'+
                             '                        <div class="form-group">'+
                             '                            <label for="var021">Ultimo Peso:</label><br>'+
-                            '                              <input type="text" id="var021" name="var021" value="'+ultpeso+'" style="height:40px" readonly>'+
+                            '                              <input type="text" id="var021" name="var021" value="'+ultpeso+'" class="form-control" style="height:40px" readonly>'+
                             '                        </div>'+
                             '                      </div>'+
                             ''+
                             '                      <div class="col-sm-12 col-md-3">'+
                             '                        <div class="form-group">'+
                             '                            <label for="var022">Ultimo Fecha</label><br>'+
-                             '                               <input type="text" id="var022" name="var022" value="'+ultfecha+'" style="height:40px" readonly>'+
+                             '                               <input type="text" id="var022" name="var022" value="'+ultfecha+'" class="form-control" style="height:40px" readonly>'+
                             '                        </div>'+
                             '                      </div>'+
                             ''+
-                            '                      <div class="col-sm-12 col-md-3">'+
+                            '                      <div class="col-sm-12 col-md-6">'+
                             '                        <div class="form-group">'+
                             '                        </div>'+
                             '                      </div>'+
                             ''+
-                            '                      <div class="col-sm-12 col-md-4">'+
+                            '                      <div class="col-sm-12 col-md-3">'+
                             '                         <div class="form-group">'+
                             '                            <label for="var020">Peso</label>'+
                             '                               <select id="var020" name="var020" class="form-control" style="width:100%; height:40px;">'+
@@ -761,6 +798,11 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                             '                           </div>'+
                             '                      </div>'+
                             ''+ 
+                            '                      <div class="col-sm-12 col-md-3">'+
+                            '                        <div class="form-group">'+
+                            '                        </div>'+
+                            '                      </div>'+
+                            ''+
                             '                      <div class="col-sm-12 col-md-3">'+
                             '                           <div class="form-group">'+
                             '                               <label for="var023">Diferencia de Peso</label>'+
@@ -798,9 +840,20 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                             '	                        </div>'+ selPeso +
                             '	                      </div>'+
                             '	                   </div>'+
-                           // '                   </div>'+style="text-align:center"
-                         //   '               </div>'+
                             '	         </div>'+
+                            ''+
+                            '           <div class="row">'+
+                            '               <div class="col-sm-12 col-md-12">'+
+                            '                   <div class="row">'+
+                            '                     <div class="col-sm-12 col-md-12">'+
+                            '                       <div class="form-group">'+
+                            '                           <label for="var027">COMENTARIO</label>'+
+                            '                              <textarea id="var027" name="var027" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'></textarea>'+
+                            '                       </div>'+
+                            '                     </div>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            '           </div>'+
                             ''+
                             '	         <div class="modal-footer">'+ bodyBot +
                             '		        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
