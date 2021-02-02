@@ -6,7 +6,7 @@
     ob_start();
     
     require '../../class/function/curl_api.php';
-
+	require '../../class/session/session_system.php';
 
 	$work01         = $_POST['workCodigo'];
 	$work02         = $_POST['workModo'];

@@ -6,6 +6,7 @@
     ob_start();
     
 	require '../../class/function/curl_api.php';
+	require '../../class/session/session_system.php';
 	
 	$var01	= $_POST['var01'];
 	$var02  = $_POST['var02'];
