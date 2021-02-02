@@ -2052,6 +2052,25 @@ function getAnimalPeso(codElem){
     return xDATA;
 }
 
+function getAnimalPeso2(codElem){
+    localStorage.removeItem('animalpesokilogramosJSON');
+    if (localStorage.getItem('animalpesokilogramosJSON') === null){
+        getJSON('animalpesokilogramosJSON', '000/animalpeso/peso/' + codElem);
+    }
+ 
+    var xJSON = JSON.parse(localStorage.getItem('animalpesokilogramosJSON'));
+    var xDATA = [];
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_codigo == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
 function getOrdenTrabajo(codTip, codEst, codEsta, codPAdmin, codPVete){
     if (localStorage.getItem('ordentrabajoCOD') != codEst) {
         localStorage.removeItem('ordentrabajoJSON');

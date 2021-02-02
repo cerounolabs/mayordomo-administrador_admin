@@ -6,6 +6,7 @@
     ob_start();
     
     require '../../class/function/curl_api.php';
+    require '../../class/session/session_system.php';
 
 	$val01          = $_POST['var001'];
     $val02          = $_POST['var002'];
@@ -39,7 +40,7 @@
 	
 	$seg_04         = $_SESSION['seg_04'];
 
-    if (isset($val01) && isset($val02) && isset($val03) && isset($val04) && isset($val05) && isset($val06) && isset($val07) && isset($val08) && isset($val09)) {
+    if ( $val01 != 0 && $val02 != 0 && $val03 != 0 && $val04 != 0 && $val05 != 0 && $val06 != 0 && $val07 != 0 && $val08 != 0 && $val09 != 0 ) {
         $dataJSON = json_encode(
 			array(
 				'tipo_estado_codigo'            => 2,
@@ -54,6 +55,7 @@
                 'establecimiento_codigo'        => intval($val01),
                 'persona_codigo'                => intval($val06),
                 'animal_codigo_electronico'     => $val10,
+                'animal_fecha_nacimiento'       => $val17.'-15',
                 'animal_codigo_rp'              => $val11,
                 'animal_codigo_hbp'             => $val12,
                 'animal_codigo_sitrap'          => $val13,
@@ -74,13 +76,17 @@
                 $msg    = str_replace("\n", ' ', $result['message']);
 				break;
 			case 'U':
-                $result	= put_curl('000/animal/'.$work01, $dataJSON);
-                $result		= json_decode($result, true);
-                $code       = $result['code'];
-                $msg		= str_replace("\n", ' ', $result['message']);
+                $result = put_curl('000/animal/'.$work01, $dataJSON);
+                $result	= json_decode($result, true);
+                $code   = $result['code'];
+                $msg    = str_replace("\n", ' ', $result['message']);
 				break;
         }
-	}
+
+	} else {
+        $code       = 400;
+        $msg        = 'Verifique, algún campo esta vacio';
+    }
 
     if($work01 == 0){
         $work01 = $result['codigo'];
@@ -93,7 +99,7 @@
 				'tipo_peso_codigo'              => 1,
                 'establecimiento_codigo'        => $val01,
 				'animal_codigo'                 => $work01,
-				'animal_peso_fecha'             => $val17,
+				'animal_peso_fecha'             => $val17.'-15',
 				'animal_peso_kilogramos'        => $val19,
                 'auditoria_usuario'             => $usu_03,
                 'auditoria_fecha_hora'	        => date('Y-m-d H:i:s'),
@@ -118,7 +124,7 @@
         }
     }
 
-    header('Location: ../../public/'.$work03.'&code='.$code.'&msg='.$msg);
+     header('Location: ../../public/'.$work03.'&code='.$code.'&msg='.$msg);
 
 	ob_end_flush();
 ?>

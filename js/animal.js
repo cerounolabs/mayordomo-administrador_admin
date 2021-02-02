@@ -79,8 +79,9 @@ $(document).ready(function() {
                         var btnDSP	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 2);" title="Ver" type="button" class="btn btn-primary btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-eye"></i></button>';
                         var btnUPD	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 3);" title="Editar" type="button" class="btn btn-success btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-edit"></i></button>';
                         var btnDLT	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 4);" title="Eliminar" type="button" class="btn btn-danger btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-eraser"></i></button>';
-                        var btnAUD	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +',5);" title="Auditoria" type="button" class="btn btn-warning btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-user-secret"></i></button>';
-                        return (btnDSP + '&nbsp;' + btnUPD + '&nbsp;' + btnDLT + '&nbsp;' + btnAUD);
+                        var btnAUD	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 5);" title="Auditoria" type="button" class="btn btn-warning btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-user-secret"></i></button>';
+                        var btnPES	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 6);" title="Registrar Peso" type="button" class="btn btn-circle"; style="background-color:#0BD9F4; color:#ffffff"; data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-balance-scale"></i></button>';
+                        return (btnDSP + '&nbsp;' + btnUPD + '&nbsp;' + btnDLT + '&nbsp;' + btnAUD + '&nbsp;' + btnPES);
                     }
                 },
             ]
@@ -104,7 +105,6 @@ $(document).ready(function() {
 
 function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
     var codEst = '';
-
     if (codElem != 0) {
         codEst  = rowEst;
     } else {
@@ -116,7 +116,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
     var xJSON2          = getDominio('ANIMALGRADOSANGRE');
     var xJSON3          = getDominio('ANIMALHACIENDA');
     var xJSON4          = getDominio('ANIMALCARIMBO');
-    
+    var aJSON           = getAnimal(2, codEst, codElem, 0, 0, 0, 0, 0, 0, 0, 0);
     var html            = '';
     var bodyCol         = '';
     var bodyTit         = '';
@@ -128,7 +128,6 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
     var selHacienda     = '';
     var selCarimbo      = '';
     var rowAuditoria    = '';
-    var fechpeso        = '';
     var pesokilogramo   = 0;
     var pesocodigo      = 0;
     
@@ -174,6 +173,14 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
             bodyBot = '';
             break;
 
+        case 6:
+            bodyTit = 'REGISTRAR PESO';
+            bodyCol = '#0BD9F4;';
+            bodyMod = 'C';
+            bodyOnl = '';
+            bodyBot = '           <button type="submit" class="btn btn-info">Agregar</button>';
+            break;
+            
         default:
             break;
     }
@@ -387,7 +394,6 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
 
                 xJSON5.forEach(element2 => {
                     if (element2.animal_codigo == codElem) {
-                        fechpeso            = element2.animal_peso_fecha_1;
                         pesokilogramo       = element2.animal_peso_kilogramo;
                         pesocodigo          = element2.animal_peso_codigo;
                     }
@@ -561,7 +567,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                             '               <div class="col-sm-12 col-md-4">'+
                             '                   <div class="form-group">'+
                             '                       <label for="var017">Fecha Nacimiento</label>'+
-                            '                       <input id="var017" name="var017" value="'+fechpeso+'" class="form-control" type="month" style="text-transform:uppercase; height:40px;" placeholder="Fecha Nacimiento" '+ bodyOnl +'>'+
+                            '                       <input id="var017" name="var017" value="'+element.animal_fecha_nacimiento_1+'" class="form-control" type="month" style="text-transform:uppercase; height:40px;" placeholder="Fecha Nacimiento" '+ bodyOnl +'>'+
                             '                   </div>'+
                             '               </div>'+
                             ''+
@@ -586,7 +592,6 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                             '	    </div>'+
                             '   </form>'+
                             '</div>';
-                    fechpeso = '';
                     pesokilogramo = 0;
 			}
 		});
@@ -639,6 +644,219 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
 		'	    </div>'+
 		'   </form>'+
 		'</div>';
+    } else if (codAcc == 6) {
+        xJSON5          = getAnimalPeso(codElem);
+        var xJSON7      = getAnimalPeso2(codElem);
+        var selPeso     = '';   
+        var ultfecha    = '';
+        var ultpeso     = 0;
+		xJSON.forEach(element => {
+			if (element.animal_codigo == codElem) {
+                xJSON7.forEach(element1 => {
+                    if (element1.animal_codigo == codElem) {
+                        ultfecha    = element1.animal_peso_fecha_1;
+                        ultpeso     = element1.animal_peso_kilogramo;
+                    }
+                });
+
+                xJSON5.forEach(element2 => {
+                    if (element2.animal_codigo == codElem) {
+                        selPeso = selPeso +
+                            '                      <div class="col-sm-12 col-md-5">'+
+                            '                        <div class="form-group" >'+
+                            '                            <label for="var16">'+element2.animal_peso_kilogramo+'</label>'+
+                            '                        </div>'+
+                            '                      </div>'+
+                            ''+
+                            '                      <div class="col-sm-12 col-md-6">'+
+                            '                        <div class="form-group" style="text-align:center">'+
+                            '                            <label for="var17">'+element2.animal_peso_fecha_2+'</label><br>'+
+                            '                        </div>'+
+                            '                      </div>';
+                    }
+                });
+                        html = 
+                            '<div class="modal-content">'+
+                            '   <form id="form" data-parsley-validate method="post" action="../class/crud/animal_peso.php">'+
+                            '	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
+                            '		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
+                            '		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+                            '	    </div>'+
+                            ''+
+                            '	    <div class="modal-body" >'+
+                            '           <div class="form-group">'+
+                            '               <input class="form-control" type="hidden" id="workCodigo"       name="workCodigo"       value="'+ element.animal_codigo +'"       required readonly>'+
+                            '               <input class="form-control" type="hidden" id="workModo"         name="workModo"         value="'+ bodyMod +'"                     required readonly>'+
+                            '               <input class="form-control" type="hidden" id="workPage"         name="workPage"         value="'+ codPag +'"                      required readonly>'+
+                            '               <input class="form-control" type="hidden" id="workEst"          name="workEst"          value="'+ element.establecimiento_codigo +'"                  required readonly>'+
+                            '               <input class="form-control" type="hidden" id="workAnimalPeso"   name="workAnimalPeso"   value="0"                                 required readonly>'+
+                            '           </div>'+
+                            ''+
+                            '           <div class="row">'+
+                            '               <div class="col-sm-12 col-md-12">'+
+                            '                   <div class="row">'+
+                            '                     <div class="col-sm-12 col-md-3">'+
+                            '                       <div class="form-group">'+
+                            '                          <label for="var01"> Establecimiento:       '+element.establecimiento_nombre +'</label>'+   
+                            '                       </div>'+
+                            '                     </div>'+
+                            ''+
+                            '                     <div class="col-sm-12 col-md-3">'+
+                            '                         <div class="form-group" >'+
+                            '                             <label for="var02">SubCategoría:   '+ element.tipo_subcategoria_nombre +'</label>'+
+                            '	                      </div>'+
+                            '	                  </div>'+
+                            ''+     
+                            '                     <div class="col-sm-12 col-md-3">'+
+                            '                         <div class="form-group" >'+
+                            '                             <label for="var03">Origen: '+ element.tipo_origen_nombre +'</label><br>'+
+                            '	                      </div>'+
+                            '	                  </div>'+
+                            ''+     
+                            '                     <div class="col-sm-12 col-md-3">'+
+                            '                         <div class="form-group" >'+
+                            '                             <label for="var04">Raza:   '+ element.tipo_raza_nombre +'</label>'+
+                            '	                      </div>'+
+                            '	                  </div>'+
+                            ''+     
+                            '                     <div class="col-sm-12 col-md-3">'+
+                            '                         <div class="form-group" >'+
+                            '                             <label for="var05">Pelaje: '+ element.tipo_pelaje_nombre +'</label>'+
+                            '	                      </div>'+
+                            '	                  </div>'+
+                            ''+     
+                            '                     <div class="col-sm-12 col-md-3">'+
+                            '                         <div class="form-group" >'+
+                            '                             <label for="var06">Grado Sangre:   '+ element.tipo_grado_sangre_nombre +'</label>'+
+                            '	                      </div>'+
+                            '	                  </div>'+
+                            ''+     
+                            '                     <div class="col-sm-12 col-md-3">'+
+                            '                         <div class="form-group" >'+
+                            '                             <label for="var07">Hacienda:   '+ element.tipo_hacienda_nombre +'</label>'+
+                            '	                      </div>'+
+                            '	                  </div>'+
+                            ''+     
+                            '                     <div class="col-sm-12 col-md-3">'+
+                            '                         <div class="form-group" >'+
+                            '                             <label for="var08">Carimbo:    '+ element.tipo_carimbo_nombre +'</label>'+
+                            '	                      </div>'+
+                            '	                  </div>' +
+                            '                  </div>'+
+                            '               </div>'+
+                            '            </div>'+
+                            ''+
+                            '            <div class="row">'+
+                            '               <div class="col-sm-12 col-md-9">'+
+                            '                   <div class="row">'+
+                            '                      <div class="col-sm-12 col-md-3">'+
+                            '                        <div class="form-group">'+
+                            '                            <label for="var09">Ultimo Peso:</label><br>'+
+                            '                              <input type="text" id="var09" name="var09" value="'+ultpeso+'" class="form-control" style="height:40px" readonly>'+
+                            '                        </div>'+
+                            '                      </div>'+
+                            ''+
+                            '                      <div class="col-sm-12 col-md-3">'+
+                            '                        <div class="form-group">'+
+                            '                            <label for="var10">Ultimo Fecha</label><br>'+
+                            '                               <input type="text" id="var10" name="var10" value="'+ultfecha+'" class="form-control" style="height:40px" readonly>'+
+                            '                        </div>'+
+                            '                      </div>'+
+                            ''+
+                            '                      <div class="col-sm-12 col-md-6">'+
+                            '                        <div class="form-group">'+
+                            '                        </div>'+
+                            '                      </div>'+
+                            ''+
+                            '                      <div class="col-sm-12 col-md-3">'+
+                            '                         <div class="form-group">'+
+                            '                            <label for="var11">Peso</label>'+
+                            '                               <select id="var11" name="var11" class="form-control" style="width:100%; height:40px;" required>'+
+                            '                                   <optgroup label="Peso">'+
+                            '                                   </optgroup>'+
+                            '                               </select>'+
+                            '                           </div>'+
+                            '                       </div>'+
+                            ''+     
+                            '                      <div class="col-sm-12 col-md-3">'+
+                            '                         <div class="form-group">'+
+                            '                             <label for="var12">Ingresar Peso</label>'+
+                            '                             <input id="var12" name="var12" class="form-control" value="0" onblur="selectDifPeso(var12, var09, var14);"  type="number" step=".001" style="text-transform:uppercase; height:40px;" placeholder="Peso" '+ bodyOnl +'>'+
+                            '                         </div>'+
+                            '                       </div>'+
+                            ''+     
+                            '                      <div class="col-sm-12 col-md-3">'+
+                            '                           <div class="form-group">'+
+                            '                               <label for="var13">Fecha</label>'+
+                            '                               <input id="var13" name="var13" class="form-control" type="date" onblur="selectCantDia(var13, var10, var15);" style="text-transform:uppercase; height:40px;" placeholder="Fecha Nacimiento" '+ bodyOnl +'>'+
+                            '                           </div>'+
+                            '                      </div>'+
+                            ''+ 
+                            '                      <div class="col-sm-12 col-md-3">'+
+                            '                        <div class="form-group">'+
+                            '                        </div>'+
+                            '                      </div>'+
+                            ''+
+                            '                      <div class="col-sm-12 col-md-3">'+
+                            '                           <div class="form-group">'+
+                            '                               <label for="var14">Diferencia de Peso</label>'+
+                            '                               <input type="number" id="var14" name="var14" class="form-control" style="height:40px" placeholder="Diferencia de Peso" readonly>'+
+                            '                           </div>'+
+                            '                      </div>'+
+                            ''+ 
+                            '                      <div class="col-sm-12 col-md-3">'+
+                            '                           <div class="form-group">'+
+                            '                               <label for="var15">Cantidad de Dias</label>'+
+                            '                               <input type="number" id="var15" name="var15" value="var15" class="form-control" style="height:40px" placeholder="Cantidad de Días" readonly>'+
+                            '                           </div>'+
+                            '                      </div>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            ''+
+                            '               <div class="col-sm-12 col-md-3">'+
+                            '                  <div class="row">'+
+                            '                    <div class="col-sm-12 col-md-12">'+
+                            '                        <div class="form-group">'+
+                            '                            <h3><label for="" >Histórico de Peso</label></h3>'+
+                            '	                     </div>'+
+                            '	                 </div>'+
+                            ''+
+                            '                    <div class="col-sm-6">'+
+                            '                        <div class="form-group" >'+
+                            '                            <h5><label for="var16">   Peso </label></h5>'+
+                            '	                     </div>'+
+                            '	                 </div>'+
+                            ''+
+                            '                    <div class="col-sm-6">'+
+                            '                        <div class="form-group" >'+
+                            '                            <h5><label for="var17">    Fecha   </label></h5>'+ 
+                            '	                     </div>'+
+                            '	                 </div>'+ selPeso +
+                            '	               </div>'+
+                            '	            </div>'+
+                            '	         </div>'+
+                            ''+
+                            '            <div class="row">'+
+                            '               <div class="col-sm-12 col-md-12">'+
+                            '                   <div class="row">'+
+                            '                     <div class="col-sm-12 col-md-12">'+
+                            '                       <div class="form-group">'+
+                            '                           <label for="var18">COMENTARIO</label>'+
+                            '                              <textarea id="var18" name="var18" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'></textarea>'+
+                            '                       </div>'+
+                            '                     </div>'+
+                            '                   </div>'+
+                            '               </div>'+
+                            '            </div>'+
+                            ''+
+                            '	         <div class="modal-footer">'+ bodyBot +
+                            '		        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
+                            '	         </div>'+
+                            '   </form>'+
+                            '</div>';
+            }
+            
+		});
 	}
 
 	$("#modal-content").empty();
@@ -655,6 +873,8 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
         selectDominio('var008', 'ANIMALGRADOSANGRE', 2);
         selectDominio('var009', 'ANIMALHACIENDA', 2);
         selectDominio('var018', 'ANIMALCARIMBO', 2);
+    }else{
+        selectDominio('var11', 'ANIMALPESO', 2);
     }
 
     $('#var001').change(function() {
