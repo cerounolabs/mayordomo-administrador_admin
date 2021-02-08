@@ -25,7 +25,7 @@
     $work03         = $_POST['workPage'];
 	$work04         = $_POST['workAnimalMort'];
 	$work05         = $_POST['workEstado'];
-	
+	echo 'animal cod => '. $work01;
 	$usu_03         = $_SESSION['usu_03'];
 
 	$log_04         = $_SESSION['log_04'];
@@ -59,9 +59,11 @@
 	
 		switch($work02){
 			case 'C':
+				echo 'C ';
 				$result	= post_curl('000/animalmortandad', $dataJSON);
 				break;
 			case 'U':
+				echo 'U ';
 				$result	= put_curl('000/animalmortandad/'.$work04, $dataJSON);
 				break;
 			case 'D':
@@ -76,7 +78,10 @@
         $code       = 400;
         $msg        = 'Verifique, algún campo esta vacio';
     }
-	
+	echo '<br>';
+	echo $dataJSON;
+	echo json_encode($result);
+	echo '<br>';
     if($work04 == 0){
 		$work04 = $result['codigo'];
     }
@@ -90,7 +95,7 @@
 			$target_ban     = true;
 			$target_msn     = '';
 			$target_nam     = getFechaHora(1).'_'. rand(100, 999).'_'.$work04;
-			$target_dir     = '../../class/documentos/';
+			$target_dir     = '../../upload/animal/';
 			$target_file    = $target_dir.basename($_FILES['var029_'.$i]['name']);
 			$imageFileType  = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 			$target_file	= $target_nam.'.'.$imageFileType;
@@ -137,7 +142,7 @@
 		}
 
 		if ($target_ban == true) {
-			if (isset($val11)) {
+			if (isset($work04)) {
 				$dataJSON1 = json_encode(
 					array(
 						'animal_mortandad_codigo'                   => $work04,
@@ -158,7 +163,13 @@
 		}
 	}
 
-    header('Location: ../../public/'.$work03.'&code='.$code.'&msg='.$msg);
+	echo '<br>';
+	echo '<br>';
+	echo '**********************************';
+	echo '<br>';
+	echo $dataJSON1;
+	echo json_encode($result1);
+   // header('Location: ../../public/'.$work03.'&code='.$code.'&msg='.$msg);
 
 	ob_end_flush();
 ?>

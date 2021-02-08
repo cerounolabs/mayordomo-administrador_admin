@@ -873,6 +873,8 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
 	} else if (codAcc == 7) {
      
 		xJSON.forEach(element => {
+            console.log(xJSON);
+            console.log(element.animal_codigo );
 			if (element.animal_codigo == codElem) {
                 if(xJSON8 == '' || xJSON8 == null){
                         html = 
@@ -1305,8 +1307,6 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
         selectPotrero(rowEst,'var021', 2);
         selectDominio('var024', 'MORTANDADTIPO', 2);
         selectDenunciado(rowEst,'var025', 2);
-    //    selectVerificar(rowEst,'var027', 2);
-       // selectEstablecimientoPersona('var021', 'var025', 2, 2);
     } else if (codAcc == 7 && xJSON8 != null){
         selectVerificar(rowEst,'var027', 2);
     }
@@ -1316,6 +1316,6 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
     });
 
      $('#var002').change(function() {
-        selectAnimalCategoria(rowEspecie, 'var002', 'var003', 2);
+       selectAnimalCategoria(rowEspecie, 'var002', 'var003', 2);
     });
 }
