@@ -81,7 +81,7 @@ $(document).ready(function() {
                         var btnDLT	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 4);" title="Eliminar" type="button" class="btn btn-danger btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-eraser"></i></button>';
                         var btnAUD	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 5);" title="Auditoria" type="button" class="btn btn-warning btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-user-secret"></i></button>';
                         var btnPES	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 6);" title="Registrar Peso" type="button" class="btn btn-circle"; style="background-color:#0BD9F4; color:#ffffff"; data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-balance-scale"></i></button>';
-                        var btnMOR	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 7);" title="Mortandad" type="button" class="btn btn-circle"; style="background-color:#FF8A65; color:#ffffff"; data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-paw"></i></button>';
+                        var btnMOR	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 7);" title="Mortandad" type="button" class="btn btn-circle"; style="background-color:#FF8A65; color:#ffffff"; data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-arrows-alt"></i></button>';
 
                         return (btnDSP + '&nbsp;' + btnUPD + '&nbsp;' + btnDLT + '&nbsp;' + btnAUD + '&nbsp;' + btnPES + '&nbsp;' + btnMOR);
                     }
@@ -227,7 +227,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
             '               <div class="col-sm-12 col-md-4">'+
             '                   <div class="form-group">'+
             '                       <label for="var002">Categoría</label>'+
-            '                       <select id="var002" name="var002" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' required>'+
+            `                       <select id="var002" name="var002" class="form-control" style="width:100%; height:40px;" '+ bodyOnl +' onchange="selectAnimalCategoria(${rowEspecie}, 'var002', 'var003', 2);" required>`+
             '                           <optgroup label="Categoría">'+
             '                           </optgroup>'+
             '                       </select>'+
@@ -871,10 +871,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
             
 		});
 	} else if (codAcc == 7) {
-     
 		xJSON.forEach(element => {
-            console.log(xJSON);
-            console.log(element.animal_codigo );
 			if (element.animal_codigo == codElem) {
                 if(xJSON8 == '' || xJSON8 == null){
                         html = 
@@ -901,43 +898,43 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                             '                   <div class="row">'+
                             '                     <div class="col-sm-12 col-md-3">'+
                             '                       <div class="form-group">'+
-                            '                          <label for=""> Sub Categoria: '+element.tipo_subcategoria_nombre +'</label>'+   
+                            '                          <label for=""> Sub Categoria: '+ element.tipo_subcategoria_nombre +'</label>'+   
                             '                       </div>'+
                             '                     </div>'+
                             ''+    
                             '                     <div class="col-sm-12 col-md-3">'+
                             '                         <div class="form-group" >'+
-                            '                             <label for="">Origen: '+ element.tipo_origen_nombre +'</label><br>'+
+                            '                             <label for="">Origen:     '+ element.tipo_origen_nombre +'</label><br>'+
                             '	                      </div>'+
                             '	                  </div>'+
                             ''+     
                             '                     <div class="col-sm-12 col-md-3">'+
                             '                         <div class="form-group" >'+
-                            '                             <label for="">Raza:   '+ element.tipo_raza_nombre +'</label>'+
+                            '                             <label for="">Raza:       '+ element.tipo_raza_nombre +'</label>'+
                             '	                      </div>'+
                             '	                  </div>'+
                             ''+     
                             '                     <div class="col-sm-12 col-md-3">'+
                             '                         <div class="form-group" >'+
-                            '                             <label for="">Pelaje: '+ element.tipo_pelaje_nombre +'</label>'+
+                            '                             <label for="">Pelaje:     '+ element.tipo_pelaje_nombre +'</label>'+
                             '	                      </div>'+
                             '	                  </div>'+
                             ''+     
                             '                     <div class="col-sm-12 col-md-3">'+
                             '                         <div class="form-group" >'+
-                            '                             <label for="">Grado Sangre:   '+ element.tipo_grado_sangre_nombre +'</label>'+
+                            '                             <label for="">Grado Sangre:'+ element.tipo_grado_sangre_nombre +'</label>'+
                             '	                      </div>'+
                             '	                  </div>'+
                             ''+     
                             '                     <div class="col-sm-12 col-md-3">'+
                             '                         <div class="form-group" >'+
-                            '                             <label for="">Hacienda:   '+ element.tipo_hacienda_nombre +'</label>'+
+                            '                             <label for="">Hacienda:    '+ element.tipo_hacienda_nombre +'</label>'+
                             '	                      </div>'+
                             '	                  </div>'+
                             ''+     
                             '                     <div class="col-sm-12 col-md-3">'+
                             '                         <div class="form-group" >'+
-                            '                             <label for="">Carimbo:    '+ element.tipo_carimbo_nombre +'</label>'+
+                            '                             <label for="">Carimbo:     '+ element.tipo_carimbo_nombre +'</label>'+
                             '	                      </div>'+
                             '	                  </div>' +
                             '                  </div>'+
@@ -1302,6 +1299,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
     }else if(codAcc == 6){
         selectDominio('var11', 'ANIMALPESO', 2);
     }
+
     if(codAcc == 7 && xJSON8 == null || xJSON8 == ''){
         selectEstablecimiento('var020'),
         selectPotrero(rowEst,'var021', 2);
@@ -1315,7 +1313,8 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
         selectEstablecimientoPersona('var006', 'var001', 2, 2);
     });
 
-     $('#var002').change(function() {
-       selectAnimalCategoria(rowEspecie, 'var002', 'var003', 2);
+    $('#var002').change(function() {
+        selectAnimalCategoria(rowEspecie, 'var002', 'var003', 2);
     });
+
 }

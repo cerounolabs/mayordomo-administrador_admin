@@ -1,8 +1,6 @@
 function selectDominio(rowInput, rowDominio, rowBand) {
     var selItem = document.getElementById(rowInput);
-    var xJSON   = getDominio(rowDominio);
-    console.log('categoria ' + rowDominio);
-    console.log(xJSON);   
+    var xJSON   = getDominio(rowDominio);  
     while (selItem.length > 0) {
         selItem.remove(0);
     }
@@ -208,8 +206,7 @@ function selectAnimalCategoria(rowEspecie, rowCategoria, rowInput, rowBand) {
     var selItem = document.getElementById(rowInput);
     var selCate = document.getElementById(rowCategoria);
     var xJSON   = getDominioTri('ANIMALESPECIECATEGORIASUBCATEGORIA');
-    console.log('sUB categoria ' + selCate.value);
-    console.log(xJSON);
+
     while (selItem.length > 0) {
         selItem.remove(0);
     }
@@ -233,12 +230,7 @@ function selectAnimalCategoria(rowEspecie, rowCategoria, rowInput, rowBand) {
     }
 
     xJSON.forEach(element => {
-        console.log('tipo_dominio1_codigo ' + element.tipo_dominio1_codigo);
-        console.log('rowEspecie ' + rowEspecie);
-        console.log('tipo_dominio2_parametro  ' + element.tipo_dominio2_parametro);
-        console.log('selCate  ' + selCate.value);
         if (element.tipo_dominio1_codigo == rowEspecie && element.tipo_dominio2_parametro == selCate.value) {
-            console.log('entraaaaaaaaaaaaaaaaa');
             var item        = pad(element.tipo_dominio3_codigo, 3);
             var option      = document.createElement('option');
             option.value    = element.tipo_dominio3_parametro;

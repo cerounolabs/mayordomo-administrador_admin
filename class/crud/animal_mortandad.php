@@ -25,7 +25,7 @@
     $work03         = $_POST['workPage'];
 	$work04         = $_POST['workAnimalMort'];
 	$work05         = $_POST['workEstado'];
-	echo 'animal cod => '. $work01;
+
 	$usu_03         = $_SESSION['usu_03'];
 
 	$log_04         = $_SESSION['log_04'];
@@ -33,7 +33,6 @@
 	$seg_04         = $_SESSION['seg_04'];
 	
 	if (isset($val01) && isset($work01) && $val02 != 0 && $val05 != 0 && $val06 != 0){
-			
 			$dataJSON = json_encode(
 				array(
 					'tipo_accion_codigo' 	                  => 2,
@@ -59,11 +58,9 @@
 	
 		switch($work02){
 			case 'C':
-				echo 'C ';
 				$result	= post_curl('000/animalmortandad', $dataJSON);
 				break;
 			case 'U':
-				echo 'U ';
 				$result	= put_curl('000/animalmortandad/'.$work04, $dataJSON);
 				break;
 			case 'D':
@@ -78,10 +75,7 @@
         $code       = 400;
         $msg        = 'Verifique, algún campo esta vacio';
     }
-	echo '<br>';
-	echo $dataJSON;
-	echo json_encode($result);
-	echo '<br>';
+
     if($work04 == 0){
 		$work04 = $result['codigo'];
     }
@@ -163,13 +157,7 @@
 		}
 	}
 
-	echo '<br>';
-	echo '<br>';
-	echo '**********************************';
-	echo '<br>';
-	echo $dataJSON1;
-	echo json_encode($result1);
-   // header('Location: ../../public/'.$work03.'&code='.$code.'&msg='.$msg);
+   	header('Location: ../../public/'.$work03.'&code='.$code.'&msg='.$msg);
 
 	ob_end_flush();
 ?>
