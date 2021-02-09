@@ -1,7 +1,6 @@
 function selectDominio(rowInput, rowDominio, rowBand) {
     var selItem = document.getElementById(rowInput);
-    var xJSON   = getDominio(rowDominio);
-            
+    var xJSON   = getDominio(rowDominio);  
     while (selItem.length > 0) {
         selItem.remove(0);
     }
@@ -26,7 +25,7 @@ function selectDominio(rowInput, rowDominio, rowBand) {
 
     xJSON.forEach(element => {
         if (element.tipo_estado_parametro == 1) {
-            var item        = pad(element.tipo_codigo, 3);
+            var item        = pad(element.tipo_parametro, 3);
             var option      = document.createElement('option');
             option.value    = element.tipo_parametro;
             option.text     = item + ' - ' + element.tipo_nombre;
@@ -49,6 +48,117 @@ function selectEstablecimiento(rowInput) {
             var option      = document.createElement('option');
             option.value    = element.establecimiento_codigo;
             option.text     = item + ' - ' + element.establecimiento_nombre;                    
+            selItem.add(option, null);
+        }
+    });
+}
+
+function selectDenunciado(rowEsta, rowInput, rowBand) {
+    var xJSON   = getEstablecimientoPersona(rowEsta);
+    var selItem = document.getElementById(rowInput);
+
+    while (selItem.length > 0) {
+        selItem.remove(0);
+    }
+
+    switch (rowBand) {
+        case 1:
+            var option      = document.createElement('option');
+            option.value    = 0;
+            option.text     = 'TODOS'; 
+            option.selected = true;                    
+            selItem.add(option, null);
+            break;
+    
+        case 2:
+            var option      = document.createElement('option');
+            option.text     = 'SELECCIONAR...';
+            option.disabled = true;
+            option.selected = true;                    
+            selItem.add(option, null);
+            break;
+    }
+
+    xJSON.forEach(element => {
+        if (element.tipo_estado_codigo == 1) {
+            var item        = pad(element.persona_codigo, 3);
+            var option      = document.createElement('option');
+            option.value    = element.persona_codigo;
+            option.text     = item + ' - ' + element.persona_completo;                    
+            selItem.add(option, null);
+        }
+    });
+}
+
+function selectPotrero(rowEsta, rowInput, rowBand) {
+    var xJSON   = getPotrero(rowEsta);
+    var selItem = document.getElementById(rowInput);
+
+    while (selItem.length > 0) {
+        selItem.remove(0);
+    }
+
+    switch (rowBand) {
+        case 1:
+            var option      = document.createElement('option');
+            option.value    = 0;
+            option.text     = 'TODOS'; 
+            option.selected = true;                    
+            selItem.add(option, null);
+            break;
+    
+        case 2:
+            var option      = document.createElement('option');
+            option.text     = 'SELECCIONAR...';
+            option.disabled = true;
+            option.selected = true;                    
+            selItem.add(option, null);
+            break;
+    }
+
+    xJSON.forEach(element => {
+        if (element.tipo_estado_codigo == 1) {
+            var item        = pad(element.establecimiento_potrero_codigo, 3);
+            var option      = document.createElement('option');
+            option.value    = element.establecimiento_potrero_codigo;
+            option.text     = item + ' - ' + element.establecimiento_potrero_nombre;                    
+            selItem.add(option, null);
+        }
+    });
+}
+
+function selectVerificar(rowEsta, rowInput, rowBand) {
+    var xJSON   = getEstablecimientoPersona(rowEsta);
+    var selItem = document.getElementById(rowInput);
+
+    while (selItem.length > 0) {
+        selItem.remove(0);
+    }
+
+    switch (rowBand) {
+        case 1:
+            var option      = document.createElement('option');
+            option.value    = 0;
+            option.text     = 'TODOS'; 
+            option.selected = true;                    
+            selItem.add(option, null);
+            break;
+    
+        case 2:
+            var option      = document.createElement('option');
+            option.text     = 'SELECCIONAR...';
+            option.disabled = true;
+            option.selected = true;                    
+            selItem.add(option, null);
+            break;
+    }
+
+    xJSON.forEach(element => {
+        if (element.tipo_estado_parametro == 1) {
+            var item        = pad(element.persona_codigo, 3);
+            var option      = document.createElement('option');
+            option.value    = element.persona_codigo;
+            option.text     = item + ' - ' + element.persona_completo;                    
             selItem.add(option, null);
         }
     });
