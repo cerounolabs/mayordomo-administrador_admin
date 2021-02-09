@@ -1,5 +1,5 @@
 <?php
-    $api    = 'https://cerouno.me/mayorcontrol_api/apiv1';
+    $api    = 'https://cerouno.me/mayorcontrol_api/apiv2';
     $aut    = 'dXNlcl9zZmhvbG94OnVzZXJfc2Zob2xveDIwMjA=';
 
     function get_curl($ext){

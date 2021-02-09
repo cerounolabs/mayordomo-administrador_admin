@@ -263,12 +263,6 @@
 											</a>
 										</li>
 										<li class="sidebar-item">
-											<a href="../public/dominio.php?dominio=ANIMALDONACION" class="sidebar-link">
-												<i class="mdi mdi-parametro-animal"></i>
-												<span class="hide-menu"> Tipo Donacion </span>
-											</a>
-										</li>
-										<li class="sidebar-item">
 											<a href="../public/dominio.php?dominio=ANIMALGRADOSANGRE" class="sidebar-link">
 												<i class="mdi mdi-parametro-animal"></i>
 												<span class="hide-menu"> Tipo Grado Sangre </span>
@@ -447,27 +441,48 @@
                                    	</a>
 									<ul aria-expanded="false" class="collapse second-level">
 										<li class="sidebar-item">
-											<a href="../public/dominio.php?dominio=MOVIMIENTODONACION" class="sidebar-link">
-												<i class="mdi mdi-parametro-movimiento"></i>
-												<span class="hide-menu"> Tipo Donaci&oacute;n </span>
-											</a>
-										</li>
-										<li class="sidebar-item">
 											<a href="../public/dominio.php?dominio=MOVIMIENTOFAENA" class="sidebar-link">
 												<i class="mdi mdi-parametro-movimiento"></i>
 												<span class="hide-menu"> Tipo Faena </span>
 											</a>
 										</li>
 										<li class="sidebar-item">
-											<a href="../public/dominio.php?dominio=MOVIMIENTOTIPO" class="sidebar-link">
+											<a href="../public/dominio.php?dominio=MOVIMIENTOMORTANDAD" class="sidebar-link">
+												<i class="mdi mdi-parametro-movimiento"></i>
+												<span class="hide-menu"> Tipo Mortandad </span>
+											</a>
+										</li>
+									</ul>
+                                </li>
+
+								<li class="sidebar-item">
+                                  	<a href="javascript:void(0)" class="sidebar-link has-arrow waves-effect waves-dark" aria-expanded="false">
+                                   		<i class="mdi mdi-parametro-movimiento"></i>
+                                   		<span class="hide-menu"> Donaci&oacute;n  </span>
+                                   	</a>
+									<ul aria-expanded="false" class="collapse second-level">
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=DONACIONESTADO" class="sidebar-link">
+												<i class="mdi mdi-parametro-movimiento"></i>
+												<span class="hide-menu"> Tipo Estado </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=DONACIONMOVIMIENTO" class="sidebar-link">
 												<i class="mdi mdi-parametro-movimiento"></i>
 												<span class="hide-menu"> Tipo Movimiento </span>
 											</a>
 										</li>
 										<li class="sidebar-item">
-											<a href="../public/dominio.php?dominio=MOVIMIENTOMORTANDAD" class="sidebar-link">
+											<a href="../public/dominio.php?dominio=DONACIONTIPO" class="sidebar-link">
 												<i class="mdi mdi-parametro-movimiento"></i>
-												<span class="hide-menu"> Tipo Mortandad </span>
+												<span class="hide-menu"> Tipo Donaci&oacute;n </span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominiosub.php?dominio=ANIMALMOVIMIENTODONACION" class="sidebar-link">
+												<i class="mdi mdi-parametro-animal"></i>
+												<span class="hide-menu"> Movimiento / Donaci&oacute;n </span>
 											</a>
 										</li>
 									</ul>

@@ -164,6 +164,80 @@ function selectVerificar(rowEsta, rowInput, rowBand) {
     });
 }
 
+function selectEntregado(rowEsta, rowInput, rowBand) {
+    var xJSON   = getEstablecimientoPersona(rowEsta);
+    var selItem = document.getElementById(rowInput);
+
+    while (selItem.length > 0) {
+        selItem.remove(0);
+    }
+
+    switch (rowBand) {
+        case 1:
+            var option      = document.createElement('option');
+            option.value    = 0;
+            option.text     = 'TODOS'; 
+            option.selected = true;                    
+            selItem.add(option, null);
+            break;
+    
+        case 2:
+            var option      = document.createElement('option');
+            option.text     = 'SELECCIONAR...';
+            option.disabled = true;
+            option.selected = true;                    
+            selItem.add(option, null);
+            break;
+    }
+
+    xJSON.forEach(element => {
+        if (element.tipo_estado_parametro == 1) {
+            var item        = pad(element.persona_codigo, 3);
+            var option      = document.createElement('option');
+            option.value    = element.persona_codigo;
+            option.text     = item + ' - ' + element.persona_completo;                    
+            selItem.add(option, null);
+        }
+    });
+}
+
+function selectRecibido(rowEsta, rowInput, rowBand) {
+    var xJSON   = getEstablecimientoPersona(rowEsta);
+    var selItem = document.getElementById(rowInput);
+
+    while (selItem.length > 0) {
+        selItem.remove(0);
+    }
+
+    switch (rowBand) {
+        case 1:
+            var option      = document.createElement('option');
+            option.value    = 0;
+            option.text     = 'TODOS'; 
+            option.selected = true;                    
+            selItem.add(option, null);
+            break;
+    
+        case 2:
+            var option      = document.createElement('option');
+            option.text     = 'SELECCIONAR...';
+            option.disabled = true;
+            option.selected = true;                    
+            selItem.add(option, null);
+            break;
+    }
+
+    xJSON.forEach(element => {
+        if (element.tipo_estado_parametro == 1) {
+            var item        = pad(element.persona_codigo, 3);
+            var option      = document.createElement('option');
+            option.value    = element.persona_codigo;
+            option.text     = item + ' - ' + element.persona_completo;                    
+            selItem.add(option, null);
+        }
+    });
+}
+
 function selectEstablecimientoPersona(rowInput, rowEsta, codTipo, rowBand) {
     var selEsta = document.getElementById(rowEsta);
     var xJSON   = getEstablecimientoPersona(selEsta.value);
@@ -235,6 +309,47 @@ function selectAnimalCategoria(rowEspecie, rowCategoria, rowInput, rowBand) {
             var option      = document.createElement('option');
             option.value    = element.tipo_dominio3_parametro;
             option.text     = item + ' - ' + element.tipo_dominio3_nombre;
+            selItem.add(option, null);
+        }
+    });
+}
+
+function selectDonacion(rowMov, rowTipo, rowBand) {
+    var selItem = document.getElementById(rowTipo);
+    var selDon = document.getElementById(rowMov);
+    var xJSON   = getDominioSub('ANIMALMOVIMIENTODONACION');
+console.log('entraaa pues '+rowMov);
+console.log(xJSON);
+    while (selItem.length > 0) {
+        selItem.remove(0);
+    }
+
+    switch (rowBand) {
+        case 1:
+            var option      = document.createElement('option');
+            option.value    = 0;
+            option.text     = 'TODOS'; 
+            option.selected = true;                    
+            selItem.add(option, null);
+            break;
+    
+        case 2:
+            var option      = document.createElement('option');
+            option.text     = 'SELECCIONAR...';
+            option.disabled = true;
+            option.selected = true;                    
+            selItem.add(option, null);
+            break;
+    }
+
+    xJSON.forEach(element => {
+        console.log('tipo_dominio1_parametro  > ' +  element.tipo_dominio1_parametro );
+        console.log('selDon  > ' +  selDon.value );
+        if (element.tipo_dominio1_parametro == selDon.value) {
+            var item        = pad(element.tipo_dominio2_parametro, 3);
+            var option      = document.createElement('option');
+            option.value    = element.tipo_dominio2_parametro;
+            option.text     = item + ' - ' + element.tipo_dominio2_nombre;
             selItem.add(option, null);
         }
     });
