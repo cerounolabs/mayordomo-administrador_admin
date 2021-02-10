@@ -84,11 +84,20 @@
                 $result = 'SERVICIO TIPO';
                 break;
 
-            //MOVIMIENTO
-            case 'MOVIMIENTODONACION':
+            //DONACION
+            case 'DONACIONESTADO':
+                $result = 'DONACIÓN ESTADO';
+                break;
+
+            case 'DONACIONMOVIMIENTO':
                 $result = 'MOVIMIENTO DONACIÓN';
                 break;
 
+            case 'DONACIONTIPO':
+                $result = 'DONACIÓN TIPO';
+                break;
+    
+            //MOVIMIENTO
             case 'MOVIMIENTOFAENA':
                 $result = 'MOVIMIENTO FAENA';
                 break;
@@ -131,10 +140,6 @@
             
             case 'ANIMALESTADO':
                 $result = 'ANIMAL TIPO ESTADO';
-                break;
-
-            case 'ANIMALDONACION':
-                $result = 'ANIMAL TIPO DONACIÓN';
                 break;
 
             case 'ANIMALGRADOSANGRE':
@@ -289,6 +294,14 @@
                 $titulo2    = 'TAREA';
                 $dominio1   = 'ACTIVIDADTIPO';
                 $dominio2   = 'ACTIVIDADTAREA';
+                break;
+
+            case 'ANIMALMOVIMIENTODONACION':
+                $titulo     = 'MOVIMIENTO / DONACION';
+                $titulo1    = 'MOVIMIENTO';
+                $titulo2    = 'DONACION';
+                $dominio1   = 'DONACIONMOVIMIENTO';
+                $dominio2   = 'DONACIONTIPO';
                 break;
         }
 

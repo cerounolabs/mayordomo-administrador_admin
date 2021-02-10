@@ -260,7 +260,7 @@ function getEstablecimientoPersona(codElem){
 
     if (xJSON['code'] == 200) {
         xJSON['data'].forEach(element => {
-            if (element.tipo_estado_codigo == 1) {
+            if (element.tipo_estado_parametro == 1) {
                 xDATA.push(element);
             }
         });

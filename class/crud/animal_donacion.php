@@ -8,19 +8,13 @@
 	require '../../class/function/curl_api.php';
 	require '../../class/session/session_system.php';
 	
-	$var01	= $_POST['var01'];
-	$var02  = $_POST['var02'];
-    $var03	= $_POST['var03'];
-	
-	if (isset($_POST['var04'])) {
-		$pos		= strpos($_POST['var04'], '_');
-		$var04_1	= substr($_POST['var04'], 0, $pos);
-		$var04_2	= substr($_POST['var04'], ($pos+1));
-	}
-
-    $var05  = trim(strtoupper($_POST['var05']));
-    $var06  = $_POST['var06'];
-    $var07	= $_POST['var07'];
+	$var01	= $_POST['var031'];
+	$var02  = $_POST['var032'];
+    $var03	= $_POST['var033'];
+	$var04	= $_POST['var034'];
+    $var05  = $_POST['var036'];
+	$var06	= $_POST['var037'];
+    $var07	= $_POST['var038'];
 
 	$work01 = $_POST['workCodigo'];
 	$work02 = $_POST['workModo'];
@@ -33,31 +27,32 @@
 	
 	$seg_04	= $_SESSION['seg_04'];
 
-	if (isset($var01) && isset($var02) && isset($var03) && isset($var04_1) && isset($var04_2) && isset($var05) && isset($var06)) {
+	if (isset($var01) && isset($work01) && $var02 != 0 && $var03 != 0 && $var04 != 0) {	//
 		$dataJSON = json_encode(
 			array(
-				'tipo_estado_codigo'			            => 1,
-				'tipo_origen_codigo'				        => $var02,
-				'tipo_raza_codigo'                          => $var03,
-				'tipo_categoria_codigo'			        	=> $var04_1,
-				'tipo_subcategoria_codigo'			        => $var04_2,
-                'tipo_donacion_codigo'		                => $work04,
-                'establecimiento_codigo'		            => $work01,
-                'establecimiento_persona_codigo'		    => $var01,
-                'animal_codigo_donacion'		            => $var05,
-                'animal_donacion_fecha'		                => $var06,
-                'animal_observacion'                        => $var07,
-				'auditoria_empresa_codigo'                  => $seg_04,
-				'auditoria_usuario'                         => $usu_03,
-				'auditoria_fecha_hora'                      => date('Y-m-d H:i:s'),
-				'auditoria_ip'                              => $log_04
+				'tipo_estado_parametro'	    				=> 1,
+				'tipo_movimiento_parametro'					=> $var01,
+				'tipo_donacion_parametro'   				=> $var02,
+				'animal_codigo'			    				=> $work01,
+				'persona_entrega_codigo'					=> $var03,
+                'persona_recibido_codigo'					=> $var04,
+				'animal_donacion_peso_faenado'				=> $var05,
+				'animal_donacion_fecha'						=> $var06,
+                'animal_donacion_observacion'				=> $var07,
+				'auditoria_empresa'							=> $seg_04,
+				'auditoria_usuario'							=> $usu_03,
+				'auditoria_fecha_hora'						=> date('Y-m-d H:i:s'),
+				'auditoria_ip'        						=> $log_04
 			));
 
-        $result         = post_curl('establecimiento/609', $dataJSON);
+        $result         = post_curl('000/animaldonacion', $dataJSON);
 		$result			= json_decode($result, true);
+    }else {
+        $code       = 400;
+        $msg        = 'Verifique, algún campo esta vacio';
     }
-    
-	header('Location: ../../public/'.$work03.'.php?code='.$result['code'].'&msg='.$result['message']);
+
+	header('Location: ../../public/'.$work03.'&code='.$code.'&msg='.$msg);
 
 	ob_end_flush();
 ?>

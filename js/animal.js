@@ -82,8 +82,13 @@ $(document).ready(function() {
                         var btnAUD	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 5);" title="Auditoria" type="button" class="btn btn-warning btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-user-secret"></i></button>';
                         var btnPES	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 6);" title="Registrar Peso" type="button" class="btn btn-circle"; style="background-color:#0BD9F4; color:#ffffff"; data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-balance-scale"></i></button>';
                         var btnMOR	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 7);" title="Mortandad" type="button" class="btn btn-circle"; style="background-color:#FF8A65; color:#ffffff"; data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-arrows-alt"></i></button>';
+                        var btnDon	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 8);" title="Donación" type="button" class="btn btn-circle"; style="background-color:#FF4081; color:#ffffff"; data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-paw"></i></button>';
 
-                        return (btnDSP + '&nbsp;' + btnUPD + '&nbsp;' + btnDLT + '&nbsp;' + btnAUD + '&nbsp;' + btnPES + '&nbsp;' + btnMOR);
+                        if (full.tipo_estado_parametro != 2){
+                            btnDon	= '';
+                        }
+
+                        return (btnDSP + '&nbsp;' + btnUPD + '&nbsp;' + btnDLT + '&nbsp;' + btnAUD + '&nbsp;' + btnPES + '&nbsp;' + btnMOR + '&nbsp;' + btnDon);
                     }
                 },
             ]
@@ -135,7 +140,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
     var rowAuditoria    = '';
     var pesokilogramo   = 0;
     var pesocodigo      = 0;
-    
+    var fechaActual     = getFechaHora(1);
 
     switch (codAcc) {
         case 1:
@@ -194,6 +199,13 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
             bodyBot = '           <button type="submit" class="btn btn" style="background-color:#FF8A65; color:#ffffff";>Agregar</button>';
             break;
 
+        case 8:
+            bodyTit = 'DONACIÓN';
+            bodyCol = '#FF4081;';
+            bodyMod = 'C';
+            bodyOnl = '';
+            bodyBot = '           <button type="submit" class="btn btn" style="background-color:#FF4081; color:#ffffff";>Agregar</button>';
+            break;
         default:
             break;
     }
@@ -368,9 +380,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
             '</div>';
             
 	} else if (codAcc > 1 && codAcc < 5) {
-        
         var xJSON5          = getAnimalPeso(codElem);
-        
 		xJSON.forEach(element => {
 			if (element.animal_codigo == codElem) {
                 xJSON1.forEach(element1 => {
@@ -888,9 +898,9 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                             '               <input class="form-control" type="hidden" id="workModo"         name="workModo"         value="'+ bodyMod +'"                     required readonly>'+
                             '               <input class="form-control" type="hidden" id="workPage"         name="workPage"         value="'+ codPag +'"                      required readonly>'+
                             '               <input class="form-control" type="hidden" id="workAnimalMort"   name="workAnimalMort"   value="0"                                 required readonly>'+
-                            '               <input class="form-control" type="hidden" id="workEstado"   name="workEstado"   value="1"                                 required readonly>'+
+                            '               <input class="form-control" type="hidden" id="workEstado"       name="workEstado"       value="1"                                 required readonly>'+
                             '               <input class="form-control" type="hidden" id="var027"           name="var027"           value="0"                                 required readonly>'+
-                            '               <input class="form-control" type="hidden" id="var028"           name="var028"           value="1900-01-01 00:00:00"                        required readonly>'+
+                            '               <input class="form-control" type="hidden" id="var028"           name="var028"           value="1900-01-01 00:00:00"               required readonly>'+
                             '           </div>'+
                             ''+
                             '           <div class="row">'+
@@ -1278,9 +1288,170 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                     });
                 }
             }
+		});
+	} else if (codAcc == 8) {
+        xJSON7      = getAnimalPeso2(codElem);
+        xJSON.forEach(element => {
+			if (element.animal_codigo == codElem) {
+                xJSON7.forEach(element1 => {
+                    if (element1.animal_codigo == codElem) {
+                        ultpeso     = element1.animal_peso_kilogramo;
+                    }
+                });
+
+                html = 
+                    '<div class="modal-content">'+
+                    '   <form id="form" data-parsley-validate method="post" action="../class/crud/animal_donacion.php">'+
+                    '	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
+                    '		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
+                    '		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+                    '	    </div>'+
+                    ''+
+                    '	    <div class="modal-body" >'+
+                    '           <div class="form-group">'+
+                    '               <input class="form-control" type="hidden" id="workCodigo"       name="workCodigo"       value="'+ element.animal_codigo +'"                 required readonly>'+
+                    '               <input class="form-control" type="hidden" id="workModo"         name="workModo"         value="'+ bodyMod +'"                               required readonly>'+
+                    '               <input class="form-control" type="hidden" id="workPage"         name="workPage"         value="'+ codPag +'"                                required readonly>'+
+                    '               <input class="form-control" type="hidden" id="workDonacion"     name="workDonacion"     value="0"                                           required readonly>'+
+                    '           </div>'+
+                    ''+
+                    '           <div class="row">'+
+                    '               <div class="col-sm-12 col-md-12">'+
+                    '                   <div class="row">'+
+                    '                     <div class="col-sm-12 col-md-3">'+
+                    '                       <div class="form-group">'+
+                    '                          <label for=""> Establecimiento:   '+element.establecimiento_nombre +'</label>'+   
+                    '                       </div>'+
+                    '                     </div>'+
+                    ''+
+                    '                     <div class="col-sm-12 col-md-3">'+
+                    '                         <div class="form-group" >'+
+                    '                             <label for="">SubCategoría:   '+ element.tipo_subcategoria_nombre +'</label>'+
+                    '	                      </div>'+
+                    '	                  </div>'+
+                    ''+     
+                    '                     <div class="col-sm-12 col-md-3">'+
+                    '                         <div class="form-group" >'+
+                    '                             <label for="">Origen: '+ element.tipo_origen_nombre +'</label><br>'+
+                    '	                      </div>'+
+                    '	                  </div>'+
+                    ''+     
+                    '                     <div class="col-sm-12 col-md-3">'+
+                    '                         <div class="form-group" >'+
+                    '                             <label for="">Raza:   '+ element.tipo_raza_nombre +'</label>'+
+                    '	                      </div>'+
+                    '	                  </div>'+
+                    ''+     
+                    '                     <div class="col-sm-12 col-md-3">'+
+                    '                         <div class="form-group" >'+
+                    '                             <label for="">Pelaje: '+ element.tipo_pelaje_nombre +'</label>'+
+                    '	                      </div>'+
+                    '	                  </div>'+
+                    ''+     
+                    '                     <div class="col-sm-12 col-md-3">'+
+                    '                         <div class="form-group" >'+
+                    '                             <label for="">Grado Sangre:   '+ element.tipo_grado_sangre_nombre +'</label>'+
+                    '	                      </div>'+
+                    '	                  </div>'+
+                    ''+     
+                    '                     <div class="col-sm-12 col-md-3">'+
+                    '                         <div class="form-group" >'+
+                    '                             <label for="">Hacienda:   '+ element.tipo_hacienda_nombre +'</label>'+
+                    '	                      </div>'+
+                    '	                  </div>'+
+                    ''+     
+                    '                     <div class="col-sm-12 col-md-3">'+
+                    '                         <div class="form-group" >'+
+                    '                             <label for="">Carimbo:    '+ element.tipo_carimbo_nombre +'</label>'+
+                    '	                      </div>'+
+                    '	                  </div>' +
+                    '                  </div>'+
+                    '               </div>'+
+                    '            </div>'+
+                    ''+
+                    '            <div class="row">'+
+                    '               <div class="col-sm-12 col-md-12">'+
+                    '                   <div class="row">'+
+                    '                      <div class="col-sm-12 col-md-3">'+
+                    '                        <div class="form-group">'+
+                    '                            <label for="var031">Tipo Movimiento</label><br>'+
+                    `                               <select id="var031" name="var031" onchange="selectDonacion(var031, var032, 2);" class="form-control" style="width:100%; height:40px;" required>`+
+                    '                                   <optgroup label="Movimiento">'+
+                    '                                   </optgroup>'+
+                    '                               </select>'+  
+                    '                        </div>'+
+                    '                      </div>'+
+                    ''+
+                    '                      <div class="col-sm-12 col-md-3">'+
+                    '                        <div class="form-group">'+
+                    '                            <label for="var032">Tipo Donación </label><br>'+
+                    '                               <select id="var032" name="var032" class="form-control" style="width:100%; height:40px;" required>'+
+                    '                                   <optgroup label="Donación">'+
+                    '                                   </optgroup>'+
+                    '                               </select>'+
+                    '                        </div>'+
+                    '                      </div>'+
+                    ''+
+                    '                      <div class="col-sm-12 col-md-3">'+
+                    '                         <div class="form-group">'+
+                    '                            <label for="var033">Entregado Por </label>'+
+                    '                               <select id="var033" name="var033" class="form-control" style="width:100%; height:40px;" required>'+
+                    '                                   <optgroup label="Entregado Por">'+
+                    '                                   </optgroup>'+
+                    '                               </select>'+
+                    '                           </div>'+
+                    '                       </div>'+
+                    ''+     
+                    '                       <div class="col-sm-12 col-md-3">'+
+                    '                         <div class="form-group">'+
+                    '                             <label for="var034">Recibido Por </label>'+
+                    '                               <select id="var034" name="var034" class="form-control" style="width:100%; height:40px;" required>'+
+                    '                                   <optgroup label="Recibido Por">'+
+                    '                                   </optgroup>'+
+                    '                               </select>'+
+                    '                         </div>'+
+                    '                       </div>'+
+                    ''+
+                    '                      <div class="col-sm-12 col-md-3">'+
+                    '                        <div class="form-group">'+
+                    '                            <label for="var035">Ultimo Peso:</label><br>'+
+                    '                              <input id="var035" name="var035" value="'+ultpeso+'" class="form-control" type="text" style="height:40px" readonly>'+
+                    '                        </div>'+
+                    '                      </div>'+
+                    ''+
+                    '                      <div class="col-sm-12 col-md-3">'+
+                    '                           <div class="form-group">'+
+                    '                               <label for="var036">Ingresar Peso Faenado</label>'+
+                    '                               <input id="var036" name="var036" value="0" class="form-control" type="number" style="height:40px" placeholder="Ingresar Peso Faenado" >'+
+                    '                           </div>'+
+                    '                      </div>'+
+                    ''+ 
+                    '                      <div class="col-sm-12 col-md-3">'+
+                    '                           <div class="form-group">'+
+                    '                               <label for="var037">Fecha Donación</label>'+
+                    '                               <input id="var037" name="var037" value="'+ fechaActual +'" class="form-control" type="date" min="'+ fechaActual +'" style="text-transform:uppercase; height:40px;" placeholder="Fecha Donación" '+ bodyOnl +'>'+
+                    '                           </div>'+
+                    '                      </div>' +
+                    ''+
+                    '                     <div class="col-sm-12 col-md-12">'+
+                    '                       <div class="form-group">'+
+                    '                           <label for="var038">COMENTARIO</label>'+
+                    '                              <textarea id="var038" name="var038" class="form-control" rows="5" style="text-transform:uppercase;" '+ bodyOnl +'></textarea>'+
+                    '                       </div>'+
+                    '                     </div>'+
+                    '                   </div>'+
+                    '               </div>'+
+                    '            </div>'+
+                    ''+
+                    '	         <div class="modal-footer">'+ bodyBot +
+                    '		        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>'+
+                    '	         </div>'+
+                    '   </form>'+
+                    '</div>';
+            }
             
 		});
-	}
+    }
 
 	$("#modal-content").empty();
     $("#modal-content").append(html);
@@ -1300,7 +1471,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
         selectDominio('var11', 'ANIMALPESO', 2);
     }
 
-    if(codAcc == 7 && xJSON8 == null || xJSON8 == ''){
+    if(codAcc == 7 && (xJSON8 == null || xJSON8 == '')){
         selectEstablecimiento('var020'),
         selectPotrero(rowEst,'var021', 2);
         selectDominio('var024', 'MORTANDADTIPO', 2);
@@ -1309,12 +1480,23 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
         selectVerificar(rowEst,'var027', 2);
     }
 
+    if(codAcc == 8) {
+        selectDominio('var031', 'DONACIONMOVIMIENTO', 2);
+        selectDonacion('var031', 'var032', 2);
+        selectEntregado(rowEst,'var033', 2);
+        selectRecibido(rowEst,'var034', 2);
+    }
+
     $('#var001').change(function() {
         selectEstablecimientoPersona('var006', 'var001', 2, 2);
     });
 
     $('#var002').change(function() {
         selectAnimalCategoria(rowEspecie, 'var002', 'var003', 2);
+    });
+
+    $('#var031').change(function() {
+        selectDonacion('var031', 'var032', 2);
     });
 
 }
