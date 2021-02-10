@@ -318,8 +318,7 @@ function selectDonacion(rowMov, rowTipo, rowBand) {
     var selItem = document.getElementById(rowTipo);
     var selDon = document.getElementById(rowMov);
     var xJSON   = getDominioSub('ANIMALMOVIMIENTODONACION');
-console.log('entraaa pues '+rowMov);
-console.log(xJSON);
+
     while (selItem.length > 0) {
         selItem.remove(0);
     }
@@ -343,8 +342,6 @@ console.log(xJSON);
     }
 
     xJSON.forEach(element => {
-        console.log('tipo_dominio1_parametro  > ' +  element.tipo_dominio1_parametro );
-        console.log('selDon  > ' +  selDon.value );
         if (element.tipo_dominio1_parametro == selDon.value) {
             var item        = pad(element.tipo_dominio2_parametro, 3);
             var option      = document.createElement('option');
