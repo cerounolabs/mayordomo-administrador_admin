@@ -277,7 +277,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
-                                                <div class="form-group">
+                                                <div class="form-group"> 
                                                     <label for="var012">FECHA DENUNCIA</label>
                                                     <input id="var012" name="var012" class="form-control" type="date" style="text-transform:lowercase; height:50px;" placeholder="FECHA" required>
                                                 </div>
