@@ -35,7 +35,7 @@
 	if (isset($val01) && isset($work01) && $val02 != 0 && $val05 != 0 && $val06 != 0){
 			$dataJSON = json_encode(
 				array(
-					'tipo_accion_codigo' 	                  => 2,
+					'tipo_accion_codigo' 	                  => 1,
 					'tipo_estado_parametro'                   => $work05,
 					'tipo_mortandad_parametro'                => $val05,
 					'persona_denunciante_codigo'              => $val06,

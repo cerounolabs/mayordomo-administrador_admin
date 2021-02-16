@@ -1,4 +1,4 @@
-const urlBASE   = 'https://cerouno.me/mayorcontrol_api/apiv1';
+const urlBASE   = 'https://cerouno.me/mayorcontrol_api/apiv2';
 const xHTTP	    = new XMLHttpRequest();
 const autBASE   = 'dXNlcl9zZmhvbG94OnVzZXJfc2Zob2xveDIwMjA=';
 
@@ -298,7 +298,7 @@ function getPotrero(codElem){
 
     if (xJSON['code'] == 200) {
         xJSON['data'].forEach(element => {
-            if (element.tipo_estado_codigo == 1) {
+            if (element.tipo_estado_parametro == 1) {
                 xDATA.push(element);
             }
         });
@@ -2079,6 +2079,26 @@ function getAnimalMortandad(codEst, codElem){
  
    
     var xJSON = JSON.parse(localStorage.getItem('animalmortandadJSON'));
+    var xDATA = [];
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_parametro == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
+function getAnimalMortandadListado(codEst){
+    localStorage.removeItem('animalmortandadlistadoJSON');
+    if (localStorage.getItem('animalmortandadlistadoJSON') === null){
+        getJSON('animalmortandadlistadoJSON', '000/animalmortandad/establecimiento/' + codEst);
+    }
+ 
+   
+    var xJSON = JSON.parse(localStorage.getItem('animalmortandadlistadoJSON'));
     var xDATA = [];
     if (xJSON['code'] == 200) {
         xJSON['data'].forEach(element => {
