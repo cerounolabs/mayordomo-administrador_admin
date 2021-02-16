@@ -298,7 +298,7 @@ function getPotrero(codElem){
 
     if (xJSON['code'] == 200) {
         xJSON['data'].forEach(element => {
-            if (element.tipo_estado_codigo == 1) {
+            if (element.tipo_estado_parametro == 1) {
                 xDATA.push(element);
             }
         });
@@ -2071,6 +2071,25 @@ function getAnimalPeso2(codElem){
     return xDATA;
 }
 
+function getAnimalActivo(codElem){
+    localStorage.removeItem('animalActivo');
+    if (localStorage.getItem('animalActivo') === null){
+        getJSON('animalActivo', '000/animal/activo/' + codElem);
+    }
+ 
+    var xJSON = JSON.parse(localStorage.getItem('animalActivo'));
+    var xDATA = [];
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_parametro == 2) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
 function getAnimalMortandad(codEst, codElem){
     localStorage.removeItem('animalmortandadJSON');
     if (localStorage.getItem('animalmortandadJSON') === null){
@@ -2079,6 +2098,26 @@ function getAnimalMortandad(codEst, codElem){
  
    
     var xJSON = JSON.parse(localStorage.getItem('animalmortandadJSON'));
+    var xDATA = [];
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_parametro == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
+function getAnimalMortandadListado(codEst){
+    localStorage.removeItem('animalmortandadlistadoJSON');
+    if (localStorage.getItem('animalmortandadlistadoJSON') === null){
+        getJSON('animalmortandadlistadoJSON', '000/animalmortandad/establecimiento/' + codEst);
+    }
+ 
+   
+    var xJSON = JSON.parse(localStorage.getItem('animalmortandadlistadoJSON'));
     var xDATA = [];
     if (xJSON['code'] == 200) {
         xJSON['data'].forEach(element => {

@@ -199,8 +199,8 @@
                                         <div class="form-group">
                                             <input id="workCodigo" name="workCodigo" value="0" class="form-control" type="hidden" required readonly>
                                             <input id="workModo" name="workModo" value="C" class="form-control" type="hidden" required readonly>
-                                            <input id="workPage" name="workPage" value="partediario.php#viewMortandad" class="form-control" type="hidden" required readonly>
-                                            <input id="workEstablecimiento" name="workEstablecimiento" value="1" class="form-control" type="hidden" required readonly>
+                                            <input id="workPage" name="workPage" value="partediario.php?" class="form-control" type="hidden" required readonly>
+                                            <input id="workEstado" name="workEstado" value="1" class="form-control" type="hidden" required readonly>
                                         </div>
 
                                         <div class="row pt-3">
@@ -218,13 +218,13 @@
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var003">COORDENADAS</label>
+                                                    <label for="var003">LATITUD</label>
                                                     <input id="var003" name="var003" class="form-control" type="text" style="text-transform:uppercase; height:50px;" placeholder="Latitud">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var004"> &nbsp; </label>
+                                                    <label for="var004"> LONGITUD </label>
                                                     <input id="var004" name="var004" class="form-control" type="text" style="text-transform:uppercase; height:50px;" placeholder="Longitud">
                                                 </div>
                                             </div>
@@ -236,8 +236,8 @@
                                             </div>
                                             <div class="col-sm-12 col-md-9">
                                                 <div class="form-group" id="col006">
-                                                    <label for="var006">IDENTIFICACION ANIMAL</label>
-                                                    <input id="var006" name="var006" class="form-control" type="text" style="text-transform:uppercase; height:50px;" placeholder="ANIMAL">
+                                                    <label for="var006">IDENTIFICACION ANIMAL</label> 
+                                                    <input id="var006" name="var006" class="form-control" onchange="selectAnimalIden('var019', 'var001','var005', 'var006');" type="text" style="text-transform:uppercase; height:50px;" placeholder="ANIMAL" required>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3" id="col007">
@@ -264,7 +264,12 @@
                                                     <select id="var010" name="var010" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;" required></select>
                                                 </div>
                                             </div>
-                                            
+                                            <div class="col-sm-12 col-md-3" id="col011">
+                                                <div class="form-group">
+                                                    <label for="var017">CARIMBO</label>
+                                                    <select id="var017" name="var017" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;" required></select>
+                                                </div>
+                                            </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var011">MOTIVO</label>
@@ -272,8 +277,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
-                                                <div class="form-group">
-                                                    <label for="var012">FECHA DEL EVENTO</label>
+                                                <div class="form-group"> 
+                                                    <label for="var012">FECHA DENUNCIA</label>
                                                     <input id="var012" name="var012" class="form-control" type="date" style="text-transform:lowercase; height:50px;" placeholder="FECHA" required>
                                                 </div>
                                             </div>
@@ -285,38 +290,43 @@
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var014">CERTIFICADO POR</label>
+                                                    <label for="var014">VERIFICADO POR</label>
                                                     <select id="var014" name="var014" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;" required></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var015">IMAGEN 1</label>
-                                                    <input id="var015" name="var015" class="form-control" type="file" style="text-transform:lowercase; height:50px;" placeholder="FECHA" required>
+                                                    <label for="var015_1">IMAGEN 1</label>
+                                                    <input id="var015_1" name="var015_1" class="form-control" type="file" style="text-transform:lowercase; height:50px;" placeholder="FECHA" required>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var016">IMAGEN 2</label>
-                                                    <input id="var016" name="var016" class="form-control" type="file" style="text-transform:lowercase; height:50px;" placeholder="FECHA" required>
+                                                    <label for="var015_2">IMAGEN 2</label>
+                                                    <input id="var015_2" name="var015_2" class="form-control" type="file" style="text-transform:lowercase; height:50px;" placeholder="FECHA">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var017">IMAGEN 3</label>
-                                                    <input id="var017" name="var017" class="form-control" type="file" style="text-transform:lowercase; height:50px;" placeholder="FECHA" required>
+                                                    <label for="var015_3">IMAGEN 3</label>
+                                                    <input id="var015_3" name="var015_3" class="form-control" type="file" style="text-transform:lowercase; height:50px;" placeholder="FECHA">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var018">IMAGEN 4</label>
-                                                    <input id="var018" name="var018" class="form-control" type="file" style="text-transform:lowercase; height:50px;" placeholder="FECHA" required>
+                                                    <label for="var015_4">IMAGEN 4</label>
+                                                    <input id="var015_4" name="var015_4" class="form-control" type="file" style="text-transform:lowercase; height:50px;" placeholder="FECHA">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="input-group mb-3">
+                                                    <input type="hidden" id="var019" name="var019" class="form-control" value="" style="height:40px; text-transform:lowercase;">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label for="var019">COMENTARIO</label>
-                                                    <textarea id="var019" name="var019" class="form-control" rows="1" style="text-transform:uppercase;"></textarea>
+                                                    <label for="var016">COMENTARIO</label>
+                                                    <textarea id="var016" name="var016" class="form-control" rows="1" style="text-transform:uppercase;"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
@@ -341,25 +351,24 @@
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table id="tableMortandad" class="table v-middle" style="width: 100%;">
-                                            <thead id="codestablecimiento" class="<?php echo $codEstablecimiento; ?>">
+                                        <table id="tableMortandadCab" class="table v-middle" style="width: 100%;">
+                                            <thead id="tableMortandadDet" class="">
                                                 <tr class="bg-table-title" style="text-align:center;">
-                                                    <th class="border-top-0">FECHA</th>
+                                                    <th class="border-top-0">C&Oacute;DIGO</th>
                                                     <th class="border-top-0" style="width:80px;">ESTADO</th>
-                                                    <th class="border-top-0">TIPO</th>
-                                                    <th class="border-top-0">POTRERO</th>
-                                                    <th class="border-top-0">ANIMAL</th>
+                                                    <th class="border-top-0">FECHA</th>
+                                                    <th class="border-top-0">TIPO MORTANDAD</th>
+                                                    <th class="border-top-0">IDENTIFICACION INDIVIDUAL</th>
                                                     <th class="border-top-0">DENUNCIADO POR</th>
+                                                    <th class="border-top-0">VERIFICADO POR</th>
                                                     <th class="border-top-0">COMENTARIO</th>
-                                                    <th class="border-top-0" style="width:160px;">ACCI&Oacute;N</th>
                                                 </tr>
                                             </thead>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        
+                        </div>                       
                     </div>
 
 <!-- DETALLE CONSUMO -->
@@ -494,8 +503,8 @@
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table id="tableMortandad" class="table v-middle" style="width: 100%;">
-                                            <thead id="codestablecimiento" class="<?php echo $codEstablecimiento; ?>">
+                                        <table id="tableConsumo" class="table v-middle" style="width: 100%;">
+                                            <thead id="tableConsumoCodigo" class="<?php echo $codEstablecimiento; ?>">
                                                 <tr class="bg-table-title" style="text-align:center;">
                                                     <th class="border-top-0">FECHA</th>
                                                     <th class="border-top-0" style="width:80px;">ESTADO</th>
@@ -662,8 +671,8 @@
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table id="tableMortandad" class="table v-middle" style="width: 100%;">
-                                            <thead id="codestablecimiento" class="<?php echo $codEstablecimiento; ?>">
+                                        <table id="tableAbigueo" class="table v-middle" style="width: 100%;">
+                                            <thead id="tableAbigueoCodigo" class="<?php echo $codEstablecimiento; ?>">
                                                 <tr class="bg-table-title" style="text-align:center;">
                                                     <th class="border-top-0">FECHA</th>
                                                     <th class="border-top-0" style="width:80px;">ESTADO</th>
@@ -723,8 +732,7 @@
                                                     <label for="var02">SECTOR - POTRERO</label>
                                                     <select id="var02" name="var02" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
                                                 </div>
-                                            </div>
-                                            
+                                            </div> 
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var07">PROPIETARIO</label>
@@ -822,8 +830,8 @@
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table id="tableMortandad" class="table v-middle" style="width: 100%;">
-                                            <thead id="codestablecimiento" class="<?php echo $codEstablecimiento; ?>">
+                                        <table id="tableDonacion" class="table v-middle" style="width: 100%;">
+                                            <thead id="tableDonacionCodigo" class="<?php echo $codEstablecimiento; ?>">
                                                 <tr class="bg-table-title" style="text-align:center;">
                                                     <th class="border-top-0">FECHA</th>
                                                     <th class="border-top-0" style="width:80px;">ESTADO</th>
@@ -993,7 +1001,10 @@
 <?php
     include '../include/footer.php';
 ?>
-
+    <script>
+        const _parm01BASE = '<?php echo $usu_04; ?>';
+    </script>
+    
     <script src="../js/api.js"></script>
     <script src="../js/partediario.js"></script>
 </body>
