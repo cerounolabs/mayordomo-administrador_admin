@@ -9,29 +9,25 @@
     require '../../class/function/function.php';
     require '../../class/session/session_system.php';
 
-
-    $var01          = $_POST['var001'];	//establecimiento
-	$var02          = $_POST['var002'];	// sector potrero
-	$var03          = trim(strtoupper(strtolower($_POST['var003']))); //latitud
-    $var04          = trim(strtoupper(strtolower($_POST['var004']))); //longitud
-    $var05          = $_POST['var005']; //identificacion individual
-    $var06          = $_POST['var006']; // IDENTIFICACION ANIMAL
-    $var07          = $_POST['var007']; // PROPIETARIO
-    $var08          = $_POST['var008']; // ORIGEN1
-    $var09          = $_POST['var009']; // RAZA1
-  //  $var10          = $_POST['var010']; // CATEGORIA - SUBCATEGORIA1
-    $var11          = $_POST['var011']; // MOTIVO	TIPO MORTANDAD
-    $var12          = $_POST['var012']; // FECHA DEL EVENTO
-    $var13          = $_POST['var013']; // DENUNCIADO POR
-    $var14          = $_POST['var014']; // VERIFICADO POR
-    //$var15          = $_POST['var015_']; // IMAGEN 1
-    $var16          = $_POST['var016']; trim(strtoupper(strtolower($_POST['var016'])));
-    $var17          = $_POST['var017']; // CARIMBO
+    $var01          = $_POST['var001'];
+	$var02          = $_POST['var002'];
+	$var03          = trim(strtoupper(strtolower($_POST['var003'])));
+    $var04          = trim(strtoupper(strtolower($_POST['var004'])));
+    $var05          = $_POST['var005'];
+    $var06          = $_POST['var006'];
+    $var07          = $_POST['var007'];
+    $var08          = $_POST['var008'];
+    $var09          = $_POST['var009'];
+    $var11          = $_POST['var011'];
+    $var12          = $_POST['var012'];
+    $var13          = $_POST['var013'];
+    $var14          = $_POST['var014'];
+    $var16          = $_POST['var016'];
+    $var17          = $_POST['var017'];
 	
 	$work01         = $_POST['workCodigo'];
 	$work02         = $_POST['workModo'];
 	$work03         = $_POST['workPage'];
-	//$work01         = $_POST['workEstablecimiento'];
 	$work05         = $_POST['workEstado'];
 
 	$usu_03         = $_SESSION['usu_03'];
@@ -46,11 +42,11 @@
 		$var10_2	= substr($_POST['var010'], ($pos+1));
 	}
 
-	
-
 	if ($var05 == 0){	
 		$xJSON = get_curl('000/animal/datos/'.$var08. '/'. $var09. '/'. $var10_1. '/'. $var10_2. '/'. $var01 . '/'. $var07 . '/'. $var17);
 		$var18 = $xJSON['data'][0]['animal_codigo'];
+	} else {
+		$var18          = $_POST['var019'];
 	}
 
     if (isset($var01) && !empty($var18) && !empty($var13) && !empty($var11)) {
@@ -91,7 +87,6 @@
         $code       = 400;
         $msg1       = 'Verifique, algún campo esta vacio';
     }
-
 
 	if($work01 == 0){
 		$work01 = $result['codigo'];
@@ -148,6 +143,7 @@
 					$target_ban = false;
 				}
 			}
+			
 			$code			= 400;
 			$msg			= $target_msn;
 		}
@@ -169,15 +165,12 @@
 				$result1		= post_curl('000/animaladjunto', $dataJSON1);
 				$result1		= json_decode($result1, true);
 				$code		    = $result1['code'];
-				//$msg		    = str_replace("\n", ' ', $result1['message']);
+				$msg		    = str_replace("\n", ' ', $result1['message']);
 			}
-		} else {
-			$code       = 400;
-			$msg        = 'Verifique, algún campo esta vacio';
-		}
+		} 
 	}
-	
-   header('Location: ../../public/'.$work03.'code='.$result['code'].'&msg='.$msg1);
+
+	header('Location: ../../public/'.$work03.'&code='.$code.'&msg='.$msg1);
 
     ob_end_flush();
 

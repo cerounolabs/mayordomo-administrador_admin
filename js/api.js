@@ -1,4 +1,4 @@
-const urlBASE   = 'https://cerouno.me/mayorcontrol_api/apiv2';
+const urlBASE   = 'https://cerouno.me/mayorcontrol_api/apiv1';
 const xHTTP	    = new XMLHttpRequest();
 const autBASE   = 'dXNlcl9zZmhvbG94OnVzZXJfc2Zob2xveDIwMjA=';
 
@@ -2063,6 +2063,25 @@ function getAnimalPeso2(codElem){
     if (xJSON['code'] == 200) {
         xJSON['data'].forEach(element => {
             if (element.tipo_estado_parametro == 1) {
+                xDATA.push(element);
+            }
+        });
+    }
+
+    return xDATA;
+}
+
+function getAnimalActivo(codElem){
+    localStorage.removeItem('animalActivo');
+    if (localStorage.getItem('animalActivo') === null){
+        getJSON('animalActivo', '000/animal/activo/' + codElem);
+    }
+ 
+    var xJSON = JSON.parse(localStorage.getItem('animalActivo'));
+    var xDATA = [];
+    if (xJSON['code'] == 200) {
+        xJSON['data'].forEach(element => {
+            if (element.tipo_estado_parametro == 2) {
                 xDATA.push(element);
             }
         });

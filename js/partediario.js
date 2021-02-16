@@ -1,9 +1,6 @@
 $(document).ready(function() {
-    console.log('holiis');
-    console.log(_parm01BASE);
     var xDATA   = getAnimalMortandadListado(_parm01BASE);
     
-    console.log(xDATA);
     $('#tableMortandadCab').DataTable({
         processing	: true,
         destroy		: true,
@@ -38,23 +35,16 @@ $(document).ready(function() {
             { targets			: [5],	visible : true,	searchable : true,	orderData : [5, 0] },
             { targets			: [6],	visible : true,	searchable : true,	orderData : [6, 0] },
             { targets			: [7],	visible : true,	searchable : true,	orderData : [7, 0] },
-         //   { targets			: [8],	visible : false,	searchable : false,	orderData : [8, 0] },
         ],
         columns		: [
             { data				: 'animal_mortandad_codigo',           name : 'animal_mortandad_codigo'},
-            { data				: 'tipo_estado_codigo',                name : 'tipo_estado_codigo'},
+            { data				: 'tipo_estado_nombre',                name : 'tipo_estado_nombre'},
             { data				: 'animal_mortandad_fecha_denuncia_2', name : 'animal_mortandad_fecha_denuncia_2'},
             { data				: 'tipo_mortandad_nombre',             name : 'tipo_mortandad_nombre'},
             { data				: 'animal_codigo_nombre',              name : 'animal_codigo_nombre'},
             { data				: 'persona_denunciante_completo',      name : 'persona_denunciante_completo'},
             { data				: 'persona_verificacion_completo',     name : 'persona_verificacion_completo'},
             { data				: 'animal_mortandad_observacion',      name : 'animal_mortandad_observacion'},
-           /* { render			: 
-                function (data, type, full, meta) {
-                    //var btnUPD	= '<button onclick="" title="Editar" type="button" class="btn btn-success btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-edit"></i></button>';
-
-				}
-            },*/
         ]
     });
 });
@@ -235,6 +225,7 @@ function selectPropietario(valRow, estRow) {
         }
     });
 }
+
 function selectMortandad(valRow) {
     var xJSON   = getDominio('MORTANDADTIPO');
     var xSELC   = document.getElementById(valRow);
@@ -461,7 +452,6 @@ function viewInput(valRow, banRow) {
 }
 
 function changeIdentificacion(valRow){
-    console.log('valRow => '.valRow);
     var codElem = document.getElementById(valRow);
 
     if (codElem.value != 0) {
@@ -480,4 +470,42 @@ function changeIdentificacion(valRow){
         viewInput('col011', 1);
     }
 
+}
+
+function selectAnimalIden(valRow, codEst, codSel, nomAni) {
+    var codEst  = document.getElementById(codEst).value;
+    var codSel  = document.getElementById(codSel).value;
+    var nomAni  = document.getElementById(nomAni).value;
+    var codAni  = document.getElementById(valRow);
+    var bandAni = false;
+    var xJSON1   = getAnimalActivo(codEst);
+
+    if (codSel != 0 && nomAni != 0){
+        xJSON1.forEach(element1 => {
+            if(codSel == 1 && element1.animal_codigo_rp == nomAni){   
+                codAni.value  = element1.animal_codigo;
+                bandAni = true;
+            }
+
+            if(codSel == 2 && element1.animal_codigo_nombre == nomAni){
+                codAni.value  = element1.animal_codigo;
+                bandAni = true;
+            }
+
+            if(codSel == 3 && element1.animal_codigo_hbp == nomAni){
+                codAni.value  = element1.animal_codigo;
+                bandAni = true;
+            }
+
+            if(codSel == 4 && element1.animal_codigo_electronico == nomAni){
+                codAni.value  = element1.animal_codigo;
+                bandAni = true;
+            }      
+        });
+
+        if (bandAni == false) {
+            alert('No existe animal');
+        }
+    }
+    
 }

@@ -116,7 +116,7 @@
 				$target_ban = false;
 			}
 
-			if(($imageFileType != 'pdf') && $target_ban == true) {
+			if(($imageFileType != 'pdf') && ($imageFileType != 'png') && ($imageFileType != 'jpg') && $target_ban == true) {
 				$target_msn = 'ERROR: El formato del adjunto no corresponde, solo permitido pdf, Verifique!';
 				$target_ban = false;
 			}

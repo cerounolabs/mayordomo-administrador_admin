@@ -2,7 +2,6 @@
     require '../class/function/curl_api.php';
     require '../class/function/function.php';
     require '../class/session/session_system.php';
-    echo $usu_04;
 ?>
 
 <!DOCTYPE html>
@@ -201,7 +200,6 @@
                                             <input id="workCodigo" name="workCodigo" value="0" class="form-control" type="hidden" required readonly>
                                             <input id="workModo" name="workModo" value="C" class="form-control" type="hidden" required readonly>
                                             <input id="workPage" name="workPage" value="partediario.php?" class="form-control" type="hidden" required readonly>
-                                            <input id="workEstablecimiento" name="workEstablecimiento" value="1" class="form-control" type="hidden" required readonly>
                                             <input id="workEstado" name="workEstado" value="1" class="form-control" type="hidden" required readonly>
                                         </div>
 
@@ -238,8 +236,8 @@
                                             </div>
                                             <div class="col-sm-12 col-md-9">
                                                 <div class="form-group" id="col006">
-                                                    <label for="var006">IDENTIFICACION ANIMAL</label>
-                                                    <input id="var006" name="var006" class="form-control" type="text" style="text-transform:uppercase; height:50px;" placeholder="ANIMAL">
+                                                    <label for="var006">IDENTIFICACION ANIMAL</label> 
+                                                    <input id="var006" name="var006" class="form-control" onchange="selectAnimalIden('var019', 'var001','var005', 'var006');" type="text" style="text-transform:uppercase; height:50px;" placeholder="ANIMAL" required>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3" id="col007">
@@ -274,7 +272,7 @@
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var011">TIPO MORTANDAD</label>
+                                                    <label for="var011">MOTIVO</label>
                                                     <select id="var011" name="var011" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;" required></select>
                                                 </div>
                                             </div>
@@ -299,7 +297,7 @@
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var015_1">IMAGEN 1</label>
-                                                    <input id="var015_1" name="var015_1" class="form-control" type="file" style="text-transform:lowercase; height:50px;" placeholder="FECHA" >
+                                                    <input id="var015_1" name="var015_1" class="form-control" type="file" style="text-transform:lowercase; height:50px;" placeholder="FECHA" required>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
@@ -318,6 +316,11 @@
                                                 <div class="form-group">
                                                     <label for="var015_4">IMAGEN 4</label>
                                                     <input id="var015_4" name="var015_4" class="form-control" type="file" style="text-transform:lowercase; height:50px;" placeholder="FECHA">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="input-group mb-3">
+                                                    <input type="hidden" id="var019" name="var019" class="form-control" value="" style="height:40px; text-transform:lowercase;">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
@@ -359,15 +362,13 @@
                                                     <th class="border-top-0">DENUNCIADO POR</th>
                                                     <th class="border-top-0">VERIFICADO POR</th>
                                                     <th class="border-top-0">COMENTARIO</th>
-                                                    <th class="border-top-0" style="width:160px;">ACCI&Oacute;N</th>
                                                 </tr>
                                             </thead>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        
+                        </div>                       
                     </div>
 
 <!-- DETALLE CONSUMO -->
@@ -731,8 +732,7 @@
                                                     <label for="var02">SECTOR - POTRERO</label>
                                                     <select id="var02" name="var02" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
                                                 </div>
-                                            </div>
-                                            
+                                            </div> 
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var07">PROPIETARIO</label>

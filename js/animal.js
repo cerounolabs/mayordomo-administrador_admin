@@ -1243,28 +1243,28 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                                     '                   <div class="row">'+
                                     '                     <div class="col-sm-12 col-md-4">'+
                                     '                       <div class="form-group">'+
-                                    '                           <label for="var029_1">ADJUNTO1</label>'+
+                                    '                           <label for="var029_1">IMAGEN1</label>'+
                                     '                           <input id="var029_1" name="var029_1" value="" class="form-control" type="file" style="text-transform:uppercase; height:40px;" placeholder="ADJUNTO" >'+
                                     '                       </div>'+
                                     '                     </div>'+
                                     ''+
                                     '                     <div class="col-sm-12 col-md-4">'+
                                     '                       <div class="form-group">'+
-                                    '                           <label for="var029_2">ADJUNTO2</label>'+
+                                    '                           <label for="var029_2">IMAGEN2</label>'+
                                     '                           <input id="var029_2" name="var029_2" value="" class="form-control" type="file" style="text-transform:uppercase; height:40px;" placeholder="ADJUNTO" >'+
                                     '                       </div>'+
                                     '                     </div>'+
                                     ''+ 
                                     '                     <div class="col-sm-12 col-md-4">'+
                                     '                       <div class="form-group">'+
-                                    '                           <label for="var029_3">ADJUNTO3</label>'+
+                                    '                           <label for="var029_3">IMAGEN3</label>'+
                                     '                           <input id="var029_3" name="var029_3" value="" class="form-control" type="file" style="text-transform:uppercase; height:40px;" placeholder="ADJUNTO" >'+
                                     '                       </div>'+
                                     '                     </div>'+
                                     ''+
                                     '                     <div class="col-sm-12 col-md-4">'+
                                     '                       <div class="form-group">'+
-                                    '                           <label for="var029_4">ADJUNTO4</label>'+
+                                    '                           <label for="var029_4">IMAGEN4</label>'+
                                     '                           <input id="var029_4" name="var029_4" value="" class="form-control" type="file" style="text-transform:uppercase; height:40px;" placeholder="ADJUNTO" >'+
                                     '                       </div>'+
                                     '                     </div>'+
