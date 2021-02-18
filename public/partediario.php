@@ -288,10 +288,10 @@
                                                     <select id="var013" name="var013" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;" required></select>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-3">
+                                            <div class="col-sm-12 col-md-3" style="display: none;">
                                                 <div class="form-group">
                                                     <label for="var014">VERIFICADO POR</label>
-                                                    <select id="var014" name="var014" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;" required></select>
+                                                    <select id="var014" name="var014" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;"></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
@@ -357,8 +357,8 @@
                                                     <th class="border-top-0">C&Oacute;DIGO</th>
                                                     <th class="border-top-0" style="width:80px;">ESTADO</th>
                                                     <th class="border-top-0">FECHA</th>
-                                                    <th class="border-top-0">TIPO MORTANDAD</th>
-                                                    <th class="border-top-0">IDENTIFICACION INDIVIDUAL</th>
+                                                    <th class="border-top-0">MOTIVO</th>
+                                                    <th class="border-top-0">ESTABLECIMIENTO</th>
                                                     <th class="border-top-0">DENUNCIADO POR</th>
                                                     <th class="border-top-0">VERIFICADO POR</th>
                                                     <th class="border-top-0">COMENTARIO</th>
@@ -528,7 +528,7 @@
                     <div class="row" id="viewAbigeo" style="display:none;">
                         <div class="col-12"> 
                             <div class="card">
-                                <form id="form" method="post" action="../class/crud/tareaabigeo.php">
+                                <form id="form" method="post" action="../class/crud/tarea_abigeo.php" enctype="multipart/form-data">
                                     <div class="modal-header" style="color:#fff; background:#163562;">
                                         <h4 class="modal-title" id="vcenter"> ABIGEO </h4>
                                     </div>
@@ -537,123 +537,142 @@
                                         <div class="form-group">
                                             <input id="workCodigo" name="workCodigo" value="0" class="form-control" type="hidden" required readonly>
                                             <input id="workModo" name="workModo" value="C" class="form-control" type="hidden" required readonly>
-                                            <input id="workPage" name="workPage" value="partediario.php#viewMortandad" class="form-control" type="hidden" required readonly>
+                                            <input id="workPage" name="workPage" value="partediario.php?" class="form-control" type="hidden" required readonly>
+                                            <input id="workEstado" name="workEstado" value="1" class="form-control" type="hidden" required readonly>
+
                                         </div>
 
                                         <div class="row pt-3">
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var01">ESTABLECIMIENTO</label>
-                                                    <select id="var01" name="var01" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                    <label for="var020">ESTABLECIMIENTO</label>
+                                                    <select id="var020" name="var020" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var02">SECTOR - POTRERO</label>
-                                                    <select id="var02" name="var02" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                    <label for="var021">SECTOR - POTRERO</label>
+                                                    <select id="var021" name="var021" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var14">COORDENADAS</label>
-                                                    <input id="var14" name="var14" value="" class="form-control" type="text" style="text-transform:lowercase; height:40px;" placeholder="Latitud">
+                                                    <label for="var022">LATITUD</label>
+                                                    <input id="var022" name="var022" value="" class="form-control" type="text" style="text-transform:lowercase; height:40px;" placeholder="Latitud">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var14"> &nbsp; </label>
-                                                    <input id="var14" name="var14" value="" class="form-control" type="text" style="text-transform:lowercase; height:40px;" placeholder="Longitud">
+                                                    <label for="var023"> LONGITUD </label>
+                                                    <input id="var023" name="var023" value="" class="form-control" type="text" style="text-transform:lowercase; height:40px;" placeholder="Longitud">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var04">FECHA DEL EVENTO</label>
-                                                    <input id="var04" name="var04" value="" class="form-control" type="date" style="text-transform:lowercase; height:40px;" placeholder="FECHA" required>
+                                                    <label for="var024">IDENTIFICACION INDIVIDUAL</label>
+                                                    <select id="var024" name="var024" class="select2 form-control custom-select" onchange="changeIdentificacion(this.id)" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-9" id="col012" class="activar">
+                                                <div class="form-group">
+                                                    <label for="var025">IDENTIFICACION ANIMAL</label> 
+                                                    <input id="var025" name="var025" class="form-control" onchange="selectAnimalIden('var036', 'var020','var024','var025');" type="text" data-click="swal-animal_change" style="text-transform:uppercase; height:50px;" placeholder="ANIMAL" >
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3" id="col013">
+                                                <div class="form-group">
+                                                    <label for="var026">PROPIETARIO</label>
+                                                    <select id="var026" name="var026" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3" id="col014">
+                                                <div class="form-group">
+                                                    <label for="var027">ORIGEN</label>
+                                                    <select id="var027" name="var027" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3" id="col015">
+                                                <div class="form-group">
+                                                    <label for="var028">RAZA</label>
+                                                    <select id="var028" name="var028" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3" id="col016">
+                                                <div class="form-group">
+                                                    <label for="var029">CATEGORIA - SUBCATEGORIA</label>
+                                                    <select id="var029" name="var029" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3" id="col017">
+                                                <div class="form-group">
+                                                    <label for="var030">CARIMBO</label>
+                                                    <select id="var030" name="var030" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;" required></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var05">DENUNCIADO POR</label>
-                                                    <select id="var05" name="var05" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                    <label for="var031">MOTIVO</label>
+                                                    <select id="var031" name="var031" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;" required></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var06">CERTIFICADO POR</label>
-                                                    <select id="var06" name="var06" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-3">
-                                                
-                                            </div>
-                                            <div class="col-sm-12 col-md-3">
-                                                <div class="form-group">
-                                                    <label for="var13">IDENTIFICACION INDIVIDUAL</label>
-                                                    <select id="var13" name="var13" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-9">
-                                                <div class="form-group">
-                                                    <label for="var11">IDENTIFICACION ANIMAL</label>
-                                                    <select id="var11" name="var11" class="select2 form-control custom-select" style="width:100%; height:40px;" required></select>
+                                                    <label for="var032">FECHA DENUNCIA</label>
+                                                    <input id="var032" name="var032" value="" class="form-control" type="date" style="text-transform:lowercase; height:40px;" placeholder="FECHA" required>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var07">PROPIETARIO</label>
-                                                    <select id="var07" name="var07" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                    <label for="var033">DENUNCIADO POR</label>
+                                                    <select id="var033" name="var033" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3" style="display: none;">
+                                                <div class="form-group">
+                                                    <label for="var034">CERTIFICADO POR</label>
+                                                    <select id="var034" name="var034" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" ></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var08">ORIGEN</label>
-                                                    <select id="var08" name="var08" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                    <label for="var035_1">IMAGEN 1</label>
+                                                    <input id="var035_1" name="var035_1" value="" class="form-control" type="file" style="text-transform:lowercase; height:40px;" placeholder="FECHA" required>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var09">RAZA</label>
-                                                    <select id="var09" name="var09" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                    <label for="var035_2">IMAGEN 2</label>
+                                                    <input id="var035_2" name="var035_2" value="" class="form-control" type="file" style="text-transform:lowercase; height:40px;" placeholder="FECHA" >
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var10">CATEGORIA - SUBCATEGORIA</label>
-                                                    <select id="var10" name="var10" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                    <label for="var035_3">IMAGEN 3</label>
+                                                    <input id="var035_3" name="var035_3" value="" class="form-control" type="file" style="text-transform:lowercase; height:40px;" placeholder="FECHA" >
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var04">IMAGEN 1</label>
-                                                    <input id="var04" name="var04" value="" class="form-control" type="file" style="text-transform:lowercase; height:40px;" placeholder="FECHA" required>
+                                                    <label for="var035_4">IMAGEN 4</label>
+                                                    <input id="var035_4" name="var035_4" value="" class="form-control" type="file" style="text-transform:lowercase; height:40px;" placeholder="FECHA" >
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
-                                                <div class="form-group">
-                                                    <label for="var04">IMAGEN 2</label>
-                                                    <input id="var04" name="var04" value="" class="form-control" type="file" style="text-transform:lowercase; height:40px;" placeholder="FECHA" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-3">
-                                                <div class="form-group">
-                                                    <label for="var04">IMAGEN 3</label>
-                                                    <input id="var04" name="var04" value="" class="form-control" type="file" style="text-transform:lowercase; height:40px;" placeholder="FECHA" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-3">
-                                                <div class="form-group">
-                                                    <label for="var04">IMAGEN 4</label>
-                                                    <input id="var04" name="var04" value="" class="form-control" type="file" style="text-transform:lowercase; height:40px;" placeholder="FECHA" required>
+                                                <div class="input-group mb-3">
+                                                    <input type="hidden" id="var036" name="var036" class="form-control" value="" style="height:40px; text-transform:lowercase;">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label for="var12">COMENTARIO</label>
-                                                    <textarea id="var12" name="var12" value="" class="form-control" rows="1" style="text-transform:uppercase;"></textarea>
+                                                    <label for="var037">COMENTARIO</label>
+                                                    <textarea id="var037" name="var037" value="" class="form-control" rows="1" style="text-transform:uppercase;"></textarea>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-info">Agregar</button>
-                                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <button type="submit" name="submit" class="btn btn-info" style="float:right">Agregar</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
@@ -672,24 +691,23 @@
 
                                     <div class="table-responsive">
                                         <table id="tableAbigueo" class="table v-middle" style="width: 100%;">
-                                            <thead id="tableAbigueoCodigo" class="<?php echo $codEstablecimiento; ?>">
+                                            <thead id="tableAbigueoCodigo" class="">
                                                 <tr class="bg-table-title" style="text-align:center;">
-                                                    <th class="border-top-0">FECHA</th>
+                                                    <th class="border-top-0">C&Oacute;DIGO</th>
                                                     <th class="border-top-0" style="width:80px;">ESTADO</th>
-                                                    <th class="border-top-0">TIPO</th>
-                                                    <th class="border-top-0">POTRERO</th>
-                                                    <th class="border-top-0">ANIMAL</th>
+                                                    <th class="border-top-0">FECHA</th>
+                                                    <th class="border-top-0">MOTIVO</th>
+                                                    <th class="border-top-0">ESTABLECIMIENTO</th>
                                                     <th class="border-top-0">DENUNCIADO POR</th>
+                                                    <th class="border-top-0">VERIFICADO POR</th>
                                                     <th class="border-top-0">COMENTARIO</th>
-                                                    <th class="border-top-0" style="width:160px;">ACCI&Oacute;N</th>
                                                 </tr>
                                             </thead>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        
+                        </div>   
                     </div>
 
 <!-- DETALLE DONACION -->
@@ -1007,5 +1025,73 @@
     
     <script src="../js/api.js"></script>
     <script src="../js/partediario.js"></script>
+
+    <script>
+    /*
+			if (!Array.prototype.indexOf) {
+				Array.prototype.indexOf = function(elt /*, from*///) {
+	/*				var len = this.length >>> 0;
+					var from = Number(arguments[1]) || 0;
+					from = (from < 0) ? Math.ceil(from) : Math.floor(from);
+					if (from < 0)
+						from += len;
+
+					for (; from < len; from++) {
+						if (from in this && this[from] === elt)
+							return from;
+					}
+					return -1;
+				//};
+			}
+
+			if(typeof String.prototype.trim !== 'function') {
+				String.prototype.trim = function() {
+					return this.replace(/^\s+|\s+$/g, ''); 
+				}
+			}
+
+			var handleSelect2 = function() {
+				$('.default-select2').select2();
+			};
+
+			var handleSweetNotification = function() {
+				$('[data-click="swal-solicitud_change"]').change(function() {
+					var elemInp = this;
+
+					//e.preventDefault();
+					swal({
+						title: 'Cargar el campo de IDENTIFICACION ANIMAL',
+						text: '',
+						icon: 'info',
+						buttons: {
+							cancel: {
+								text: 'No',
+								value: null,
+								visible: true,
+								className: 'btn btn-default',
+								closeModal: true,
+							}
+						}
+					})
+				});
+			};
+
+			var Notification = function () {
+				'use strict';
+				return {
+					//main function
+					init: function () {
+						handleSweetNotification();
+						handleSelect2();
+					}
+				};
+			}();
+
+			$(document).ready(function() {
+				Notification.init();
+			});
+*/
+			//viewSolicitudOpcion('opVuelo');
+		</script>
 </body>
 </html>
