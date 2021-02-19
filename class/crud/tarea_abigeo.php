@@ -9,21 +9,20 @@
     require '../../class/function/function.php';
     require '../../class/session/session_system.php';
 
-    $var01          = $_POST['var001'];
-	$var02          = $_POST['var002'];
-	$var03          = trim(strtoupper(strtolower($_POST['var003'])));
-    $var04          = trim(strtoupper(strtolower($_POST['var004'])));
-    $var05          = $_POST['var005'];
-    $var06          = $_POST['var006'];
-    $var07          = $_POST['var007'];
-    $var08          = $_POST['var008'];
-    $var09          = $_POST['var009'];
-    $var11          = $_POST['var011'];
-    $var12          = $_POST['var012'];
-    $var13          = $_POST['var013'];
-    $var14          = $_POST['var014'];
-    $var16          = $_POST['var016'];
-    $var17          = $_POST['var017'];
+    $var01          = $_POST['var020'];
+	$var02          = $_POST['var021'];
+	$var03          = trim(strtoupper(strtolower($_POST['var022'])));
+    $var04          = trim(strtoupper(strtolower($_POST['var023'])));
+    $var05          = $_POST['var024'];
+    $var07          = $_POST['var026'];
+    $var08          = $_POST['var027'];
+    $var09          = $_POST['var028'];
+    $var11          = $_POST['var031'];
+    $var12          = $_POST['var032'];
+    $var13          = $_POST['var033'];
+    $var14          = $_POST['var034'];
+    $var16          = $_POST['var037'];
+    $var17          = $_POST['var030'];
 	
 	$work01         = $_POST['workCodigo'];
 	$work02         = $_POST['workModo'];
@@ -36,17 +35,17 @@
 
 	$seg_04         = $_SESSION['seg_04'];
 
-	if (isset($_POST['var010'])) {
-		$pos		= strpos($_POST['var010'], '_');
-		$var10_1	= substr($_POST['var010'], 0, $pos);
-		$var10_2	= substr($_POST['var010'], ($pos+1));
+	if (isset($_POST['var029'])) {
+		$pos		= strpos($_POST['var029'], '_');
+		$var10_1	= substr($_POST['var029'], 0, $pos);
+		$var10_2	= substr($_POST['var029'], ($pos+1));
 	}
-
-	if ($var05 == 0){	
+	
+	if ($var05 == 0){
 		$xJSON = get_curl('000/animal/datos/'.$var08. '/'. $var09. '/'. $var10_1. '/'. $var10_2. '/'. $var01 . '/'. $var07 . '/'. $var17);
 		$var18 = $xJSON['data'][0]['animal_codigo'];
 	} else {
-		$var18          = $_POST['var019'];
+		$var18          = $_POST['var036'];
 	}
 
     if (isset($var01) && !empty($var18) && !empty($var13) && !empty($var11)) {
@@ -61,7 +60,7 @@
 				'animal_mortandad_sector_potrero'         => $var02,
 				'animal_mortandad_latitud'         		  => $var03,
 				'animal_mortandad_longitud'               => $var04,
-				'tipo_origen_parametro'               	  => 1,
+				'tipo_origen_parametro'               	  => 4,
 				'animal_mortandad_usuario_carga'  	      => $usu_03,
 				'animal_mortandad_fecha_carga'			  => date('Y-m-d H:i:s'),
 				'animal_mortandad_observacion'			  => $var16,
@@ -97,20 +96,20 @@
 		$val15			= '';
 		$target_ban     = false;
         $target_msn		= '';	
-        
-		if (!empty($_FILES['var015_'.$i]['tmp_name'])) {
+		
+		if (!empty($_FILES['var035_'.$i]['tmp_name'])) {
 			$target_ban     = true;
 			$target_msn     = '';
 			$target_nam     = getFechaHora(1).'_'. rand(100, 999).'_'.$work01;
 			$target_dir     = '../../upload/animal/';
-			$target_file    = $target_dir.basename($_FILES['var015_'.$i]['name']);
+			$target_file    = $target_dir.basename($_FILES['var035_'.$i]['name']);
 			$imageFileType  = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 			$target_file	= $target_nam.'.'.$imageFileType;
 			$code			= 400;
 			$msg			= $target_msn;
 
 			if(isset($_POST['submit'])) {
-				$check = $_FILES['var015_'.$i]['size'];
+				$check = $_FILES['var035_'.$i]['size'];
 				if($check !== false) {
 					$target_ban = true;
 				} else {
@@ -124,7 +123,7 @@
 				$target_ban = false;
 			}
 			
-			if ($_FILES['var015_'.$i]['size'] > 20000001 && $target_ban == true) {
+			if ($_FILES['var035_'.$i]['size'] > 20000001 && $target_ban == true) {
 				$target_msn = 'ERROR: El adjunto es muy pesado, sobrepasa lo permitido de 20MB. Verifique!';
 				$target_ban = false;
 			}
@@ -135,8 +134,8 @@
 			}
 			
 			if ($target_ban == true) {
-				if (move_uploaded_file($_FILES['var015_'.$i]['tmp_name'], $target_dir.''.$target_file)) {
-					$var015	   	= $target_file;
+				if (move_uploaded_file($_FILES['var035_'.$i]['tmp_name'], $target_dir.''.$target_file)) {
+					$var035	   	= $target_file;
 					$target_msn	= $target_file;
 					$target_ban = true;
 				} else {
@@ -155,7 +154,7 @@
 					array(
 						'animal_mortandad_codigo'                   => $work01,
 						'tipo_estado_parametro'     	            => $work05,
-						'animal_adjunto_nombre'						=> $var015,
+						'animal_adjunto_nombre'						=> $var035,
 						'animal_adjunto_fecha'						=> date('Y-m-d H:i:s'),
 						'auditoria_usuario'         				=> $usu_03,
 						'auditoria_fecha_hora'	    				=> date('Y-m-d H:i:s'),
@@ -170,7 +169,7 @@
 			}
 		} 
 	}
-
+	
 	header('Location: ../../public/'.$work03.'&code='.$code.'&msg='.$msg1);
 
     ob_end_flush();

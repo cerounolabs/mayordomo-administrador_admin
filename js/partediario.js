@@ -1,6 +1,7 @@
 $(document).ready(function() {
-    var xDATA   = getAnimalMortandadListado(_parm01BASE);
-    
+    var xDATA   = getAnimalMortandadListado(_parm01BASE,1);
+    var xDATA1   = getAnimalMortandadListado(_parm01BASE,4);
+
     $('#tableMortandadCab').DataTable({
         processing	: true,
         destroy		: true,
@@ -41,7 +42,54 @@ $(document).ready(function() {
             { data				: 'tipo_estado_nombre',                name : 'tipo_estado_nombre'},
             { data				: 'animal_mortandad_fecha_denuncia_2', name : 'animal_mortandad_fecha_denuncia_2'},
             { data				: 'tipo_mortandad_nombre',             name : 'tipo_mortandad_nombre'},
-            { data				: 'animal_codigo_nombre',              name : 'animal_codigo_nombre'},
+            { data				: 'establecimiento_nombre',            name : 'establecimiento_nombre'},
+            { data				: 'persona_denunciante_completo',      name : 'persona_denunciante_completo'},
+            { data				: 'persona_verificacion_completo',     name : 'persona_verificacion_completo'},
+            { data				: 'animal_mortandad_observacion',      name : 'animal_mortandad_observacion'},
+        ]
+    });
+
+    $('#tableAbigueo').DataTable({
+        processing	: true,
+        destroy		: true,
+        searching	: true,
+        paging		: true,
+        lengthChange: true,
+        info		: true,
+        orderCellsTop: true,
+        fixedHeader	: true,
+        language	: {
+            lengthMenu: "Mostrar _MENU_ registros por pagina",
+            zeroRecords: "Nothing found - sorry",
+            info: "Mostrando pagina _PAGE_ de _PAGES_",
+            infoEmpty: "No hay registros disponibles.",
+            infoFiltered: "(Filtrado de _MAX_ registros totales)",
+            sZeroRecords: "No se encontraron resultados",
+            sSearch: "buscar",
+            oPaginate: {
+                sFirst:    "Primero",
+                sLast:     "Último",
+                sNext:     "Siguiente",
+                sPrevious: "Anterior"
+            },
+        },
+        data : xDATA1,
+        columnDefs	: [
+            { targets			: [0],	visible : false,searchable : false, orderData : [0, 0] },
+            { targets			: [1],	visible : true,	searchable : true,	orderData : [1, 0] },
+            { targets			: [2],	visible : true,	searchable : true,	orderData : [2, 0] },
+            { targets			: [3],	visible : true,	searchable : true,	orderData : [3, 0] },
+            { targets			: [4],	visible : true,	searchable : true,	orderData : [4, 0] },
+            { targets			: [5],	visible : true,	searchable : true,	orderData : [5, 0] },
+            { targets			: [6],	visible : true,	searchable : true,	orderData : [6, 0] },
+            { targets			: [7],	visible : true,	searchable : true,	orderData : [7, 0] },
+        ],
+        columns		: [
+            { data				: 'animal_mortandad_codigo',           name : 'animal_mortandad_codigo'},
+            { data				: 'tipo_estado_nombre',                name : 'tipo_estado_nombre'},
+            { data				: 'animal_mortandad_fecha_denuncia_2', name : 'animal_mortandad_fecha_denuncia_2'},
+            { data				: 'tipo_mortandad_nombre',             name : 'tipo_mortandad_nombre'},
+            { data				: 'establecimiento_nombre',            name : 'establecimiento_nombre'},
             { data				: 'persona_denunciante_completo',      name : 'persona_denunciante_completo'},
             { data				: 'persona_verificacion_completo',     name : 'persona_verificacion_completo'},
             { data				: 'animal_mortandad_observacion',      name : 'animal_mortandad_observacion'},
@@ -53,7 +101,6 @@ $(document).ready(function() {
 function selectEstablecimiento(valRow) {
     var xJSON   = getEstablecimiento();
     var xSELC   = document.getElementById(valRow);
-
     while (xSELC.length > 0) {
         xSELC.remove(0);
     }
@@ -436,7 +483,27 @@ function viewDetail(valRow) {
             viewInput('col009', 0);
             viewInput('col010', 0);
             viewInput('col011', 0);
+            break;
 
+        case 'viewAbigeo':
+            selectEstablecimiento('var020');
+            selectPotrero('var021', 'var020');
+            selectDenunciante('var033', 'var020');
+            selectVerificar('var034', 'var020');
+            selectIdentificado('var024');
+            selectPropietario('var026', 'var020');
+            selectOrigen('var027');
+            selectRaza('var028');
+            selectCategoria('var029');
+            selectCarimbo('var030');
+            selectMortandad('var031');
+
+            viewInput('col012', 1);
+            viewInput('col013', 0);
+            viewInput('col014', 0);
+            viewInput('col015', 0);
+            viewInput('col016', 0);
+            viewInput('col017', 0);
             break;
     }
 }
@@ -449,6 +516,23 @@ function viewInput(valRow, banRow) {
     } else {
         codElem.style.display   = '';
     }
+
+    if (banRow == 0 && codElem.id == 'col012'){
+        $('#var025').prop('required',false);
+    }
+
+    if (banRow == 1 && codElem.id == 'col012'){
+        $('#var025').prop('required',true);
+    }
+
+    if (banRow == 0 && codElem.id == 'col006'){
+        $('#var006').prop('required',false);
+    }
+
+    if (banRow == 1 && codElem.id == 'col006'){
+        $('#var006').prop('required',true);
+    }
+
 }
 
 function changeIdentificacion(valRow){
@@ -461,6 +545,14 @@ function changeIdentificacion(valRow){
         viewInput('col009', 0);
         viewInput('col010', 0);
         viewInput('col011', 0);
+
+        viewInput('col012', 1);
+        viewInput('col013', 0);
+        viewInput('col014', 0);
+        viewInput('col015', 0);
+        viewInput('col016', 0);
+        viewInput('col017', 0);
+
     } else {
         viewInput('col006', 0);
         viewInput('col007', 1);
@@ -468,6 +560,13 @@ function changeIdentificacion(valRow){
         viewInput('col009', 1);
         viewInput('col010', 1);
         viewInput('col011', 1);
+
+        viewInput('col012', 0);
+        viewInput('col013', 1);
+        viewInput('col014', 1);
+        viewInput('col015', 1);
+        viewInput('col016', 1);
+        viewInput('col017', 1);
     }
 
 }
@@ -480,7 +579,7 @@ function selectAnimalIden(valRow, codEst, codSel, nomAni) {
     var bandAni = false;
     var xJSON1   = getAnimalActivo(codEst);
 
-    if (codSel != 0 && nomAni != 0){
+    if (codSel != 0 && nomAni != 0 && nomAni != '' && nomAni != null){  
         xJSON1.forEach(element1 => {
             if(codSel == 1 && element1.animal_codigo_rp == nomAni){   
                 codAni.value  = element1.animal_codigo;
@@ -504,8 +603,13 @@ function selectAnimalIden(valRow, codEst, codSel, nomAni) {
         });
 
         if (bandAni == false) {
-            alert('No existe animal');
+            swal('Error, No coinciden los Datos');
         }
     }
-    
+
+    if (nomAni == '' || nomAni == null){
+        if (bandAni == false) {
+            swal('Error, No coinciden los Datos');
+        }
+    }
 }
