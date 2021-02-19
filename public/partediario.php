@@ -375,7 +375,7 @@
                     <div class="row" id="viewConsumo" style="display:none;">
                         <div class="col-12"> 
                             <div class="card">
-                                <form id="form" method="post" action="../class/crud/tareaconsumo.php">
+                            <form id="form" method="post" action="../class/crud/tarea_consumo.php" enctype="multipart/form-data">
                                     <div class="modal-header" style="color:#fff; background:#163562;">
                                         <h4 class="modal-title" id="vcenter"> CONSUMO </h4>
                                     </div>
@@ -384,108 +384,123 @@
                                         <div class="form-group">
                                             <input id="workCodigo" name="workCodigo" value="0" class="form-control" type="hidden" required readonly>
                                             <input id="workModo" name="workModo" value="C" class="form-control" type="hidden" required readonly>
-                                            <input id="workPage" name="workPage" value="partediario.php#viewMortandad" class="form-control" type="hidden" required readonly>
+                                            <input id="workPage" name="workPage" value="partediario.php?" class="form-control" type="hidden" required readonly>
+                                            <input id="workEstado" name="workEstado" value="1" class="form-control" type="hidden" required readonly>
                                         </div>
 
                                         <div class="row pt-3">
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var01">ESTABLECIMIENTO</label>
-                                                    <select id="var01" name="var01" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                    <label for="var040">ESTABLECIMIENTO</label>
+                                                    <select id="var040" name="var040" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var02">SECTOR - POTRERO</label>
-                                                    <select id="var02" name="var02" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                    <label for="var041">SECTOR - POTRERO</label>
+                                                    <select id="var041" name="var041" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var03">FAENA PARA</label>
-                                                    <select id="var03" name="var03" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                    <label for="var042">FAENA PARA</label>
+                                                    <select id="var042" name="var042" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var04">FECHA DE FAENA</label>
-                                                    <input id="var04" name="var04" value="" class="form-control" type="date" style="text-transform:lowercase; height:40px;" placeholder="FECHA" required>
+                                                    <label for="var043">FECHA DE FAENA</label>
+                                                    <input id="var043" name="var043" value="" class="form-control" type="date" style="text-transform:lowercase; height:40px;" placeholder="FECHA" required>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var05">FAENADO POR</label>
-                                                    <select id="var05" name="var05" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                    <label for="var044">FAENADO POR</label>
+                                                    <select id="var044" name="var044" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var13">IDENTIFICACION INDIVIDUAL</label>
-                                                    <select id="var13" name="var13" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                    <label for="var045">IDENTIFICACION INDIVIDUAL</label>
+                                                    <select id="var045" name="var045" class="select2 form-control custom-select" onchange="changeIdentificacion(this.id);" style="width:100%; height:50px;" required></select>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-6">
+                                            <div class="col-sm-12 col-md-3" id="col018">
                                                 <div class="form-group">
-                                                    <label for="var11">IDENTIFICACION ANIMAL</label>
-                                                    <select id="var11" name="var11" class="select2 form-control custom-select" style="width:100%; height:40px;" required></select>
+                                                    <label for="var046">IDENTIFICACION ANIMAL</label> 
+                                                    <input id="var046" name="var046" class="form-control" onchange="selectAnimalIden('var056', 'var040','var045','var046'); selectPeso('var056', 'var052', 'var053');" type="text" data-click="swal-animal_change" style="text-transform:uppercase; height:50px;" placeholder="ANIMAL" >
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-3">
+                                            <div class="col-sm-12 col-md-3" id="col019">
                                                 <div class="form-group">
-                                                    <label for="var07">PROPIETARIO</label>
-                                                    <select id="var07" name="var07" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                    <label for="var047">PROPIETARIO</label>
+                                                    <select id="var047" name="var047" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-3">
+                                            <div class="col-sm-12 col-md-3" id="col020">
                                                 <div class="form-group">
-                                                    <label for="var08">ORIGEN</label>
-                                                    <select id="var08" name="var08" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                    <label for="var048">ORIGEN</label>
+                                                    <select id="var048" name="var048" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-3">
+                                            <div class="col-sm-12 col-md-3" id="col021">
                                                 <div class="form-group">
-                                                    <label for="var09">RAZA</label>
-                                                    <select id="var09" name="var09" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                    <label for="var049">RAZA</label>
+                                                    <select id="var049" name="var049" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-3">
+                                            <div class="col-sm-12 col-md-3" id="col022">
                                                 <div class="form-group">
-                                                    <label for="var10">CATEGORIA - SUBCATEGORIA</label>
-                                                    <select id="var10" name="var10" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
+                                                    <label for="var050">CATEGORIA - SUBCATEGORIA</label>
+                                                    <select id="var050" name="var050" class="select2 form-control custom-select" onchange="" style="width:100%; height:40px;" required></select>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-3">
+                                            <div class="col-sm-12 col-md-3" id="col023">
                                                 <div class="form-group">
-                                                    <label for="var14"> ULTIMO PESAJE </label>
-                                                    <input id="var14" name="var14" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="PESO VIVO" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-3">
-                                                <div class="form-group">
-                                                    <label for="var14"> FECHA DE ULTIMO PESAJE </label>
-                                                    <input id="var14" name="var14" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="FECHA DE ULTIMO PESAJE" readonly>
+                                                    <label for="var051">CARIMBO</label>
+                                                    <select id="var051" name="var051" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;" required></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var14">PESO VIVO</label>
-                                                    <input id="var14" name="var14" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="PESO VIVO">
+                                                    <label for="var052"> ULTIMO PESAJE </label>
+                                                    <input id="var052" name="var052" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="PESO VIVO" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="var14"> PESO FAENADO </label>
-                                                    <input id="var14" name="var14" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="PESO FAENADO">
+                                                    <label for="var053"> FECHA DE ULTIMO PESAJE </label>
+                                                    <input id="var053" name="var053" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="FECHA DE ULTIMO PESAJE" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var054">PESO VIVO</label>
+                                                    <input id="var054" name="var054" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="PESO VIVO">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var055"> PESO FAENADO </label>
+                                                    <input id="var055" name="var055" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="PESO FAENADO">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="input-group mb-3">
+                                                    <input type="hidden" id="var056" name="var056" class="form-control" value="" style="height:40px; text-transform:lowercase;">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label for="var12">COMENTARIO</label>
-                                                    <textarea id="var12" name="var12" value="" class="form-control" rows="1" style="text-transform:uppercase;"></textarea>
+                                                    <label for="var057">COMENTARIO</label>
+                                                    <textarea id="var057" name="var057" value="" class="form-control" rows="1" style="text-transform:uppercase;"></textarea>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-info">Agregar</button>
-                                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <button type="submit" name="submit" class="btn btn-info" style="float:right;">Agregar</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
@@ -504,16 +519,16 @@
 
                                     <div class="table-responsive">
                                         <table id="tableConsumo" class="table v-middle" style="width: 100%;">
-                                            <thead id="tableConsumoCodigo" class="<?php echo $codEstablecimiento; ?>">
+                                            <thead id="tableConsumoCodigo" class="">
                                                 <tr class="bg-table-title" style="text-align:center;">
-                                                    <th class="border-top-0">FECHA</th>
+                                                    <th class="border-top-0">C&Oacute;DIGO</th>
                                                     <th class="border-top-0" style="width:80px;">ESTADO</th>
-                                                    <th class="border-top-0">TIPO</th>
-                                                    <th class="border-top-0">POTRERO</th>
-                                                    <th class="border-top-0">ANIMAL</th>
+                                                    <th class="border-top-0">FECHA</th>
+                                                    <th class="border-top-0">MOTIVO</th>
+                                                    <th class="border-top-0">ESTABLECIMIENTO</th>
                                                     <th class="border-top-0">DENUNCIADO POR</th>
+                                                    <th class="border-top-0">VERIFICADO POR</th>
                                                     <th class="border-top-0">COMENTARIO</th>
-                                                    <th class="border-top-0" style="width:160px;">ACCI&Oacute;N</th>
                                                 </tr>
                                             </thead>
                                         </table>
@@ -1026,72 +1041,5 @@
     <script src="../js/api.js"></script>
     <script src="../js/partediario.js"></script>
 
-    <script>
-    /*
-			if (!Array.prototype.indexOf) {
-				Array.prototype.indexOf = function(elt /*, from*///) {
-	/*				var len = this.length >>> 0;
-					var from = Number(arguments[1]) || 0;
-					from = (from < 0) ? Math.ceil(from) : Math.floor(from);
-					if (from < 0)
-						from += len;
-
-					for (; from < len; from++) {
-						if (from in this && this[from] === elt)
-							return from;
-					}
-					return -1;
-				//};
-			}
-
-			if(typeof String.prototype.trim !== 'function') {
-				String.prototype.trim = function() {
-					return this.replace(/^\s+|\s+$/g, ''); 
-				}
-			}
-
-			var handleSelect2 = function() {
-				$('.default-select2').select2();
-			};
-
-			var handleSweetNotification = function() {
-				$('[data-click="swal-solicitud_change"]').change(function() {
-					var elemInp = this;
-
-					//e.preventDefault();
-					swal({
-						title: 'Cargar el campo de IDENTIFICACION ANIMAL',
-						text: '',
-						icon: 'info',
-						buttons: {
-							cancel: {
-								text: 'No',
-								value: null,
-								visible: true,
-								className: 'btn btn-default',
-								closeModal: true,
-							}
-						}
-					})
-				});
-			};
-
-			var Notification = function () {
-				'use strict';
-				return {
-					//main function
-					init: function () {
-						handleSweetNotification();
-						handleSelect2();
-					}
-				};
-			}();
-
-			$(document).ready(function() {
-				Notification.init();
-			});
-*/
-			//viewSolicitudOpcion('opVuelo');
-		</script>
 </body>
 </html>

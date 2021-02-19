@@ -441,15 +441,29 @@
                                    	</a>
 									<ul aria-expanded="false" class="collapse second-level">
 										<li class="sidebar-item">
-											<a href="../public/dominio.php?dominio=MOVIMIENTOFAENA" class="sidebar-link">
+											<a href="../public/dominio.php?dominio=MOVIMIENTOESTADO" class="sidebar-link">
 												<i class="mdi mdi-parametro-movimiento"></i>
-												<span class="hide-menu"> Tipo Faena </span>
+												<span class="hide-menu"> Tipo Estado </span>
 											</a>
 										</li>
 										<li class="sidebar-item">
-											<a href="../public/dominio.php?dominio=MOVIMIENTOMORTANDAD" class="sidebar-link">
+											<a href="../public/dominio.php?dominio=MOVIMIENTOORIGEN" class="sidebar-link">
 												<i class="mdi mdi-parametro-movimiento"></i>
-												<span class="hide-menu"> Tipo Mortandad </span>
+												<span class="hide-menu"> Tipo Origen </span>
+											</a>
+										</li>
+
+										<li class="sidebar-item">
+											<a href="../public/dominio.php?dominio=MOVIMIENTOMOTIVO" class="sidebar-link">
+												<i class="mdi mdi-parametro-movimiento"></i>
+												<span class="hide-menu"> Tipo Motivo </span>
+											</a>
+										</li>
+
+										<li class="sidebar-item">
+											<a href="../public/dominiosub.php?dominio=MOVIMIENTOORIGENMOTIVO" class="sidebar-link">
+												<i class="mdi mdi-parametro-animal"></i>
+												<span class="hide-menu"> Origen / Movimiento </span>
 											</a>
 										</li>
 									</ul>
