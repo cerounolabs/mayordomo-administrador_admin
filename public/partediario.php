@@ -237,7 +237,7 @@
                                             <div class="col-sm-12 col-md-9">
                                                 <div class="form-group" id="col006">
                                                     <label for="var006">IDENTIFICACION ANIMAL</label> 
-                                                    <input id="var006" name="var006" class="form-control" onchange="selectAnimalIden('var019', 'var001','var005', 'var006');" type="text" style="text-transform:uppercase; height:50px;" placeholder="ANIMAL" required>
+                                                    <input id="var006" name="var006" class="form-control" onchange="selectAnimalIden('var019', 'var001','var005', 'var006');" type="text" data-click="swal-animal_change" style="text-transform:uppercase; height:50px;" placeholder="ANIMAL">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3" id="col007">

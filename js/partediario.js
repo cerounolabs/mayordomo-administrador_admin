@@ -486,7 +486,6 @@ function viewDetail(valRow) {
             break;
 
         case 'viewAbigeo':
-            console.log('viewAbigeo');
             selectEstablecimiento('var020');
             selectPotrero('var021', 'var020');
             selectDenunciante('var033', 'var020');
@@ -519,14 +518,21 @@ function viewInput(valRow, banRow) {
     }
 
     if (banRow == 0 && codElem.id == 'col012'){
-      valRow = document.getElementById('col012').attributes["required"] = false;  
+        $('#var025').prop('required',false);
     }
 
     if (banRow == 1 && codElem.id == 'col012'){
-      //valRow = document.getElementById('col012').attributes["required"] = true; 
-     // codElem = document.getElementById('var025').required; 
         $('#var025').prop('required',true);
     }
+
+    if (banRow == 0 && codElem.id == 'col006'){
+        $('#var006').prop('required',false);
+    }
+
+    if (banRow == 1 && codElem.id == 'col006'){
+        $('#var006').prop('required',true);
+    }
+
 }
 
 function changeIdentificacion(valRow){
@@ -572,49 +578,38 @@ function selectAnimalIden(valRow, codEst, codSel, nomAni) {
     var codAni  = document.getElementById(valRow);
     var bandAni = false;
     var xJSON1   = getAnimalActivo(codEst);
-    console.log('codSel => ' + codSel);
-    
-    console.log('nomAni => ' + nomAni);
-    if (codSel != 0 && nomAni != 0 && nomAni != '' && nomAni != null){
-        
+
+    if (codSel != 0 && nomAni != 0 && nomAni != '' && nomAni != null){  
         xJSON1.forEach(element1 => {
-            console.log('element1.animal_codigo_rp => ' + element1.animal_codigo_rp);
             if(codSel == 1 && element1.animal_codigo_rp == nomAni){   
                 codAni.value  = element1.animal_codigo;
-                console.log('ENTRA EN EL PRIMER IF');
                 bandAni = true;
             }
 
             if(codSel == 2 && element1.animal_codigo_nombre == nomAni){
                 codAni.value  = element1.animal_codigo;
                 bandAni = true;
-                console.log('ENTRA EN EL 2 IF');
             }
 
             if(codSel == 3 && element1.animal_codigo_hbp == nomAni){
                 codAni.value  = element1.animal_codigo;
                 bandAni = true;
-                console.log('ENTRA EN EL 3 IF');
             }
 
             if(codSel == 4 && element1.animal_codigo_electronico == nomAni){
                 codAni.value  = element1.animal_codigo;
                 bandAni = true;
-                console.log('ENTRA EN EL 4 IF');
             }      
         });
 
         if (bandAni == false) {
-            console.log('ENTRA En la condicion '  + bandAni);
-            swal('Error, los datos que ingreso no coinciden con ningún animal');
-			
+            swal('Error, No coinciden los Datos');
         }
     }
 
     if (nomAni == '' || nomAni == null){
         if (bandAni == false) {
-            swal('Cargar el campo de IDENTIFICACION ANIMAL');
+            swal('Error, No coinciden los Datos');
         }
     }
-
 }
