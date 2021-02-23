@@ -428,7 +428,7 @@
                                             <div class="col-sm-12 col-md-3" id="col018">
                                                 <div class="form-group">
                                                     <label for="var046">IDENTIFICACION ANIMAL</label> 
-                                                    <input id="var046" name="var046" class="form-control" onchange="selectAnimalIden('var056', 'var040','var045','var046'); selectPeso('var056', 'var052', 'var053');" type="text" data-click="swal-animal_change" style="text-transform:uppercase; height:50px;" placeholder="ANIMAL" >
+                                                    <input id="var046" name="var046" class="form-control" onchange="selectAnimalIden('var057', 'var040','var045','var046'); selectPeso('var057', 'var052', 'var053');" type="text" data-click="swal-animal_change" style="text-transform:uppercase; height:50px;" placeholder="ANIMAL" >
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3" id="col019">
@@ -458,7 +458,7 @@
                                             <div class="col-sm-12 col-md-3" id="col023">
                                                 <div class="form-group">
                                                     <label for="var051">CARIMBO</label>
-                                                    <select id="var051" name="var051" class="select2 form-control custom-select" onchange="" style="width:100%; height:50px;" required></select>
+                                                    <select id="var051" name="var051" class="select2 form-control custom-select" onchange="selectAnimalIden('var057', 'var040','var045','var051');  selectPeso('var057', 'var052', 'var053');" style="width:100%; height:50px;" required></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
@@ -470,30 +470,54 @@
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var053"> FECHA DE ULTIMO PESAJE </label>
-                                                    <input id="var053" name="var053" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="FECHA DE ULTIMO PESAJE" readonly>
+                                                    <input id="var053" name="var053" value="" class="form-control" type="text" style="text-transform:lowercase; height:40px;" placeholder="FECHA DE ULTIMO PESAJE" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var054">PESO VIVO</label>
-                                                    <input id="var054" name="var054" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="PESO VIVO">
+                                                    <input id="var054" name="var054" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="PESO VIVO" required>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var055"> PESO FAENADO </label>
-                                                    <input id="var055" name="var055" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="PESO FAENADO">
+                                                    <input id="var055" name="var055" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="PESO FAENADO" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var056_1">IMAGEN 1</label>
+                                                    <input id="var056_1" name="var056_1" value="" class="form-control" type="file" style="text-transform:lowercase; height:40px;" placeholder="FECHA" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var056_2">IMAGEN 2</label>
+                                                    <input id="var056_2" name="var056_2" value="" class="form-control" type="file" style="text-transform:lowercase; height:40px;" placeholder="FECHA" >
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var056_3">IMAGEN 3</label>
+                                                    <input id="var056_3" name="var056_3" value="" class="form-control" type="file" style="text-transform:lowercase; height:40px;" placeholder="FECHA" >
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="var056_4">IMAGEN 4</label>
+                                                    <input id="var056_4" name="var056_4" value="" class="form-control" type="file" style="text-transform:lowercase; height:40px;" placeholder="FECHA" >
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="input-group mb-3">
-                                                    <input type="hidden" id="var056" name="var056" class="form-control" value="" style="height:40px; text-transform:lowercase;">
+                                                    <input type="hidden" id="var057" name="var057" class="form-control" value="" style="height:40px; text-transform:lowercase;">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label for="var057">COMENTARIO</label>
-                                                    <textarea id="var057" name="var057" value="" class="form-control" rows="1" style="text-transform:uppercase;"></textarea>
+                                                    <label for="var058">COMENTARIO</label>
+                                                    <textarea id="var058" name="var058" value="" class="form-control" rows="1" style="text-transform:uppercase;"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
@@ -1040,6 +1064,7 @@
     
     <script src="../js/api.js"></script>
     <script src="../js/partediario.js"></script>
+
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-const urlBASE   = 'https://cerouno.me/mayorcontrol_api/apiv2';
+const urlBASE   = 'https://cerouno.me/mayorcontrol_api/apiv1';
 const xHTTP	    = new XMLHttpRequest();
 const autBASE   = 'dXNlcl9zZmhvbG94OnVzZXJfc2Zob2xveDIwMjA=';
 
@@ -2060,7 +2060,7 @@ function getAnimalPeso2(codElem){
  
     var xJSON = JSON.parse(localStorage.getItem('animalpesokilogramosJSON'));
     var xDATA = [];
-    
+    console.log(xJSON);
     if (xJSON['code'] == 200) {
         xJSON['data'].forEach(element => {
             if (element.tipo_estado_parametro == 1) {

@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var xDATA   = getAnimalMortandadListado(_parm01BASE,1);
     var xDATA1   = getAnimalMortandadListado(_parm01BASE,4);
-    var xDATA1   = getAnimalMortandadListado(_parm01BASE,2);
+    var xDATA2   = getAnimalMortandadListado(_parm01BASE,2);
 
     $('#tableMortandadCab').DataTable({
         processing	: true,
@@ -474,19 +474,24 @@ function selectConsumo(valRow) {
 }
 
 function selectPeso(AniRow, valPes, fecPes) {
-    var codAni   = document.getElementById(AniRow).value;
-    console.log('animal=> ' +codAni);
+    var ultPeso   = document.getElementById(valPes);
+    var ultfech   = document.getElementById(fecPes);
+    var codAni    = document.getElementById(AniRow).value;
     var xJSON   = getAnimalPeso2(codAni);
-    console.log(xJSON);
-    xJSON.forEach(element => {
-        if (element.tipo_estado_codigo == 1 && element.animal_codigo == codAni) {
-            console.log('entra if');
-            valPes  = element.animal_peso_kilogramo;
-            fecPes  = element.animal_peso_fecha_2;
-            console.log('valPes=> ' + valPes);
-            console.log('fecPes => ' + fecPes);
-        }
-    });
+
+    if (xJSON != '' || xJSON != null){
+        xJSON.forEach(element => {
+            if (element.tipo_estado_codigo == 1 && element.animal_codigo == codAni) {
+                ultPeso.value  = element.animal_peso_kilogramo;
+                ultfech.value  = element.animal_peso_fecha_2;
+            }
+        });
+    }
+    
+    if(xJSON == '' || xJSON == null ){
+        ultPeso.value  = 0;
+        ultfech.value  = '01-01-1900';
+    }
 }
 
 function selectIdentificado(valRow) {
@@ -642,6 +647,13 @@ function viewInput(valRow, banRow) {
         $('#var006').prop('required',true);
     }
 
+    if (banRow == 0 && codElem.id == 'col018'){
+        $('#var046').prop('required',false);
+    }
+
+    if (banRow == 1 && codElem.id == 'col018'){
+        $('#var046').prop('required',true);
+    }
 }
 
 function changeIdentificacion(valRow){
@@ -726,13 +738,22 @@ function selectAnimalIden(valRow, codEst, codSel, nomAni) {
         });
 
         if (bandAni == false) {
-            swal('Error, No coinciden los Datos');
+            codAni.value  = 0;
+            swal('ERROR, No coinciden los Datos');
         }
+    } else if(codSel == 0){
+        xJSON1.forEach(element1 => {
+            if(element1.tipo_carimbo_codigo == nomAni){   
+                codAni.value  = element1.animal_codigo;
+                bandAni = true;
+            }
+        });
     }
 
     if (nomAni == '' || nomAni == null){
-        if (bandAni == false) {
-            swal('Error, No coinciden los Datos');
+        if (bandAni == false) {   
+            codAni.value  = 0;
+            swal('ERROR, No coinciden los Datos');
         }
     }
 }
