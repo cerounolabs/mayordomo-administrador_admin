@@ -2,6 +2,7 @@ $(document).ready(function() {
     var xDATA   = getAnimalMortandadListado(_parm01BASE,1);
     var xDATA1   = getAnimalMortandadListado(_parm01BASE,4);
     var xDATA2   = getAnimalMortandadListado(_parm01BASE,2);
+    var xDATA3   = getAnimalMortandadListado(_parm01BASE,5);
 
     $('#tableMortandadCab').DataTable({
         processing	: true,
@@ -122,6 +123,53 @@ $(document).ready(function() {
             },
         },
         data : xDATA2,
+        columnDefs	: [
+            { targets			: [0],	visible : false,searchable : false, orderData : [0, 0] },
+            { targets			: [1],	visible : true,	searchable : true,	orderData : [1, 0] },
+            { targets			: [2],	visible : true,	searchable : true,	orderData : [2, 0] },
+            { targets			: [3],	visible : true,	searchable : true,	orderData : [3, 0] },
+            { targets			: [4],	visible : true,	searchable : true,	orderData : [4, 0] },
+            { targets			: [5],	visible : true,	searchable : true,	orderData : [5, 0] },
+            { targets			: [6],	visible : true,	searchable : true,	orderData : [6, 0] },
+            { targets			: [7],	visible : true,	searchable : true,	orderData : [7, 0] },
+        ],
+        columns		: [
+            { data				: 'animal_mortandad_codigo',           name : 'animal_mortandad_codigo'},
+            { data				: 'tipo_estado_nombre',                name : 'tipo_estado_nombre'},
+            { data				: 'animal_mortandad_fecha_denuncia_2', name : 'animal_mortandad_fecha_denuncia_2'},
+            { data				: 'tipo_mortandad_nombre',             name : 'tipo_mortandad_nombre'},
+            { data				: 'establecimiento_nombre',            name : 'establecimiento_nombre'},
+            { data				: 'persona_denunciante_completo',      name : 'persona_denunciante_completo'},
+            { data				: 'persona_verificacion_completo',     name : 'persona_verificacion_completo'},
+            { data				: 'animal_mortandad_observacion',      name : 'animal_mortandad_observacion'},
+        ]
+    });
+
+    $('#tableDonacion').DataTable({
+        processing	: true,
+        destroy		: true,
+        searching	: true,
+        paging		: true,
+        lengthChange: true,
+        info		: true,
+        orderCellsTop: true,
+        fixedHeader	: true,
+        language	: {
+            lengthMenu: "Mostrar _MENU_ registros por pagina",
+            zeroRecords: "Nothing found - sorry",
+            info: "Mostrando pagina _PAGE_ de _PAGES_",
+            infoEmpty: "No hay registros disponibles.",
+            infoFiltered: "(Filtrado de _MAX_ registros totales)",
+            sZeroRecords: "No se encontraron resultados",
+            sSearch: "buscar",
+            oPaginate: {
+                sFirst:    "Primero",
+                sLast:     "Último",
+                sNext:     "Siguiente",
+                sPrevious: "Anterior"
+            },
+        },
+        data : xDATA3,
         columnDefs	: [
             { targets			: [0],	visible : false,searchable : false, orderData : [0, 0] },
             { targets			: [1],	visible : true,	searchable : true,	orderData : [1, 0] },
@@ -473,6 +521,90 @@ function selectConsumo(valRow) {
     });
 }
 
+function selectDonacion(valRow) {
+    var xJSON   = getDominioSub('MOVIMIENTOORIGENMOTIVO');
+    var xSELC   = document.getElementById(valRow);
+  
+    while (xSELC.length > 0) {
+        xSELC.remove(0);
+    }
+
+    var option      = document.createElement('option');
+    option.value    = 0;
+    option.text     = 'SELECCIONAR...'; 
+    option.selected = true;                    
+    xSELC.add(option, null);
+    
+    xJSON.forEach(element => {
+        if (element.tipo_estado_parametro == 1 && element.tipo_dominio1_parametro == 5) {
+            var item        = pad(element.tipo_dominio2_parametro, 3);
+            var option      = document.createElement('option');
+            option.value    = element.tipo_dominio2_parametro;
+            option.text     = item + ' - ' + element.tipo_dominio2_nombre;
+            xSELC.add(option, null);
+        }
+    });
+}
+
+function selectEntregado(valRow,rowEsta ) {
+    
+    console.log('EstablecimientoValue =>  ' + rowEsta.value);
+    var codEst  = document.getElementById(rowEsta).value;
+    console.log('Establecimiento =>  ' + codEst);
+    var xJSON   = getEstablecimientoPersona(codEst);
+    var selItem = document.getElementById(valRow);
+
+    while (selItem.length > 0) {
+        selItem.remove(0);
+    }
+
+    var option      = document.createElement('option');
+    option.value    = 0;
+    option.text     = 'SELECCIONAR...'; 
+    option.selected = true;                   
+    selItem.add(option, null);
+
+
+    xJSON.forEach(element => {
+        if (element.tipo_estado_parametro == 1) {
+            var item        = pad(element.persona_codigo, 3);
+            var option      = document.createElement('option');
+            option.value    = element.persona_codigo;
+            option.text     = item + ' - ' + element.persona_completo;                    
+            selItem.add(option, null);
+        }
+    });
+}
+
+function selectRecibido(valRow,rowEsta ) {
+    console.log('EstablecimientoValue =>  ' + rowEsta.value);
+    var codEst  = document.getElementById(rowEsta).value;
+    console.log('Establecimiento =>  ' + codEst);
+    var xJSON   = getEstablecimientoPersona(codEst);
+    var selItem = document.getElementById(valRow);
+
+    while (selItem.length > 0) {
+        selItem.remove(0);
+    }
+
+    var option      = document.createElement('option');
+    option.value    = 0;
+    option.text     = 'SELECCIONAR...'; 
+    option.selected = true;                   
+    selItem.add(option, null);
+
+
+    xJSON.forEach(element => {
+        if (element.tipo_estado_parametro == 1) {
+            var item        = pad(element.persona_codigo, 3);
+            var option      = document.createElement('option');
+            option.value    = element.persona_codigo;
+            option.text     = item + ' - ' + element.persona_completo;                    
+            selItem.add(option, null);
+        }
+    });
+}
+
 function selectPeso(AniRow, valPes, fecPes) {
     var ultPeso   = document.getElementById(valPes);
     var ultfech   = document.getElementById(fecPes);
@@ -619,6 +751,28 @@ function viewDetail(valRow) {
            viewInput('col022', 0);
            viewInput('col023', 0);
            break;
+
+        case 'viewDonacion':
+            selectEstablecimiento('var060');
+            selectPotrero('var063', 'var060');
+        //  selectDenunciante('var044', 'var040');
+            selectIdentificado('var061');
+            selectPropietario('var064', 'var060');
+            selectOrigen('var065');
+            selectRaza('var066');
+            selectCategoria('var067');
+            selectCarimbo('var068');
+            selectDonacion('var069');
+            selectEntregado('var071','var060');
+            selectRecibido('var072','var060');
+
+            viewInput('col024', 1);
+            viewInput('col025', 0);
+            viewInput('col026', 0);
+            viewInput('col027', 0);
+            viewInput('col028', 0);
+            viewInput('col029', 0);
+            break;
     }
 }
 
@@ -654,6 +808,14 @@ function viewInput(valRow, banRow) {
     if (banRow == 1 && codElem.id == 'col018'){
         $('#var046').prop('required',true);
     }
+
+    if (banRow == 0 && codElem.id == 'col024'){
+        $('#var062').prop('required',false);
+    }
+
+    if (banRow == 1 && codElem.id == 'col024'){
+        $('#var062').prop('required',true);
+    }
 }
 
 function changeIdentificacion(valRow){
@@ -681,6 +843,13 @@ function changeIdentificacion(valRow){
         viewInput('col022', 0);
         viewInput('col023', 0);
 
+        viewInput('col024', 1);
+        viewInput('col025', 0);
+        viewInput('col026', 0);
+        viewInput('col027', 0);
+        viewInput('col028', 0);
+        viewInput('col029', 0);
+
     } else {
         viewInput('col006', 0);
         viewInput('col007', 1);
@@ -702,6 +871,13 @@ function changeIdentificacion(valRow){
         viewInput('col021', 1);
         viewInput('col022', 1);
         viewInput('col023', 1);
+// Donación
+        viewInput('col024', 0);
+        viewInput('col025', 1);
+        viewInput('col026', 1);
+        viewInput('col027', 1);
+        viewInput('col028', 1);
+        viewInput('col029', 1);
     }
 
 }
