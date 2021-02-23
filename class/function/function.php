@@ -96,18 +96,18 @@
             case 'DONACIONTIPO':
                 $result = 'DONACIÓN TIPO';
                 break;
-    
-            //MOVIMIENTO
-            case 'MOVIMIENTOFAENA':
-                $result = 'MOVIMIENTO FAENA';
+
+//MOVIMIENTO
+            case 'MOVIMIENTOESTADO':
+                $result = 'MOVIMIENTO ESTADO';
                 break;
 
-            case 'MOVIMIENTOTIPO':
-                $result = 'MOVIMIENTO TIPO';
+            case 'MOVIMIENTOORIGEN':
+                $result = 'MOVIMIENTO ORIGEN';
                 break;
 
-            case 'MOVIMIENTOMORTANDAD':
-                $result = 'MORTANDAD TIPO';
+            case 'MOVIMIENTOMOTIVO':
+                $result = 'MOVIMIENTO MOTIVO';
                 break;
 
             case 'DISTRITOZONA':
@@ -264,6 +264,7 @@
         $dominio2   = '';
 
         switch ($var01) {
+//PARAMETRO ANIMAL
             case 'ANIMALESPECIERAZA':
                 $titulo     = 'ANIMAL ESPECIE / RAZA';
                 $titulo1    = 'ESPECIE';
@@ -302,6 +303,15 @@
                 $titulo2    = 'DONACION';
                 $dominio1   = 'DONACIONMOVIMIENTO';
                 $dominio2   = 'DONACIONTIPO';
+                break;
+
+//PARAMETRO MOVIMIENTO
+            case 'MOVIMIENTOORIGENMOTIVO':
+                $titulo     = 'ORIGEN / MOTIVO';
+                $titulo1    = 'ORIGEN';
+                $titulo2    = 'MOTIVO';
+                $dominio1   = 'MOVIMIENTOORIGEN';
+                $dominio2   = 'MOVIMIENTOMOTIVO';
                 break;
         }
 

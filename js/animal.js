@@ -1474,7 +1474,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
     if(codAcc == 7 && (xJSON8 == null || xJSON8 == '')){
         selectEstablecimiento('var020'),
         selectPotrero(rowEst,'var021', 2);
-        selectDominio('var024', 'MORTANDADTIPO', 2);
+        selectDominio('var024', 'MOVIMIENTOMOTIVO', 2);
         selectDenunciado(rowEst,'var025', 2);
     } else if (codAcc == 7 && xJSON8 != null){
         selectVerificar(rowEst,'var027', 2);

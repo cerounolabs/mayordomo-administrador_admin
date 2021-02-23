@@ -1,6 +1,7 @@
 $(document).ready(function() {
     var xDATA   = getAnimalMortandadListado(_parm01BASE,1);
     var xDATA1   = getAnimalMortandadListado(_parm01BASE,4);
+    var xDATA2   = getAnimalMortandadListado(_parm01BASE,2);
 
     $('#tableMortandadCab').DataTable({
         processing	: true,
@@ -74,6 +75,53 @@ $(document).ready(function() {
             },
         },
         data : xDATA1,
+        columnDefs	: [
+            { targets			: [0],	visible : false,searchable : false, orderData : [0, 0] },
+            { targets			: [1],	visible : true,	searchable : true,	orderData : [1, 0] },
+            { targets			: [2],	visible : true,	searchable : true,	orderData : [2, 0] },
+            { targets			: [3],	visible : true,	searchable : true,	orderData : [3, 0] },
+            { targets			: [4],	visible : true,	searchable : true,	orderData : [4, 0] },
+            { targets			: [5],	visible : true,	searchable : true,	orderData : [5, 0] },
+            { targets			: [6],	visible : true,	searchable : true,	orderData : [6, 0] },
+            { targets			: [7],	visible : true,	searchable : true,	orderData : [7, 0] },
+        ],
+        columns		: [
+            { data				: 'animal_mortandad_codigo',           name : 'animal_mortandad_codigo'},
+            { data				: 'tipo_estado_nombre',                name : 'tipo_estado_nombre'},
+            { data				: 'animal_mortandad_fecha_denuncia_2', name : 'animal_mortandad_fecha_denuncia_2'},
+            { data				: 'tipo_mortandad_nombre',             name : 'tipo_mortandad_nombre'},
+            { data				: 'establecimiento_nombre',            name : 'establecimiento_nombre'},
+            { data				: 'persona_denunciante_completo',      name : 'persona_denunciante_completo'},
+            { data				: 'persona_verificacion_completo',     name : 'persona_verificacion_completo'},
+            { data				: 'animal_mortandad_observacion',      name : 'animal_mortandad_observacion'},
+        ]
+    });
+
+    $('#tableConsumo').DataTable({
+        processing	: true,
+        destroy		: true,
+        searching	: true,
+        paging		: true,
+        lengthChange: true,
+        info		: true,
+        orderCellsTop: true,
+        fixedHeader	: true,
+        language	: {
+            lengthMenu: "Mostrar _MENU_ registros por pagina",
+            zeroRecords: "Nothing found - sorry",
+            info: "Mostrando pagina _PAGE_ de _PAGES_",
+            infoEmpty: "No hay registros disponibles.",
+            infoFiltered: "(Filtrado de _MAX_ registros totales)",
+            sZeroRecords: "No se encontraron resultados",
+            sSearch: "buscar",
+            oPaginate: {
+                sFirst:    "Primero",
+                sLast:     "Último",
+                sNext:     "Siguiente",
+                sPrevious: "Anterior"
+            },
+        },
+        data : xDATA2,
         columnDefs	: [
             { targets			: [0],	visible : false,searchable : false, orderData : [0, 0] },
             { targets			: [1],	visible : true,	searchable : true,	orderData : [1, 0] },
@@ -274,9 +322,9 @@ function selectPropietario(valRow, estRow) {
 }
 
 function selectMortandad(valRow) {
-    var xJSON   = getDominio('MORTANDADTIPO');
+    var xJSON   = getDominioSub('MOVIMIENTOORIGENMOTIVO');
     var xSELC   = document.getElementById(valRow);
-
+  
     while (xSELC.length > 0) {
         xSELC.remove(0);
     }
@@ -288,11 +336,11 @@ function selectMortandad(valRow) {
     xSELC.add(option, null);
     
     xJSON.forEach(element => {
-        if (element.tipo_estado_parametro == 1) {
-            var item        = pad(element.tipo_parametro, 3);
+        if (element.tipo_estado_parametro == 1 && element.tipo_dominio1_parametro == 1) {
+            var item        = pad(element.tipo_dominio2_parametro, 3);
             var option      = document.createElement('option');
-            option.value    = element.tipo_parametro;
-            option.text     = item + ' - ' + element.tipo_nombre;                    
+            option.value    = element.tipo_dominio2_parametro;
+            option.text     = item + ' - ' + element.tipo_dominio2_nombre;
             xSELC.add(option, null);
         }
     });
@@ -375,10 +423,10 @@ function selectVerificar(valRow, estRow) {
     });
 }
 
-function selectConsumo(valRow) {
-    var xJSON   = getDominio('MOVIMIENTOFAENA');
+function selectAbigeo(valRow) {
+    var xJSON   = getDominioSub('MOVIMIENTOORIGENMOTIVO');
     var xSELC   = document.getElementById(valRow);
-
+  
     while (xSELC.length > 0) {
         xSELC.remove(0);
     }
@@ -390,14 +438,60 @@ function selectConsumo(valRow) {
     xSELC.add(option, null);
     
     xJSON.forEach(element => {
-        if (element.tipo_estado_codigo == 1) {
-            var item        = pad(element.tipo_codigo, 3);
+        if (element.tipo_estado_parametro == 1 && element.tipo_dominio1_parametro == 4) {
+            var item        = pad(element.tipo_dominio2_parametro, 3);
             var option      = document.createElement('option');
-            option.value    = element.tipo_codigo;
-            option.text     = item + ' - ' + element.tipo_nombre;                    
+            option.value    = element.tipo_dominio2_parametro;
+            option.text     = item + ' - ' + element.tipo_dominio2_nombre;
             xSELC.add(option, null);
         }
     });
+}
+
+function selectConsumo(valRow) {
+    var xJSON   = getDominioSub('MOVIMIENTOORIGENMOTIVO');
+    var xSELC   = document.getElementById(valRow);
+  
+    while (xSELC.length > 0) {
+        xSELC.remove(0);
+    }
+
+    var option      = document.createElement('option');
+    option.value    = 0;
+    option.text     = 'SELECCIONAR...'; 
+    option.selected = true;                    
+    xSELC.add(option, null);
+    
+    xJSON.forEach(element => {
+        if (element.tipo_estado_parametro == 1 && element.tipo_dominio1_parametro == 2) {
+            var item        = pad(element.tipo_dominio2_parametro, 3);
+            var option      = document.createElement('option');
+            option.value    = element.tipo_dominio2_parametro;
+            option.text     = item + ' - ' + element.tipo_dominio2_nombre;
+            xSELC.add(option, null);
+        }
+    });
+}
+
+function selectPeso(AniRow, valPes, fecPes) {
+    var ultPeso   = document.getElementById(valPes);
+    var ultfech   = document.getElementById(fecPes);
+    var codAni    = document.getElementById(AniRow).value;
+    var xJSON   = getAnimalPeso2(codAni);
+
+    if (xJSON != '' || xJSON != null){
+        xJSON.forEach(element => {
+            if (element.tipo_estado_codigo == 1 && element.animal_codigo == codAni) {
+                ultPeso.value  = element.animal_peso_kilogramo;
+                ultfech.value  = element.animal_peso_fecha_2;
+            }
+        });
+    }
+    
+    if(xJSON == '' || xJSON == null ){
+        ultPeso.value  = 0;
+        ultfech.value  = '01-01-1900';
+    }
 }
 
 function selectIdentificado(valRow) {
@@ -496,7 +590,7 @@ function viewDetail(valRow) {
             selectRaza('var028');
             selectCategoria('var029');
             selectCarimbo('var030');
-            selectMortandad('var031');
+            selectAbigeo('var031');
 
             viewInput('col012', 1);
             viewInput('col013', 0);
@@ -505,6 +599,26 @@ function viewDetail(valRow) {
             viewInput('col016', 0);
             viewInput('col017', 0);
             break;
+
+        case 'viewConsumo':
+            selectEstablecimiento('var040');
+            selectPotrero('var041', 'var040');
+            selectDenunciante('var044', 'var040');
+            selectIdentificado('var045');
+            selectPropietario('var047', 'var040');
+            selectOrigen('var048');
+            selectRaza('var049');
+            selectCategoria('var050');
+            selectCarimbo('var051');
+            selectConsumo('var042');
+
+           viewInput('col018', 1);
+           viewInput('col019', 0);
+           viewInput('col020', 0);
+           viewInput('col021', 0);
+           viewInput('col022', 0);
+           viewInput('col023', 0);
+           break;
     }
 }
 
@@ -533,6 +647,13 @@ function viewInput(valRow, banRow) {
         $('#var006').prop('required',true);
     }
 
+    if (banRow == 0 && codElem.id == 'col018'){
+        $('#var046').prop('required',false);
+    }
+
+    if (banRow == 1 && codElem.id == 'col018'){
+        $('#var046').prop('required',true);
+    }
 }
 
 function changeIdentificacion(valRow){
@@ -553,6 +674,13 @@ function changeIdentificacion(valRow){
         viewInput('col016', 0);
         viewInput('col017', 0);
 
+        viewInput('col018', 1);
+        viewInput('col019', 0);
+        viewInput('col020', 0);
+        viewInput('col021', 0);
+        viewInput('col022', 0);
+        viewInput('col023', 0);
+
     } else {
         viewInput('col006', 0);
         viewInput('col007', 1);
@@ -560,13 +688,20 @@ function changeIdentificacion(valRow){
         viewInput('col009', 1);
         viewInput('col010', 1);
         viewInput('col011', 1);
-
+//Abigeo
         viewInput('col012', 0);
         viewInput('col013', 1);
         viewInput('col014', 1);
         viewInput('col015', 1);
         viewInput('col016', 1);
         viewInput('col017', 1);
+// Consumo
+        viewInput('col018', 0);
+        viewInput('col019', 1);
+        viewInput('col020', 1);
+        viewInput('col021', 1);
+        viewInput('col022', 1);
+        viewInput('col023', 1);
     }
 
 }
@@ -603,13 +738,22 @@ function selectAnimalIden(valRow, codEst, codSel, nomAni) {
         });
 
         if (bandAni == false) {
-            swal('Error, No coinciden los Datos');
+            codAni.value  = 0;
+            swal('ERROR, No coinciden los Datos');
         }
+    } else if(codSel == 0){
+        xJSON1.forEach(element1 => {
+            if(element1.tipo_carimbo_codigo == nomAni){   
+                codAni.value  = element1.animal_codigo;
+                bandAni = true;
+            }
+        });
     }
 
     if (nomAni == '' || nomAni == null){
-        if (bandAni == false) {
-            swal('Error, No coinciden los Datos');
+        if (bandAni == false) {   
+            codAni.value  = 0;
+            swal('ERROR, No coinciden los Datos');
         }
     }
 }

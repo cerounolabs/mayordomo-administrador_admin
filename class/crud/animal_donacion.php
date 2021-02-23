@@ -27,7 +27,7 @@
 	
 	$seg_04	= $_SESSION['seg_04'];
 
-	if (isset($var01) && isset($work01) && $var02 != 0 && $var03 != 0 && $var04 != 0) {	//
+	if (isset($var01) && isset($work01) && $var02 != 0 && $var03 != 0 && $var04 != 0) {
 		$dataJSON = json_encode(
 			array(
 				'tipo_estado_parametro'	    				=> 1,
@@ -47,6 +47,8 @@
 
         $result         = post_curl('000/animaldonacion', $dataJSON);
 		$result			= json_decode($result, true);
+		$code		    = $result['code'];
+		$msg			= str_replace("\n", ' ', $result['message']);
     }else {
         $code       = 400;
         $msg        = 'Verifique, algún campo esta vacio';
