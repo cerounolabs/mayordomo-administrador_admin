@@ -1,4 +1,4 @@
-const urlBASE   = 'https://cerouno.me/mayorcontrol_api/apiv2';
+const urlBASE   = 'https://cerouno.me/mayorcontrol_api/apiv1';
 const xHTTP	    = new XMLHttpRequest();
 const autBASE   = 'dXNlcl9zZmhvbG94OnVzZXJfc2Zob2xveDIwMjA=';
 

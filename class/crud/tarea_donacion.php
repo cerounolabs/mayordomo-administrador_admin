@@ -9,18 +9,18 @@
     require '../../class/function/function.php';
     require '../../class/session/session_system.php';
 
-	$var01          = $_POST['var060'];//est
-	$var02          = $_POST['var063'];//potr
-	$var03          = $_POST['var075']; //peso vivo 
-    $var04          = $_POST['var076']; // peso faenado
-    $var05          = $_POST['var061']; //iden individual
-    $var07          = $_POST['var064'];// propietario
-    $var08          = $_POST['var065']; //origen
-    $var09          = $_POST['var066']; //raza
-    $var11          = $_POST['var069'];// faena por tipo mort tipo donacion
-    $var12          = $_POST['var070'];//fech faena fech entrega
-    $var13          = $_POST['var071']; //denunciado por
-    $var14          = $_POST['var072'];//verificado no hay
+	$var01          = $_POST['var060'];
+	$var02          = $_POST['var063'];
+	$var03          = $_POST['var075']; 
+    $var04          = $_POST['var076'];
+    $var05          = $_POST['var061'];
+    $var07          = $_POST['var064'];
+    $var08          = $_POST['var065'];
+    $var09          = $_POST['var066']; 
+    $var11          = $_POST['var069'];
+    $var12          = $_POST['var070'];
+    $var13          = $_POST['var071']; 
+    $var14          = $_POST['var072'];
     $var16          = $_POST['var079'];
     $var17          = $_POST['var068'];
 	

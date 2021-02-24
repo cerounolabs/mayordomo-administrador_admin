@@ -231,7 +231,7 @@
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var005">IDENTIFICACION INDIVIDUAL</label>
-                                                    <select id="var005" name="var005" class="select2 form-control custom-select" onchange="changeIdentificacion(this.id);" style="width:100%; height:50px;" required></select>
+                                                    <select id="var005" name="var005" class="select2 form-control custom-select" onchange="changeIdentificacion(this.id); selectValidar('var006', '0', '0',this.id, 1);" style="width:100%; height:50px;" required></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-9">
@@ -422,7 +422,7 @@
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var045">IDENTIFICACION INDIVIDUAL</label>
-                                                    <select id="var045" name="var045" class="select2 form-control custom-select" onchange="changeIdentificacion(this.id);" style="width:100%; height:50px;" required></select>
+                                                    <select id="var045" name="var045" class="select2 form-control custom-select" onchange="changeIdentificacion(this.id); selectValidar('var046', 'var052', 'var053',this.id, 2)" style="width:100%; height:50px;" required></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3" id="col018">
@@ -476,13 +476,13 @@
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var054">PESO VIVO</label>
-                                                    <input id="var054" name="var054" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="PESO VIVO" required>
+                                                    <input id="var054" name="var054" value="" class="form-control" type="number" min="1" style="text-transform:lowercase; height:40px;" placeholder="PESO VIVO" required>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var055"> PESO FAENADO </label>
-                                                    <input id="var055" name="var055" value="" class="form-control" type="number" style="text-transform:lowercase; height:40px;" placeholder="PESO FAENADO" required>
+                                                    <input id="var055" name="var055" value="" class="form-control" type="number" min="1" style="text-transform:lowercase; height:40px;" placeholder="PESO FAENADO" required>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
@@ -609,7 +609,7 @@
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var024">IDENTIFICACION INDIVIDUAL</label>
-                                                    <select id="var024" name="var024" class="select2 form-control custom-select" onchange="changeIdentificacion(this.id)" style="width:100%; height:40px;" required></select>
+                                                    <select id="var024" name="var024" class="select2 form-control custom-select" onchange="changeIdentificacion(this.id); selectValidar('var025', '0', '0',this.id, 1);" style="width:100%; height:40px;" required></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-9" id="col012" class="activar">
@@ -776,7 +776,7 @@
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="var061">IDENTIFICACION INDIVIDUAL</label>
-                                                    <select id="var061" name="var061" class="select2 form-control custom-select" onchange="changeIdentificacion(this.id);" style="width:100%; height:50px;" required></select>
+                                                    <select id="var061" name="var061" class="select2 form-control custom-select" onchange="changeIdentificacion(this.id); selectValidar('var062', 'var073', 'var074',this.id, 2);" style="width:100%; height:50px;" required></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3" id="col024">
@@ -818,7 +818,7 @@
                                             <div class="col-sm-12 col-md-3" id="col029">
                                                 <div class="form-group">
                                                     <label for="var068">CARIMBO</label>
-                                                    <select id="var068" name="var068" class="select2 form-control custom-select" onchange="selectAnimalIden('var078', 'var060','var061','var062');  selectPeso('var078', 'var073', 'var074');" style="width:100%; height:50px;" required></select>
+                                                    <select id="var068" name="var068" class="select2 form-control custom-select" onchange="selectAnimalIden('var078', 'var060','var061','var068');  selectPeso('var078', 'var073', 'var074');" style="width:100%; height:50px;" required></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3">
@@ -1104,8 +1104,5 @@
     <script src="../js/api.js"></script>
     <script src="../js/partediario.js"></script>
 
-    <script>
-       // selectEntregado('var071', _parm01BASE);
-    </script>
 </body>
 </html>

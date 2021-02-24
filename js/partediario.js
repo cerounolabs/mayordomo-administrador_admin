@@ -547,10 +547,7 @@ function selectDonacion(valRow) {
 }
 
 function selectEntregado(valRow,rowEsta ) {
-    
-    console.log('EstablecimientoValue =>  ' + rowEsta.value);
     var codEst  = document.getElementById(rowEsta).value;
-    console.log('Establecimiento =>  ' + codEst);
     var xJSON   = getEstablecimientoPersona(codEst);
     var selItem = document.getElementById(valRow);
 
@@ -577,9 +574,7 @@ function selectEntregado(valRow,rowEsta ) {
 }
 
 function selectRecibido(valRow,rowEsta ) {
-    console.log('EstablecimientoValue =>  ' + rowEsta.value);
     var codEst  = document.getElementById(rowEsta).value;
-    console.log('Establecimiento =>  ' + codEst);
     var xJSON   = getEstablecimientoPersona(codEst);
     var selItem = document.getElementById(valRow);
 
@@ -609,6 +604,7 @@ function selectPeso(AniRow, valPes, fecPes) {
     var ultPeso   = document.getElementById(valPes);
     var ultfech   = document.getElementById(fecPes);
     var codAni    = document.getElementById(AniRow).value;
+    
     var xJSON   = getAnimalPeso2(codAni);
 
     if (xJSON != '' || xJSON != null){
@@ -623,6 +619,25 @@ function selectPeso(AniRow, valPes, fecPes) {
     if(xJSON == '' || xJSON == null ){
         ultPeso.value  = 0;
         ultfech.value  = '01-01-1900';
+    }
+}
+
+function selectValidar(valIde, valPes, fecPes, codSel, codAcc) {
+    var nomIde  = document.getElementById(valIde);
+    var ultPeso   = document.getElementById(valPes);
+    var ultfech   = document.getElementById(fecPes);
+    var codSel  = document.getElementById(codSel).value;
+    
+    switch (codAcc) {
+        case 1:
+            nomIde.value = '';
+            break;
+    
+        case 2:
+            ultPeso.value  = 0;
+            ultfech.value  = '01-01-1900';
+            nomIde.value = '';
+            break;
     }
 }
 
@@ -755,7 +770,6 @@ function viewDetail(valRow) {
         case 'viewDonacion':
             selectEstablecimiento('var060');
             selectPotrero('var063', 'var060');
-        //  selectDenunciante('var044', 'var040');
             selectIdentificado('var061');
             selectPropietario('var064', 'var060');
             selectOrigen('var065');
@@ -912,12 +926,9 @@ function selectAnimalIden(valRow, codEst, codSel, nomAni) {
                 bandAni = true;
             }      
         });
-
-        if (bandAni == false) {
-            codAni.value  = 0;
-            swal('ERROR, No coinciden los Datos');
-        }
-    } else if(codSel == 0){
+    }
+    
+    if(codSel == 0){
         xJSON1.forEach(element1 => {
             if(element1.tipo_carimbo_codigo == nomAni){   
                 codAni.value  = element1.animal_codigo;
@@ -926,10 +937,8 @@ function selectAnimalIden(valRow, codEst, codSel, nomAni) {
         });
     }
 
-    if (nomAni == '' || nomAni == null){
-        if (bandAni == false) {   
-            codAni.value  = 0;
-            swal('ERROR, No coinciden los Datos');
-        }
+    if (bandAni == false) {
+        codAni.value  = 0;
+        swal('ERROR, No coinciden los Datos');
     }
 }
