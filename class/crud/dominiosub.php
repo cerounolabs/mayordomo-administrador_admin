@@ -68,8 +68,9 @@
 
 	$result		= json_decode($result, true);
 	$msg		= str_replace("\n", ' ', $result['message']);
+	$code		= $result['code'];
 
-	header('Location: ../../public/'.$work03.'&code='.$result['code'].'&msg='.$msg);
+	header('Location: ../../public/'.$work03.'dominio='.$work04.'&code='.$code.'&msg='.$msg);
 
 	ob_end_flush();
 ?>

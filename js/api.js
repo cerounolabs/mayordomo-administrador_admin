@@ -2060,11 +2060,9 @@ function getAnimalPeso2(codElem){
  
     var xJSON = JSON.parse(localStorage.getItem('animalpesokilogramosJSON'));
     var xDATA = [];
-    console.log(xJSON);
     if (xJSON['code'] == 200) {
         xJSON['data'].forEach(element => {
             if (element.tipo_estado_parametro == 1) {
-                console.log('xJSON');
                 xDATA.push(element);
             }
         });

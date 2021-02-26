@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	var codigo	= document.getElementById('tableCodigo').className;	
-	var xJSON	= getDominioSub(codigo);
-	
+	var xDATA	= getDominioSub(codigo);
+
 	$('#tableLoad').DataTable({
 		processing	: true,
 		destroy		: true,
@@ -27,7 +27,7 @@ $(document).ready(function() {
 				sPrevious: "Anterior"
 			},
         },
-		data		: xJSON,
+		data		: xDATA,
 		columnDefs	: [
 			{ targets			: [0],	visible : true,	searchable : true,	orderData : [0, 0] },
 			{ targets			: [1],	visible : true,	searchable : true,	orderData : [1, 0] },
@@ -54,10 +54,10 @@ $(document).ready(function() {
 			{ data				: 'auditoria_ip', name : 'auditoria_ip'},
 			{ render			: 
 				function (data, type, full, meta) {
-					var btnDSP	= '<button onclick="setDominioSub('+ full.tipo_dominio1_codigo + ', ' + full.tipo_dominio2_codigo +', 2);" title="Ver" type="button" class="btn btn-primary btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-eye"></i></button>';
-					var btnUPD	= '<button onclick="setDominioSub('+ full.tipo_dominio1_codigo + ', ' + full.tipo_dominio2_codigo +', 3);" title="Editar" type="button" class="btn btn-success btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-edit"></i></button>';
-					var btnDLT	= '<button onclick="setDominioSub('+ full.tipo_dominio1_codigo + ', ' + full.tipo_dominio2_codigo +', 4);" title="Eliminar" type="button" class="btn btn-danger btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-eraser"></i></button>';
-					var btnAUD	= '<button onclick="setDominioSub('+ full.tipo_dominio1_codigo + ', ' + full.tipo_dominio2_codigo +', 5);" title="Auditoria" type="button" class="btn btn-warning btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-user-secret"></i></button>';
+					var btnDSP	= `<button onclick="setDominioSub('${full.tipo_dominio1_dominio}' , '${full.tipo_dominio2_dominio}' , 2);" title="Ver" type="button" class="btn btn-primary btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-eye"></i></button>`;
+					var btnUPD	= `<button onclick="setDominioSub('${full.tipo_dominio1_dominio}' , '${full.tipo_dominio2_dominio}' , 3);" title="Editar" type="button" class="btn btn-success btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-edit"></i></button>`;
+					var btnDLT	= `<button onclick="setDominioSub('${full.tipo_dominio1_dominio}' , '${full.tipo_dominio2_dominio}' , 4);" title="Eliminar" type="button" class="btn btn-danger btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-eraser"></i></button>`;
+					var btnAUD	= `<button onclick="setDominioSub('${full.tipo_dominio1_dominio}' , '${full.tipo_dominio2_dominio}' , 5);" title="Auditoria" type="button" class="btn btn-warning btn-icon btn-circle" data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-user-secret"></i></button>`;
 					return (btnDSP + '&nbsp;' + btnUPD + '&nbsp;' + btnDLT + '&nbsp;' + btnAUD);
 				}
 			},
@@ -66,11 +66,11 @@ $(document).ready(function() {
 });
 
 function setDominioSub(codElem1, codElem2, codAcc){
-	var codDom		= document.getElementById('tableCodigo').className;
+	var codDom		= document.getElementById('tableCodigo').className;				
 	var xJSON       = getDominioSub(codDom);
 	var aJSON       = getDominioSub(codDom); //getADominioSub(codDom, codElem1, codElem2,);
-	var xJSON1      = getDominio(codDom1);
-	var xJSON2      = getDominio(codDom2);
+	var xJSON1      = getDominio(codElem1);
+	var xJSON2      = getDominio(codElem2);
 	var html        = '';
 	var bodyCol     = '';
 	var bodyTit     = '';
@@ -142,7 +142,7 @@ function setDominioSub(codElem1, codElem2, codAcc){
 
 		html = 
 			'<div class="modal-content">'+
-			'   <form id="form" data-parsley-validate method="" action="">'+
+			'   <form id="form" data-parsley-validate method="post" action="../class/crud/dominiosub.php">'+
 			'	    <div class="modal-header" style="color:#fff; background:'+ bodyCol +'">'+
 			'		    <h4 class="modal-title" id="vcenter"> '+ bodyTit +' </h4>'+
 			'		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
@@ -153,7 +153,7 @@ function setDominioSub(codElem1, codElem2, codAcc){
 			'               <input id="workCodigo1" name="workCodigo1" value="0" class="form-control" type="hidden" required readonly>'+
 			'               <input id="workCodigo2" name="workCodigo2" value="0" class="form-control" type="hidden" required readonly>'+
 			'               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
-			'               <input id="workPage" name="workPage" value="dominiosub" class="form-control" type="hidden" required readonly>'+
+			'               <input id="workPage" name="workPage" value="dominiosub.php?" class="form-control" type="hidden" required readonly>'+
 			'           </div>'+
 			'           <div class="row pt-3">'+
 			'               <div class="col-sm-12 col-md-6">'+
@@ -207,8 +207,8 @@ function setDominioSub(codElem1, codElem2, codAcc){
 			'</div>';
 	} else if (codAcc > 1 && codAcc < 5) {
 		xJSON.forEach(element => {
-			if (element.tipo_dominio1_codigo == codElem1 && element.tipo_dominio2_codigo == codElem2) {
-				xJSON1.forEach(element1 => {
+			if (element.tipo_dominio1_dominio == codElem1 && element.tipo_dominio2_dominio == codElem2) {
+				xJSON1.forEach(element1 => {			
 					if (element1.tipo_codigo == element.tipo_dominio1_codigo) {
 						selTipo1 = selTipo1 + '                               <option value="'+ element1.tipo_codigo +'" selected>'+ element1.tipo_nombre +'</option>';
 					} else {
@@ -260,7 +260,7 @@ function setDominioSub(codElem1, codElem2, codAcc){
 					'               <input id="workCodigo" name="workCodigo1" value="'+ element.tipo_dominio1_codigo +'" class="form-control" type="hidden" required readonly>'+
 					'               <input id="workCodigo" name="workCodigo2" value="'+ element.tipo_dominio2_codigo +'" class="form-control" type="hidden" required readonly>'+
 					'               <input id="workModo" name="workModo" value="'+ bodyMod +'" class="form-control" type="hidden" required readonly>'+
-					'               <input id="workPage" name="workPage" value="dominiosub" class="form-control" type="hidden" required readonly>'+
+					'               <input id="workPage" name="workPage" value="dominiosub.php?" class="form-control" type="hidden" required readonly>'+
 					'           </div>'+
 					'           <div class="row pt-3">'+
 					'               <div class="col-sm-12 col-md-6">'+
