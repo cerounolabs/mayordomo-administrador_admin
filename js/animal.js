@@ -38,7 +38,7 @@ $(document).ready(function() {
             },
             data : xDATA,
             columnDefs	: [
-                { targets			: [0],	visible : false,searchable : false, orderData : [0, 0] },
+                { targets			: [0],	visible : true,searchable : false, orderData : [0, 0] },
                 { targets			: [1],	visible : true,	searchable : true,	orderData : [1, 0] },
                 { targets			: [2],	visible : true,	searchable : true,	orderData : [2, 0] },
                 { targets			: [3],	visible : true,	searchable : true,	orderData : [3, 0] },
@@ -84,9 +84,21 @@ $(document).ready(function() {
                         var btnMOR	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 7);" title="Mortandad" type="button" class="btn btn-circle"; style="background-color:#FF8A65; color:#ffffff"; data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-arrows-alt"></i></button>';
                         var btnDon	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 8);" title="Donación" type="button" class="btn btn-circle"; style="background-color:#FF4081; color:#ffffff"; data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-paw"></i></button>';
 
-                        if (full.tipo_estado_parametro != 2){
+                        if (full.tipo_estado_parametro != 2 ){// || 
                             btnDon	= '';
+                            btnUPD	= '';
+                            btnPES	= '';
+                           // if (full.tipo_estado_parametro == 5){
+                                if (full.tipo_estado_parametro == 1){
+                                    btnDon	= '';
+                                    btnUPD	= '';
+                                    btnPES	= '';
+                                    btnMOR	= '';
+                                }
+                           // }
                         }
+                        
+                        
 
                         return (btnDSP + '&nbsp;' + btnUPD + '&nbsp;' + btnDLT + '&nbsp;' + btnAUD + '&nbsp;' + btnPES + '&nbsp;' + btnMOR + '&nbsp;' + btnDon);
                     }
@@ -124,6 +136,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
     var xJSON3          = getDominio('ANIMALHACIENDA');
     var xJSON4          = getDominio('ANIMALCARIMBO');
     var aJSON           = getAnimal(2, codEst, codElem, 0, 0, 0, 0, 0, 0, 0, 0);
+
     var xJSON8          = getAnimalMortandad(codEst, codElem);
     var xJSON9          = getPotrero(codEst);
     var html            = '';
@@ -140,7 +153,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
     var rowAuditoria    = '';
     var pesokilogramo   = 0;
     var pesocodigo      = 0;
-    var fechaActual     = getFechaHora(1);
+    //var fechaActual     = getFechaHora(1);
 
     switch (codAcc) {
         case 1:
@@ -1069,10 +1082,10 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                             '   </form>'+
                             '</div>';
 
-                }  
+                }
                 if (xJSON8 != null ){
                     xJSON8.forEach(element1 => {
-                        if (element1.tipo_estado_parametro == 1) {
+                        if (element.tipo_estado_parametro == 5) {
                             selPotrero = '';
                             xJSON9.forEach(element2 => {
                                 if (element2.tipo_estado_codigo == 1) {
@@ -1429,7 +1442,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                     '                      <div class="col-sm-12 col-md-3">'+
                     '                           <div class="form-group">'+
                     '                               <label for="var037">Fecha Donación</label>'+
-                    '                               <input id="var037" name="var037" value="'+ fechaActual +'" class="form-control" type="date" min="'+ fechaActual +'" style="text-transform:uppercase; height:40px;" placeholder="Fecha Donación" '+ bodyOnl +'>'+
+                    '                               <input id="var037" name="var037" class="form-control" type="date" style="text-transform:uppercase; height:40px;" placeholder="Fecha Donación" '+ bodyOnl +'>'+
                     '                           </div>'+
                     '                      </div>' +
                     ''+

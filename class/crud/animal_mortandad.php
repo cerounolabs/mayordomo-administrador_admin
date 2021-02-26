@@ -32,11 +32,20 @@
 	
 	$seg_04         = $_SESSION['seg_04'];
 	
+	if ($val08 == 0) {
+		$val011 = 5;
+	} else {
+		$val011 = 1;
+	}
+
+
 	if (isset($val01) && isset($work01) && $val02 != 0 && $val05 != 0 && $val06 != 0){
 			$dataJSON = json_encode(
 				array(
-					'tipo_accion_codigo' 	                  => 1,
+					'tipo_accion_codigo'	                  => 2,
+					'tipo_origen_parametro'	                  => 1,
 					'tipo_estado_parametro'                   => $work05,
+					'tipo_estado_parametro_animal'            => $val011,
 					'tipo_mortandad_parametro'                => $val05,
 					'persona_denunciante_codigo'              => $val06,
 					'establecimiento_codigo'                  => $val01,
@@ -62,6 +71,7 @@
 				break;
 			case 'U':
 				$result	= put_curl('000/animalmortandad/'.$work04, $dataJSON);
+				$result2	= put_curl('000/animal/'.$work01, $dataJSON);
 				break;
 			case 'D':
 				$result = delete_curl('000/animalmortandad/'.$work04, $dataJSON);
