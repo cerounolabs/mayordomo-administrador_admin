@@ -1,4 +1,4 @@
-const urlBASE   = 'https://cerouno.me/mayorcontrol_api/apiv2';
+const urlBASE   = 'https://cerouno.me/mayorcontrol_api/apiv1';
 const xHTTP	    = new XMLHttpRequest();
 const autBASE   = 'dXNlcl9zZmhvbG94OnVzZXJfc2Zob2xveDIwMjA=';
 
@@ -2120,9 +2120,34 @@ function getAnimalMortandadListado(codEst, codOrigen){
     var xDATA = [];
     if (xJSON['code'] == 200) {
         xJSON['data'].forEach(element => {
-            if (element.tipo_estado_parametro == 1 && element.tipo_origen_parametro == codOrigen) {
-                xDATA.push(element);
+            switch (codOrigen) {
+                case 1:
+                    if (element.tipo_estado_parametro == 1 && element.tipo_origen_parametro == 1 ) {
+                        xDATA.push(element);
+                    }
+                    break;
+
+                case 2:
+                    if (element.tipo_estado_parametro == 2 && element.tipo_origen_parametro == 2 ) {
+                        xDATA.push(element);
+                    }
+                    break;
+
+                case 4:
+                    if (element.tipo_estado_parametro == 2 && element.tipo_origen_parametro == 4) {
+                        xDATA.push(element);
+                    }
+                    break;
+                    
+                case 5:
+                    if (element.tipo_estado_parametro ==2 && element.tipo_origen_parametro == 5) {
+                        xDATA.push(element);
+                    }
+                    break;
+                default:
+                    break;
             }
+            
         });
     }
 

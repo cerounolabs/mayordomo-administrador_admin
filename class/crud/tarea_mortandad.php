@@ -29,7 +29,7 @@
 	$work02         = $_POST['workModo'];
 	$work03         = $_POST['workPage'];
 	$work05         = $_POST['workEstado'];
-
+	$work06         = $_POST['workVerif'];
 	$usu_03         = $_SESSION['usu_03'];
 
 	$log_04         = $_SESSION['log_04'];
@@ -48,16 +48,23 @@
 	} else {
 		$var18          = $_POST['var019'];
 	}
-
+	if ($work06 == 0) {
+		$val011 = 5;
+	} else {
+		$val011 = 1;
+	}
     if (isset($var01) && !empty($var18) && !empty($var13) && !empty($var11)) {
         $dataJSON = json_encode(
             array(
+				'tipo_accion_codigo'	                  => 2,
 				'tipo_estado_parametro'                   => $work05,
+				'tipo_estado_codigo'			          => $val011,
 				'tipo_mortandad_parametro'                => $var11,
 				'persona_denunciante_codigo'              => $var13,
 				'establecimiento_codigo'                  => $var01,
 				'animal_codigo'                           => $var18,
 				'animal_mortandad_fecha_denuncia'         => $var12,
+				'persona_verificacion_codigo'             => $work06,
 				'animal_mortandad_sector_potrero'         => $var02,
 				'animal_mortandad_latitud'         		  => $var03,
 				'animal_mortandad_longitud'               => $var04,
@@ -73,13 +80,15 @@
 		
 			switch($work02){
 				case 'C':
-					$result	= post_curl('000/animalmortandad', $dataJSON);
+					$result		= post_curl('000/animalmortandad', $dataJSON);
+					$result2	= put_curl('000/animal/'.$var18, $dataJSON);
 					break;
 				case 'U':
-					$result	= put_curl('000/animalmortandad/'.$work01, $dataJSON);
+					$result		= put_curl('000/animalmortandad/'.$work01, $dataJSON);
+					$result2	= put_curl('000/animal/'.$var18, $dataJSON);
 					break;
 				case 'D':
-					$result = delete_curl('000/animalmortandad/'.$work01, $dataJSON);
+					$result 	= delete_curl('000/animalmortandad/'.$work01, $dataJSON);
 					break;
 			}
 			$result		= json_decode($result, true);

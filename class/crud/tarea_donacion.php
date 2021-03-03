@@ -51,7 +51,9 @@
     if (isset($var01) && !empty($var18) && !empty($var13) && !empty($var11)) {
         $dataJSON = json_encode(
             array(
+				'tipo_accion_codigo'	                  => 2,
 				'tipo_estado_parametro'                   => $work05,
+				'tipo_estado_codigo'			          => 4,
 				'tipo_mortandad_parametro'                => $var11,
 				'persona_denunciante_codigo'              => $var13,
 				'persona_verificacion_codigo'             => $var14,
@@ -73,13 +75,15 @@
 		
 			switch($work02){
 				case 'C':
-					$result	= post_curl('000/animalmortandad', $dataJSON);
+					$result		= post_curl('000/animalmortandad', $dataJSON);
+					$result2	= put_curl('000/animal/'.$var18, $dataJSON);
 					break;
 				case 'U':
-					$result	= put_curl('000/animalmortandad/'.$work01, $dataJSON);
+					$result		= put_curl('000/animalmortandad/'.$work01, $dataJSON);
+					$result2	= put_curl('000/animal/'.$var18, $dataJSON);
 					break;
 				case 'D':
-					$result = delete_curl('000/animalmortandad/'.$work01, $dataJSON);
+					$result		= delete_curl('000/animalmortandad/'.$work01, $dataJSON);
 					break;
 			}
 			$result		= json_decode($result, true);
@@ -88,7 +92,6 @@
         $code       = 400;
         $msg1       = 'Verifique, algún campo esta vacio';
     }
-
 	
 	if($work01 == 0){
 		$work01 = $result['codigo'];
@@ -155,7 +158,7 @@
 				$dataJSON1 = json_encode(
 					array(
 						'animal_mortandad_codigo'                   => $work01,
-						'tipo_estado_parametro'     	            => $work05,
+						'tipo_estado_parametro'     	            => 1,
 						'animal_adjunto_nombre'						=> $var077,
 						'animal_adjunto_fecha'						=> date('Y-m-d H:i:s'),
 						'auditoria_usuario'         				=> $usu_03,
