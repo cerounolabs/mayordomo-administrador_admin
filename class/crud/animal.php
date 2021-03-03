@@ -33,6 +33,7 @@
     $work03         = $_POST['workPage'];
     $work04         = $_POST['workEspecie'];
     $work05         = $_POST['workAnimalPeso'];
+    $work06         = $_POST['workAcc'];
 
 	$usu_03         = $_SESSION['usu_03'];
 
@@ -44,6 +45,7 @@
         $dataJSON = json_encode(
 			array(
 				'tipo_estado_codigo'            => 2,
+                'tipo_accion_codigo'	        => $work06,
 				'tipo_origen_codigo'            => intval($val04),
                 'tipo_raza_codigo'              => intval($val05),
 				'tipo_categoria_codigo'         => intval($val02),
@@ -123,8 +125,8 @@
 				break;
         }
     }
-
-     header('Location: ../../public/'.$work03.'&code='.$code.'&msg='.$msg);
+  
+    header('Location: ../../public/'.$work03.'&code='.$code.'&msg='.$msg);
 
 	ob_end_flush();
 ?>

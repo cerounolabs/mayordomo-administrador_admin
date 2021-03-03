@@ -32,10 +32,19 @@
 	
 	$seg_04         = $_SESSION['seg_04'];
 	
+	if ($val08 == 0) {
+		$val011 = 5;
+	} else {
+		$val011 = 1;
+	}
+
+
 	if (isset($val01) && isset($work01) && $val02 != 0 && $val05 != 0 && $val06 != 0){
 			$dataJSON = json_encode(
 				array(
-					'tipo_accion_codigo' 	                  => 1,
+					'tipo_accion_codigo'	                  => 2,
+					'tipo_origen_parametro'	                  => 1,
+					'tipo_estado_codigo'	                  => $val011,
 					'tipo_estado_parametro'                   => $work05,
 					'tipo_mortandad_parametro'                => $val05,
 					'persona_denunciante_codigo'              => $val06,
@@ -58,13 +67,15 @@
 	
 		switch($work02){
 			case 'C':
-				$result	= post_curl('000/animalmortandad', $dataJSON);
+				$result		= post_curl('000/animalmortandad', $dataJSON);
+				$result2	= put_curl('000/animal/'.$work01, $dataJSON);
 				break;
 			case 'U':
-				$result	= put_curl('000/animalmortandad/'.$work04, $dataJSON);
+				$result		= put_curl('000/animalmortandad/'.$work04, $dataJSON);
+				$result2	= put_curl('000/animal/'.$work01, $dataJSON);
 				break;
 			case 'D':
-				$result = delete_curl('000/animalmortandad/'.$work04, $dataJSON);
+				$result 	= delete_curl('000/animalmortandad/'.$work04, $dataJSON);
 				break;
 		}
 		$result	= json_decode($result, true);
@@ -75,7 +86,7 @@
         $code       = 400;
         $msg        = 'Verifique, algún campo esta vacio';
     }
-
+	
     if($work04 == 0){
 		$work04 = $result['codigo'];
     }

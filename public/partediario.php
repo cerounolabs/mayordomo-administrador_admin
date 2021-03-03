@@ -201,6 +201,7 @@
                                             <input id="workModo" name="workModo" value="C" class="form-control" type="hidden" required readonly>
                                             <input id="workPage" name="workPage" value="partediario.php?" class="form-control" type="hidden" required readonly>
                                             <input id="workEstado" name="workEstado" value="1" class="form-control" type="hidden" required readonly>
+                                            <input id="workVerif" name="workVerif" value="0" class="form-control" type="hidden" required readonly>
                                         </div>
 
                                         <div class="row pt-3">
@@ -385,7 +386,7 @@
                                             <input id="workCodigo" name="workCodigo" value="0" class="form-control" type="hidden" required readonly>
                                             <input id="workModo" name="workModo" value="C" class="form-control" type="hidden" required readonly>
                                             <input id="workPage" name="workPage" value="partediario.php?" class="form-control" type="hidden" required readonly>
-                                            <input id="workEstado" name="workEstado" value="1" class="form-control" type="hidden" required readonly>
+                                            <input id="workEstado" name="workEstado" value="2" class="form-control" type="hidden" required readonly>
                                         </div>
 
                                         <div class="row pt-3">
@@ -577,7 +578,7 @@
                                             <input id="workCodigo" name="workCodigo" value="0" class="form-control" type="hidden" required readonly>
                                             <input id="workModo" name="workModo" value="C" class="form-control" type="hidden" required readonly>
                                             <input id="workPage" name="workPage" value="partediario.php?" class="form-control" type="hidden" required readonly>
-                                            <input id="workEstado" name="workEstado" value="1" class="form-control" type="hidden" required readonly>
+                                            <input id="workEstado" name="workEstado" value="2" class="form-control" type="hidden" required readonly>
 
                                         </div>
 
@@ -763,7 +764,7 @@
                                         <input id="workCodigo" name="workCodigo" value="0" class="form-control" type="hidden" required readonly>
                                             <input id="workModo" name="workModo" value="C" class="form-control" type="hidden" required readonly>
                                             <input id="workPage" name="workPage" value="partediario.php?" class="form-control" type="hidden" required readonly>
-                                            <input id="workEstado" name="workEstado" value="1" class="form-control" type="hidden" required readonly>
+                                            <input id="workEstado" name="workEstado" value="2" class="form-control" type="hidden" required readonly>
                                         </div>
 
                                         <div class="row pt-3">

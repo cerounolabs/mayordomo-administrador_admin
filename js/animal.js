@@ -84,9 +84,36 @@ $(document).ready(function() {
                         var btnMOR	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 7);" title="Mortandad" type="button" class="btn btn-circle"; style="background-color:#FF8A65; color:#ffffff"; data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-arrows-alt"></i></button>';
                         var btnDon	= '<button onclick="setAnimal('+ codigo +', '+ full.establecimiento_codigo +', '+ full.animal_codigo +','+ codPag +', 8);" title="Donación" type="button" class="btn btn-circle"; style="background-color:#FF4081; color:#ffffff"; data-toggle="modal" data-target="#modal-dialog"><i class="fa fa-paw"></i></button>';
 
-                        if (full.tipo_estado_parametro != 2){
-                            btnDon	= '';
-                        }
+                        switch (full.tipo_estado_parametro) {
+                            case 1:
+                                btnDon	= '';
+                                btnUPD	= '';
+                                btnPES	= '';
+                                btnMOR	= '';
+                                break;
+
+                            case 3:
+                                btnDon	= '';
+                                btnUPD	= '';
+                                btnPES	= '';
+                                btnMOR	= '';
+                                break;
+
+                            case 4:
+                                btnDon	= '';
+                                btnUPD	= '';
+                                btnPES	= '';
+                                btnMOR	= '';
+                                break;
+
+                            case 5:
+                                btnDon	= '';
+                                btnUPD	= '';
+                                btnPES	= '';
+                                break;
+                            default:
+                                break;
+                        }   
 
                         return (btnDSP + '&nbsp;' + btnUPD + '&nbsp;' + btnDLT + '&nbsp;' + btnAUD + '&nbsp;' + btnPES + '&nbsp;' + btnMOR + '&nbsp;' + btnDon);
                     }
@@ -124,6 +151,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
     var xJSON3          = getDominio('ANIMALHACIENDA');
     var xJSON4          = getDominio('ANIMALCARIMBO');
     var aJSON           = getAnimal(2, codEst, codElem, 0, 0, 0, 0, 0, 0, 0, 0);
+
     var xJSON8          = getAnimalMortandad(codEst, codElem);
     var xJSON9          = getPotrero(codEst);
     var html            = '';
@@ -140,7 +168,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
     var rowAuditoria    = '';
     var pesokilogramo   = 0;
     var pesocodigo      = 0;
-    var fechaActual     = getFechaHora(1);
+    //var fechaActual     = getFechaHora(1);
 
     switch (codAcc) {
         case 1:
@@ -225,6 +253,8 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
             '               <input class="form-control" type="hidden" id="workPage"         name="workPage"         value="'+ codPag +'"        required readonly>'+
             '               <input class="form-control" type="hidden" id="workEspecie"      name="workEspecie"      value="'+ rowEspecie +'"    required readonly>'+
             '               <input class="form-control" type="hidden" id="workAnimalPeso"   name="workAnimalPeso"   value="0"                   required readonly>'+
+            '               <input class="form-control" type="hidden" id="workAcc"          name="workAcc"          value="1"                   required readonly>'+
+
             '           </div>'+
             '           <div class="row pt-3">'+
             '               <div class="col-sm-12 col-md-4">'+
@@ -380,7 +410,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
             '</div>';
             
 	} else if (codAcc > 1 && codAcc < 5) {
-        var xJSON5          = getAnimalPeso(codElem);
+        var xJSON5          = getAnimalPeso2(codElem);
 		xJSON.forEach(element => {
 			if (element.animal_codigo == codElem) {
                 xJSON1.forEach(element1 => {
@@ -436,6 +466,8 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                             '               <input class="form-control" type="hidden" id="workPage"         name="workPage"         value="'+ codPag +'"                      required readonly>'+
                             '               <input class="form-control" type="hidden" id="workEspecie"      name="workEspecie"      value="'+ rowEspecie +'"                  required readonly>'+
                             '               <input class="form-control" type="hidden" id="workAnimalPeso"   name="workAnimalPeso"   value="'+ pesocodigo  +'"                 required readonly>'+
+                            '               <input class="form-control" type="hidden" id="workAcc"          name="workAcc"          value="1"                                 required readonly>'+
+
                             '           </div>'+
                             ''+
                             '           <div class="row">'+
@@ -1069,10 +1101,10 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                             '   </form>'+
                             '</div>';
 
-                }  
+                }
                 if (xJSON8 != null ){
                     xJSON8.forEach(element1 => {
-                        if (element1.tipo_estado_parametro == 1) {
+                        if (element.tipo_estado_parametro == 5) {
                             selPotrero = '';
                             xJSON9.forEach(element2 => {
                                 if (element2.tipo_estado_codigo == 1) {
@@ -1429,7 +1461,7 @@ function setAnimal(rowEspecie, rowEst, codElem, codPag, codAcc){
                     '                      <div class="col-sm-12 col-md-3">'+
                     '                           <div class="form-group">'+
                     '                               <label for="var037">Fecha Donación</label>'+
-                    '                               <input id="var037" name="var037" value="'+ fechaActual +'" class="form-control" type="date" min="'+ fechaActual +'" style="text-transform:uppercase; height:40px;" placeholder="Fecha Donación" '+ bodyOnl +'>'+
+                    '                               <input id="var037" name="var037" class="form-control" type="date" style="text-transform:uppercase; height:40px;" placeholder="Fecha Donación" '+ bodyOnl +'>'+
                     '                           </div>'+
                     '                      </div>' +
                     ''+
